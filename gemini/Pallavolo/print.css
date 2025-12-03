@@ -1,0 +1,35 @@
+*{
+    padding: 0em;
+    margin: 0em;
+}
+
+html, body{
+    font-size: 12pt;
+    font-family: "Times New Roman", Times, serif;
+    margin: auto;
+}
+
+header{
+    padding: 0em 1em;
+    text-align: center;
+    margin: 1em;
+}
+
+header h1{
+    background-image: url("./images/logo_fipav.svg");
+    margin: auto;
+    height: 3cm;
+}
+
+#coppe, #capitani{
+    display: none;
+}
+
+#menu, #breakingNews{
+    display: none;
+}
+
+a:link:after, a:visited:after {
+    content: " [" attr(href) "] ";
+    font-size:90%;
+}
