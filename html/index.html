@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <title>Urbanoo</title>
+    
+    <meta charset="utf-8">
+    <meta name="description" content="Trova la casa dei tuoi sogni. Appartamenti, Ville e Loft moderni.">
+    <meta name="keywords" content="agenzia immobiliare, appartamenti, ville, loft, urbanoo, proprietà, vendita case">
+    <link rel="stylesheet" href="styles/style.css" media="screen">
+    <link rel="stylesheet" href="mini.css" media="screen and (max-width:768px)">
+    <link rel="stylesheet" href="print.css" media="print">
+
+</head>
+<body>
+    <style>
+        .profile-btn {
+            display: inline-block;    /* per dargli dimensioni */
+            width: 32px;
+            height: 32px;
+            background-image: url("../img/user.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            cursor: pointer;
+            text-indent: -9999px; /* nasconde il testo */
+        }
+        .search-btn {
+            display: inline-block;    /* per dargli dimensioni */
+            width: 32px;
+            height: 32px;
+            background-image: url("../img/searchicon.jpg");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            cursor: pointer;
+            text-indent: -9999px; /* nasconde il testo */
+        }
+    </style>
+    <header>
+        <h1><span lang="en">URBANOO</span> Agenzia Immobiliare</h1>
+        <h2>Trova la casa dei tuoi sogni</h2>
+        <nav>
+            <ul>
+                <li id="currentlink" lang="en">Home</li>
+                <li><a href="aboutus.html">Chi Siamo</a></li>
+                <li><a href="proprieta.html">Proprietà</a></li>
+                <li><a href="contatti.html">Contatti</a></li>
+                <li><a href="../php/user.php" class="profile-btn">profilo</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="cards-container">
+            <h2>Le nostre scelte per voi</h2>
+            <ul>
+                <li><img src="../img/casa1" alt="" class="card"></li>
+                <li><img src="../img/casa2" alt="" class="card"></li>
+                <li><img src="../img/casa3" alt="" class="card"></li>
+            </ul>
+        </div>
+        <div id="services">
+            <!--AOS LIBRERIA JS-->
+            <h3>I nostri servizi</h3>
+            <dl>
+                <dt><h4>Progettazione gratuita</h4></dt>
+                <dd data-aos="fade-up">
+                    <img src="../img/logoUrbanoo.png" alt=""/>
+                    <p>I nostri progettisti ti aiuteranno a progettare la soluzione che più si adatta alle tue esigenze e ai tuoi spazi gratuitamente.</p>
+                </dd>
+                <dt><h4>Rilievo gratuito</h4></dt>
+                <dd data-aos="fade-up">
+                    <img src="../img/logoUrbanoo.png" alt=""/>
+                    <p>I nostri progettisti ti aiuteranno a sfruttare al meglio lo spazio così da non dover rinunciare a nulla.</p>
+                </dd>
+                <dt><h4>Certezza del preventivo</h4></dt>
+                <dd data-aos="fade-up">
+                    <img src="../img/logoUrbanoo.png" alt=""/>
+                    <p>Con noi non avrai brutte sorprese perchè garantiamo il nostro preventivo.</p>
+                </dd>
+            </dl>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 Urbanoo: Agenzia Immobiliare. P.IVA 1234567890. Tutti i diritti sono riservati</p>
+    </footer>
+</body>
+</html>
