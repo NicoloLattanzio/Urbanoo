@@ -12,34 +12,9 @@
 
 </head>
 <body>
-    <!-- SPOSTATO IN STYLE.CSS
-    <style>  
-        .profile-btn {
-            display: inline-block;    /* per dargli dimensioni */
-            width: 32px;
-            height: 32px;
-            background-image: url("../img/user.png");
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            cursor: pointer;
-            text-indent: -9999px; /* nasconde il testo */
-        }
-        .search-btn {
-            display: inline-block;    /* per dargli dimensioni */
-            width: 32px;
-            height: 32px;
-            background-image: url("../img/searchicon.jpg");
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            cursor: pointer;
-            text-indent: -9999px; /* nasconde il testo */
-        }
-    </style> -->
     <header>
         <h1><span lang="en">URBANOO</span> Agenzia Immobiliare</h1>
-        <h2>Trova la casa dei tuoi sogni</h2>
+        <h2>TROVA LA CASA DEI TUOI SOGNI</h2>
         <nav>
             <ul>
                 <li id="currentlink" lang="en">Home</li>
@@ -50,39 +25,52 @@
             </ul>
         </nav>
     </header>
+    <nav id="breadcrumb">
+        <p>Ti trovi in: <span lang="en">Home</span></p>
+    </nav>
     <main>
-        <div id="cards-container">
-            <h2>Le nostre scelte per voi</h2>
-            <ul>
-                <li><img src="../img/casa1" alt="scrivere" class="card"></li>
-                <li><img src="../img/casa2" alt="scrivere" class="card"></li>
-                <li><img src="../img/casa3" alt="scrivere" class="card"></li>
-            </ul>
+        [proprieta_in_evidenza]
+        <div id="info">
+            <h3>PERCHÉ SCEGLIERE <span lang="en">URBANOO</span></h3>
+            <p><strong><span lang="en">Urbanoo</span></strong> è un'agenzia immobiliare dedicata a offrirti un servizio completo e personalizzato per trovare la casa dei tuoi sogni. Con anni di esperienza nel settore, il nostro team di <em>professionisti</em> è pronto ad assisterti in ogni fase del processo di <strong>acquisto</strong> o <strong>vendita</strong>  di una proprietà.</p>
+            <p>La nostra missione è rendere il processo semplice e trasparente, mettendo al centro le tue esigenze e garantendo qualità degli immobili tramite le nostre <strong>certificazioni</strong>. Offriamo una vasta gamma di proprietà, dalle accoglienti case familiari agli eleganti appartamenti in centro città, garantendo sempre la massima <strong>qualità</strong> e <strong>convenienza</strong>.</p>
+            <p>Affidati a <span lang="en">Urbanoo</span> e al suo servizio di <strong>consulenza e valutazione</strong> un'esperienza immobiliare senza stress e ricca di opportunità. Siamo qui per aiutarti a realizzare i tuoi sogni abitativi!</p>
         </div>
         <div id="services">
             <!--AOS LIBRERIA JS-->
-            <h3>I nostri servizi</h3>
+            <h3>I NOSTRI SERVIZI</h3>
             <dl>
-                <dt>Progettazione gratuita</dt>
-                <dd data-aos="fade-up">
-                    <img src="../img/logoUrbanoo.png" alt=""/>
-                    <p>I nostri progettisti ti aiuteranno a progettare la soluzione che più si adatta alle tue esigenze e ai tuoi spazi gratuitamente.</p>
+                <dt><h4>Acquisto</h4></dt>
+                <dd class="data-aos="fade-up">
+                    <img class="icons" src="../img/Acquisto.png" alt=""/>
+                    <p>Ti guidiamo nella scelta della casa giusta, occupandoci di ogni dettaglio burocratico e garantendoti un acquisto sicuro e trasparente.</p>
                 </dd>
-                <dt>Rilievo gratuito</dt>
-                <dd data-aos="fade-up">
-                    <img src="../img/logoUrbanoo.png" alt=""/>
-                    <p>I nostri progettisti ti aiuteranno a sfruttare al meglio lo spazio così da non dover rinunciare a nulla.</p>
+
+                <dt><h4>Vendita</h4></dt>
+                <dd class="data-aos="fade-up">
+                    <img class="icons" src="../img/Vendita.png" alt=""/>
+                    <p>Ti accompagniamo in ogni fase della vendita, dalla valutazione dell'immobile alla firma del rogito, valorizzando al massimo la tua proprietà.</p>
                 </dd>
-                <dt>Certezza del preventivo</dt>
+
+                <dt><h4>Consulenza e Valutazione</h4></dt>
                 <dd data-aos="fade-up">
-                    <img src="../img/logoUrbanoo.png" alt=""/>
-                    <p>Con noi non avrai brutte sorprese perchè garantiamo il nostro preventivo.</p>
+                    <img class="icons" src="../img/Consulenza.png" alt=""/>
+                    <p>Offriamo valutazioni precise e consulenze personalizzate per aiutarti a prendere decisioni consapevoli sul tuo immobile.</p>
+                </dd>
+
+                <dt><h4>Servizi tecnici</h4></dt>
+                <dd data-aos="fade-up">
+                    <img class="icons" src="../img/Certificazione.png" alt=""/>
+                    <p>Ci occupiamo di verifiche catastali, conformità urbanistiche e certificazioni, collaborando con tecnici qualificati.</p>
                 </dd>
             </dl>
         </div>
+        <div class="goback">
+            <a href="#" aria-label="Torna su">&#8679;</a>   
+        </div>
     </main>
     <footer>
-        <p>&copy; 2025 Urbanoo: Agenzia Immobiliare. P.IVA 1234567890. Tutti i diritti sono riservati</p>
+        <p>&copy; 2025 <span lang="en">Urbanoo</span>: Agenzia Immobiliare. P.IVA 1234567890. Tutti i diritti sono riservati</p>
     </footer>
 </body>
 </html>

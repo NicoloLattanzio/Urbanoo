@@ -39,6 +39,10 @@ select, input {
 /*
 --- HEADER --- SISTEMA
 */
+
+/*
+
+Con questo sparisce il logo urbanoo in alto a sinistra
 header {
     background-color: var(--white);
     padding: 1rem 5%;
@@ -49,7 +53,7 @@ header {
     top: 0;
     z-index: 1000;
 }
-
+*/
 header h1{
     background-image: url("../img/logoUrbanoo.png");
     background-size: contain;
