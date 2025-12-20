@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+	<meta  charset="utf-8" >
+
+	<title>Inserimento atleta - Italvolley</title>
+	<meta name="description" content="Questa pagina è dedicata agli atleti della squadra femminile e della squadra maschile di pallavolo italiana." >
+	<meta name="keywords" content="atleti, pallavolo, femminile, maschile,  italia, nazionale italiana" >
+	<meta name="author" content="Ombretta Gaggi" >
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+
+
+	<link rel="stylesheet" type="text/css" href="style.css" media="screen" >
+	<link rel="stylesheet" type="text/css" href="mini.css" media="screen and (max-width:600px)" >
+	<link rel="stylesheet" type="text/css" href="print.css" media="print" >
+	<link rel="stylesheet" type="text/css" href="tabellaMobile.css" media="screen and (max-width:900px)" >
+
+	<link rel="shortcut icon" type="image/png" href="./images/favicon.ico" >
+
+	<script>
+
+		/**
+		 * chiave: nome dell'input che cerco
+		 * [0]: Prima indicazione per la compilazione dell'input
+		 * [1]: espressione regolare da controllare
+		 * [2]: Hint nel caso in cui input fornito sia sbagliato
+		 */
+
+		var dettagli_form = { 
+			"nome": ["Es: Alessandra Rossi",/^([a-zA-Z\'\ ])\s(([a-zA-Z\ ])){2,}$/,"Inserire un nome e cognome di lunghezza almeno 2. Non sono ammessi numeri"],
+			"dataNascita": ["",/^\d{4}\/\d{2}\/\d{2}$/,"Formato data non corretto"],   //vanno messi ^ e $ per dire inizio e fine stringa, comunque con il widget non servirebbe il controllo
+			"altezza": ["Altezza in cm senza unita' di misura e di almeno 130",/^([1][3-9]\d|[2]\d{2})$/,"Inserire un'altezza in cm senza unita' di misura e di almeno 130"],
+			"squadra": ["Squadra in cui gioca in campionato",/^\w{2,}$/,"Inserire un testo di lunghezza almeno 2"],
+			"maglia": ["Numero della maglia",/^\d+$/,"Inserire un numero"],
+			"ruolo": ["Es: Palleggiatore, libero, ecc.",/^\w{2,}$/,"Inserire un ruolo"],
+			"magliaNazionale": ["Numero della maglia quando gioca in nazionale",/^\d+$/,"Inserire un numero"],
+			"punti": ["Punti o numero di ricezioni datti nell'intera stagione",/^\d+$/,"Inserire un numero"],
+			//"riconoscimenti": ["",/^$/,""],
+			"note": ["",/.{0,}/,"Nessun controllo"],  // non serve il controllo in questa parte
+			//"": ["",/^$/,""],
+		};
+
+		
+		function caricamento() {
+			for(var key in dettagli_form){
+				var input = document.getElementById(key);
+				messaggio(input,0);
+				input.onblur = function (){ validazioneCampo(this);};  //touch o tab 
+			}
+
+			var node = document.getElementById("form");
+			node.onsubmit = function (){validazioneForm();};
+		}
+			
+
+		function validazioneCampo(input) {		
+			var regex = dettagli_form[input.id][1];
+			var text = input.value;
+
+			var p = input.parentNode;
+			if(p.children[2]){  
+				p.removeChild(p.children[2]);
+			}
+
+			if (text.search(regex)!=0){
+				messaggio(input,1);
+				input.focus();
+				input.select(); //non usare se hai caqmpi lunghi perche' cancella tutto
+				return false;
+			}
+			return true;
+		}
+			
+		function validazioneForm() {
+			var errori = true;
+
+			for(var key in dettagli_form){
+				var input = document.getElementById(key);
+				errori = validazioneCampo(input) && errori;
+			} 
+			return errori;
+		}
+			
+		function messaggio(input, mode) {
+		/* mode = 0, modalità input
+		   mode = 1, modalità errore */
+
+		   var node;
+		   var p = input.parentNode;
+
+		   if(mode){  //caso errore
+				node = document.createElement("strong");
+				node.className = "errorSuggestion";
+				node.appendChild(document.createTextNode(dettagli_form[input.id][2]));  //posizione 2 --> posizione in cui ho l'errore
+				p.appendChild(node);
+		   }else{
+				node = document.createElement("span");
+				node.className = "default-text";
+				node.appendChild(document.createTextNode(dettagli_form[input.id][0]));  //posizione 0 --> posizione in cui ho l'indicazione
+				p.appendChild(node);
+		   }
+		
+		}
+
+	</script>
+</head>
+<body onload="caricamento();"> //controlla
+<header>
+	<nav aria-label="aiuti alla navigazione">
+		<a class="navigationHelp" href="#content">Vai al contenuto</a>
+	</nav>
+	<img src="./images/coppe.jpg" id="coppe" alt="">	
+	<img src="./images/capitani.webp" id="capitani" alt="">
+	<h1>Federazione Italiana Pallavolo</h1>
+	<h2>L'Italvolley femminile e maschile</h2>
+</header>
+
+<nav id="breadcrumb" aria-label="percorso" >
+	<p>Ti trovi in: <a href="index.html" lang="en">Home</a> &gt; &gt; La squadra</p>
+</nav>
+
+<nav id="menu" aria-label="site menu">
+	<a class="navigationHelp" href="#content">Salta il menù di navigazione</a>
+	<ul>
+		<li><a href="index.html" lang="en">Home</a></li>
+		<li><a href="allenatori.html">Gli allenatori</a></li>
+        <li><a href="squadraFemminile.html">La squadra femminile</a></li>
+        <li><a href="squadraMaschile.html">La squadra maschile</a></li>
+		<li id="currentLink">Inserisci atleta</li>
+		<li><a href="fairplay.html">Il <span lang="en">fair play</span></a></li>
+	</ul>
+</nav>
+<main id="content">
+	
+	<h1>Inserisci nuovo atleta</h1>
+
+<form id="form" method="post" action="php/nuovaGiocatrice.cgi" >
+
+
+	<fieldset>
+		<legend>Informazioni generali</legend>
+	
+		<div>
+			<label for="nome">Nome e Cognome: </label>
+			<input type="text" name="nome" id="nome"  >
+		</div>
+	
+		<div>
+			<label for="dataNascita">Data di Nascita: </label>
+			<input type="date" name="dataNascita" id="dataNascita"  >
+		</div>
+		<div>
+			<label for="altezza">Altezza: </label> 
+			<input type="number" min="130" name="altezza" id="altezza" >
+		</div>
+	</fieldset>
+	
+	<fieldset>
+		<legend>Squadra</legend>
+	
+		<div>
+			<label for="squadra">Squadra in campionato: </label>
+			<input type="text" name="squadra" id="squadra"  >
+		</div>
+		<div>
+			<label for="maglia">Maglia: </label>
+			<input type="number" min="1" name="maglia" id="maglia" >
+		</div>
+	</fieldset>
+
+	<fieldset>
+		<legend>Nazionale</legend>
+	
+		<div>
+			<label for="ruolo">Ruolo: </label>
+			<select id="ruolo" name="ruolo">
+	  			<option value="Palleggiatrice">Palleggiatrice</option>
+	  			<option value="Libero">Libero</option>
+	  			<option value="Centrale">Centrale</option>
+	  			<option value="Schiacciatore">Schiacciatrice</option>
+	  			<option value="Opposto">Opposta</option>
+			</select>
+		</div>
+		<div>
+			<label for="magliaNazionale">Maglia in Nazionale: </label>
+			<input type="number" min="1" name="magliaNazionale" id="magliaNazionale" >
+		</div>
+	</fieldset>
+	
+	<fieldset>
+		<legend>Carriera</legend>
+
+		<div>
+			<label for="punti">Punti/ricezioni: </label>
+			<input type="number" min="0" name="punti" id="punti">
+		</div>
+		<div>
+			<label for="riconoscimenti">Riconoscimenti: </label>
+			<textarea id="riconoscimenti" name="riconoscimenti"></textarea>
+		</div>
+		<div>
+			<label for="note">Note: </label>
+			<textarea id="note" name="note"></textarea>
+		</div>	
+	</fieldset>
+	
+	<fieldset>
+		<legend>Bottoni</legend>
+		<input type="submit" id="submit" name="submit" class="margineSinistro" value="Inserisci atleta" >
+		<input type="reset" id="reset" class="margineSinistro" value="Cancella tutto" >
+	</fieldset>
+	
+	</form>
+</main>
+<footer>
+	<img class="imgValidCode" src="./images/valid-xhtml10.png" alt="XHTML valido" ><p>Ombretta Gaggi, Cactus &amp; Federazione Italiana Pallavolo - <span lang="en">All rights Reserved</span></p><img class="imgValidCode" src="./images/vcss-blue.gif" alt="CSS valido" >
+</footer>
+</body>
+</html>
