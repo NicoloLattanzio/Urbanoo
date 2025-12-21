@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="./styles/mini.css" media="screen and (max-width:768px)">
     <link rel="stylesheet" href="./styles/print.css" media="print">
 
+
+
+
 </head>
 <body>
     <header>
@@ -22,24 +25,27 @@
                 <li><a href="./proprietà.html">Proprietà</a></li>
                 <li><a href="./contatti.html">Contatti</a></li>
                 <li><a href="./areariservata.html"><img src="" alt="profilo utente"></a></li>
-                <li><a href="#"><img src="" alt="cerca"></a></li>
             </ul>
         </nav>
     </header>
     <div class="form-container">
-        <h1><span lang="it">Registrazione</span></h1>
-        <form action="/submit_registration" method="post">
+        <h1>Registrazione</h1>
+        <form action="../php/login.php" method="post" id="mioForm">
             <label for="username">Nome utente:</label>
-            <input type="text" id="username" name="username" required placeholder="Nome utente" autocomplete="username"><br><br>
+            <input type="text" id="username" name="username" required placeholder="Nome utente" autocomplete="username"data-msg-required="Per favore, inserisci il tuo nome utente" 
+            data-msg-invalid="Formato non corretto">
 
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required placeholder="Email" autocomplete="email"><br><br>
+            <input type="email" id="email" name="email" required placeholder="Email" autocomplete="email"data-msg-required="Per favore, inserisci la tua email" 
+            data-msg-invalid="Formato non corretto">
 
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required placeholder="Password" autocomplete="new-password"><br><br>
+            <input type="password" id="password" name="password" required placeholder="Password" autocomplete="new-password"data-msg-required="Per favore, inserisci la tua password" 
+            data-msg-invalid="Formato non corretto">    
 
             <label for="conferma_password">Conferma Password:</label>
-            <input type="password" id="conferma_password" name="conferma_password" required placeholder="Conferma Password" autocomplete="new-password"><br><br>
+            <input type="password" id="conferma_password" name="conferma_password" required placeholder="Conferma Password" autocomplete="new-password"data-msg-required="Per favore, inserisci la tua password" 
+            data-msg-invalid="Formato non corretto">
 
             <input type="submit" value="Registrati" title="Clicca qui per confermare la registrazione">
         </form>

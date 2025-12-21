@@ -22,20 +22,20 @@
                 <li><a href="./proprietà.html">Proprietà</a></li>
                 <li><a href="./contatti.html">Contatti</a></li>
                 <li><a href="./areariservata.html"><img src="" alt="profilo utente"></a></li>
-                <li><a href="#"><img src="" alt="cerca"></a></li>
             </ul>
         </nav>
     </header>
 
     <div class="form-container">
-        <h1><span lang="it">Login</span></h1>
-            <form action="/submit_login" method="post">
+        <h1>Login</h1>
+            <form action="../php/login.php" method="post">
             <label for="username">Nome utente:</label>
-            <input type="text" id="username" name="username" required placeholder="Nome utente" autocomplete="username"><br><br>
+            <input type="text" id="username" name="username" required placeholder="Nome utente" autocomplete="username" 
+            data-msg-required="Per favore, inserisci il tuo nome utente" data-msg-invalid="Formato non corretto" >
 
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required placeholder="Password" autocomplete="new-password"><br><br>
-
+            <input type="password" id="password" name="password" required placeholder="Password" autocomplete="new-password" data-msg-required="Per favore, inserisci la tua password" 
+            data-msg-invalid="Formato non corretto">
             <input type="submit" value="Login" title="Clicca qui per effettuare il login">
         </form>
     </div>
