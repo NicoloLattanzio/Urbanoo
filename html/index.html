@@ -13,9 +13,13 @@
 </head>
 <body>
     <header>
+        <nav aria-label="aiuti alla navigazione">
+            <a class="navigationHelp" href="#content">Vai al contenuto</a>
+        </nav>
         <h1><span lang="en">URBANOO</span> Agenzia Immobiliare</h1>
         <h2>TROVA LA CASA DEI TUOI SOGNI</h2>
-        <nav id="menu">
+        <nav id="menu" aria-label="menu di navigazione">
+            <a class="navigationHelp" href="#content">Salta il menù di navigazione</a>
             <ul>
                 <li id="currentlink" lang="en">Home</li>
                 <li><a href="aboutus.html">Chi Siamo</a></li>
@@ -25,10 +29,10 @@
             </ul>
         </nav>
     </header>
-    <nav id="breadcrumb">
+    <nav id="breadcrumb" aria-label="percorso">
         <p>Ti trovi in: <span lang="en">Home</span></p>
     </nav>
-    <main>
+    <main id="content">
         [proprieta_in_evidenza]
         <div id="info">
             <h3>PERCHÉ SCEGLIERE <span lang="en">URBANOO</span></h3>
@@ -70,7 +74,7 @@
         </div>
     </main>
     <footer>
-        <p>&copy; 2025 <span lang="en">Urbanoo</span>: Agenzia Immobiliare. P.IVA 1234567890. Tutti i diritti sono riservati</p>
+        <p>&copy; <time datetime="2025">2025</time> <span lang="en">Urbanoo</span>: Agenzia Immobiliare. P.IVA 1234567890. Tutti i diritti sono riservati</p>
     </footer>
 </body>
 </html>
