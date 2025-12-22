@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <title>Urbanoo - Agenzia Immobiliare</title>
+    <title>Profilo | Urbanoo - Agenzia Immobiliare</title>
     
     <meta charset="utf-8">
-    <meta name="description" content="Trova la casa dei tuoi sogni. Appartamenti, Ville e Loft moderni.">
-    <meta name="keywords" content="agenzia immobiliare, appartamenti, ville, loft, urbanoo, proprietà, vendita case">
+    <meta name="description" content="Accedi alla tua area riservata su Urbanoo. Gestisci il tuo account, visualizza la tua wishlist degli immobili preferiti e modifica le tue credenziali.">
+    <meta name="keywords" content="Urbanoo, profilo utente Urbanoo, agenzia immobiliare, wishlist, preferiti, gestione account, cambio password">">
     <link rel="stylesheet" href="../styles/style.css" media="screen">
     <link rel="stylesheet" href="../styles/mini.css" media="screen and (max-width:768px)">
     <link rel="stylesheet" href="../styles/print.css" media="print">
@@ -36,10 +36,10 @@
     <main id="content">
         <h1>FELICE DI RIVEDERTI [username]</h1>
         <p>Ti sei registrato come utente [ruolo].</p>
-        <ul id="actionList"></ul>
-            <li><a href="../php/showcase.php">Wishlist</a></li>
-            <li><a href="../php/modifica_password.php">Modifica password</a></li>
-            <li><a href="../php/logout.php">Logout</a></li>
+        <ul id="actionList">      <!-- vanno messe le icone con il css tramite id -->
+            <li><a href="../php/showcase.php" lang="en" id="wishlist">Wishlist</a></li>   
+            <li><a href="../php/modifica_password.php" id="change_pw">Modifica password</a></li>
+            <li><a href="../php/logout.php" lang="en" id="logout">Logout</a></li>
         </ul>
     </main>
     <footer>
