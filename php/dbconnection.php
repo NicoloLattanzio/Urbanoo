@@ -29,9 +29,9 @@ class DBAccess {
 
 
     // ESEMPIO FUNZIONE
-	/* public function getList() { 
+	public function getListProprieta() { 
 
-		$query = "SELECT * FROM atleti ORDER BY ID ASC";
+		$query = "SELECT * FROM proprieta ORDER BY nome ASC";
 		$queryResult = mysqli_query($this->connection,$query) or die("Errore in dbConnection: " . mysqli_error($this->connection));
 		// gli errori a schermo ci sono solo nella fase di debug
 		
@@ -47,11 +47,9 @@ class DBAccess {
 		}
 	} 
 
-	public function insertNewElement($nome, $capitano, $dataNascita, $luogo, $squadra, $ruolo, $altezza, $maglia, $magliaNazionale, $punti, $riconoscimenti, $note, $genere) {
-		
-	} */
+	//public function insertNewElement($nome, $capitano, $dataNascita, $luogo, $squadra, $ruolo, $altezza, $maglia, $magliaNazionale, $punti, $riconoscimenti, $note, $genere) {
+	 
 
-	
 }
 
 
