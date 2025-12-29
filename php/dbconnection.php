@@ -123,9 +123,29 @@ class DBAccess {
 		} else {
 			return false;
 		}
+	}
+
+
+	// Funzioni per la gestione della modifica della password
+	public function checkOldPassword($username, $oldPassword) {
+    	$username = mysqli_real_escape_string($this->connection, $username);
+    	$oldPassword = mysqli_real_escape_string($this->connection, $oldPassword);
+
+    	$query = "SELECT * FROM utenti WHERE nome = '$username' AND password = '$oldPassword'";
+    	$result = mysqli_query($this->connection, $query);
+    
+    	return (mysqli_num_rows($result) > 0);
+	}
+
+	public function updatePassword($username, $newPassword) {
+    	$username = mysqli_real_escape_string($this->connection, $username);
+    	$newPassword = mysqli_real_escape_string($this->connection, $newPassword);
+    
+    	$query = "UPDATE utenti SET password = '$newPassword' WHERE nome = '$username'";
+    	return mysqli_query($this->connection, $query);
+	}
+
 }
-
-
 ?>
 
 
