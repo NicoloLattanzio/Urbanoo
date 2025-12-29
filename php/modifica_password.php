@@ -3,18 +3,21 @@ session_start();
 require_once "dbconnection.php";
 use DB\DBAccess;
 
+if (!isset($_SESSION['email'])) { // l'utente deve essere loggato
+    header("Location: login.php"); 
+    exit();
+}
+
 $paginaHTML = file_get_contents('../html/modifica_password.html');
 $messaggio = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // CAMBIO QUI: prendiamo 'email' invece di 'username'
-    $email = $_POST['email']; 
+    $email = $_SESSION['email']; 
     $old   = $_POST['old_password'];
     $new   = $_POST['new_password'];
 
     $connessione = new DBAccess();
     if ($connessione->openDBConnection()) {
-        // Usiamo la variabile $email nelle funzioni
         if ($connessione->checkOldPassword($email, $old)) {
             if ($connessione->updatePassword($email, $new)) {
                 $messaggio = '<p class="success-message" role="alert">Password aggiornata con successo!</p>';
@@ -22,7 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $messaggio = '<p class="error-message" role="alert">Errore durante l\'aggiornamento nel database.</p>';
             }
         } else {
-            // Messaggio aggiornato per coerenza
             $messaggio = '<p class="error-message" role="alert">Email o vecchia password errati.</p>';
         }
         $connessione->closeConnection();
