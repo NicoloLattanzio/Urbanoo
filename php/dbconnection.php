@@ -47,8 +47,7 @@ class DBAccess {
 		}
 	} 
 
-		// Aggiungi questo metodo all'interno della classe DBAccess in dbconnection.php
-
+	// Funzione per ottenere la lista delle proprietà con filtri
 	public function getFilteredProprieta($title, $city, $type, $price_min, $price_max, $size_range) {
     	// Base della query
     	$query = "SELECT * FROM proprieta WHERE 1=1";
@@ -97,7 +96,7 @@ class DBAccess {
     	return [];
 	}
 
-	// Metodo per eliminare una proprietà dal database 
+	// Funzione per eliminare una proprietà dal database 
 	public function deleteProprieta($id) {
     	$id = intval($id);
     	if ($id <= 0) return false;
@@ -112,6 +111,26 @@ class DBAccess {
     	}
 	}
 	// Assicurati che nel database siano impostate le chiavi esterne con ON DELETE CASCADE o gestisci l'eliminazione dei record correlati nella funzione.
+
+
+	// Funzioni per la gestione della modifica della password
+	public function checkOldPassword($username, $oldPassword) {
+    	$username = mysqli_real_escape_string($this->connection, $username);
+    	$oldPassword = mysqli_real_escape_string($this->connection, $oldPassword);
+
+    	$query = "SELECT * FROM utenti WHERE nome = '$username' AND password = '$oldPassword'";
+    	$result = mysqli_query($this->connection, $query);
+    
+    	return (mysqli_num_rows($result) > 0);
+	}
+
+	public function updatePassword($username, $newPassword) {
+    	$username = mysqli_real_escape_string($this->connection, $username);
+    	$newPassword = mysqli_real_escape_string($this->connection, $newPassword);
+    
+    	$query = "UPDATE utenti SET password = '$newPassword' WHERE nome = '$username'";
+    	return mysqli_query($this->connection, $query);
+	}
 }
 
 
