@@ -2,7 +2,6 @@
 session_start();
 require_once 'dbconnection.php';
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
 
@@ -10,18 +9,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
 
-    $sql = "SELECT id, nome, cognome, password, ruolo";
-    $result = pg_query_params($db, $sql, array($email));
+    $sql = "SELECT id, nome, cognome, ruolo FROM utenti WHERE email = ? AND password = ?";
+    $result = mysqli_prepare($db, $sql);
     
     if ($result) {
-        $user = pg_fetch_assoc($result);
-        
+        mysqli_stmt_bind_param($result, "ss", $email, $password);
+        mysqli_stmt_execute($result);
+        $user = mysqli_stmt_get_result($result);
 
         if ($user && password_verify($password, $user['password'])) {
 
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_nome'] = $user['nome'];
-            $_SESSION['user_ruolo'] = $user['ruolo'];
+            $_SESSION['id'] = $user['id'];
+            $_SESSION['nome'] = $user['nome'];
+            $_SESSION['ruolo'] = $user['ruolo'];
 
             header("Location: dashboard.php");
             exit;
