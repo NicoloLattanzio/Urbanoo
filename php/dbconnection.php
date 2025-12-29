@@ -112,6 +112,17 @@ class DBAccess {
     	}
 	}
 	// Assicurati che nel database siano impostate le chiavi esterne con ON DELETE CASCADE o gestisci l'eliminazione dei record correlati nella funzione.
+	public function showProprietaDetails($idProprieta) {
+		if ($idProprieta <= 0) return false;
+
+		$query = "SELECT * FROM proprieta WHERE id = $idProprieta";
+		$queryResult = mysqli_query($this->connection, $query) or die("Errore in dbConnection: " . mysqli_error($this->connection));;
+
+		if ($queryResult && mysqli_num_rows($queryResult) == 1) {
+			return mysqli_fetch_assoc($queryResult);
+		} else {
+			return false;
+		}
 }
 
 
