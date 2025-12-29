@@ -1,39 +1,48 @@
+-- Tabella Utenti
 CREATE TABLE utenti (
-    id SERIAL PRIMARY KEY,
-    nome VARCHAR(15) NOT NULL,
-    cognome VARCHAR(15) NOT NULL,
-    email VARCHAR UNIQUE NOT NULL,
-    password VARCHAR(30) NOT NULL,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    cognome VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL, -- Aumentata per gestire password hashate
     telefono VARCHAR(22),
-    --ruolo
+    ruolo ENUM('user', 'admin') DEFAULT 'user', 
     data_registrazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-CREATE TABLE immobili (
-    id SERIAL PRIMARY KEY,
-    titolo VARCHAR(100) NOT NULL,
+
+-- Tabella Proprietà (Rinominata per coerenza con il codice PHP)
+CREATE TABLE proprieta (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL, 
     descrizione TEXT,
-    agente_id INTEGER REFERENCES utenti(id) ON DELETE SET NULL,
-    tipologia  NOT NULL,
+    tipologia VARCHAR(50) NOT NULL, 
     indirizzo VARCHAR(150),
     citta VARCHAR(100) NOT NULL,
     prezzo INT NOT NULL,
-    metri_quadri INT NOT NULL,
+    metri_quadri INT NOT NULL, 
     locali INT NOT NULL,
     bagni INT DEFAULT 1,
-    immagine_copertina VARCHAR(255),
+    immagine VARCHAR(255), 
     data_inserimento TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    disponibile BOOLEAN DEFAULT TRUE
+    disponibile BOOLEAN DEFAULT TRUE,
+    agente_id INT,
+    FOREIGN KEY (agente_id) REFERENCES utenti(id) ON DELETE SET NULL
 );
 
+-- Tabella Messaggi
 CREATE TABLE messaggi (
-    id SERIAL PRIMARY KEY,
-    mittente_id INTEGER REFERENCES utenti(id) ON DELETE CASCADE NOT NULL,
-    destinatario_id INTEGER REFERENCES utenti(id) ON DELETE CASCADE NOT NULL,
-    immobile_id INTEGER REFERENCES immobili(id) ON DELETE SET NULL,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    mittente_id INT NOT NULL,
+    destinatario_id INT NOT NULL,
+    immobile_id INT,
     testo TEXT NOT NULL,
+    data_invio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (mittente_id) REFERENCES utenti(id) ON DELETE CASCADE,
+    FOREIGN KEY (destinatario_id) REFERENCES utenti(id) ON DELETE CASCADE,
+    FOREIGN KEY (immobile_id) REFERENCES proprieta(id) ON DELETE SET NULL
 );
 
-CREATE INDEX idx_immobili_citta ON immobili(citta);
-CREATE INDEX idx_immobili_prezzo ON immobili(prezzo);
-CREATE INDEX idx_messaggi_mittente ON messaggi(mittente_id);
-CREATE INDEX idx_messaggi_destinatario ON messaggi(destinatario_id);
+-- Indici per ottimizzare le ricerche dei filtri
+CREATE INDEX idx_proprieta_citta ON proprieta(citta);
+CREATE INDEX idx_proprieta_prezzo ON proprieta(prezzo);
+CREATE INDEX idx_proprieta_tipologia ON proprieta(tipologia);
