@@ -1,26 +1,29 @@
-<!-- fa andare l'utente in proprieta.html in base al suo status: user/admin
- in base allo status cambia il contenuto della pagina:  user -> mostra tutte le proprietà con pulsante view details
-                                                        admin -> mostra tutte le proprietà con pulsanti edit/remove e un pulsante add in alto a dx  -->
-
 <?php
-session_start(); // Fondamentale per leggere lo stato dell'utente
+session_start();
 require_once "dbconnection.php";
 use DB\DBAccess;
 
-//$paginaHTML = file_get_contents('..' . DIRECTORY_SEPARATOR .'php'. DIRECTORY_SEPARATOR . 'proprieta.html');
 $paginaHTML = file_get_contents('../html/proprieta.html');
 
 // Controllo dello stato utente (Admin o User)
-// Assumiamo che salvate il ruolo in $_SESSION['ruolo'] al momento del login
 $isAdmin = (isset($_SESSION['ruolo']) && $_SESSION['ruolo'] === 'admin');
 
 $connessione = new DBAccess();
 $connessioneOK = $connessione->openDBConnection();
 
 $stringaProprieta = "";
+$messaggioOperazione = ""; 
+
+// logica per mostrare messaggi di successo/errore dopo operazione di elimina [CONTROLLA SE VA BENE E SE SERVE LOGICA MODIFICA/AGGIUNGI] già generico volendo
+if (isset($_GET['msg'])) {
+    if ($_GET['msg'] === 'success') {
+        $messaggioOperazione = '<p class="success-message" role="alert">Operazione completata con successo.</p>';
+    } elseif ($_GET['msg'] === 'error') {
+        $messaggioOperazione = '<p class="error-message" role="alert">Si è verificato un errore durante l\'operazione.</p>';
+    }
+}
 
 if ($connessioneOK) {
-    // Verifichiamo se esistono parametri GET (escludendo eventuali parametri vuoti)
     $filtriAttivi = array_filter($_GET); 
 
     if (!empty($filtriAttivi)) {
@@ -39,8 +42,9 @@ if ($connessioneOK) {
 
     $connessione->closeConnection();
 
+    $stringaProprieta .= $messaggioOperazione;  // CONTROLLA SE VA BENE QUI
+
     if (!empty($listaProprieta)) {
-        // Se Admin, aggiungiamo il pulsante "Aggiungi Nuova Proprietà" in alto
         if ($isAdmin) {
             $stringaProprieta .= '<div class="admin-controls"><a href="aggiungi_proprieta.php" class="btn-add">➕ Aggiungi Nuova Proprietà</a></div>';
         }
