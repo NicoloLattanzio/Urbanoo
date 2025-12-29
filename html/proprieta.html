@@ -36,7 +36,7 @@
     
     <aside id="filters">
         <h2>Filtra Proprietà</h2>
-        <form method="GET" action="proprieta.html" id="searchForm">
+        <form method="GET" action="proprieta.php" id="searchForm">
             <div>
                 <label for="title">Nome</label>
                 <input type="text" id="title" name="title" placeholder="Nome proprietà">
@@ -49,6 +49,7 @@
             <div>
                 <label for="type">Tipologia</label>
                 <select id="type" name="type">
+                    <option value="">Tutte</option>
                     <option value="Appartamento">Appartamento</option>
                     <option value="Villa">Villa</option>
                     <option value="Loft">Loft</option>
@@ -57,18 +58,20 @@
             <div>
                 <label for="price-max">Prezzo massimo:</label>
                 <select id="price-max" name="price_max">
-                    <option value="50000">€50.000</option>
-                    <option value="100000">€100.000</option>
-                    <option value="200000">€200.000</option>
-                    <option value="300000">€300.000</option>
-                    <option value="400000">€400.000</option>
+                    <option value="">Qualsiasi</option>
                     <option value="500000">€500.000</option>
+                    <option value="400000">€400.000</option>
+                    <option value="300000">€300.000</option>
+                    <option value="200000">€200.000</option>
+                    <option value="100000">€100.000</option>
+                    <option value="50000">€50.000</option>                                                                       
                 </select>
             </div>
 
             <div>
-                <label for="price-min">Prezzo minimo:</label>
+                <label for="price-min">Prezzo minimo:</label>  <!-- La validazione prezzo minimo < prezzo massimo si fa con js? -->
                 <select id="price-min" name="price_min">
+                    <option value="">Qualsiasi</option>
                     <option value="50000">€50.000</option>
                     <option value="100000">€100.000</option>
                     <option value="200000">€200.000</option>
@@ -81,6 +84,7 @@
             <div>
                 <label for="size">Dimensioni</label>
                 <select id="size" name="size">
+                    <option value="">Qualsiasi</option>
                     <option value="1">10-20 mq</option>
                     <option value="2">20-60 mq</option>
                     <option value="3">60-100 mq</option>

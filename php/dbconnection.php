@@ -28,7 +28,7 @@ class DBAccess {
 	}
 
 
-    // ESEMPIO FUNZIONE
+    // Funzione per ottenere la lista delle proprietà
 	public function getListProprieta() { 
 
 		$query = "SELECT * FROM proprieta ORDER BY nome ASC";
@@ -47,9 +47,71 @@ class DBAccess {
 		}
 	} 
 
-	//public function insertNewElement($nome, $capitano, $dataNascita, $luogo, $squadra, $ruolo, $altezza, $maglia, $magliaNazionale, $punti, $riconoscimenti, $note, $genere) {
-	 
+		// Aggiungi questo metodo all'interno della classe DBAccess in dbconnection.php
 
+	public function getFilteredProprieta($title, $city, $type, $price_min, $price_max, $size_range) {
+    	// Base della query
+    	$query = "SELECT * FROM proprieta WHERE 1=1";
+
+    	// Filtro Titolo/Nome
+    	if (!empty($title)) {
+    	    $query .= " AND nome LIKE '%" . mysqli_real_escape_string($this->connection, $title) . "%'";
+    	}
+    	// Filtro Città
+    	if (!empty($city)) {
+    	    $query .= " AND citta LIKE '%" . mysqli_real_escape_string($this->connection, $city) . "%'";
+    	}
+    	// Filtro Tipologia
+    	if (!empty($type)) {
+    	    $query .= " AND tipologia = '" . mysqli_real_escape_string($this->connection, $type) . "'";
+    	}
+    	// Filtro Prezzo
+    	if (!empty($price_min)) {
+    	    $query .= " AND prezzo >= " . intval($price_min);
+    	}
+    	if (!empty($price_max)) {
+    	    $query .= " AND prezzo <= " . intval($price_max);
+    	}
+    	// Filtro Dimensioni (basato sui valori 1, 2, 3, 4 del tuo HTML)
+    	if (!empty($size_range)) {
+        	switch ($size_range) {
+        	    case '1': $query .= " AND metri_quadri BETWEEN 10 AND 20"; break;
+        	    case '2': $query .= " AND metri_quadri BETWEEN 20 AND 60"; break;
+        	    case '3': $query .= " AND metri_quadri BETWEEN 60 AND 100"; break;
+        	   case '4': $query .= " AND metri_quadri > 100"; break;
+        	}
+    	}
+
+    	$query .= " ORDER BY nome ASC";
+    
+    	$queryResult = mysqli_query($this->connection, $query);
+    
+    	if($queryResult && mysqli_num_rows($queryResult) != 0){
+        	$result = array();
+        	while($row = mysqli_fetch_assoc($queryResult)){
+        	    array_push($result, $row);
+        	}
+        	$queryResult->free();
+        	return $result;
+    	}
+    	return [];
+	}
+
+	// Metodo per eliminare una proprietà dal database 
+	public function deleteProprieta($id) {
+    	$id = intval($id);
+    	if ($id <= 0) return false;
+
+    	$query = "DELETE FROM proprieta WHERE id = $id";
+    
+    	try {
+        	$queryResult = mysqli_query($this->connection, $query);
+        	return ($queryResult && mysqli_affected_rows($this->connection) > 0);
+    	} catch (\mysqli_sql_exception $e) {
+       	 return false;
+    	}
+	}
+	// Assicurati che nel database siano impostate le chiavi esterne con ON DELETE CASCADE o gestisci l'eliminazione dei record correlati nella funzione.
 }
 
 

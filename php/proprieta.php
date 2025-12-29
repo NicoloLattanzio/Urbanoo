@@ -8,7 +8,7 @@ require_once "dbconnection.php";
 use DB\DBAccess;
 
 //$paginaHTML = file_get_contents('..' . DIRECTORY_SEPARATOR .'php'. DIRECTORY_SEPARATOR . 'proprieta.html');
-$paginaHTML = file_get_contents('proprieta.html');
+$paginaHTML = file_get_contents('../html/proprieta.html');
 
 // Controllo dello stato utente (Admin o User)
 // Assumiamo che salvate il ruolo in $_SESSION['ruolo'] al momento del login
@@ -20,7 +20,23 @@ $connessioneOK = $connessione->openDBConnection();
 $stringaProprieta = "";
 
 if ($connessioneOK) {
-    $listaProprieta = $connessione->getListProprieta();
+    // Verifichiamo se esistono parametri GET (escludendo eventuali parametri vuoti)
+    $filtriAttivi = array_filter($_GET); 
+
+    if (!empty($filtriAttivi)) {
+        // Se ci sono filtri, usiamo la funzione specifica
+        $listaProprieta = $connessione->getFilteredProprieta(
+            $_GET['title'] ?? '',  // "??" opperatore null coalescing per gestire parametri non settati (nulli)
+            $_GET['city'] ?? '',
+            $_GET['type'] ?? '',
+            $_GET['price_min'] ?? '',
+            $_GET['price_max'] ?? '',
+            $_GET['size'] ?? ''
+        );
+    } else {
+        $listaProprieta = $connessione->getListProprieta();
+    }
+
     $connessione->closeConnection();
 
     if (!empty($listaProprieta)) {
@@ -30,23 +46,23 @@ if ($connessioneOK) {
         }
 
         $stringaProprieta .= '<ul class="property-list">'; 
+
         foreach ($listaProprieta as $proprieta) {
             $stringaProprieta .= '<li>';
             $stringaProprieta .= '<h3>' . htmlspecialchars($proprieta['nome']) . '</h3>';
             $stringaProprieta .= '<img src="' . $proprieta['immagine'] . '" alt="Foto di ' . htmlspecialchars($proprieta['nome']) . '" />';
-            
+            // Tutti gli utenti hanno il pulsante "Vedi"
+            $stringaProprieta .= '<a href="dettagli_proprieta.php?id=' . $proprieta['id'] . '" aria-label="Vedi i dettagli di ' . $proprieta['nome'] . '">Vedi</a>';
+
             if ($isAdmin) {
     			// L'admin vede "Modifica" che va alla pagina dettagli
-    			$stringaProprieta .= '<a href="dettagli_proprieta.php?id=' . $proprieta['id'] . '" aria-label="Modifica i dettagli di ' . $proprieta['nome'] . '">Modifica</a>';
-    			// L'admin vede "Elimina" che attiva uno script di cancellazione  [CONTROLLA CHE SI FACCIA COSI]
-    			$stringaProprieta .= '<a href="elimina_azione.php?id=' . $proprieta['id'] . '" onclick="return confirm(\'Sei sicuro di voler eliminare questa proprietà?\')" aria-label="Elimina ' . $proprieta['nome'] . '">Elimina</a>';
-			} else {
-    			// L'utente normale vede solo "Vedi"
-    			$stringaProprieta .= '<a href="dettagli_proprieta.php?id=' . $proprieta['id'] . '" aria-label="Vedi i dettagli di ' . $proprieta['nome'] . '">Vedi</a>';
-		}
-		$stringaProprieta .= '</li>';
-    }
-    $stringaProprieta .= '</ul>';
+    			$stringaProprieta .= '<a href="modifica_proprieta.php?id=' . $proprieta['id'] . '" aria-label="Modifica i dettagli di ' . $proprieta['nome'] . '">Modifica</a>';
+    			// L'admin vede "Elimina" che attiva uno script di cancellazione  [CONTROLLA CHE SI FACCIA COSI, CONFIRM JAVASCRIPT NON NAVIGABILE SCREEN READER??]
+    			$stringaProprieta .= '<a href="elimina_proprieta.php?id=' . $proprieta['id'] . '" onclick="return confirm(\'Sei sicuro di voler eliminare questa proprietà?\')" aria-label="Elimina ' . $proprieta['nome'] . '">Elimina</a>';	
+		    }
+		    $stringaProprieta .= '</li>';
+        }
+        $stringaProprieta .= '</ul>';
     } else {
         $stringaProprieta = "<p>Nessuna proprietà trovata nel database.</p>";
     }
@@ -57,27 +73,3 @@ if ($connessioneOK) {
 $paginaHTML = str_replace("[properties]", $stringaProprieta, $paginaHTML);
 echo $paginaHTML;
 ?>
-
-<!-- script per eliminare la proprietà pagina elimina.php -->
-<?php
-/* session_start();
-require_once "dbconnection.php";
-use DB\DBAccess;
-
-// Controllo sicurezza: solo l'admin può chiamare questo file
-if (isset($_SESSION['ruolo']) && $_SESSION['ruolo'] === 'admin' && isset($_GET['id'])) {
-    $db = new DBAccess();
-    if ($db->openDBConnection()) {
-        $id = $_GET['id'];
-        // Qui chiamerai una funzione che scriveremo in DBAccess
-        $db->deleteProprieta($id); 
-        $db->closeConnection();
-    }
-}
-
-// Torna automaticamente alla pagina delle proprietà
-header("Location: proprieta.php");
-exit(); */
-?>
-
-<!-- Poi servirebbe anche aggiungere le fuzioni deleteProprieta -->
