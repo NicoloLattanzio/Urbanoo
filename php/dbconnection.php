@@ -112,6 +112,8 @@ class DBAccess {
     	}
 	}
 	// Assicurati che nel database siano impostate le chiavi esterne con ON DELETE CASCADE o gestisci l'eliminazione dei record correlati nella funzione.
+
+	// Funzione per mostrare i dettagli di una proprietà
 	public function showProprietaDetails($idProprieta) {
 		if ($idProprieta <= 0) return false;
 
@@ -127,21 +129,22 @@ class DBAccess {
 
 
 	// Funzioni per la gestione della modifica della password
-	public function checkOldPassword($username, $oldPassword) {
-    	$username = mysqli_real_escape_string($this->connection, $username);
+	public function checkOldPassword($email, $oldPassword) {
+    	$email = mysqli_real_escape_string($this->connection, $email);
     	$oldPassword = mysqli_real_escape_string($this->connection, $oldPassword);
-
-    	$query = "SELECT * FROM utenti WHERE nome = '$username' AND password = '$oldPassword'";
+   
+    	$query = "SELECT * FROM utenti WHERE email = '$email' AND password = '$oldPassword'";
     	$result = mysqli_query($this->connection, $query);
     
-    	return (mysqli_num_rows($result) > 0);
+    	return ($result && mysqli_num_rows($result) > 0);
 	}
 
-	public function updatePassword($username, $newPassword) {
-    	$username = mysqli_real_escape_string($this->connection, $username);
+	public function updatePassword($email, $newPassword) {
+    	$email = mysqli_real_escape_string($this->connection, $email);
     	$newPassword = mysqli_real_escape_string($this->connection, $newPassword);
     
-    	$query = "UPDATE utenti SET password = '$newPassword' WHERE nome = '$username'";
+    	// Aggiorniamo dove l'email corrisponde
+    	$query = "UPDATE utenti SET password = '$newPassword' WHERE email = '$email'";
     	return mysqli_query($this->connection, $query);
 	}
 
