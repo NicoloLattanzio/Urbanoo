@@ -1,39 +1,34 @@
 CREATE TABLE utenti (
     id SERIAL PRIMARY KEY,
-    nome VARCHAR(15) NOT NULL,
-    cognome VARCHAR(15) NOT NULL,
-    email VARCHAR UNIQUE NOT NULL,
+    nome VARCHAR(20) NOT NULL,
+    cognome VARCHAR(20) NOT NULL,
+    email VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(30) NOT NULL,
     telefono VARCHAR(22),
-    --ruolo
-    data_registrazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    ruolo VARCHAR(5) NOT NULL DEFAULT 'user',
+    data_registrazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CHECK (ruolo IN ('user', 'admin'))
 );
+
 CREATE TABLE immobili (
     id SERIAL PRIMARY KEY,
     titolo VARCHAR(100) NOT NULL,
     descrizione TEXT,
-    agente_id INTEGER REFERENCES utenti(id) ON DELETE SET NULL,
-    tipologia  NOT NULL,
-    indirizzo VARCHAR(150),
+    tipologia VARCHAR(20) NOT NULL,
+    CHECK (tipologia IN ('appartamento', 'villa', 'ufficio', 'terreno', 'garage')),
+    indirizzo VARCHAR(150) NOT NULL,
     citta VARCHAR(100) NOT NULL,
     prezzo INT NOT NULL,
+    CHECK (prezzo > 0),
     metri_quadri INT NOT NULL,
+    CHECK (metri_quadri > 0),
     locali INT NOT NULL,
-    bagni INT DEFAULT 1,
+    CHECK (locali > 0),
     immagine_copertina VARCHAR(255),
     data_inserimento TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    disponibile BOOLEAN DEFAULT TRUE
+    disponibile BOOLEAN NOT NULL DEFAULT TRUE
 );
 
-CREATE TABLE messaggi (
-    id SERIAL PRIMARY KEY,
-    mittente_id INTEGER REFERENCES utenti(id) ON DELETE CASCADE NOT NULL,
-    destinatario_id INTEGER REFERENCES utenti(id) ON DELETE CASCADE NOT NULL,
-    immobile_id INTEGER REFERENCES immobili(id) ON DELETE SET NULL,
-    testo TEXT NOT NULL,
-);
 
 CREATE INDEX idx_immobili_citta ON immobili(citta);
 CREATE INDEX idx_immobili_prezzo ON immobili(prezzo);
-CREATE INDEX idx_messaggi_mittente ON messaggi(mittente_id);
-CREATE INDEX idx_messaggi_destinatario ON messaggi(destinatario_id);
