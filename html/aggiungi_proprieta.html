@@ -27,8 +27,8 @@
     </header>
     <div class="form-container">
         <h1>Aggiungi una nuova proprietà</h1>
-        <form action="../php/aggiungi_proprieta.php" method="post">
-            <label for="scelta">Tipologia Proprieta:</label>
+        <form id="add-property-form" action="../php/aggiungi_proprieta.php" method="post">
+            <label for="scelta">Tipologia Proprietà:</label>
             <select id="scelta" name="scelta">
                 <option value="Villa">Villa</option>
                 <option value="Appartamento">Appartamento</option>
@@ -49,6 +49,125 @@
 
             <input type="submit" value="Aggiungi Proprieta" title="Clicca qui per confermare l'aggiunta della proprieta">
         </form>
+        <!-- SISTEMARE form per l'aggiunta della proprietà CON CORREZIONI DI ERRORI E ACCESSIBILITÀ -->
+        <form id="add-property-form" action="../php/aggiungi_proprieta.php" method="post">
+
+            <!-- Name -->
+            <label for="name">Nome Proprietà:</label>
+            <input type="text" id="name" name="name" required placeholder="Nome della proprietà"
+                aria-describedby="err-name-required err-name-invalid"
+                data-msg-required="Inserisci il nome della proprietà"
+                data-msg-invalid="Formato non corretto">
+            <div id="err-name-server" class="error-msg display-error" aria-live="polite">[name_err]</div>
+            <p id="err-name-required-client" class="error-msg name1-error" aria-live="polite"></p>
+            <p id="err-name-invalid-client" class="error-msg name2-error" aria-live="polite"></p>
+
+            <!-- Description -->
+            <label for="description">Descrizione:</label>
+            <textarea id="description" name="description" required placeholder="Descrizione della proprietà"
+                    aria-describedby="err-desc-required err-desc-invalid"
+                    data-msg-required="Inserisci una descrizione"
+                    data-msg-invalid="Formato non corretto"></textarea>
+            <div id="err-desc-server" class="error-msg display-error" aria-live="polite">[description_err]</div>
+            <p id="err-desc-required-client" class="error-msg desc1-error" aria-live="polite"></p>
+            <p id="err-desc-invalid-client" class="error-msg desc2-error" aria-live="polite"></p>
+
+            <!-- Price -->
+            <label for="price">Prezzo:</label>
+            <input type="number" id="price" name="price" required placeholder="Es. 150000"
+                aria-describedby="err-price-required err-price-invalid"
+                data-msg-required="Inserisci il prezzo"
+                data-msg-invalid="Valore non valido">
+            <div id="err-price-server" class="error-msg display-error" aria-live="polite">[price_err]</div>
+            <p id="err-price-required-client" class="error-msg price1-error" aria-live="polite"></p>
+            <p id="err-price-invalid-client" class="error-msg price2-error" aria-live="polite"></p>
+            <br><br>
+
+            <!-- Tipologia -->
+            <label for="type">Tipologia:</label>
+            <select id="type" name="type" aria-describedby="err-type-required err-type-invalid"
+                    data-msg-required="Seleziona una tipologia">
+                <option value="">Seleziona...</option>
+                <option value="Monolocale">Monolocale</option>
+                <option value="Bilocale">Bilocale</option>
+                <option value="Trilocale">Trilocale</option>
+                <option value="Villa">Villa</option>
+                <option value="Attico">Attico</option>
+                <option value="Rustico">Rustico</option>
+            </select>
+            <div id="err-type-server" class="error-msg display-error" aria-live="polite">[type_err]</div>
+            <p id="err-type-required-client" class="error-msg type1-error" aria-live="polite"></p>
+            <p id="err-type-invalid-client" class="error-msg type2-error" aria-live="polite"></p>
+
+            <!-- Size -->
+            <label for="size">Superficie (mq):</label>
+            <input type="number" id="size" name="size" required placeholder="Es. 75"
+                aria-describedby="err-size-required err-size-invalid"
+                data-msg-required="Inserisci la superficie"
+                data-msg-invalid="Valore non valido">
+            <div id="err-size-server" class="error-msg display-error" aria-live="polite">[size_err]</div>
+            <p id="err-size-required-client" class="error-msg size1-error" aria-live="polite"></p>
+            <p id="err-size-invalid-client" class="error-msg size2-error" aria-live="polite"></p>
+
+            <!-- Locali -->
+            <label for="rooms">Numero di locali:</label>
+            <input type="number" id="rooms" name="rooms" required placeholder="Es. 3"
+                aria-describedby="err-rooms-required err-rooms-invalid"
+                data-msg-required="Inserisci il numero di locali"
+                data-msg-invalid="Valore non valido">
+            <div id="err-rooms-server" class="error-msg display-error" aria-live="polite">[rooms_err]</div>
+            <p id="err-rooms-required-client" class="error-msg rooms1-error" aria-live="polite"></p>
+            <p id="err-rooms-invalid-client" class="error-msg rooms2-error" aria-live="polite"></p>
+            <br><br>
+
+            <!-- Availability -->
+            <label for="availability">Disponibilità:</label>
+            <select id="availability" name="availability" aria-describedby="err-availability-required err-availability-invalid"
+                    data-msg-required="Seleziona la disponibilità">
+                <option value="">Seleziona...</option>
+                <option value="1">Disponibile</option>
+                <option value="0">Non disponibile</option>
+            </select>
+            <div id="err-availability-server" class="error-msg display-error" aria-live="polite">[availability_err]</div>
+            <p id="err-availability-required-client" class="error-msg availability1-error" aria-live="polite"></p>
+            <p id="err-availability-invalid-client" class="error-msg availability2-error" aria-live="polite"></p>
+            <br><br>
+
+            <!-- Img -->
+            <label for="img">Immagine:</label>
+            <input type="file" id="img" name="img" required
+                aria-describedby="err-img-required"
+                data-msg-required="Seleziona un'immagine">
+            <div id="err-img-server" class="error-msg display-error" aria-live="polite">[img_err]</div>
+            <p id="err-img-required-client" class="error-msg img1-error" aria-live="polite"></p>
+            <br><br>
+
+            <!-- Address -->
+            <label for="address">Indirizzo:</label>
+            <input type="text" id="address" name="address" required placeholder="Es. Via G. Verdi, 8B"
+                aria-describedby="err-address-required err-address-invalid"
+                data-msg-required="Inserisci l'indirizzo"
+                data-msg-invalid="Formato non corretto">
+            <div id="err-address-server" class="error-msg display-error" aria-live="polite">[address_err]</div>
+            <p id="err-address-required-client" class="error-msg address1-error" aria-live="polite"></p>
+            <p id="err-address-invalid-client" class="error-msg address2-error" aria-live="polite"></p>
+
+            <!-- City -->
+            <label for="city">Città:</label>
+            <input type="text" id="city" name="city" required placeholder="Es. Padova"
+                aria-describedby="err-city-required err-city-invalid"
+                data-msg-required="Inserisci la città"
+                data-msg-invalid="Formato non corretto">
+            <div id="err-city-server" class="error-msg display-error" aria-live="polite">[city_err]</div>
+            <p id="err-city-required-client" class="error-msg city1-error" aria-live="polite"></p>
+            <p id="err-city-invalid-client" class="error-msg city2-error" aria-live="polite"></p>
+
+            <!-- Submit -->
+            <input type="submit" value="Aggiungi Proprietà" title="Clicca qui per aggiungere la proprietà">
+
+        </form>
+
+
     </div>
     
     <footer>

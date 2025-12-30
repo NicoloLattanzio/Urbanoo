@@ -78,14 +78,14 @@ class DBAccess {
         	    case '1': $query .= " AND metri_quadri BETWEEN 10 AND 20"; break;
         	    case '2': $query .= " AND metri_quadri BETWEEN 20 AND 60"; break;
         	    case '3': $query .= " AND metri_quadri BETWEEN 60 AND 100"; break;
-        	   case '4': $query .= " AND metri_quadri > 100"; break;
+        	    case '4': $query .= " AND metri_quadri > 100"; break;
         	}
     	}
 
     	$query .= " ORDER BY nome ASC";
     
     	$queryResult = mysqli_query($this->connection, $query);
-    
+		
     	if($queryResult && mysqli_num_rows($queryResult) != 0){
         	$result = array();
         	while($row = mysqli_fetch_assoc($queryResult)){
@@ -148,6 +148,47 @@ class DBAccess {
     	return mysqli_query($this->connection, $query);
 	}
 
+	public function propertyNameAlreadyExistent($nome) {
+		$query = "SELECT * FROM proprieta WHERE nome = ?";
+		$stmt = $this->connection->prepare($query);
+		$stmt->bind_param("s", $nome);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$row = $result->fetch_assoc();
+
+		return $row !== null;
+	}
+
+	public function propertyAddressAlreadyExistent($indirizzo) {
+		$query = "SELECT * FROM proprieta WHERE indirizzo = ?";
+		$stmt = $this->connection->prepare($query);
+		$stmt->bind_param("s", $indirizzo);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$row = $result->fetch_assoc();
+
+		return $row !== null;
+	}
+
+
+	public function insertProprieta($nome, $descrizione, $prezzo, $tipologia, $superficie, $locali, $disponibilita, $immagine, $indirizzo, $citta) {
+		$query = "	INSERT INTO proprieta (nome, descrizione, tipologia, indirizzo, citta, prezzo, metri_quadri, locali, immagine, disponibile)
+					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		$stmt = $this->connection->prepare($query);
+		$stmt->bind_param(
+				"sssssiiiss",
+				$nome,
+				$descrizione,
+				$tipologia,
+				$indirizzo,
+				$citta,
+				$prezzo,
+				$superficie,
+				$locali,
+				$immagine,
+				$disponibilita);
+		return $stmt->execute();
+	}
 }
 ?>
 
