@@ -27,17 +27,48 @@
     </header>
 
     <div class="form-container">
-        <h1>Login</h1>
-            <form action="../php/login.php" method="post">
-            <label for="username">Nome utente:</label>
-            <input type="text" id="username" name="username" required placeholder="Nome utente" autocomplete="username" 
-            data-msg-required="Per favore, inserisci il tuo nome utente" data-msg-invalid="Formato non corretto" >
+        <h1>Accedi al tuo <span lang="en">account</span></h1>
+            <!--<form action="../php/login.php" method="post">
+                <label for="username">Nome utente:</label>
+                <input type="text" id="username" name="username" required placeholder="Nome utente" autocomplete="username" 
+                data-msg-required="Per favore, inserisci il tuo nome utente" data-msg-invalid="Formato non corretto" >
 
-            <label for="password"><span lang="en">Password:</span></label>
-            <input type="password" id="password" name="password" required placeholder="Password" autocomplete="new-password" data-msg-required="Per favore, inserisci la tua password" 
-            data-msg-invalid="Formato non corretto">
-            <input type="submit" value="Login" title="Clicca qui per effettuare il login">
-        </form>
+                <label for="password"><span lang="en">Password:</span></label>
+                <input type="password" id="password" name="password" required placeholder="Password" autocomplete="new-password" data-msg-required="Per favore, inserisci la tua password" 
+                data-msg-invalid="Formato non corretto">
+                <input type="submit" value="Login" title="Clicca qui per effettuare il login">
+            </form>-->
+            <form id="login-form" method="post" action="../php/login.php">
+
+                <!-- Email -->
+                <label for="email"><span lang="en">Email:</span></label>
+                <input type="text" id="email" name="email" required placeholder="Email" autocomplete="email"
+                    aria-describedby="err-email-required err-email-invalid"
+                    data-msg-required="Per favore, inserisci la tua email"
+                    data-msg-invalid="Formato non corretto, email non valida">
+
+                <!-- Messaggi di errore per email lato backend-->
+                <div id="err-email-required-server" class="error-msg display-error" aria-live="polite">[email_required]</div>
+                <div id="err-email-invalid-server" class="error-msg display-error" aria-live="polite">[email_invalid]</div>
+                <p id="err-email-required-client" class="error-msg email1-error" aria-live="polite"></p>
+                <p id="err-email-invalid-client" class="error-msg email2-error" aria-live="polite"></p>
+
+                <!-- Password -->
+                <label for="password"><span lang="en">Password:</span></label>
+                <input type="password" id="password" name="password" required placeholder="Password" autocomplete="new-password"
+                    aria-describedby="err-password-required err-password-invalid"
+                    data-msg-required="Per favore, inserisci la tua password"
+                    data-msg-invalid="Formato non corretto">
+
+                <!-- Messaggi di errore per password -->
+                <div id="err-password-required" class="error-msg display-error" aria-live="polite">[password_required]</div>
+                <div id="err-password-invalid" class="error-msg display-error" aria-live="polite">[password_invalid]</div>
+                <p id="err-psw-required-client" class="error-msg psw1-error" aria-live="polite"></p>
+                <p id="err-psw-invalid-client" class="error-msg psw2-error" aria-live="polite"></p>
+                <!-- Submit -->
+                <input type="submit" value="Accedi" title="Clicca qui per effettuare l'accesso">
+
+            </form>
     </div>
     
     <footer>

@@ -25,12 +25,12 @@ if ($connessioneOK) {
     if ($proprieta) {
         // Sostituisci i segnaposto con i dettagli della proprietà
         $dettagli_proprieta = str_replace(
-            ["[immagine]", "[titolo]", "[descrizione]", "[prezzo]", "[indirizzo]", "[citta]", "[tipologia]", "[superficie]", "[locali]", "[disponibilita]"],
-            [$proprieta['immagine'], $proprieta['titolo'], $proprieta['descrizione'], $proprieta['prezzo'], $proprieta['indirizzo'], $proprieta['citta'], $proprieta['tipologia'], $proprieta['superficie'], $proprieta['locali'], $proprieta['disponibilita']], 
+            ["[immagine]", "[nome]", "[descrizione]", "[prezzo]", "[indirizzo]", "[citta]", "[tipologia]", "[superficie]", "[locali]", "[disponibilita]"],
+            [$proprieta['immagine'], $proprieta['nome'], $proprieta['descrizione'], $proprieta['prezzo'], $proprieta['indirizzo'], $proprieta['citta'], $proprieta['tipologia'], $proprieta['superficie'], $proprieta['locali'], $proprieta['disponibilita']], 
             "<div>
                 <div>
                     [immagine]
-                    [titolo]
+                    [nome]
                 </div>
                 <div>
                     <dl>
