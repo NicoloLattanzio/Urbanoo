@@ -1,0 +1,52 @@
+FROM php:8.2-apache
+
+# Imposta la variabile d'ambiente per la document root di Apache
+ENV APACHE_DOCUMENT_ROOT=/var/www/html
+ENV PHP_APP_ROOT=/var/www/php
+
+# Installa le dipendenze di sistema e le estensioni PHP per MySQL
+RUN apt-get update && apt-get install -y \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libzip-dev \
+    zip \
+    unzip \
+    git \
+    curl \
+    default-mysql-client \
+    && rm -rf /var/lib/apt/lists/*
+
+# Installa le estensioni PHP
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) \
+    gd \
+    mysqli \
+    pdo \
+    pdo_mysql \
+    zip \
+    opcache
+
+# Configura Apache
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
+    sed -i 's/Listen 80/Listen 8080/g' /etc/apache2/ports.conf && \
+    sed -ri -e 's/.*<VirtualHost \*:80>.*/<VirtualHost *:8080>/g' \
+           -e 's#/var/www/html#${APACHE_DOCUMENT_ROOT}#g' \
+           -e 's#</VirtualHost>#\n\t<Directory ${APACHE_DOCUMENT_ROOT}>\n\t\tOptions Indexes FollowSymLinks\n\t\tAllowOverride All\n\t\tRequire all granted\n\t</Directory>\n\tAlias /php/ ${PHP_APP_ROOT}/\n\t<Directory ${PHP_APP_ROOT}>\n\t\tOptions Indexes FollowSymLinks\n\t\tAllowOverride All\n\t\tRequire all granted\n\t</Directory>\n</VirtualHost>#g' \
+        /etc/apache2/sites-available/000-default.conf
+
+# Abilita i moduli necessari
+RUN a2enmod rewrite headers
+
+# Crea la directory per l'applicazione
+RUN mkdir -p ${APACHE_DOCUMENT_ROOT}
+
+# Espone la porta 8080
+EXPOSE 8080
+
+# Imposta i permessi per la directory web
+RUN chown -R www-data:www-data /var/www && \
+    chmod -R 755 /var/www
+
+# Comando di avvio
+CMD ["apache2-foreground"]

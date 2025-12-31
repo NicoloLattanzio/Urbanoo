@@ -2,34 +2,49 @@
 session_start();
 require_once 'dbconnection.php';
 
+
+//$con = mysqli_connect('mysql', 'user', 'user1234', 'user');
+
+$con = new DBAccess;
+$con->openDBConnection();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
 
-    $email = trim($_POST['email']);
+    $username = $_POST['username'];
     $password = $_POST['password'];
 
 
-    $sql = "SELECT id, nome, cognome, ruolo FROM utenti WHERE email = ? AND password = ?";
-    $result = mysqli_prepare($db, $sql);
-    
-    if ($result) {
-        mysqli_stmt_bind_param($result, "ss", $email, $password);
-        mysqli_stmt_execute($result);
-        $user = mysqli_stmt_get_result($result);
+    $query = "SELECT id, nome, cognome, ruolo, password FROM utenti WHERE username = ? AND password = ?";
+    $stmt = $con->prepare($query);
 
-        if ($user && password_verify($password, $user['password'])) {
+    if(!$stmt){
+        throw new Exception('Errore nella preparazione della query.');
+    }
+    $stmt->bind_param('ss',$username, $password);
+    $stmt->execute();
+    $stmt->bind_result($id,$nome, $cognome, $ruolo, $passwordObt);
+    $stmt->fetch();
 
-            $_SESSION['id'] = $user['id'];
-            $_SESSION['nome'] = $user['nome'];
-            $_SESSION['ruolo'] = $user['ruolo'];
 
-            header("Location: dashboard.php");
+    if ($stmt->fetch()) {
+        if (password_verify($password, $passwordObt)) {
+            echo($nome);
+            $_SESSION['id'] = $id;
+            $_SESSION['logged_in'] = true;
+
+            header("Location: proprieta.php");
             exit;
         } else {
-            $error = "Email o password non corretti.";
+            echo("Username o password non corretti.");
+            header("Location: login.html");
         }
-    } else {
-        $error = "Errore nel sistema.";
+    }else{
+        echo("Username o password non corretti.");
+        header("Location: login.html");
     }
+    // Chiudi lo statement
+    mysqli_stmt_close($stmt);
 }
+
 ?>

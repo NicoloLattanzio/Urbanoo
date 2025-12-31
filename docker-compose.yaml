@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: Urbanoo_MySQL
+    restart: always
+    environment:
+      MYSQL_DATABASE: user
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user1234
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+      - ./init-db:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build: ./docker
+    container_name: mio-sito
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./html:/var/www/html
+      - ./php:/var/www/php
+    environment:
+      APACHE_DOCUMENT_ROOT: /var/www/html
+      PHP_APP_ROOT: /var/www/php
+    depends_on:
+      mysql:
+        condition: service_healthy

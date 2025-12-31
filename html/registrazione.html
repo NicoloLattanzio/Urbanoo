@@ -20,23 +20,29 @@
         <h2>Trova la casa dei tuoi sogni</h2>
         <nav title="Barra di navigazione principale">
             <ul>
-                <li lang="en"><a href="./index.html">Home</a></li>
-                <li><a href="./aboutus.html">Chi Siamo</a></li>
+                <li lang="en"><a href="index.html">Home</a></li>
+                <li><a href="aboutus.html">Chi Siamo</a></li>
                 <li><a href="./proprietà.html">Proprietà</a></li>
-                <li><a href="./contatti.html">Contatti</a></li>
-                <li><a href="./areariservata.html"><img src="" alt="profilo utente"></a></li>
+                <li><a href="contatti.html">Contatti</a></li>
+                <li><a href="areariservata.html"><img src="" alt="profilo utente"></a></li>
             </ul>
         </nav>
     </header>
     <div class="form-container">
         <h1>Registrazione</h1>
-        <form action="../php/login.php" method="post" id="mioForm">
+        <form action="../php/register.php" method="post" id="mioForm">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required placeholder="Nome" autocomplete="name" data-msg-required="Per favore, inserisci il tuo nome" data-msg-invalid="Formato non corretto">
+
+            <label for="cognome">Cognome:</label>
+            <input type="text" id="cognome" name="cognome" required placeholder="Cognome" autocomplete="surname" data-msg-required="Per favore, inserisci il tuo cognome" data-msg-invalid="Formato non corretto">
+
             <label for="username">Nome utente:</label>
-            <input type="text" id="username" name="username" required placeholder="Nome utente" autocomplete="username"data-msg-required="Per favore, inserisci il tuo nome utente" 
+            <input type="text" id="username" name="username" required placeholder="Nome utente" autocomplete="username" data-msg-required="Per favore, inserisci il tuo nome utente"
             data-msg-invalid="Formato non corretto">
 
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required placeholder="Email" autocomplete="email"data-msg-required="Per favore, inserisci la tua email" 
+            <input type="email" id="email" name="email" required placeholder="Email" autocomplete="email" data-msg-required="Per favore, inserisci la tua email"
             data-msg-invalid="Formato non corretto">
 
             <label for="password">Password:</label>
