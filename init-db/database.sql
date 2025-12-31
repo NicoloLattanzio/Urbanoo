@@ -26,7 +26,7 @@ INSERT INTO utenti (nome, cognome, email, password, ruolo) VALUES
         'Admin',
         'Test',
         'admin@urbanoo.com',
-        'password123',
+        '$2y$10$6lnIBHp6loYxZap2bQ6bnOJ57zOvcsvZd.BJer8ZSv1y1V3sTaR3.',
         'admin'
     );
 
