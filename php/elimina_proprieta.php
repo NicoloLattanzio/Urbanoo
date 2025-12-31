@@ -9,7 +9,7 @@ if (isset($_SESSION['ruolo']) && $_SESSION['ruolo'] === 'admin' && isset($_GET['
     if ($db->openDBConnection()) {
         $id = $_GET['id'];
         $successo = $db->deleteProprieta($id); 
-        $db->closeConnection();
+        $db->closeDBConnection();
         
         if ($successo) {
             header("Location: proprieta.php?msg=success");

@@ -40,7 +40,7 @@ if ($connessioneOK) {
         $listaProprieta = $connessione->getListProprieta();
     }
 
-    $connessione->closeConnection();
+    $connessione->closeDBConnection();
 
     $stringaProprieta .= $messaggioOperazione;  // CONTROLLA SE VA BENE QUI
 

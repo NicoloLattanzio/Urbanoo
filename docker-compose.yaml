@@ -28,9 +28,11 @@ services:
     volumes:
       - ./html:/var/www/html
       - ./php:/var/www/php
+      - ./img:/var/www/img
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/html
       PHP_APP_ROOT: /var/www/php
+      IMG_ROOT: /var/www/img
     depends_on:
       mysql:
         condition: service_healthy

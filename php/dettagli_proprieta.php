@@ -4,7 +4,7 @@
 
 <!-- mostra i dettagli della proprietà singola per entrambe le tipologie di utenti -->
 <?php
-session_start();
+
 require_once "dbconnection.php";
 use DB\DBAccess;
 
@@ -25,8 +25,8 @@ if ($connessioneOK) {
     if ($proprieta) {
         // Sostituisci i segnaposto con i dettagli della proprietà
         $dettagli_proprieta = str_replace(
-            ["[immagine]", "[nome]", "[descrizione]", "[prezzo]", "[indirizzo]", "[citta]", "[tipologia]", "[superficie]", "[locali]", "[disponibilita]"],
-            [$proprieta['immagine'], $proprieta['nome'], $proprieta['descrizione'], $proprieta['prezzo'], $proprieta['indirizzo'], $proprieta['citta'], $proprieta['tipologia'], $proprieta['superficie'], $proprieta['locali'], $proprieta['disponibilita']], 
+            ["[immagine]", "[nome]", "[descrizione]", "[prezzo]", "[indirizzo]", "[citta]", "[tipologia]", "[metri_quadri]", "[locali]", "[disponibilita]"],
+            [$proprieta['immagine'], $proprieta['nome'], $proprieta['descrizione'], $proprieta['prezzo'], $proprieta['indirizzo'], $proprieta['citta'], $proprieta['tipologia'], $proprieta['metri_quadri'], $proprieta['locali'], $proprieta['disponibilita']],
             "<div>
                 <div>
                     [immagine]
@@ -42,8 +42,8 @@ if ($connessioneOK) {
                         <dd>[indirizzo], [citta]</dd>
                         <dt>Tipologia:</dt>
                         <dd>[tipologia]</dd>
-                        <dt>Superficie:</dt>
-                        <dd>[superficie] m&sup2;</dd>
+                        <dt>Metri Quadri:</dt>
+                        <dd>[metri_quadri] m&sup2;</dd>
                         <dt>Locali:</dt>
                         <dd>[locali]</dd>
                         <dt>Disponibilità:</dt>
