@@ -13,6 +13,7 @@ $isAdmin = (isset($_SESSION['ruolo']) && $_SESSION['ruolo'] === 'admin');
 $connessione = new DBAccess();
 $connessioneOK = $connessione->openDBConnection();
 
+//se non sei ne utente normale ne admin reindirizza al login.html
 
 if ($connessioneOK) {
     $connessione->closeConnection();

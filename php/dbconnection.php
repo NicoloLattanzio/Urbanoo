@@ -3,7 +3,7 @@ namespace DB;
 
 class DBAccess {
 
-	private const HOST_DB = "localhost";
+	private const HOST_DB = "mysql";
 	private const DATABASE_NAME = "user";
 	private const USERNAME = "user";
 	private const PASSWORD = "user1234";
@@ -164,8 +164,7 @@ class DBAccess {
 		$stmt = $this->connection->prepare($query);
 		$stmt->bind_param("s", $indirizzo);
 		$stmt->execute();
-		$result = $stmt->get_result();
-		$row = $result->fetch_assoc();
+		$row = $stmt->fetch();
 
 		return $row !== null;
 	}
@@ -188,6 +187,19 @@ class DBAccess {
 				$immagine,
 				$disponibilita);
 		return $stmt->execute();
+	}
+
+	public function getUser($email) {
+		$query = "SELECT * FROM utenti WHERE email = ?";
+		$stmt = $this->connection->prepare($query);
+		$stmt->bind_param("s", $email);
+		$stmt->execute();
+
+		$result = $stmt->get_result();      
+		$user = $result->fetch_assoc();    
+
+		$stmt->close();
+		return $user;
 	}
 }
 ?>

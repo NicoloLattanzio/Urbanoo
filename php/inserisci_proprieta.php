@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //meglio di isset($_POST['submit'])
             }
             else {
                 $_SESSION['insertion_error_message'] = "Errore durante l'esecuzione della query.";
-                header("Location: 500.html"); //reindirizzo alla pagina di errore (problema con l'esecuzione della query)
+                header("Location: proprieta.php"); //reindirizzo alla pagina di errore (problema con l'esecuzione della query)
                 exit();
             }
         } else {
@@ -201,5 +201,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //meglio di isset($_POST['submit'])
         exit();
     }
 }
-    echo $paginaHTML; //serve? boh
+    echo $paginaHTML; //se l'utente accede alla pagina tramite il "+"" Aggiungi Proprietà" da proprieta.php
 ?>

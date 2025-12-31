@@ -1,50 +1,64 @@
 <?php
-session_start();
-require_once 'dbconnection.php';
+    session_start();
+    require_once 'dbconnection.php';
+    use DB\DBAccess;
+    $formValido = true;
+    $email = '';
+    $emailErr = '';
+    $password = '';
+    $passwordErr = '';
 
-
-//$con = mysqli_connect('mysql', 'user', 'user1234', 'user');
-
-$con = new DBAccess;
-$con->openDBConnection();
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
-
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-
-    $query = "SELECT id, nome, cognome, ruolo, password FROM utenti WHERE username = ? AND password = ?";
-    $stmt = $con->prepare($query);
-
-    if(!$stmt){
-        throw new Exception('Errore nella preparazione della query.');
+    $PageAreariservata = file_get_contents('areariservata.php');
+    $PageLogin = file_get_contents('../html/login.html');
+    $connessione = new DBAccess();
+    $connessioneOK = $connessione->openDBConnection();
+    if(!$connessioneOK){
+        header("location: 500.html"); 
+        exit();
     }
-    $stmt->bind_param('ss',$username, $password);
-    $stmt->execute();
-    $stmt->bind_result($id,$nome, $cognome, $ruolo, $passwordObt);
-    $stmt->fetch();
-
-
-    if ($stmt->fetch()) {
-        if (password_verify($password, $passwordObt)) {
-            echo($nome);
-            $_SESSION['id'] = $id;
-            $_SESSION['logged_in'] = true;
-
-            header("Location: proprieta.php");
-            exit;
-        } else {
-            echo("Username o password non corretti.");
-            header("Location: login.html");
+    /*
+        1. user already logged in as user -> redirect to areariservata.php
+        2. user already logged in as admin -> redirect to areariservata.php
+        3. user not logged in and form sent -> process login and validation -> if success redirect to areariservata.php, else show login form with errors
+        4. user not logged in and form not sent -> show login form (login.html)
+    */
+    if (isset($_SESSION['user_id'], $_SESSION['role'])) {   //1,2
+        header("Location: areariservata.php");
+        exit;
+    }
+    else{
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){  //3
+            
+            $email = $_POST['email'] ?? '';
+            $password = $_POST['password'] ?? '';
+            
+            $user = $connessione->getUser($email);
+            if($user){
+                if(password_verify($password, $user['password'])){
+                    $_SESSION['user_id'] = $user['id'];
+                    $_SESSION['role'] = $user['ruolo'];
+                }
+                else{
+                    $passwordErr .= '<p><span lang="en">Password</span> non corretta.</p>';
+                    $formValido = false;
+                }
+            }
+            else{
+                $emailErr = '<p>Email non trovata.</p>';
+                $formValido = false;
+            }
+            if($formValido){ //login successful
+                header("Location: areariservata.php");
+                exit();
+            }
+            else{   //login failed, show login form with errors
+                $PageLogin = str_replace('[email_err]', $emailErr, $PageLogin);
+                $PageLogin = str_replace('[password_err]', $passwordErr, $PageLogin);
+                echo $PageLogin;
+            }
         }
-    }else{
-        echo("Username o password non corretti.");
-        header("Location: login.html");
+        else{   //4
+            echo $PageLogin;
+        }
     }
-    // Chiudi lo statement
-    mysqli_stmt_close($stmt);
-}
-
 ?>
