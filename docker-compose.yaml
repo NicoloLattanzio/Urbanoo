@@ -5,6 +5,7 @@ services:
     container_name: Urbanoo_MySQL
     restart: always
     environment:
+      MYSQL_ROOT_PASSWORD: user1234
       MYSQL_DATABASE: user
       MYSQL_USER: user
       MYSQL_PASSWORD: user1234
