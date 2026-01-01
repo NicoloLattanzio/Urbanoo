@@ -16,7 +16,7 @@ $connessioneOK = $connessione->openDBConnection();
 //se non sei ne utente normale ne admin reindirizza al login.html
 
 if ($connessioneOK) {
-    $connessione->closeConnection();
+    $connessione->closeDBConnection();
     $paginaHTML = str_replace("[nome]", $_SESSION['nome'], $paginaHTML);
     $paginaHTML = str_replace("[ruolo]", $_SESSION['ruolo'], $paginaHTML);
     if ($isAdmin) {

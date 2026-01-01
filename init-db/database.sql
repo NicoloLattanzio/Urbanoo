@@ -24,6 +24,11 @@ CREATE TABLE IF NOT EXISTS proprieta (
     data_inserimento TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS wishlist (
+    FOREIGN KEY id_utente REFERENCES utenti(id),
+    FOREIGN KEY id_proprieta REFERENCES proprieta(id)
+);
+
 -- Inserisci un utente di test (password: password123)
 INSERT INTO utenti (nome, cognome, email, password, ruolo) VALUES
     (
