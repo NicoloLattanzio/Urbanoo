@@ -205,5 +205,16 @@ class DBAccess {
 		$stmt->close();
 		return $user;
 	}
+
+	// Funzione per aggiornare i dettagli di una proprietà
+	public function updateProprieta($id, $nome, $descrizione, $prezzo, $tipologia, $superficie, $locali, $disponibilita, $immagine, $indirizzo, $citta) {
+    	$query = "UPDATE proprieta SET nome=?, descrizione=?, tipologia=?, indirizzo=?, citta=?, prezzo=?, metri_quadri=?, locali=?, immagine=?, disponibile=? WHERE id=?";
+    	$stmt = $this->connection->prepare($query);
+   	 	$stmt->bind_param("sssssiiissi", 
+        $nome, $descrizione, $tipologia, $indirizzo, $citta, 
+        $prezzo, $superficie, $locali, $immagine, $disponibilita, $id);
+    	return $stmt->execute();
+	}
 }
+
 ?>
