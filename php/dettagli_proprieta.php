@@ -1,8 +1,3 @@
-<!-- fa andare l'utente in dettagli.html in base al suo status: user/admin
- in base allo status cambia il contenuto della pagina:  user -> mostra i dettagli della proprietà singola (inserisci bottone wishlist)
-                                                        admin -> mostra un form con le cose da poter modificare  -->
-
-<!-- mostra i dettagli della proprietà singola per entrambe le tipologie di utenti -->
 <?php
 
 require_once "dbconnection.php";
