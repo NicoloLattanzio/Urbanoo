@@ -12,7 +12,7 @@ $paginaHTML = file_get_contents('../html/modifica_password.html');
 $messaggio = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_SESSION['email']; 
+    $email = $_SESSION['email'];
     $old   = $_POST['old_password'];
     $new   = $_POST['new_password'];
 
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $messaggio = '<p class="error-message" role="alert">Email o vecchia password errati.</p>';
         }
-        $connessione->closeConnection();
+        $connessione->closeDBConnection();
     } else {
         $messaggio = '<p class="error-message" role="alert">Sistemi momentaneamente fuori servizio.</p>';
     }

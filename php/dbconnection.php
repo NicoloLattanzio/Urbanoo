@@ -132,16 +132,20 @@ class DBAccess {
 	public function checkOldPassword($email, $oldPassword) {
     	$email = mysqli_real_escape_string($this->connection, $email);
     	$oldPassword = mysqli_real_escape_string($this->connection, $oldPassword);
-   
-    	$query = "SELECT * FROM utenti WHERE email = '$email' AND password = '$oldPassword'";
+    	$query = "SELECT * FROM utenti WHERE email = '$email'";
     	$result = mysqli_query($this->connection, $query);
-    
-    	return ($result && mysqli_num_rows($result) > 0);
+        $row = mysqli_fetch_assoc($result);
+        if(password_verify($oldPassword, $row['password'])){
+            return true;
+        }else{
+            return false;
+        }
+    	//return ($result && mysqli_num_rows($result) > 0);
 	}
 
 	public function updatePassword($email, $newPassword) {
     	$email = mysqli_real_escape_string($this->connection, $email);
-    	$newPassword = mysqli_real_escape_string($this->connection, $newPassword);
+    	$newPassword = password_hash(mysqli_real_escape_string($this->connection, $newPassword), PASSWORD_DEFAULT);
     
     	// Aggiorniamo dove l'email corrisponde
     	$query = "UPDATE utenti SET password = '$newPassword' WHERE email = '$email'";
