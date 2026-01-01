@@ -53,8 +53,8 @@ if ($connessioneOK) {
 
         foreach ($listaProprieta as $proprieta) {
             $stringaProprieta .= '<li>';
-            $stringaProprieta .= '<h3>' . htmlspecialchars($proprieta['nome']) . '</h3>';
-            $stringaProprieta .= '<img src="' . $proprieta['immagine'] . '" alt="Foto di ' . htmlspecialchars($proprieta['nome']) . '" />';
+            $stringaProprieta .= '<h3>' . $proprieta['nome'] . '</h3>';
+            $stringaProprieta .= '<img src="' . $proprieta['immagine'] . '" alt="Foto di ' . $proprieta['nome'] . '" />';
             // Tutti gli utenti hanno il pulsante "Vedi"
             $stringaProprieta .= '<a href="dettagli_proprieta.php?id=' . $proprieta['id'] . '" aria-label="Vedi i dettagli di ' . $proprieta['nome'] . '">Vedi</a>';
 
