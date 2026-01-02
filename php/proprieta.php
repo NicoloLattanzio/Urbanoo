@@ -6,7 +6,7 @@ use DB\DBAccess;
 $paginaHTML = file_get_contents('../html/proprieta.html');
 
 // Controllo dello stato utente (Admin o User)
-$isAdmin = (isset($_SESSION['ruolo']) && $_SESSION['ruolo'] === 'admin');
+$isAdmin = (isset($_SESSION['role']) && $_SESSION['role'] === 'admin');
 
 $connessione = new DBAccess();
 $connessioneOK = $connessione->openDBConnection();
