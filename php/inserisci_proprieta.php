@@ -3,6 +3,11 @@
 require_once "dbConnection.php";
 use DB\DBAccess;
 
+if(!isset($_SESSION['role']) || $_SESSION !== 'admin'){
+    header("Location: 403.html");
+    exit();
+}
+
 $paginaHTML = file_get_contents('../html/aggiungi_proprieta.html');
 $formValido = true;
 $tagPermessi ='<em><strong><ul><li>';
