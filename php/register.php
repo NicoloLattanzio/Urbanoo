@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if($result->fetch()){
         $_SESSION['id'] = $id;
-        $_SESSION['ruolo'] = $ruolo;
+        $_SESSION['role'] = $ruolo;
         $_SESSION['logged_in'] = true;
         header("Location: proprieta.php");
     }
