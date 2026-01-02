@@ -20,9 +20,17 @@ CREATE TABLE IF NOT EXISTS proprieta (
     indirizzo VARCHAR(50),
     locali INT,
     disponibilita BIT,
-    immagine VARCHAR(30),
+    immagine VARCHAR(50),
     data_inserimento TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE IF NOT EXISTS immagini (
+    id_proprieta INT,
+    immagine VARCHAR(50),
+    FOREIGN KEY (id_proprieta) REFERENCES proprieta(id),
+    CONSTRAINT PK_IMGs PRIMARY KEY (id_proprieta, immagine)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS wishlist (
     id_utente INT,
@@ -46,4 +54,3 @@ INSERT INTO utenti (nome, cognome, email, password, ruolo) VALUES
 INSERT INTO proprieta (id, nome, descrizione, citta, tipologia, prezzo, metri_quadri, indirizzo, locali, disponibilita, immagine) VALUES (1, 'casa', 'Casa a caso', 'Napoli', 'Casa napoletana', 10, 55, 'Via napoletana', 32, 1,'../img/attici.png');
 INSERT INTO proprieta (id, nome, descrizione, citta, tipologia, prezzo, metri_quadri, indirizzo, locali, disponibilita, immagine) VALUES (2, 'casa gay', 'Casa a caso', 'Vesuvio', 'Casa con cenere', 2, 76,  'Via napoletana', 21, 0,'../img/Skyscraper_Rework.png');
 INSERT INTO proprieta (id, nome, descrizione, citta, tipologia, prezzo, metri_quadri, indirizzo, locali, disponibilita, immagine) VALUES (3, 'casa 2121321', 'Casa a caso', 'Vesuvio', 'Casa con cenere', 2, 76,  'Via napoletana', 21, 0,'../img/Skyscraper_Rework.png');
-

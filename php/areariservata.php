@@ -8,7 +8,7 @@ $paginaHTML = file_get_contents('../html/areariservata.html');
 
 // Controllo dello stato utente (Admin o User)
 // Assumiamo che salvate il ruolo in $_SESSION['ruolo'] al momento del login
-$isAdmin = (isset($_SESSION['ruolo']) && $_SESSION['ruolo'] === 'admin');
+$isAdmin = (isset($_SESSION['role']) && $_SESSION['role'] === 'admin');
 
 $connessione = new DBAccess();
 $connessioneOK = $connessione->openDBConnection();
@@ -17,8 +17,8 @@ $connessioneOK = $connessione->openDBConnection();
 
 if ($connessioneOK) {
     $connessione->closeDBConnection();
-    $paginaHTML = str_replace("[nome]", $_SESSION['nome'], $paginaHTML);
-    $paginaHTML = str_replace("[ruolo]", $_SESSION['ruolo'], $paginaHTML);
+    $paginaHTML = str_replace("[nome]", $_SESSION['name'], $paginaHTML);
+    $paginaHTML = str_replace("[ruolo]", $_SESSION['role'], $paginaHTML);
     if ($isAdmin) {
         // Codice per amministratori
         $paginaHTML = str_replace("[wishlist]", "", $paginaHTML);
