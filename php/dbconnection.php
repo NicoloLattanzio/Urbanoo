@@ -208,7 +208,7 @@ class DBAccess {
 
 	// Funzione per aggiornare i dettagli di una proprietà
 	public function updateProprieta($id, $nome, $descrizione, $prezzo, $disponibilita) {
-    	$query = "UPDATE proprieta SET nome=?, descrizione=?, prezzo=?, disponibile=? WHERE id=?";
+    	$query = "UPDATE proprieta SET nome=?, descrizione=?, prezzo=?, disponibilita=? WHERE id=?";
     	$stmt = $this->connection->prepare($query);
    	 	$stmt->bind_param(
 			"ssdis", 

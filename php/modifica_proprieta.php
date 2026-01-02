@@ -3,7 +3,7 @@ session_start();
 require_once "dbconnection.php";
 use DB\DBAccess;
 
-if (!isset($_SESSION['ruolo']) || $_SESSION['ruolo'] !== 'admin') {
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header("Location: proprieta.php");
     exit();
 }
@@ -34,12 +34,12 @@ if ($connessioneOK) {
         $proprieta = $connessione->showProprietaDetails(intval($idDaCaricare));
         
         if ($proprieta) {
-            $selSi = ($proprieta['disponibile'] == 1) ? "selected" : "";
-            $selNo = ($proprieta['disponibile'] == 0) ? "selected" : "";
+            $selSi = ($proprieta['disponibilita'] == 1) ? "selected" : "";
+            $selNo = ($proprieta['disponibilita'] == 0) ? "selected" : "";
 
             $paginaHTML = str_replace(
-                ["[id]", "[nome]", "[nome_statico]", "[descrizione]", "[prezzo]", "[indirizzo]", "[citta]", "[metri_quadri]", "[select_si]", "[select_no]", "[messaggio]"],
-                [$proprieta['id'], $proprieta['nome'], $proprieta['nome'], $proprieta['descrizione'], $proprieta['prezzo'], $proprieta['indirizzo'], $proprieta['citta'], $proprieta['metri_quadri'], $selSi, $selNo, $messaggio],
+                ["[id]", "[nome]", "[descrizione]", "[prezzo]", "[indirizzo]", "[citta]", "[metri_quadri]", "[select_si]", "[select_no]", "[messaggio]"],
+                [$proprieta['id'], $proprieta['nome'], $proprieta['descrizione'], $proprieta['prezzo'], $proprieta['indirizzo'], $proprieta['citta'], $proprieta['metri_quadri'], $selSi, $selNo, $messaggio],
                 $paginaHTML
             );
         }
