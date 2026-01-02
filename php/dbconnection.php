@@ -101,14 +101,19 @@ class DBAccess {
 	public function deleteProprieta($id) {
     	$id = intval($id);
     	if ($id <= 0) return false;
-
-    	$query = "DELETE FROM proprieta WHERE id = $id";
+    	$query = "DELETE FROM proprieta WHERE id = ?";
     
     	try {
-        	$queryResult = mysqli_query($this->connection, $query);
-        	return ($queryResult && mysqli_affected_rows($this->connection) > 0);
+        	$stmt = $this->connection->prepare($query);
+        	$stmt->bind_param("i", $id);
+        	$successo = $stmt->execute();
+
+        	$deleted = $stmt->affected_rows;
+        	$stmt->close();
+
+        	return ($successo && $deleted > 0);
     	} catch (\mysqli_sql_exception $e) {
-       	 return false;
+        	return false;
     	}
 	}
 	// Assicurati che nel database siano impostate le chiavi esterne con ON DELETE CASCADE o gestisci l'eliminazione dei record correlati nella funzione.
