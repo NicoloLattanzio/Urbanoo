@@ -193,6 +193,16 @@ class DBAccess {
 		return $stmt->execute();
 	}
 
+
+
+    public function insertimg($idProprieta, $immagine){
+
+
+
+
+
+    }
+
 	public function getUser($email) {
 		$query = "SELECT * FROM utenti WHERE email = ?";
 		$stmt = $this->connection->prepare($query);
@@ -221,6 +231,18 @@ class DBAccess {
 		$stmt->close();
     	return $res;
 	}
+    public function insertUser($nome, $cognome, $email, $password, $ruolo) {
+        $conn = $this->connection;
+        $query = "INSERT INTO utenti (nome, cognome, email, password, ruolo) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($query);
+
+        if (!$stmt) {
+            return false;
+        }
+
+        $stmt->bind_param('sssss', $nome, $cognome, $email, $password, $ruolo);
+        return $stmt->execute();
+    }
 }
 
 
