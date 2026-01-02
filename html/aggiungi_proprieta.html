@@ -77,7 +77,7 @@
             <input type="number" id="price" name="price" required placeholder="Es. 150000"
                 aria-describedby="err-price-required err-price-invalid"
                 data-msg-required="Inserisci il prezzo"
-                data-msg-invalid="Valore non valido">
+                data-msg-invalid="Valore non valido" min="0">
             <div id="err-price-server" class="error-msg display-error" aria-live="polite">[price_err]</div>
             <p id="err-price-required-client" class="error-msg price1-error" aria-live="polite"></p>
             <p id="err-price-invalid-client" class="error-msg price2-error" aria-live="polite"></p>
@@ -104,7 +104,7 @@
             <input type="number" id="size" name="size" required placeholder="Es. 75"
                 aria-describedby="err-size-required err-size-invalid"
                 data-msg-required="Inserisci la superficie"
-                data-msg-invalid="Valore non valido">
+                data-msg-invalid="Valore non valido" min="0">
             <div id="err-size-server" class="error-msg display-error" aria-live="polite">[size_err]</div>
             <p id="err-size-required-client" class="error-msg size1-error" aria-live="polite"></p>
             <p id="err-size-invalid-client" class="error-msg size2-error" aria-live="polite"></p>
@@ -114,7 +114,7 @@
             <input type="number" id="rooms" name="rooms" required placeholder="Es. 3"
                 aria-describedby="err-rooms-required err-rooms-invalid"
                 data-msg-required="Inserisci il numero di locali"
-                data-msg-invalid="Valore non valido">
+                data-msg-invalid="Valore non valido" min="0">
             <div id="err-rooms-server" class="error-msg display-error" aria-live="polite">[rooms_err]</div>
             <p id="err-rooms-required-client" class="error-msg rooms1-error" aria-live="polite"></p>
             <p id="err-rooms-invalid-client" class="error-msg rooms2-error" aria-live="polite"></p>
@@ -134,11 +134,11 @@
             <br><br>
 
             <!-- Img -->
-            <label for="img">Immagini:</label>
-            <input type="file" id="img" name="img[]" accept=".jpg,.jpeg,.png" required aria-describedby="err-img-server err-img-required-client"
-                data-msg-required="Carica un'immagine della proprietà">
-            <div id="err-img-server" class="error-msg display-error" aria-live="polite">[img_err]</div>
-            <p id="err-img-required-client" class="error-msg img1-error" aria-live="polite"></p>
+                <label for="img">Immagini:</label>
+                <input type="file" id="img" name="img[]" accept=".jpg,.jpeg,.png" required aria-describedby="err-img-server err-img-required-client"
+                    data-msg-required="Carica un'immagine della proprietà" multiple>
+                <div id="err-img-server" class="error-msg display-error" aria-live="polite">[img_err]</div>
+                <p id="err-img-required-client" class="error-msg img1-error" aria-live="polite"></p>
             
             <!-- Address -->
             <label for="address">Indirizzo:</label>

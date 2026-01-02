@@ -46,7 +46,7 @@ if ($connessioneOK) {
 
     if (!empty($listaProprieta)) {
         if ($isAdmin) {
-            $stringaProprieta .= '<div class="admin-controls"><a href="aggiungi_proprieta.php" class="btn-add">➕ Aggiungi Nuova Proprietà</a></div>';
+            $stringaProprieta .= '<div class="admin-controls"><a href="../php/inserisci_proprieta.php" class="btn-add">➕ Aggiungi Nuova Proprietà</a></div>';
         }
 
         $stringaProprieta .= '<ul class="property-list">'; 
