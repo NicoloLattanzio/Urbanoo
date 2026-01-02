@@ -50,7 +50,7 @@
             <input type="submit" value="Aggiungi Proprieta" title="Clicca qui per confermare l'aggiunta della proprieta">
         </form>
         <!-- SISTEMARE form per l'aggiunta della proprietà CON CORREZIONI DI ERRORI E ACCESSIBILITÀ -->
-        <form id="add-property-form" action="../php/aggiungi_proprieta.php" method="post">
+        <form id="add-property-form" action="../php/aggiungi_proprieta.php" method="post" enctype="multipart/form-data">
 
             <!-- Name -->
             <label for="name">Nome Proprietà:</label>
@@ -134,14 +134,12 @@
             <br><br>
 
             <!-- Img -->
-            <label for="img">Immagine:</label>
-            <input type="file" id="img" name="img" required
-                aria-describedby="err-img-required"
-                data-msg-required="Seleziona un'immagine">
+            <label for="img">Immagini:</label>
+            <input type="file" id="img" name="img[]" accept=".jpg,.jpeg,.png" required aria-describedby="err-img-server err-img-required-client"
+                data-msg-required="Carica un'immagine della proprietà">
             <div id="err-img-server" class="error-msg display-error" aria-live="polite">[img_err]</div>
             <p id="err-img-required-client" class="error-msg img1-error" aria-live="polite"></p>
-            <br><br>
-
+            
             <!-- Address -->
             <label for="address">Indirizzo:</label>
             <input type="text" id="address" name="address" required placeholder="Es. Via G. Verdi, 8B"
