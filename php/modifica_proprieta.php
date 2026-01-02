@@ -38,8 +38,8 @@ if ($connessioneOK) {
             $selNo = ($proprieta['disponibilita'] == 0) ? "selected" : "";
 
             $paginaHTML = str_replace(
-                ["[id]", "[nome]", "[descrizione]", "[prezzo]", "[indirizzo]", "[citta]", "[metri_quadri]", "[select_si]", "[select_no]", "[messaggio]"],
-                [$proprieta['id'], $proprieta['nome'], $proprieta['descrizione'], $proprieta['prezzo'], $proprieta['indirizzo'], $proprieta['citta'], $proprieta['metri_quadri'], $selSi, $selNo, $messaggio],
+                ["[id]", "[nome]", "[descrizione]", "[prezzo]", "[select_si]", "[select_no]", "[messaggio]"],
+                [$proprieta['id'], $proprieta['nome'], $proprieta['descrizione'], $proprieta['prezzo'], $selSi, $selNo, $messaggio],
                 $paginaHTML
             );
         }
