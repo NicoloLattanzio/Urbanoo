@@ -238,6 +238,26 @@ class DBAccess {
         $stmt->bind_param('sssss', $nome, $cognome, $email, $password, $ruolo);
         return $stmt->execute();
     }
+
+
+	// Recupera i dettagli degli immobili salvati dall'utente loggato
+	public function getWishlist($idUtente) {
+    	$query = "SELECT p.* FROM proprieta p 
+              	JOIN wishlist w ON p.id = w.id_proprieta 
+              	WHERE w.id_utente = ?";
+    	$stmt = $this->connection->prepare($query);
+    	$stmt->bind_param("i", $idUtente);
+    	$stmt->execute();
+    	return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+	}
+
+	// Rimuove un elemento dalla wishlist
+	public function removeFromWishlist($idUtente, $idProprieta) {
+    	$query = "DELETE FROM wishlist WHERE id_utente = ? AND id_proprieta = ?";
+    	$stmt = $this->connection->prepare($query);
+    	$stmt->bind_param("ii", $idUtente, $idProprieta);
+    	return $stmt->execute();
+	}
 }
 
 
