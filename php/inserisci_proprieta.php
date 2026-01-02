@@ -15,7 +15,7 @@ $tipologia = "";
 $superficie = "";
 $locali = "";
 $disponibilita = "";
-$immagine = "";
+$immagini = "";
 $indirizzo = "";
 $citta = "";
 
@@ -31,7 +31,7 @@ $immagineErr = "";
 $indirizzoErr = "";
 $cittaErr = "";
 
-function cleanInput($value){
+function cleanInput($value, $tagPermessi = ''){
  	$value = trim($value);
   	$value = strip_tags($value,$tagPermessi);
   	return $value;
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //meglio di isset($_POST['submit'])
         $nomeErr .= '<p>Il nome non può contenere numeri</p>';
         $formValido = false;
     }
-    $nome = cleanInput($_POST['name']);
+    $nome = cleanInput($_POST['name'], $tagPermessi );
     if(strlen($nome) < 4){
         $nomeErr .= '<p>Il nome deve essere composto da almeno 4 caratteri</p>';
         $formValido = false;
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //meglio di isset($_POST['submit'])
         $prezzoErr .= '<p>Il prezzo deve essere un numero maggiore di 0</p>';
         $formValido = false;
     }
-    $prezzo = cleanInput($_POST['price']);
+    $prezzo = cleanInput($_POST['price'], $tagPermessi);
 
     //Validazione Tipologia
     $tipologieValide = ['Monolocale', 'Bilocale', 'Trilocale', 'Villa', 'Attico', 'Rustico'];
@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //meglio di isset($_POST['submit'])
         $tipologiaErr .= '<p>Selezionare una tipologia valida</p>';
         $formValido = false;
     }
-    $tipologia = cleanInput($_POST['type']);
+    $tipologia = cleanInput($_POST['type'], $tagPermessi);
 
     //Validazione Superficie
     $superficie = $_POST['size'];
@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //meglio di isset($_POST['submit'])
         $localiErr .= '<p>Il numero di locali deve essere un numero maggiore di 0</p>';
         $formValido = false;
     }
-    $locali = cleanInput($_POST['rooms']);
+    $locali = cleanInput($_POST['rooms'], $tagPermessi);
 
     //Validazione Disponibilità
     $disponibilita = $_POST['availability'];
@@ -110,15 +110,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //meglio di isset($_POST['submit'])
         $disponibilitaErr .= '<p>Selezionare lo stato di disponibilità</p>';
         $formValido = false;
     }
-    $disponibilita = cleanInput($_POST['availability']);
+    $disponibilita = cleanInput($_POST['availability'], $tagPermessi);
 
     //Validazione Immagine
-    $immagine = $_POST['img'];
+    /*$immagine = $_POST['img'];
     if (strlen($immagine) > 0 && !preg_match("/\.(jpg|jpeg|png)$/i", $immagine)) {
         $immagineErr .= '<p>Caricare un\'immagine valida (jpg, jpeg, png)</p>';
         $formValido = false;
     }
-    $immagine = cleanInput($_POST['img']);
+    $immagine = cleanInput($_POST['img'], $tagPermessi);*/
+
+    $uploadDir = __DIR__ . '/../img/';
+    $immaginiErr = '';
+    $formValido = true;
+    $allowedMime = [
+            'image/jpeg' => 'jpg',
+            'image/png'  => 'png'
+        ];
+    $maxSize = 1 * 1024 * 1024; // 1MB
+
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
+    }
+
+    if (isset($_FILES['img'])) {
+        foreach ($_FILES['img']['tmp_name'] as $index => $tmpName) {
+            // controllo se è stato caricato un file
+            if ($_FILES['img']['error'][$index] === UPLOAD_ERR_NO_FILE)
+                continue; // salta questo file e passa al successivo
+            $fileSize = $_FILES['img']['size'][$index];
+            //MIME sicuro
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mime  = finfo_file($finfo, $tmpName);
+            finfo_close($finfo);
+        
+            if (!array_key_exists($mime, $allowedMime)) {
+                $immaginiErr .= "Formato non consentito per il file ".$_FILES['img']['name'][$index]."<br>";
+                continue;
+            }
+            if ($fileSize > $maxSize) {
+                $immaginiErr .= "File troppo grande: ".$_FILES['img']['name'][$index]."<br>";
+                continue;
+            }
+
+            $extension = $allowedMime[$mime];
+            $newFileName = uniqid('property_', true) . '.' . $extension;
+            $destPath = $uploadDir . $newFileName;
+
+            if (move_uploaded_file($tmpName, $destPath)) {
+                $immagini[] = 'img/' . $newFileName;
+            } else {
+                $immaginiErr .= "<p>Errore caricamento file: ".$_FILES['img']['name'][$index]."</p>";
+                $formValido = false;
+            }
+        }
+    }
 
     //Validazione Indirizzo
     $indirizzo = $_POST['address'];
@@ -129,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //meglio di isset($_POST['submit'])
         $indirizzoErr .= '<p>Inserire un indirizzo valido (es. Via G. Verdi, 8B)</p>';
         $formValido = false;
     }
-    $indirizzo = cleanInput($_POST['address']);
+    $indirizzo = cleanInput($_POST['address'], $tagPermessi);
 
     //Validazione Città
     $citta = $_POST['city'];
@@ -140,7 +186,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //meglio di isset($_POST['submit'])
         $cittaErr .= '<p>Inserire una città valida (solo lettere, spazi, apostrofi e trattini)</p>';
         $formValido = false;
     }
-    $citta = cleanInput($_POST['city']);
+    $citta = cleanInput($_POST['city'], $tagPermessi);
     if(strlen($citta) < 2){
         $cittaErr .= '<p>La città deve essere composta da almeno 2 caratteri</p>';
         $formValido = false;
