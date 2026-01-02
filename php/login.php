@@ -35,6 +35,7 @@
             $user = $connessione->getUser($email);
             if($user){
                 if(password_verify($password, $user['password'])){
+                    $_SESSION['nome'] = $user['nome'];
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['email'] = $user['email'];
                     $_SESSION['role'] = $user['ruolo'];
