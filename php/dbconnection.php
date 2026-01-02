@@ -193,16 +193,6 @@ class DBAccess {
 		return $stmt->execute();
 	}
 
-
-
-    public function insertimg($idProprieta, $immagine){
-
-
-
-
-
-    }
-
 	public function getUser($email) {
 		$query = "SELECT * FROM utenti WHERE email = ?";
 		$stmt = $this->connection->prepare($query);
