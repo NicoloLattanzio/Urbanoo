@@ -18,14 +18,14 @@ if ($connessioneOK) {
     $proprieta = $connessione->showProprietaDetails($idProprieta);
     $connessione->closeDBConnection();
     if ($proprieta) {
-        // Sostituisci i segnaposto con i dettagli della proprietà
+        if($proprieta['disponibilita']){ $disp = 'Disponibile';}else{$disp = 'Non Disponibile'; }// Sostituisci i segnaposto con i dettagli della proprietà
         $dettagli_proprieta = str_replace(
             ["[immagine]", "[nome]", "[descrizione]", "[prezzo]", "[indirizzo]", "[citta]", "[tipologia]", "[metri_quadri]", "[locali]", "[disponibilita]"],
-            [$proprieta['immagine'], $proprieta['nome'], $proprieta['descrizione'], $proprieta['prezzo'], $proprieta['indirizzo'], $proprieta['citta'], $proprieta['tipologia'], $proprieta['metri_quadri'], $proprieta['locali'], $proprieta['disponibilita']],
+            [$proprieta['immagine'], $proprieta['nome'], $proprieta['descrizione'], $proprieta['prezzo'], $proprieta['indirizzo'], $proprieta['citta'], $proprieta['tipologia'], $proprieta['metri_quadri'], $proprieta['locali'], $disp],
             "<div>
                 <div>
-                    [immagine]
-                    [nome]
+                    <img src='[immagine]'>
+                    <h2>[nome]</h2>
                 </div>
                 <div>
                     <dl>
