@@ -10,7 +10,7 @@ $paginaHTML = file_get_contents('../html/areariservata.html');
 // Controllo dello stato utente (Admin o User)
 // Assumiamo che salvate il ruolo in $_SESSION['role'] al momento del login
 if(!isset($_SESSION['role'])){
-    header("Location: ../403.html"); //Senno si puo reindirizzare direttamente a login
+    header("Location: /403.html"); //Senno si puo reindirizzare direttamente a login
     exit();
 }else{
     $isAdmin = (isset($_SESSION['role']) && $_SESSION['role'] === 'admin');

@@ -1,10 +1,10 @@
 <?php 
-
+session_start();
 require_once "dbConnection.php";
 use DB\DBAccess;
 
-if(!isset($_SESSION['role']) || $_SESSION !== 'admin'){
-    header("Location: 403.html");
+if(!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
+    header("Location: /403.html");
     exit();
 }
 
@@ -247,7 +247,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //meglio di isset($_POST['submit'])
             }
         } else {
             //problema con la connessione al DB
-            header("Location: 500.html");
+            header("Location: /500.html");
             exit();
         }
     } else { //form non valido

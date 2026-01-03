@@ -35,10 +35,9 @@ CREATE TABLE IF NOT EXISTS immagini (
 CREATE TABLE IF NOT EXISTS wishlist (
     id_utente INT,
     id_proprieta INT,
-    data_aggiunta TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_utente) REFERENCES utenti(id),
     FOREIGN KEY (id_proprieta) REFERENCES proprieta(id),
-    CONSTRAINT PK_IDs PRIMARY KEY (id_utente,id_proprieta)
+    PRIMARY KEY (id_utente,id_proprieta)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Inserisci un utente di test (password: password123)
@@ -58,6 +57,9 @@ INSERT INTO utenti (nome, cognome, email, password, ruolo) VALUES
         'utente'
     );
 
-INSERT INTO proprieta (id, nome, descrizione, citta, tipologia, prezzo, metri_quadri, indirizzo, locali, disponibilita, immagine) VALUES (1, 'casa', 'Casa a caso', 'Napoli', 'Casa napoletana', 10, 55, 'Via napoletana 55', 32, 1,'../img/attici.png');
-INSERT INTO proprieta (id, nome, descrizione, citta, tipologia, prezzo, metri_quadri, indirizzo, locali, disponibilita, immagine) VALUES (2, 'casa gay', 'Casa a caso', 'Vesuvio', 'Casa con cenere', 2, 76,  'Via napoletana 45', 21, 0,'../img/Skyscraper_Rework.png');
-INSERT INTO proprieta (id, nome, descrizione, citta, tipologia, prezzo, metri_quadri, indirizzo, locali, disponibilita, immagine) VALUES (3, 'casa 2121321', 'Casa a caso', 'Vesuvio', 'Casa con cenere', 2, 76,  'Via napoletana 43', 21, 0,'../img/Skyscraper_Rework.png');
+INSERT INTO proprieta (nome, descrizione, citta, tipologia, prezzo, metri_quadri, indirizzo, locali, disponibilita, immagine) VALUES ('casa', 'Casa a caso', 'Napoli', 'Casa napoletana', 10, 55, 'Via napoletana 55', 32, 1,'../img/attici.png');
+INSERT INTO proprieta (nome, descrizione, citta, tipologia, prezzo, metri_quadri, indirizzo, locali, disponibilita, immagine) VALUES ('casa gay', 'Casa a caso', 'Vesuvio', 'Casa con cenere', 2, 76,  'Via napoletana 45', 21, 0,'../img/Skyscraper_Rework.png');
+INSERT INTO proprieta (nome, descrizione, citta, tipologia, prezzo, metri_quadri, indirizzo, locali, disponibilita, immagine) VALUES ( 'casa 2121321', 'Casa a caso', 'Vesuvio', 'Casa con cenere', 2, 76,  'Via napoletana 43', 21, 0,'../img/Skyscraper_Rework.png');
+
+INSERT INTO wishlist(id_utente, id_proprieta) VALUES (2,1);
+INSERT INTO wishlist(id_utente, id_proprieta) VALUES (2,2);

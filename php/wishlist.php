@@ -3,8 +3,12 @@ session_start();
 require_once "dbconnection.php";
 use DB\DBAccess;
 
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'utente') {
-    header("Location: login.php");
+if (!isset($_SESSION['role'])) {
+    header("Location: ../403.html");
+    exit();
+}elseif($_SESSION['role'] === 'admin'){
+    $_SESSION['admin_wishlist'] = 'Sei gay';
+    header("Location: /proprieta.html");
     exit();
 }
 
@@ -31,13 +35,13 @@ if ($connessioneOK) {
         foreach ($immobiliSalvati as $p) {
             // Fix percorso immagine per Docker
             $img = str_replace('../img/', '/img/', $p['immagine']);
-            
+
             $lista_output .= '<li>
                 <img src="' . $img . '" alt="Anteprima ' . $p['nome'] . '">
                 <div>
                     <h3>' . $p['nome'] . '</h3>
                     // commentato per ora, non serve <p>' . $p['citta'] . ' - ' . number_format($p['prezzo'], 0, ',', '.') . ' &euro;</p>
-                    <a href="dettagli_proprieta.php?id=' . $p['id'] . '">Vedi Dettagli</a> | 
+                    <a href="dettagli_proprieta.php?id=' . $p['id'] . '">Vedi Dettagli</a> |
                     <a href="wishlist.php?remove=' . $p['id'] . '" class="remove-btn">Rimuovi dai preferiti</a>
                 </div>
             </li>';

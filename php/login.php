@@ -13,7 +13,7 @@
     $connessione = new DBAccess();
     $connessioneOK = $connessione->openDBConnection();
     if(!$connessioneOK){
-        header("location: 500.html"); 
+        header("location: /500.html");
         exit();
     }
     /*

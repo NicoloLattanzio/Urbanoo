@@ -1,13 +1,3 @@
-<?php
-if(!isset($_SESSION['role'])){
-    header("Location: 403.html"); //Senno si puo reindirizzare direttamente a login
-    exit();
-}elseif($_SESSION['role'] !== 'admin'){
-    header("Location: proprieta.html");
-    exit();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
