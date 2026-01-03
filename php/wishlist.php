@@ -3,7 +3,7 @@ session_start();
 require_once "dbconnection.php";
 use DB\DBAccess;
 
-if (!isset($_SESSION['id_utente'])) {
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'utente') {
     header("Location: login.php");
     exit();
 }
