@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(!isset($_SESSION['role'])){
+    header("Location: 403.html"); //Senno si puo reindirizzare direttamente a login
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="it">
 <head>

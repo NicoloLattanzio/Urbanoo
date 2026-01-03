@@ -28,16 +28,26 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     zip \
     opcache
 
-# Configura Apache per servire anche la cartella img
+# Configura Apache per servire anche la cartella img e processare PHP nei file HTML
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
     sed -i 's/Listen 80/Listen 8080/g' /etc/apache2/ports.conf && \
     sed -ri -e 's/.*<VirtualHost \*:80>.*/<VirtualHost *:8080>/g' \
            -e 's#/var/www/html#${APACHE_DOCUMENT_ROOT}#g' \
-           -e 's#</VirtualHost>#\n\t<Directory ${APACHE_DOCUMENT_ROOT}>\n\t\tOptions Indexes FollowSymLinks\n\t\tAllowOverride All\n\t\tRequire all granted\n\t</Directory>\n\tAlias /php/ ${PHP_APP_ROOT}/\n\t<Directory ${PHP_APP_ROOT}>\n\t\tOptions Indexes FollowSymLinks\n\t\tAllowOverride All\n\t\tRequire all granted\n\t</Directory>\n\tAlias /img/ ${IMG_ROOT}/\n\t<Directory ${IMG_ROOT}>\n\t\tOptions Indexes FollowSymLinks\n\t\tAllowOverride All\n\t\tRequire all granted\n\t</Directory>\n</VirtualHost>#g' \
+           -e 's#</VirtualHost>#\n\t<Directory ${APACHE_DOCUMENT_ROOT}>\n\t\tOptions Indexes FollowSymLinks\n\t\tAllowOverride All\n\t\tRequire all granted\n\t\tAddType application/x-httpd-php .html .php\n\t\tAddHandler application/x-httpd-php .html .php\n\t</Directory>\n\tAlias /php/ ${PHP_APP_ROOT}/\n\t<Directory ${PHP_APP_ROOT}>\n\t\tOptions Indexes FollowSymLinks\n\t\tAllowOverride All\n\t\tRequire all granted\n\t\tAddType application/x-httpd-php .html .php\n\t\tAddHandler application/x-httpd-php .html .php\n\t</Directory>\n\tAlias /img/ ${IMG_ROOT}/\n\t<Directory ${IMG_ROOT}>\n\t\tOptions Indexes FollowSymLinks\n\t\tAllowOverride All\n\t\tRequire all granted\n\t</Directory>\n</VirtualHost>#g' \
         /etc/apache2/sites-available/000-default.conf
 
-# Abilita i moduli
-RUN a2enmod rewrite headers
+# Configura PHP per file .html
+RUN echo "AddType application/x-httpd-php .html .php" >> /etc/apache2/apache2.conf && \
+    echo "AddHandler application/x-httpd-php .html .php" >> /etc/apache2/apache2.conf
+
+# Crea un file di configurazione PHP per i file HTML
+RUN echo "<FilesMatch \".+\.html$\">" > /etc/apache2/conf-available/html-php.conf && \
+    echo "    SetHandler application/x-httpd-php" >> /etc/apache2/conf-available/html-php.conf && \
+    echo "</FilesMatch>" >> /etc/apache2/conf-available/html-php.conf
+
+# Abilita i moduli e configurazioni
+RUN a2enmod rewrite headers && \
+    a2enconf html-php
 
 # Crea le directory
 RUN mkdir -p ${APACHE_DOCUMENT_ROOT} ${IMG_ROOT}

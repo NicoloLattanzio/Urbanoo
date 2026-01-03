@@ -6,9 +6,16 @@ use DB\DBAccess;
 //$paginaHTML = file_get_contents('..' . DIRECTORY_SEPARATOR .'php'. DIRECTORY_SEPARATOR . 'proprieta.html');
 $paginaHTML = file_get_contents('../html/areariservata.html');
 
+
 // Controllo dello stato utente (Admin o User)
 // Assumiamo che salvate il ruolo in $_SESSION['ruolo'] al momento del login
-$isAdmin = (isset($_SESSION['role']) && $_SESSION['role'] === 'admin');
+if(!isset($_SESSION['role'])){
+    header("Location: 403.html"); //Senno si puo reindirizzare direttamente a login
+    exit();
+}else{
+    $isAdmin = (isset($_SESSION['role']) && $_SESSION['role'] === 'admin');
+}
+
 
 $connessione = new DBAccess();
 $connessioneOK = $connessione->openDBConnection();
