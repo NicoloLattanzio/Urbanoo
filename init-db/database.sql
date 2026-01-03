@@ -11,13 +11,13 @@ CREATE TABLE IF NOT EXISTS utenti (
 -- Crea la tabella proprieta
 CREATE TABLE IF NOT EXISTS proprieta (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
+    nome VARCHAR(100) NOT NULL UNIQUE,
     descrizione TEXT,
     citta VARCHAR(100),
     tipologia VARCHAR(50),
     prezzo DECIMAL(10,2),
     metri_quadri INT,
-    indirizzo VARCHAR(50),
+    indirizzo VARCHAR(50) NOT NULL UNIQUE,
     locali INT,
     disponibilita BIT,
     immagine VARCHAR(50),

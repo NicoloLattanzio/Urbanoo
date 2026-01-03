@@ -6,90 +6,97 @@
     <meta charset="utf-8">
     <meta name="description" content="Registrati all'Agenzia Immobiliare Urbanoo per accedere a funzionalità esclusive come l'aggiunta di proprietà e la gestione del tuo profilo.">
     <meta name="keywords" content="agenzia immobiliare, vendita case, registrazione, login, area riservata, profilo utente">
-    <link rel="stylesheet" href="./styles/style.css" media="screen">
-    <link rel="stylesheet" href="./styles/mini.css" media="screen and (max-width:768px)">
-    <link rel="stylesheet" href="./styles/print.css" media="print">
+    <link rel="stylesheet" href="../styles/style.css" media="screen">
+    <link rel="stylesheet" href="../styles/mini.css" media="screen and (max-width:768px)">
+    <link rel="stylesheet" href="../styles/print.css" media="print">
 
 </head>
 <body>
-<header>
-    <h1><span lang="en">URBANOO</span> Agenzia Immobiliare</h1>
-    <h2>Trova la casa dei tuoi sogni</h2>
-    <nav title="Barra di navigazione principale">
-        <ul>
-            <li lang="en"><a href="index.html">Home</a></li>
-            <li><a href="aboutus.html">Chi Siamo</a></li>
-            <li><a href="./proprietà.html">Proprietà</a></li>
-            <li><a href="contatti.html">Contatti</a></li>
-            <li><a href="areariservata.html"><img src="" alt="profilo utente"></a></li>
-        </ul>
-    </nav>
-</header>
-<div class="form-container">
-    <h1>Registrazione</h1>
-    <form action="../php/register.php" method="post" id="register-form">
+    <header>
+        <h1><span lang="en">URBANOO</span> Agenzia Immobiliare</h1>
+        <h2>Trova la casa dei tuoi sogni</h2>
+        <nav title="Barra di navigazione principale">
+            <ul>
+                <li><a href="index.html" lang="en">Home</a></li>
+                <li><a href="aboutus.html">Chi Siamo</a></li>
+                <li><a href="../php/proprieta.php">Proprietà</a></li>
+                <li><a href="contatti.html">Contatti</a></li>
+                <li><a href="../php/areariservata.php" class="profile-btn">Profilo</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="form-container">
+        <h1>Registrazione</h1>
+        <form action="../php/register.php" method="post" id="register-form">
 
-        <!-- Nome -->
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required placeholder="Nome" autocomplete="given-name"
-               value="[nome_val]" aria-describedby="err-nome-required err-nome-invalid"
-               data-msg-required="Per favore, inserisci il tuo nome" data-msg-invalid="Formato non corretto">
+            <!-- Nome -->
+            <div class="form-group">
+                <label for="name">Nome:</label>
+                <input type="text" id="name" name="name" required placeholder="Nome" autocomplete="given-name"
+                    value="[nome_val]" aria-describedby="err-nome-required err-nome-invalid"
+                    data-msg-required="Per favore, inserisci il tuo nome" data-msg-invalid="Formato non corretto">
+                    
+                <!-- Messaggi di errore per nome -->
+                <div id="err-name-server" class="error-msg display-error" aria-live="polite">[nome_err]</div>
+                <p id="err-name-required-client" class="error-msg name1-error" aria-live="polite"></p>
+                <p id="err-name-invalid-client" class="error-msg name2-error" aria-live="polite"></p>
+            </div>
+            
 
-        <!-- Messaggi di errore per nome -->
-        <div id="err-nome-server" class="error-msg display-error" aria-live="polite">[nome_err]</div>
-        <p id="err-nome-required-client" class="error-msg nome1-error" aria-live="polite"></p>
-        <p id="err-nome-invalid-client" class="error-msg nome2-error" aria-live="polite"></p>
+            <!-- Cognome -->
+            <div class="form-group">
+                <label for="surname">Cognome:</label>
+                <input type="text" id="surname" name="surname" required placeholder="Cognome" autocomplete="family-name"
+                    value="[cognome_val]" aria-describedby="err-cognome-required err-cognome-invalid"
+                    data-msg-required="Per favore, inserisci il tuo cognome" data-msg-invalid="Formato non corretto">
+            
+                <!-- Messaggi di errore per cognome -->
+                <div id="err-surname-server" class="error-msg display-error" aria-live="polite">[cognome_err]</div>
+                <p id="err-surname-required-client" class="error-msg surname1-error" aria-live="polite"></p>
+                <p id="err-surname-invalid-client" class="error-msg surname2-error" aria-live="polite"></p>
+            </div>
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required placeholder="Email" autocomplete="email"
+                    value="[email_val]" aria-describedby="err-email-required err-email-invalid"
+                    data-msg-required="Per favore, inserisci la tua email" data-msg-invalid="Formato non corretto, email non valida">
 
-        <!-- Cognome -->
-        <label for="cognome">Cognome:</label>
-        <input type="text" id="cognome" name="cognome" required placeholder="Cognome" autocomplete="family-name"
-               value="[cognome_val]" aria-describedby="err-cognome-required err-cognome-invalid"
-               data-msg-required="Per favore, inserisci il tuo cognome" data-msg-invalid="Formato non corretto">
+                <!-- Messaggi di errore per email -->
+                <div id="err-email-server" class="error-msg display-error" aria-live="polite">[email_err]</div>
+                <p id="err-email-required-client" class="error-msg email1-error" aria-live="polite"></p>
+                <p id="err-email-invalid-client" class="error-msg email2-error" aria-live="polite"></p>
+            </div>
+            <!-- Password -->
+            <div class="form-group">
+                <label for="password"><span lang="en">Password:</span></label>
+                <input type="password" id="password" name="password" required placeholder="Password" autocomplete="new-password"
+                    value="[password_val]" aria-describedby="err-password-required err-password-invalid"
+                    data-msg-required="Per favore, inserisci la tua password" data-msg-invalid="La password deve contenere almeno 6 caratteri">
 
-        <!-- Messaggi di errore per cognome -->
-        <div id="err-cognome-server" class="error-msg display-error" aria-live="polite">[cognome_err]</div>
-        <p id="err-cognome-required-client" class="error-msg cognome1-error" aria-live="polite"></p>
-        <p id="err-cognome-invalid-client" class="error-msg cognome2-error" aria-live="polite"></p>
+                <!-- Messaggi di errore per password -->
+                <div id="err-password-server" class="error-msg display-error" aria-live="polite">[password_err]</div>
+                <p id="err-password-required-client" class="error-msg password1-error" aria-live="polite"></p>
+                <p id="err-password-invalid-client" class="error-msg password2-error" aria-live="polite"></p>
+            </div>
+            <!-- Conferma Password -->
+            <div class="form-group">
+                <label for="confirm_password">Conferma <span lang="en">Password:</span></label>
+                <input type="password" id="confirm_password" name="confirm_password" required placeholder="Conferma Password"
+                    autocomplete="new-password" aria-describedby="err-confirm_password-required err-confirm_password-invalid"
+                    data-msg-required="Per favore, conferma la tua password" data-msg-invalid="Le password non coincidono">
 
-        <!-- Email -->
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required placeholder="Email" autocomplete="email"
-               value="[email_val]" aria-describedby="err-email-required err-email-invalid"
-               data-msg-required="Per favore, inserisci la tua email" data-msg-invalid="Formato non corretto, email non valida">
+                <!-- Messaggi di errore per conferma password -->
+                <p id="err-password-mismatch-client" class="error-msg confirm-password-error" aria-live="polite"></p>
+            </div>
+            <!-- Submit -->
+            <input type="submit" value="Registrati" title="Clicca qui per confermare la registrazione">
 
-        <!-- Messaggi di errore per email -->
-        <div id="err-email-server" class="error-msg display-error" aria-live="polite">[email_err]</div>
-        <p id="err-email-required-client" class="error-msg email1-error" aria-live="polite"></p>
-        <p id="err-email-invalid-client" class="error-msg email2-error" aria-live="polite"></p>
-
-        <!-- Password -->
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required placeholder="Password" autocomplete="new-password"
-               value="[password_val]" aria-describedby="err-password-required err-password-invalid"
-               data-msg-required="Per favore, inserisci la tua password" data-msg-invalid="La password deve contenere almeno 6 caratteri">
-
-        <!-- Messaggi di errore per password -->
-        <div id="err-password-server" class="error-msg display-error" aria-live="polite">[password_err]</div>
-        <p id="err-password-required-client" class="error-msg password1-error" aria-live="polite"></p>
-        <p id="err-password-invalid-client" class="error-msg password2-error" aria-live="polite"></p>
-
-        <!-- Conferma Password -->
-        <label for="conferma_password">Conferma Password:</label>
-        <input type="password" id="conferma_password" name="conferma_password" required placeholder="Conferma Password"
-               autocomplete="new-password" aria-describedby="err-conferma_password-required err-conferma_password-invalid"
-               data-msg-required="Per favore, conferma la tua password" data-msg-invalid="Le password non coincidono">
-
-        <!-- Messaggi di errore per conferma password -->
-        <p id="err-conferma-password-mismatch-client" class="error-msg conferma-password-error" aria-live="polite"></p>
-
-        <!-- Submit -->
-        <input type="submit" value="Registrati" title="Clicca qui per confermare la registrazione">
-
-    </form>
-    <p>Hai già un <span lang="en">account</span>? <a href="login.php">Accedi qui</a></p>
-</div>
-<footer>
-    <p>&copy; 2025 Urbanoo: Agenzia Immobiliare. P.IVA 1234567890. Tutti i diritti sono riservati</p>
-</footer>
+        </form>
+        <p>Hai già un <span lang="en">account</span>? <a href="../php/areariservata.php">Accedi qui</a></p>
+    </div>
+    <footer>
+        <p>&copy; <time datetime="2025">2025</time> <span lang="en">Urbanoo</span>: Agenzia Immobiliare. P.IVA 1234567890. Tutti i diritti sono riservati</p>
+    </footer>
 </body>
 </html>

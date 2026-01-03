@@ -17,72 +17,50 @@
         <h2>Trova la casa dei tuoi sogni</h2>
         <nav title="Barra di navigazione principale">
             <ul>
-                <li lang="en"><a href="./index.html">Home</a></li>
-                <li><a href="./aboutus.html">Chi Siamo</a></li>
-                <li><a href="./proprietà.html">Proprietà</a></li>
-                <li><a href="./contatti.html">Contatti</a></li>
-                <li><a href="./areariservata.html"><img src="" alt="profilo utente"></a></li>
+                <li><a href="index.html" lang="en">Home</a></li>
+                <li><a href="aboutus.html">Chi Siamo</a></li>
+                <li><a href="../php/proprieta.php">Proprietà</a></li>
+                <li><a href="contatti.html">Contatti</a></li>
+                <li><a href="../php/areariservata.php" class="profile-btn">Profilo</a></li>
             </ul>
         </nav>
     </header>
 
     <div class="form-container">
         <h1>Accedi al tuo <span lang="en">account</span></h1>
-            <!--<form action="../php/login.php" method="post">
-                <label for="username">Nome utente:</label>
-                <input type="text" id="username" name="username" required placeholder="Nome utente" autocomplete="username" 
-                data-msg-required="Per favore, inserisci il tuo nome utente" data-msg-invalid="Formato non corretto" >
+        <form id="login-form" method="post" action="../php/login.php">
 
-                <label for="password"><span lang="en">Password:</span></label>
-                <input type="password" id="password" name="password" required placeholder="Password" autocomplete="new-password" data-msg-required="Per favore, inserisci la tua password" 
+            <!-- Email -->
+            <label for="email"><span lang="en">Email:</span></label>
+            <input type="text" id="email" name="email" required placeholder="Email" autocomplete="email"
+                aria-describedby="err-email-required err-email-invalid"
+                data-msg-required="Per favore, inserisci la tua email"
+                data-msg-invalid="Formato non corretto, email non valida">
+
+            <!-- Messaggi di errore per email-->
+            <div id="err-email-server" class="error-msg display-error" aria-live="polite">[email_err]</div>
+            <p id="err-email-required-client" class="error-msg email1-error" aria-live="polite"></p>
+            <p id="err-email-invalid-client" class="error-msg email2-error" aria-live="polite"></p>
+
+            <!-- Password -->
+            <label for="password"><span lang="en">Password:</span></label>
+            <input type="password" id="password" name="password" required placeholder="Password" autocomplete="current-password"
+                aria-describedby="err-password-required err-password-invalid"
+                data-msg-required="Per favore, inserisci la tua password"
                 data-msg-invalid="Formato non corretto">
-                <input type="submit" value="Login" title="Clicca qui per effettuare il login">
-            </form>-->
-            <form id="login-form" method="post" action="../php/login.php">
 
-                <!-- Email -->
-                <label for="email"><span lang="en">Email:</span></label>
-                <input type="text" id="email" name="email" required placeholder="Email" autocomplete="email"
-                    aria-describedby="err-email-required err-email-invalid"
-                    data-msg-required="Per favore, inserisci la tua email"
-                    data-msg-invalid="Formato non corretto, email non valida">
-
-                <!-- Messaggi di errore per email lato backend-->
-                <div id="err-email-server" class="error-msg display-error" aria-live="polite">[email_err]</div>
-                <p id="err-email-required-client" class="error-msg email1-error" aria-live="polite"></p>
-                <p id="err-email-invalid-client" class="error-msg email2-error" aria-live="polite"></p>
-
-                <!-- Password -->
-                <label for="password"><span lang="en">Password:</span></label>
-                <input type="password" id="password" name="password" required placeholder="Password" autocomplete="current-password"
-                    aria-describedby="err-password-required err-password-invalid"
-                    data-msg-required="Per favore, inserisci la tua password"
-                    data-msg-invalid="Formato non corretto">
-
-                <!-- Messaggi di errore per password -->
-                <div id="err-password-server" class="error-msg display-error" aria-live="polite">[password_err]</div>
-                <p id="err-psw-required-client" class="error-msg psw1-error" aria-live="polite"></p>
-                <p id="err-psw-invalid-client" class="error-msg psw2-error" aria-live="polite"></p>
-                <!-- Submit -->
-                <input type="submit" value="Accedi" title="Clicca qui per effettuare l'accesso">
-
-            </form>
-            <p>Non hai un <span lang="en">account</span>? <a href="register.php">Registrati qui</a></p>
+            <!-- Messaggi di errore per password -->
+            <div id="err-password-server" class="error-msg display-error" aria-live="polite">[password_err]</div>
+            <p id="err-psw-required-client" class="error-msg psw1-error" aria-live="polite"></p>
+            <p id="err-psw-invalid-client" class="error-msg psw2-error" aria-live="polite"></p>
+            <!-- Submit -->
+            <input type="submit" value="Accedi" title="Clicca qui per effettuare l'accesso">
+        </form>
+        <p>Non hai un <span lang="en">account</span>? <a href="../php/areariservata.php">Registrati qui</a></p>
     </div>
     
     <footer>
-        <p>&copy; 2025 Urbanoo: Agenzia Immobiliare. P.IVA 1234567890. Tutti i diritti sono riservati</p>
+        <p>&copy; <time datetime="2025">2025</time> <span lang="en">Urbanoo</span>: Agenzia Immobiliare. P.IVA 1234567890. Tutti i diritti sono riservati</p>
     </footer>
-    <!-- <footer>
-        <div class="footercontent">
-                <ul>
-                    <li>Telefono: <a href="tel:+390437931949">0437 931949</a></li>
-                    <li><span lang="en">Email: </span><a href="mailto:info@bonaegava.com">info@bonaegava.com</a></li>
-                    <li>Indirizzo: <a href="https://www.google.it/maps/place/Via+Caduti+14+Settembre+1944,+51,+32100+Belluno+BL">Via Caduti 14 Settembre 1944 <abbr title="numero">n.</abbr>&nbsp;51 32100 Belluno</a></li>
-					<li><a href="https://www.iubenda.com/privacy-policy/29045823" class="iubenda-nostyle no-brand iubenda-noiframe iubenda-embed iubenda-noiframe" title="Privacy Policy ">Privacy Policy</a></li>
-                    <li>Informazioni legali: Urbanoo s.r.l - P.IVA 1234567890</li>
-                </ul>
-        </div>
-    </footer> -->
 </body>
 </html>
