@@ -49,6 +49,13 @@ INSERT INTO utenti (nome, cognome, email, password, ruolo) VALUES
         'admin@urbanoo.com',
         '$2y$10$6lnIBHp6loYxZap2bQ6bnOJ57zOvcsvZd.BJer8ZSv1y1V3sTaR3.', -- hashed password for 'password1234'
         'admin'
+    ),
+    (
+        'Utente',
+        'Test',
+        'mario@urbanoo.com',
+        '$2y$10$6lnIBHp6loYxZap2bQ6bnOJ57zOvcsvZd.BJer8ZSv1y1V3sTaR3.', -- hashed password for 'password1234'
+        'utente'
     );
 
 INSERT INTO proprieta (id, nome, descrizione, citta, tipologia, prezzo, metri_quadri, indirizzo, locali, disponibilita, immagine) VALUES (1, 'casa', 'Casa a caso', 'Napoli', 'Casa napoletana', 10, 55, 'Via napoletana', 32, 1,'../img/attici.png');
