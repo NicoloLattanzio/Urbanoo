@@ -53,7 +53,7 @@ INSERT INTO utenti (nome, cognome, email, password, ruolo) VALUES
     (
         'Utente',
         'Test',
-        'mario@urbanoo.com',
+        'utente@urbanoo.com',
         '$2y$10$6lnIBHp6loYxZap2bQ6bnOJ57zOvcsvZd.BJer8ZSv1y1V3sTaR3.', -- hashed password for 'password1234'
         'utente'
     );
