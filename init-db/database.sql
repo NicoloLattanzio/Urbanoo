@@ -58,6 +58,6 @@ INSERT INTO utenti (nome, cognome, email, password, ruolo) VALUES
         'utente'
     );
 
-INSERT INTO proprieta (id, nome, descrizione, citta, tipologia, prezzo, metri_quadri, indirizzo, locali, disponibilita, immagine) VALUES (1, 'casa', 'Casa a caso', 'Napoli', 'Casa napoletana', 10, 55, 'Via napoletana', 32, 1,'../img/attici.png');
-INSERT INTO proprieta (id, nome, descrizione, citta, tipologia, prezzo, metri_quadri, indirizzo, locali, disponibilita, immagine) VALUES (2, 'casa gay', 'Casa a caso', 'Vesuvio', 'Casa con cenere', 2, 76,  'Via napoletana', 21, 0,'../img/Skyscraper_Rework.png');
-INSERT INTO proprieta (id, nome, descrizione, citta, tipologia, prezzo, metri_quadri, indirizzo, locali, disponibilita, immagine) VALUES (3, 'casa 2121321', 'Casa a caso', 'Vesuvio', 'Casa con cenere', 2, 76,  'Via napoletana', 21, 0,'../img/Skyscraper_Rework.png');
+INSERT INTO proprieta (id, nome, descrizione, citta, tipologia, prezzo, metri_quadri, indirizzo, locali, disponibilita, immagine) VALUES (1, 'casa', 'Casa a caso', 'Napoli', 'Casa napoletana', 10, 55, 'Via napoletana 55', 32, 1,'../img/attici.png');
+INSERT INTO proprieta (id, nome, descrizione, citta, tipologia, prezzo, metri_quadri, indirizzo, locali, disponibilita, immagine) VALUES (2, 'casa gay', 'Casa a caso', 'Vesuvio', 'Casa con cenere', 2, 76,  'Via napoletana 45', 21, 0,'../img/Skyscraper_Rework.png');
+INSERT INTO proprieta (id, nome, descrizione, citta, tipologia, prezzo, metri_quadri, indirizzo, locali, disponibilita, immagine) VALUES (3, 'casa 2121321', 'Casa a caso', 'Vesuvio', 'Casa con cenere', 2, 76,  'Via napoletana 43', 21, 0,'../img/Skyscraper_Rework.png');
