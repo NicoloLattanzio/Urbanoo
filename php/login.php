@@ -46,7 +46,7 @@
                 }
             }
             else{
-                $emailErr = '<p>Email non trovata.</p>';
+                $emailErr = '<p><span lang="en">Email</span> non trovata.</p>';
                 $formValido = false;
             }
             if($formValido){ //login successful

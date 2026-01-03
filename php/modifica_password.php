@@ -9,33 +9,93 @@ if (!isset($_SESSION['email'])) { // l'utente deve essere loggato
 }
 
 $paginaHTML = file_get_contents('../html/modifica_password.html');
-$messaggio = "";
+$email = "";
+$old = "";
+$new = "";
+$emailErr = "";
+$old_pswErr = "";
+$new_pswErr = "";
+$formValido = true;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_SESSION['email'];
-    $old   = $_POST['old_password'];
-    $new   = $_POST['new_password'];
+    $email = trim($_POST['email'] ?? '');
+    $old   = $_POST['old_password'] ?? '';
+    $new   = $_POST['new_password'] ?? '';
+    $email = trim($_POST['email'] ?? '');
 
-    $connessione = new DBAccess();
-    if ($connessione->openDBConnection()) {
-        if ($connessione->checkOldPassword($email, $old)) {
-            if ($connessione->updatePassword($email, $new)) {
-                $messaggio = '<p class="success-message" role="alert">Password aggiornata con successo!</p>';
-            } else {
-                $messaggio = '<p class="error-message" role="alert">Errore durante l\'aggiornamento nel database.</p>';
-            }
-        } else {
-            $messaggio = '<p class="error-message" role="alert">Email o vecchia password errati.</p>';
-        }
-        $connessione->closeDBConnection();
-    } else {
-        $messaggio = '<p class="error-message" role="alert">Sistemi momentaneamente fuori servizio.</p>';
+    //prima validazione dei campi
+    if($email === '') {
+        $emailErr .= '<p><span lang="en">Email</span> non inserita</p>';
+        $formValido = false;
+    } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { //aggiungere controllo = delle due password
+        $emailErr .= '<p>Inserire un <span lang="en">email</span> valida.</p>';
+        $formValido = false;
     }
+    if($old === ''){
+        $old_pswErr .= '<p><span lang="en">Password</span> attuale non inserita</p>';
+        $formValido = false;
+    }
+    if($new === ''){
+        $new_pswErr .= '<p>Nuova <span lang="en">password</span> non inserita</p>';
+        $formValido = false;
+    }
+
+    //secondi controlli dei campi tramite db
+    if($formValido) {
+        $connessione = new DBAccess();
+        $connessioneOK = $connessione->openDBConnection();
+        if ($connessioneOK) {
+            if($email !== $_SESSION["email"]){
+                $emailErr .= "<p>L'<span lang='en'>email</span> inserita non corrisponde a quella del tuo <span lang='en'>account</span>.</p>";
+                $formValido = false;
+            } 
+            if($formValido) { //se la email è valida ed uguale a quella dell'account allora procedo con altre validazioni
+                if(!$connessione->checkOldPassword($email, $old)) {
+                    $old_pswErr .= "<p>La <span lang='en'>password</span> inserita non corrisponde a quella del tuo <span lang='en'>account</span>.</p>";
+                    $formValido = false;
+                }
+                //validazione new password
+                if (strlen($new) < 6) {
+                    $new_pswErr .= '<p>La <span lang="en">password</span> deve contenere almeno 6 caratteri</p>';
+                    $formValido = false;
+                }
+            } else { //email valida ma non uguale a quella dell'account -> mostro già gli errori
+                $paginaHTML = str_replace('[email_err]', $emailErr, $paginaHTML);
+                $paginaHTML = str_replace('[old_password_err]', $old_pswErr, $paginaHTML);
+                $paginaHTML = str_replace('[new_password_err]', $new_pswErr, $paginaHTML);
+                echo $paginaHTML;
+            }
+        } else { //problemi con la connessione al DB
+            header("Location: 500.html");
+            exit();
+        }
+    } 
+    
+    else { // il form è gia non valido verificando solo i primi controlli
+        $paginaHTML = str_replace('[email_err]', $emailErr, $paginaHTML);
+        $paginaHTML = str_replace('[old_password_err]', $old_pswErr, $paginaHTML);
+        $paginaHTML = str_replace('[new_password_err]', $new_pswErr, $paginaHTML);
+        echo $paginaHTML;
+    }
+
+    if($formValido) { //modifica psw solo se tutte le validazioni sono avvenute correttamente
+        $updatePsw = $connessione->updatePassword($email, $new);
+        $connessione->closeDBConnection();
+        if($updatePsw) {
+            $_SESSION["update_psw_success_msg"] = 'Password aggiornata con successo!';
+            header("Location: areariservata.php");
+        } else {
+            $_SESSION["update_psw_error_msg"] = 'Non è stato possibile aggiornare la password per problemi tecnici';
+            header("Location: areariservata.php");
+        }
+    } else {
+        $paginaHTML = str_replace('[email_err]', $emailErr, $paginaHTML);
+        $paginaHTML = str_replace('[old_password_err]', $old_pswErr, $paginaHTML);
+        $paginaHTML = str_replace('[new_password_err]', $new_pswErr, $paginaHTML);
+        echo $paginaHTML;
+    }
+} else {
+    //utente interagisce con metodo get -> visita la pagina tramite link non tramite form
+    echo $paginaHTML;
 }
-
-
-// DA VEDERE SE VA BENE QUESTO REPLACE COME SOLUZIONE PER INSERIRE IL MESSAGGIO
-$paginaHTML = str_replace('<h1>Modifica Password</h1>', '<h1>Modifica Password</h1>' . $messaggio, $paginaHTML);
-
-echo $paginaHTML;
 ?>
