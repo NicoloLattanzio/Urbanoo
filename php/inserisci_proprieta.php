@@ -44,127 +44,87 @@ function cleanInput($value, $tagPermessi = ''){
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') { //meglio di isset($_POST['submit']) a quanto pare perche se visitano la pagina con GET non invia il form
     //Validazione Nome
-    if (!isset($_POST['name'])) {
+    $nome = trim($_POST['name'] ?? '');
+    if ($nome === '') {
         $nomeErr .= '<p>Nome non inserito</p>';
         $formValido = false;
-    } else {
-        $nome = $_POST['name'];
-        if (strlen($nome) == 0) {
-            $nomeErr .= '<p>Nome non inserito</p>';
-            $formValido = false;
-        } else if(strlen(trim($nome)) == 0){ 
-            $nomeErr .= '<p>Il nome non può contenere soli spazi</p>';
-            $formValido = false;
-        } elseif (preg_match("/\d/", $nome)) {
-            $nomeErr .= '<p>Il nome non può contenere numeri</p>';
-            $formValido = false;
-        }
-        $nome = cleanInput($name, $tagPermessi );
-        if(strlen($nome) < 4 || strlen($nome) > 40){
-            $nomeErr .= '<p>Il nome deve essere composto da almeno 4 caratteri e non più di 40</p>';
-            $formValido = false;
-        }
+    } else if (preg_match("/\d/", $nome)) {
+        $nomeErr .= '<p>Il nome non può contenere numeri</p>';
+        $formValido = false;
     }
+    $nome = cleanInput($nome, $tagPermessi );
+    if(strlen($nome) < 2 || strlen($nome) > 25){
+        $nomeErr .= '<p>Il nome deve essere composto da almeno 2 caratteri e non più di 25</p>';
+        $formValido = false;
+    }
+
     //Validazione Descrizione
-    if (!isset($_POST['description'])) {
+    $descrizione = trim($_POST['description'] ?? '');
+    if ($descrizione === '') {
         $descrizioneErr .= '<p>Descrizione non inserita</p>';
         $formValido = false;
-    } else {
-        $descrizione = $_POST['description'];
-        if (strlen($descrizione) == 0) {
-            $descrizioneErr .= '<p>Descrizione non inserita</p>';
-            $formValido = false;
-        } else if(strlen(trim($descrizione)) == 0){ 
-            $descrizioneErr .= '<p>La descrizione non può contenere soli spazi</p>';
-            $formValido = false;
-        }
-        $descrizione = cleanInput($descrizione, $tagPermessi);
-        if(strlen($descrizione) < 10 || strlen($descrizione) > 250){
-            $descrizioneErr .= '<p>La descrizione deve essere composta da almeno 10 caratteri e non più di 250</p>';
-            $formValido = false;
-        }
+    }
+    $descrizione = cleanInput($descrizione, $tagPermessi);
+    if(strlen($descrizione) < 10 || strlen($descrizione) > 250){
+        $descrizioneErr .= '<p>La descrizione deve essere composta da almeno 10 caratteri e non più di 250</p>';
+        $formValido = false;
     }
 
     //Validazione Prezzo
-    if (!isset($_POST['price'])) {
+    $prezzo = trim($_POST['price'] ?? '');
+    if ($prezzo === ''){
         $prezzoErr .= '<p>Prezzo non inserito</p>';
         $formValido = false;
-    } else {
-        $prezzo = $_POST['price'];
-        if (strlen($prezzo) == 0) {
-            $prezzoErr .= '<p>Prezzo non inserito</p>';
-            $formValido = false;
-        } else if (!is_numeric($prezzo) || intval($prezzo) <= 0) {
-            $prezzoErr .= '<p>Il prezzo deve essere un numero maggiore di 0</p>';
-            $formValido = false;
-        }
-        $prezzo = cleanInput($prezzo, $tagPermessi);
+    } else if (!is_numeric($prezzo) || intval($prezzo) <= 0) {
+        $prezzoErr .= '<p>Il prezzo deve essere un numero maggiore di 0</p>';
+        $formValido = false;
     }
+    $prezzo = cleanInput($prezzo, $tagPermessi);
 
     //Validazione Tipologia
-    if (!isset($_POST['type'])) {
+   $tipologia = trim($_POST['type'] ?? '');
+    $tipologieValide = ['Monolocale', 'Bilocale', 'Trilocale', 'Villa', 'Attico', 'Rustico'];
+    if ($tipologia === '') {
         $tipologiaErr .= '<p>Tipologia non inserita</p>';
         $formValido = false;
-    } else {
-        $tipologia = $_POST['type'];
-        $tipologieValide = ['Monolocale', 'Bilocale', 'Trilocale', 'Villa', 'Attico', 'Rustico'];
-        if (strlen($tipologia) == 0) {
-            $tipologiaErr .= '<p>Tipologia non inserita</p>';
-            $formValido = false;
-        } else if (!in_array($tipologia, $tipologieValide)) {
-            $tipologiaErr .= '<p>Selezionare una tipologia valida</p>';
-            $formValido = false;
-        }
-        $tipologia = cleanInput($tipologia, $tagPermessi);
+    } else if (!in_array($tipologia, $tipologieValide)) {
+        $tipologiaErr .= '<p>Selezionare una tipologia valida</p>';
+        $formValido = false;
     }
+    $tipologia = cleanInput($tipologia, $tagPermessi);
 
     //Validazione Superficie
-    if (!isset($_POST['size'])) {
+    $superficie = trim($_POST['size'] ?? '');
+    if ($superficie === '') {
         $superficieErr .= '<p>Superficie non inserita</p>';
         $formValido = false;
-    } else {
-        $superficie = $_POST['size'];
-        if (strlen($superficie) == 0) {
-            $superficieErr .= '<p>Superficie non inserita</p>';
-            $formValido = false;
-        } else if (!is_numeric($superficie) || intval($superficie) <= 0) {
-            $superficieErr .= '<p>La superficie deve essere un numero maggiore di 0</p>';
-            $formValido = false;
-        }
-        $superficie = cleanInput($superficie, $tagPermessi);
+    } else if (!is_numeric($superficie) || intval($superficie) <= 0) {
+        $superficieErr .= '<p>La superficie deve essere un numero maggiore di 0</p>';
+        $formValido = false;
     }
+    $superficie = cleanInput($superficie, $tagPermessi);
 
     //Validazione Locali
-    if (!isset($_POST['rooms'])) {
+    $locali = trim($_POST['rooms'] ?? '');
+    if ($locali === '') {
         $localiErr .= '<p>Locali non inseriti</p>';
         $formValido = false;
-    } else {
-        $locali = $_POST['rooms'];
-        if (strlen($locali) == 0) {
-            $localiErr .= '<p>Locali non inseriti</p>';
-            $formValido = false;
-        } else if (!is_numeric($locali) || intval($locali) <= 0) {
-            $localiErr .= '<p>Il numero di locali deve essere un numero maggiore di 0</p>';
-            $formValido = false;
-        }
-        $locali = cleanInput($locali, $tagPermessi);
+    } else if (!is_numeric($locali) || intval($locali) <= 0) {
+        $localiErr .= '<p>Il numero di locali deve essere un numero maggiore di 0</p>';
+        $formValido = false;
     }
+    $locali = cleanInput($locali, $tagPermessi);
 
     //Validazione Disponibilità
-    if (!isset($_POST['rooms'])) {
-        $localiErr .= '<p>Locali non inseriti</p>';
+    $disponibilita = trim($_POST['availability'] ?? '');
+    if ($disponibilita === '') {
+        $disponibilitaErr .= '<p>Disponibilità non inserita</p>';
         $formValido = false;
-    } else {
-        $disponibilita = $_POST['availability'];
-        if (strlen($disponibilita) == 0) {
-            $disponibilitaErr .= '<p>Disponibilità non inserita</p>';
-            $formValido = false;
-        } else if ($disponibilita !== '1' && $disponibilita !== '0') {
-            $disponibilitaErr .= '<p>Selezionare uno stato di disponibilità valido</p>';
-            $formValido = false;
-        }
-        $disponibilita = cleanInput($disponibilita, $tagPermessi);
+    } else if ($disponibilita !== '1' && $disponibilita !== '0') {
+        $disponibilitaErr .= '<p>Selezionare uno stato di disponibilità valido</p>';
+        $formValido = false;
     }
+    $disponibilita = cleanInput($disponibilita, $tagPermessi);
     //Validazione Immagine
     /*$immagine = $_POST['img'];
     if (strlen($immagine) > 0 && !preg_match("/\.(jpg|jpeg|png)$/i", $immagine)) {
@@ -198,11 +158,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //meglio di isset($_POST['submit'])
             finfo_close($finfo);
         
             if (!array_key_exists($mime, $allowedMime)) {
-                $immaginiErr .= "Formato non consentito per il file ".$_FILES['img']['name'][$index]."<br>";
+                $immaginiErr .= "<p>Formato non consentito per il <span lang='en'>file</span> ".$_FILES['img']['name'][$index]."</p>";
                 continue;
             }
             if ($fileSize > $maxSize) {
-                $immaginiErr .= "File troppo grande: ".$_FILES['img']['name'][$index]."<br>";
+                $immaginiErr .= "<p><span lang='en'>File</span> troppo grande: ".$_FILES['img']['name'][$index]."</p>";
                 continue;
             }
 
@@ -213,7 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //meglio di isset($_POST['submit'])
             if (move_uploaded_file($tmpName, $destPath)) {
                 $immagini[] = 'img/' . $newFileName;
             } else {
-                $immaginiErr .= "<p>Errore caricamento file: ".$_FILES['img']['name'][$index]."</p>";
+                $immaginiErr .= "<p>Errore caricamento <span lang='en'>file</span>: ".$_FILES['img']['name'][$index]."</p>";
                 $formValido = false;
             }
         }
@@ -223,49 +183,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //meglio di isset($_POST['submit'])
     }
 
     //Validazione Indirizzo
-    if (!isset($_POST['address'])) {
+    $indirizzo = trim($_POST['address'] ?? '');
+    if ($indirizzo === '') {
         $indirizzoErr .= '<p>Indirizzo non inserito</p>';
         $formValido = false;
-    } else {
-        $indirizzo = $_POST['address'];
-        if (strlen($indirizzo) == 0) {
-            $indirizzoErr .= '<p>Indirizzo non inserito</p>';
-            $formValido = false;
-        } else if(strlen(trim($indirizzo)) == 0){ 
-            $indirizzoErr .= '<p>L\'indirizzo non può contenere soli spazi</p>';
-            $formValido = false;
-        } else if(!preg_match("/^(Via|Viale|Piazza|Corso|Largo|Strada|Vicolo)\s+[A-Za-zÀ-ÿ'’\s]+,\s*\d+[A-Za-z]?$/i", $indirizzo)) {
-            $indirizzoErr .= '<p>Inserire un indirizzo valido (es. Via G. Verdi, 8B)</p>';
-            $formValido = false;
-        }
-        $indirizzo = cleanInput($indirizzo, $tagPermessi);
-        if(strlen($indirizzo) < 5 || strlen($indirizzo) > 30){
-            $indirizzoErr .= '<p>L\'indirizzo deve essere composto da almeno 5 caratteri e non più di 30</p>';
-            $formValido = false;
-        }
+    } else if(!preg_match("/^(Via|Viale|Piazza|Corso|Largo|Strada|Vicolo)\s+[A-Za-zÀ-ÿ'’\s]+,\s*\d+[A-Za-z]?$/i", $indirizzo)) {
+        $indirizzoErr .= '<p>Inserire un indirizzo valido (es. Via G. Verdi, 8B)</p>';
+        $formValido = false;
+    }
+    $indirizzo = cleanInput($indirizzo, $tagPermessi);
+    if(strlen($indirizzo) < 5 || strlen($indirizzo) > 30){
+        $indirizzoErr .= '<p>L\'indirizzo deve essere composto da almeno 5 caratteri e non più di 30</p>';
+        $formValido = false;
     }
 
     //Validazione Città
-     if (!isset($_POST['city'])) {
+    $citta = trim($_POST['city'] ?? '');
+    if ($citta === '') {
         $cittaErr .= '<p>Città non inserita</p>';
         $formValido = false;
-    } else {
-        $citta = $_POST['city'];
-        if (strlen($citta) == 0) {
-            $cittaErr .= '<p>Città non inserita</p>';
-            $formValido = false;
-        } else if(strlen(trim($citta)) == 0){ 
-            $cittaErr .= '<p>Il nome della città non può contenere soli spazi</p>';
-            $formValido = false;
-        } else if(!preg_match("/^[A-Za-zÀ-ÿ'.\s-]+$/u", $citta)) {
-            $cittaErr .= '<p>Inserire una città valida (solo lettere, spazi, apostrofi e trattini)</p>';
-            $formValido = false;
-        }
-        $citta = cleanInput($citta, $tagPermessi);
-        if(strlen($citta) < 2 || strlen($citta) > 20){
-            $cittaErr .= '<p>La città deve essere composta da almeno 2 caratteri e non più di 20</p>';
-            $formValido = false;
-        }
+    } else if(!preg_match("/^[A-Za-zÀ-ÿ'.\s-]+$/u", $citta)) {
+        $cittaErr .= '<p>Inserire una città valida (solo lettere, spazi, apostrofi e trattini)</p>';
+        $formValido = false;
+    }
+    $citta = cleanInput($citta, $tagPermessi);
+    if(strlen($citta) < 2 || strlen($citta) > 20){
+        $cittaErr .= '<p>La città deve essere composta da almeno 2 caratteri e non più di 20</p>';
+        $formValido = false;
     }
 
     if($formValido){
