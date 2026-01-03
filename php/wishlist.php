@@ -14,7 +14,7 @@ $connessioneOK = $connessione->openDBConnection();
 $lista_output = "";
 
 if ($connessioneOK) {
-    $idLoggato = $_SESSION['id_utente'];
+    $idLoggato = $_SESSION['user_id'];
 
     // Gestione rimozione se clicchi sul tasto "Rimuovi"
     if (isset($_GET['remove'])) {
