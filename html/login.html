@@ -13,6 +13,9 @@
 </head>
 <body>
     <header>
+        <nav aria-label="aiuti alla navigazione">
+            <a class="navigationHelp" href="#content">Vai al contenuto</a>
+        </nav>
         <h1><span lang="en">URBANOO</span> Agenzia Immobiliare</h1>
         <h2>Trova la casa dei tuoi sogni</h2>
         <nav title="Barra di navigazione principale">
@@ -25,39 +28,43 @@
             </ul>
         </nav>
     </header>
+    <nav id="breadcrumb">
+        <p>Ti trovi in: <a href="index.html" lang="en">Home</a> &raquo; <a href="../php/areariservata.php">Profilo</a> &raquo; <span lang="en">Wishlist</span></p>
+    </nav>
+    <main id="content">
+        <div class="form-container">
+            <h1>Accedi al tuo <span lang="en">account</span></h1>
+            <form id="login-form" method="post" action="../php/login.php">
 
-    <div class="form-container">
-        <h1>Accedi al tuo <span lang="en">account</span></h1>
-        <form id="login-form" method="post" action="../php/login.php">
+                <!-- Email -->
+                <label for="email"><span lang="en">Email:</span></label>
+                <input type="text" id="email" name="email" required placeholder="Email" autocomplete="email"
+                    aria-describedby="err-email-required err-email-invalid"
+                    data-msg-required="Per favore, inserisci la tua email"
+                    data-msg-invalid="Formato non corretto, email non valida">
 
-            <!-- Email -->
-            <label for="email"><span lang="en">Email:</span></label>
-            <input type="text" id="email" name="email" required placeholder="Email" autocomplete="email"
-                aria-describedby="err-email-required err-email-invalid"
-                data-msg-required="Per favore, inserisci la tua email"
-                data-msg-invalid="Formato non corretto, email non valida">
+                <!-- Messaggi di errore per email-->
+                <div id="err-email-server" class="error-msg display-error" aria-live="polite">[email_err]</div>
+                <p id="err-email-required-client" class="error-msg email1-error" aria-live="polite"></p>
+                <p id="err-email-invalid-client" class="error-msg email2-error" aria-live="polite"></p>
 
-            <!-- Messaggi di errore per email-->
-            <div id="err-email-server" class="error-msg display-error" aria-live="polite">[email_err]</div>
-            <p id="err-email-required-client" class="error-msg email1-error" aria-live="polite"></p>
-            <p id="err-email-invalid-client" class="error-msg email2-error" aria-live="polite"></p>
+                <!-- Password -->
+                <label for="password"><span lang="en">Password:</span></label>
+                <input type="password" id="password" name="password" required placeholder="Password" autocomplete="current-password"
+                    aria-describedby="err-password-required err-password-invalid"
+                    data-msg-required="Per favore, inserisci la tua password"
+                    data-msg-invalid="Formato non corretto">
 
-            <!-- Password -->
-            <label for="password"><span lang="en">Password:</span></label>
-            <input type="password" id="password" name="password" required placeholder="Password" autocomplete="current-password"
-                aria-describedby="err-password-required err-password-invalid"
-                data-msg-required="Per favore, inserisci la tua password"
-                data-msg-invalid="Formato non corretto">
-
-            <!-- Messaggi di errore per password -->
-            <div id="err-password-server" class="error-msg display-error" aria-live="polite">[password_err]</div>
-            <p id="err-psw-required-client" class="error-msg psw1-error" aria-live="polite"></p>
-            <p id="err-psw-invalid-client" class="error-msg psw2-error" aria-live="polite"></p>
-            <!-- Submit -->
-            <input type="submit" value="Accedi" title="Clicca qui per effettuare l'accesso">
-        </form>
-        <p>Non hai un <span lang="en">account</span>? <a href="../php/register.php">Registrati qui</a></p>
-    </div>
+                <!-- Messaggi di errore per password -->
+                <div id="err-password-server" class="error-msg display-error" aria-live="polite">[password_err]</div>
+                <p id="err-psw-required-client" class="error-msg psw1-error" aria-live="polite"></p>
+                <p id="err-psw-invalid-client" class="error-msg psw2-error" aria-live="polite"></p>
+                <!-- Submit -->
+                <input type="submit" value="Accedi" title="Clicca qui per effettuare l'accesso">
+            </form>
+            <p>Non hai un <span lang="en">account</span>? <a href="../php/register.php">Registrati qui</a></p>
+        </div>
+    </main>
     
     <footer>
         <p>&copy; <time datetime="2025">2025</time> <span lang="en">Urbanoo</span>: Agenzia Immobiliare. P.IVA 1234567890. Tutti i diritti sono riservati</p>
