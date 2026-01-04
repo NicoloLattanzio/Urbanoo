@@ -258,6 +258,20 @@ class DBAccess {
     	$stmt->bind_param("ii", $idUtente, $idProprieta);
     	return $stmt->execute();
 	}
+	public function insertToWishlist($idUtente, $idProprieta) {
+		$query = "INSERT INTO wishlist (id_utente, id_proprieta) VALUES (?, ?)";
+		$stmt = $this->connection->prepare($query);
+
+		if (!$stmt) {
+			// gestione errore prepare
+			return false;
+		}
+
+		$stmt->bind_param("ii", $idUtente, $idProprieta);
+
+		return $stmt->execute();
+	}
+
 }
 
 

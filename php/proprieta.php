@@ -15,14 +15,17 @@ $stringaProprieta = "";
 $messaggioOperazione = ""; 
 
 // logica per mostrare messaggi di successo/errore dopo operazione di elimina [CONTROLLA SE VA BENE E SE SERVE LOGICA MODIFICA/AGGIUNGI] già generico volendo
-if (isset($_GET['msg'])) {
-    if ($_GET['msg'] === 'success') {
-        $messaggioOperazione = '<p class="success-message" role="alert">Operazione completata con successo.</p>';
-    } elseif ($_GET['msg'] === 'error') {
+/*if (isset($_GET['insertion_success_msg'])) {
+    if ($_GET['insertion_success_msg'] === 'success') {
+        $messaggioOperazione = 
+    } elseif ($_GET['insertion_success_msg'] === 'error') {
         $messaggioOperazione = '<p class="error-message" role="alert">Si è verificato un errore durante l\'operazione.</p>';
     }
+}*/
+if(isset($_SESSION["insertion_prop_msg"])){
+    if($_SESSION["insertion_prop_msg"] === "success")
+        $messaggioOperazione = '<p class="success-message" role="alert">Operazione completata con successo.</p>';
 }
-
 if ($connessioneOK) {
     $filtriAttivi = array_filter($_GET); 
 
@@ -46,7 +49,7 @@ if ($connessioneOK) {
 
     if (!empty($listaProprieta)) {
         if ($isAdmin) {
-            $stringaProprieta .= '<div class="admin-controls"><a href="../php/inserisci_proprieta.php" class="btn-add">➕ Aggiungi Nuova Proprietà</a></div>';
+            $stringaProprieta .= '<div class="admin-controls"><a href="/php/inserisci_proprieta.php" class="btn-add">➕ Aggiungi Nuova Proprietà</a></div>';
         }
 
         $stringaProprieta .= '<ul class="property-list">'; 
@@ -56,13 +59,13 @@ if ($connessioneOK) {
             $stringaProprieta .= '<h3>' . $proprieta['nome'] . '</h3>';
             $stringaProprieta .= '<img src="' . $proprieta['immagine'] . '" alt="Foto di ' . $proprieta['nome'] . '" />';
             // Tutti gli utenti hanno il pulsante "Vedi"
-            $stringaProprieta .= '<a href="dettagli_proprieta.php?id=' . $proprieta['id'] . '" aria-label="Vedi i dettagli di ' . $proprieta['nome'] . '">Vedi</a>';
+            $stringaProprieta .= '<a href="/php/dettagli_proprieta.php?id=' . $proprieta['id'] . '" aria-label="Vedi i dettagli di ' . $proprieta['nome'] . '">Vedi</a>';
 
             if ($isAdmin) {
     			// L'admin vede "Modifica" che va alla pagina dettagli
-    			$stringaProprieta .= '<a href="modifica_proprieta.php?id=' . $proprieta['id'] . '" aria-label="Modifica i dettagli di ' . $proprieta['nome'] . '">Modifica</a>';
+    			$stringaProprieta .= '<a href="/php/modifica_proprieta.php?id=' . $proprieta['id'] . '" aria-label="Modifica i dettagli di ' . $proprieta['nome'] . '">Modifica</a>';
     			// L'admin vede "Elimina" che attiva uno script di cancellazione  [CONTROLLA CHE SI FACCIA COSI, CONFIRM JAVASCRIPT NON NAVIGABILE SCREEN READER??]
-    			$stringaProprieta .= '<a href="elimina_proprieta.php?id=' . $proprieta['id'] . '" onclick="return confirm(\'Sei sicuro di voler eliminare questa proprietà?\')" aria-label="Elimina ' . $proprieta['nome'] . '">Elimina</a>';	
+    			$stringaProprieta .= '<a href="/php/elimina_proprieta.php?id=' . $proprieta['id'] . '" onclick="return confirm(\'Sei sicuro di voler eliminare questa proprietà?\')" aria-label="Elimina ' . $proprieta['nome'] . '">Elimina</a>';	
 		    }
 		    $stringaProprieta .= '</li>';
         }
