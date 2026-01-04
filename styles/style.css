@@ -8,6 +8,7 @@
     --text-dark: #1A202C;
     --text-gray: #718096;
     --border-color: #E2E8F0;
+    --error-color: #F44336;
 }
 
 /* * { 
@@ -102,4 +103,24 @@ footer {
     background-position: center;
     cursor: pointer;
     text-indent: -9999px; /* nasconde il testo */
+}
+
+ .error-container {
+     background-color: var(--text-dark);
+     color: var(--white);
+     text-align: center;
+     padding: 30px;
+     margin-top: 60px;
+     max-width: 600px;
+     margin-left: auto;
+     margin-right: auto;
+     border-radius: 8px;
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+ }
+ #error-color{
+     color: var(--error-color);
+ }
+
+#error-actions{
+    text-align: center;
 }
