@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <meta name="description" content="Aggiungi qui le proprietà dell'Agenzia Immobiliare Urbanoo per condividerle con potenziali acquirenti e affittuari.">
     <meta name="keywords" content="agenzia immobiliare, proprietà, vendita case, aggiungi, condividere">
-    <link rel="stylesheet" href="../styles/style.css" media="screen">
-    <link rel="stylesheet" href="../styles/mini.css" media="screen and (max-width:768px)">
-    <link rel="stylesheet" href="../styles/print.css" media="print">
+    <link rel="stylesheet" href="./styles/style.css" media="screen">
+    <link rel="stylesheet" href="./styles/mini.css" media="screen and (max-width:768px)">
+    <link rel="stylesheet" href="./styles/print.css" media="print">
 
 </head>
 <body>
@@ -34,9 +34,9 @@
 
     <main id="content">
         <div class="form-container">
-            <h1>Aggiungi una nuova proprietà</h1>
+            <h1 class="title">Aggiungi una nuova proprietà</h1>
             <form id="add-property-form" action="/php/aggiungi_proprieta.php" method="post" enctype="multipart/form-data">
-                <div class="form-group">
+                <div class="input-group">
                     <!-- Name -->
                     <label for="name">Nome Proprietà:</label>
                     <input type="text" id="name" name="name" required placeholder="Nome della proprietà" minlength="4" maxlength="40"
@@ -48,7 +48,7 @@
                     <p id="err-name-invalid-client" class="error-msg name2-error" aria-live="polite"></p>
                 </div>
 
-                <div class="form-group">
+                <div class="input-group">
                     <!-- Description -->
                     <label for="description">Descrizione:</label>
                     <textarea id="description" name="description" required placeholder="Descrizione della proprietà" minlength="10" maxlength="250"
@@ -60,7 +60,7 @@
                     <p id="err-desc-invalid-client" class="error-msg desc2-error" aria-live="polite"></p>
                 </div>
 
-                <div class="form-group">
+                <div class="input-group">
                     <!-- Price -->
                     <label for="price">Prezzo:</label>
                     <input type="number" id="price" name="price" required placeholder="Es. 150000"
@@ -72,7 +72,7 @@
                     <p id="err-price-invalid-client" class="error-msg price2-error" aria-live="polite"></p>
                 </div>
 
-                <div class="form-group">
+                <div class="input-group">
                     <!-- Tipologia -->
                     <label for="type">Tipologia:</label>
                     <select id="type" name="type" aria-describedby="err-type-required err-type-invalid"
@@ -91,7 +91,7 @@
                     <p id="err-type-invalid-client" class="error-msg type2-error" aria-live="polite"></p>
                 </div>
 
-                <div class="form-group">
+                <div class="input-group">
                     <!-- Size -->
                     <label for="size">Superficie (mq):</label>
                     <input type="number" id="size" name="size" required placeholder="Es. 75"
@@ -103,7 +103,7 @@
                     <p id="err-size-invalid-client" class="error-msg size2-error" aria-live="polite"></p>
                 </div>
 
-                <div class="form-group">
+                <div class="input-group">
                     <!-- Locali -->
                     <label for="rooms">Numero di locali:</label>
                     <input type="number" id="rooms" name="rooms" required placeholder="Es. 3"
@@ -115,7 +115,7 @@
                     <p id="err-rooms-invalid-client" class="error-msg rooms2-error" aria-live="polite"></p>
                 </div>
 
-                <div class="form-group">
+                <div class="input-group">
                     <!-- Availability -->
                     <label for="availability">Disponibilità:</label>
                     <select id="availability" name="availability" aria-describedby="err-availability-required err-availability-invalid"
@@ -129,7 +129,7 @@
                     <p id="err-availability-invalid-client" class="error-msg availability2-error" aria-live="polite"></p>
                 </div>
 
-                <div class="form-group">
+                <div class="input-group">
                     <!-- Address -->
                     <label for="address">Indirizzo:</label>
                     <input type="text" id="address" name="address" required placeholder="Es. Via G. Verdi, 8B" minlength="5" maxlength="30"
@@ -141,7 +141,7 @@
                     <p id="err-address-invalid-client" class="error-msg address2-error" aria-live="polite"></p>
                 </div>
 
-                <div class="form-group">
+                <div class="input-group">
                     <!-- City -->
                     <label for="city">Città:</label>
                     <input type="text" id="city" name="city" required placeholder="Es. Padova" minlength="2" maxlength="20"
@@ -153,7 +153,7 @@
                     <p id="err-city-invalid-client" class="error-msg city2-error" aria-live="polite"></p>
                 </div>
 
-                <div class="form-group">
+                <div class="input-group">
                     <!-- Img -->
                     <label for="img">Immagini:</label>
                     <input type="file" id="img" name="img[]" accept=".jpg,.jpeg,.png" required aria-describedby="err-img-server err-img-required-client"
