@@ -23,6 +23,9 @@ if(!isset($_SESSION['role'])){
 </head>
 <body>
     <header>
+        <nav aria-label="aiuti alla navigazione">
+            <a class="navigationHelp" href="#content">Vai al contenuto</a>
+        </nav>
         <h1><span lang="en">URBANOO</span> Agenzia Immobiliare</h1>
         <h2>Trova la casa dei tuoi sogni</h2>
         <nav title="Barra di navigazione principale">
@@ -35,71 +38,72 @@ if(!isset($_SESSION['role'])){
             </ul>
         </nav>
     </header>
-
     <nav id="breadcrumb">
         <p>Ti trovi in: <a href="index.html" lang="en">Home</a> &raquo; <a href="../php/proprieta.php">Proprietà</a> &raquo; Modifica Proprietà</p>
     </nav>
+    
+    <main id="content">
+        <div class="form-container">
+            <h1>Modifica la proprietà:</h1>
 
-    <div class="form-container">
-        <h1>Modifica la proprietà:</h1>
+            [messaggio]
 
-        [messaggio]
+            <form action="../php/modifica_proprieta.php" method="post">
+                <input type="hidden" name="id" value="[id]">
 
-        <form action="../php/modifica_proprieta.php" method="post">
-            <input type="hidden" name="id" value="[id]">
+                <div class = "form-group">
+                    <!-- Name -->
+                    <label for="name">Nome Proprietà:</label>
+                    <input type="text" id="name" name="name" value="[name]" required placeholder="Nome della proprietà"
+                        aria-describedby="err-name-required err-name-invalid"
+                        data-msg-required="Inserisci il nome della proprietà"
+                        data-msg-invalid="Formato non corretto">
+                    <div id="err-name-server" class="error-msg display-error" aria-live="polite">[name_err]</div>
+                    <p id="err-name-required-client" class="error-msg name1-error" aria-live="polite"></p>
+                    <p id="err-name-invalid-client" class="error-msg name2-error" aria-live="polite"></p>
+                </div>
 
-            <div class = "form-group">
-                <!-- Name -->
-                <label for="name">Nome Proprietà:</label>
-                <input type="text" id="name" name="name" value="[name]" required placeholder="Nome della proprietà"
-                    aria-describedby="err-name-required err-name-invalid"
-                    data-msg-required="Inserisci il nome della proprietà"
-                    data-msg-invalid="Formato non corretto">
-                <div id="err-name-server" class="error-msg display-error" aria-live="polite">[name_err]</div>
-                <p id="err-name-required-client" class="error-msg name1-error" aria-live="polite"></p>
-                <p id="err-name-invalid-client" class="error-msg name2-error" aria-live="polite"></p>
-            </div>
+                <div class = "form-group">
+                    <!-- Description -->
+                    <label for="description">Descrizione:</label>
+                    <textarea id="description" name="description" required placeholder="Descrizione della proprietà"
+                            aria-describedby="err-desc-required err-desc-invalid"
+                            data-msg-required="Inserisci una descrizione"
+                            data-msg-invalid="Formato non corretto">[description]</textarea>
+                    <div id="err-desc-server" class="error-msg display-error" aria-live="polite">[description_err]</div>
+                    <p id="err-desc-required-client" class="error-msg desc1-error" aria-live="polite"></p>
+                    <p id="err-desc-invalid-client" class="error-msg desc2-error" aria-live="polite"></p>
+                </div>
 
-            <div class = "form-group">
-                <!-- Description -->
-                <label for="description">Descrizione:</label>
-                <textarea id="description" name="description" required placeholder="Descrizione della proprietà"
-                        aria-describedby="err-desc-required err-desc-invalid"
-                        data-msg-required="Inserisci una descrizione"
-                        data-msg-invalid="Formato non corretto">[description]</textarea>
-                <div id="err-desc-server" class="error-msg display-error" aria-live="polite">[description_err]</div>
-                <p id="err-desc-required-client" class="error-msg desc1-error" aria-live="polite"></p>
-                <p id="err-desc-invalid-client" class="error-msg desc2-error" aria-live="polite"></p>
-            </div>
+                <div class = "form-group">
+                    <!-- Price -->
+                    <label for="price">Prezzo (&euro;):</label>
+                    <input type="number" id="price" name="price" value="[price]" required placeholder="Es. 150000"
+                        aria-describedby="err-price-required err-price-invalid"
+                        data-msg-required="Inserisci il prezzo"
+                        data-msg-invalid="Valore non valido" min="0">
+                    <div id="err-price-server" class="error-msg display-error" aria-live="polite">[price_err]</div>
+                    <p id="err-price-required-client" class="error-msg price1-error" aria-live="polite"></p>
+                    <p id="err-price-invalid-client" class="error-msg price2-error" aria-live="polite"></p>
+                </div>
 
-            <div class = "form-group">
-                <!-- Price -->
-                <label for="price">Prezzo (&euro;):</label>
-                <input type="number" id="price" name="price" value="[price]" required placeholder="Es. 150000"
-                    aria-describedby="err-price-required err-price-invalid"
-                    data-msg-required="Inserisci il prezzo"
-                    data-msg-invalid="Valore non valido" min="0">
-                <div id="err-price-server" class="error-msg display-error" aria-live="polite">[price_err]</div>
-                <p id="err-price-required-client" class="error-msg price1-error" aria-live="polite"></p>
-                <p id="err-price-invalid-client" class="error-msg price2-error" aria-live="polite"></p>
-            </div>
-
-            <div class = "form-group">
-                <!-- Availability -->
-                <label for="availability">Stato di Disponibilità:</label>
-                <select id="availability" name="availability" aria-describedby="err-availability-required err-availability-invalid"
-                        data-msg-required="Seleziona la disponibilità">
-                    <option value="">Seleziona...</option>
-                    <option value="1" [select_si]>Disponibile</option>
-                    <option value="0" [select_no]>Venduto / Non disponibile</option>
-                </select>
-                <div id="err-availability-server" class="error-msg display-error" aria-live="polite">[availability_err]</div>
-                <p id="err-availability-required-client" class="error-msg availability1-error" aria-live="polite"></p>
-                <p id="err-availability-invalid-client" class="error-msg availability2-error" aria-live="polite"></p>
-            </div>
-            <input type="submit" name="submit" value="Salva Modifiche">
-        </form>
-    </div>
+                <div class = "form-group">
+                    <!-- Availability -->
+                    <label for="availability">Stato di Disponibilità:</label>
+                    <select id="availability" name="availability" aria-describedby="err-availability-required err-availability-invalid"
+                            data-msg-required="Seleziona la disponibilità">
+                        <option value="">Seleziona...</option>
+                        <option value="1" [select_si]>Disponibile</option>
+                        <option value="0" [select_no]>Venduto / Non disponibile</option>
+                    </select>
+                    <div id="err-availability-server" class="error-msg display-error" aria-live="polite">[availability_err]</div>
+                    <p id="err-availability-required-client" class="error-msg availability1-error" aria-live="polite"></p>
+                    <p id="err-availability-invalid-client" class="error-msg availability2-error" aria-live="polite"></p>
+                </div>
+                <input type="submit" name="submit" value="Salva Modifiche">
+            </form>
+        </div>
+    </main>
     
     <footer>
         <p>&copy; <time datetime="2025">2025</time> <span lang="en">Urbanoo</span>: Agenzia Immobiliare. P.IVA 1234567890. Tutti i diritti sono riservati</p>
