@@ -22,20 +22,20 @@
             <ul>
                 <li lang="en"><a href="index.html">Home</a></li>
                 <li><a href="aboutus.html">Chi Siamo</a></li>
-                <li><a href="../php/proprieta.php">Proprietà</a></li>
+                <li><a href="/php/proprieta.php">Proprietà</a></li>
                 <li><a href="contatti.html">Contatti</a></li>
-                <li><a href="../php/areariservata.php" class="profile-btn">Profilo</a></li>
+                <li><a href="/php/login.php" class="profile-btn">Profilo</a></li>
             </ul>
         </nav>
     </header>
     <nav id="breadcrumb">
-        <p>Ti trovi in: <a href="index.html" lang="en">Home</a> &raquo; <a href="../php/areariservata.php">Profilo</a> &raquo; <span lang="en">Wishlist</span></p>
+        <p>Ti trovi in: <a href="index.html" lang="en">Home</a> &raquo; <a href="/php/login.php">Profilo</a> &raquo; Aggiungi Proprietà</p>
     </nav>
 
     <main id="content">
         <div class="form-container">
             <h1>Aggiungi una nuova proprietà</h1>
-            <form id="add-property-form" action="../php/aggiungi_proprieta.php" method="post" enctype="multipart/form-data">
+            <form id="add-property-form" action="/php/aggiungi_proprieta.php" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <!-- Name -->
                     <label for="name">Nome Proprietà:</label>
@@ -165,6 +165,9 @@
                 <!-- Submit -->
                 <input type="submit" value="Aggiungi Proprietà" title="Clicca qui per aggiungere la proprietà">
             </form>
+        </div>
+        <div class="goback">
+            <a href="#" aria-label="Torna su">&#8679;</a>   
         </div>
     </main>
     

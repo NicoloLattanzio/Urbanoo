@@ -24,8 +24,8 @@
                 <li><a href="index.html" lang="en">Home</a></li>
                 <li><a href="aboutus.html">Chi Siamo</a></li>
                 <li id="currentlink" lang="en">Proprietà</li>
-                <li><a href="../php/contatti.php">Contatti</a></li>
-                <li><a href="../php/areariservata.php" class="profile-btn">Profilo</a></li>
+                <li><a href="contatti.html">Contatti</a></li>
+                <li><a href="/php/login.php" class="profile-btn">Profilo</a></li>
             </ul>
         </nav>
     </header>
@@ -35,7 +35,7 @@
     
     <aside id="filters">
         <h2>Filtra Proprietà</h2>
-        <form method="GET" action="../php/proprieta.php" id="searchForm">
+        <form method="GET" action="/php/proprieta.php" id="searchForm">
             <div>
                 <label for="title">Nome</label>
                 <input type="text" id="title" name="title" placeholder="Nome proprietà">
@@ -125,7 +125,11 @@
             <h2>Elenco</h2>
             [properties] 
         </div>
+        <div class="goback">
+            <a href="#" aria-label="Torna su">&#8679;</a>   
+        </div>
     </main>
+    
     <footer>
         <p>&copy; <time datetime="2025">2025</time> <span lang="en">Urbanoo</span>: Agenzia Immobiliare. P.IVA 1234567890. Tutti i diritti sono riservati</p>
     </footer>
