@@ -8,7 +8,7 @@
     --text-dark: #1A202C;
     --text-gray: #718096;
     --border-color: #E2E8F0;
-    --error-color: #F44336;
+    --error-color: #DA190B;
 }
 
 /* * { 
@@ -136,6 +136,26 @@ footer {
      transition: 0.4s;
  }
 
-#error-actions{
+/*#error-actions{
     text-align: center;
+} Ancora da capire se serve*/
+
+.form-container{
+    background-color: var(--bgcolor);
+    border-color: var(--navy-blue);
+    border: 2px solid;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: .3em 1em;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+
 }
+
+
+
+
