@@ -98,6 +98,12 @@
     </aside>
 
     <main id="content">
+        <nav aria-label="aiuti alla navigazione">
+            <a class="navigationHelp" href="#property-list">Vai alla lista delle proprietà</a>
+        </nav>
+        <div id="[action-id]" class="[action-class]" aria-live="polite"> <!-- action: insert/delete/change-->
+            [action-status-msg]
+        </div>
         <div class="intro">
             <h1>Le Nostre Proprietà</h1>
             <p><strong lang="en">Urbanoo</strong> offre un'ampia gamma di soluzioni per voi! Sappiamo che cercare casa non significa solo trovare quattro mura, ma scegliere lo scenario della tua vita futura.</p>
@@ -121,7 +127,7 @@
             </dl>
         </div>
 
-        <div class="property-list">
+        <div class="property-list" id="property-list">
             <h2>Elenco</h2>
             [properties] 
         </div>

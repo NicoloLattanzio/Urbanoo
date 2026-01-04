@@ -42,7 +42,7 @@ if ($connessioneOK) {
                     <h3>' . $p['nome'] . '</h3>
                     // commentato per ora, non serve <p>' . $p['citta'] . ' - ' . number_format($p['prezzo'], 0, ',', '.') . ' &euro;</p>
                     <a href="dettagli_proprieta.php?id=' . $p['id'] . '">Vedi Dettagli</a> |
-                    <a href="wishlist.php?remove=' . $p['id'] . '" class="remove-btn">Rimuovi dai preferiti</a>
+                    <a href="wishlist.php?remove=' . $p['id'] . '" class="remove-wishlist-btn">Rimuovi dai preferiti</a>
                 </div>
             </li>';
         }

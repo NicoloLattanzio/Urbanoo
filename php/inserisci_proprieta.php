@@ -236,15 +236,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //meglio di isset($_POST['submit'])
             $connessione -> closeDBConnection();             
 
             if($insertProprieta){
-                $_SESSION['insertion_success_msg'] = "Proprietà aggiunta con successo!";
-                header("Location: proprieta.php"); //reindirizzo alla pagina proprieta.php
-                exit();
+                $_SESSION['insertion_prop_msg'] = "success";
             }
             else {
-                $_SESSION['insertion_error_message'] = "Errore durante l'esecuzione della query.";
-                header("Location: proprieta.php"); //reindirizzo alla pagina di errore (problema con l'esecuzione della query)
-                exit();
+                $_SESSION['insertion_prop_msg'] = "error"; //problema esecuzione query
             }
+            header("Location: proprieta.php?insertion_prop_msg"); //reindirizzo proprieta.php con relativo messaggio di successo/errore inserimento
+            exit();
         } else {
             //problema con la connessione al DB
             header("Location: /500.html");
