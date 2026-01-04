@@ -109,16 +109,31 @@ footer {
      background-color: var(--text-dark);
      color: var(--white);
      text-align: center;
-     padding: 30px;
-     margin-top: 60px;
+     padding: 1em;
+     margin-top: 0.5em;
      max-width: 600px;
      margin-left: auto;
      margin-right: auto;
-     border-radius: 8px;
+     border-radius: 0.5em;
      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
  }
  #error-color{
      color: var(--error-color);
+ }
+
+ .btn-error{
+     background-color: var(--bgcolor);
+     border-color: var(--white);
+     text-decoration: none;
+     border: 2px solid var(--white);
+     border-radius: 25px;
+     color: var(--white);
+     cursor: pointer;
+     padding: .3em 1em;
+ }
+ .btn-error:hover {
+     background-color: var(--error-color);
+     transition: 0.4s;
  }
 
 #error-actions{
