@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once "dbconnection.php";
 use DB\DBAccess;
 
@@ -7,14 +7,23 @@ $paginaHTML = file_get_contents('../html/dettagli_proprieta.html');
 
 $connessione = new DBAccess();
 $connessioneOK = $connessione->openDBConnection();
+$_SESSION['show_prop_msg'] = [
+    'type' => '',
+    'text' => ''
+];
 
 if ($connessioneOK) {
-    if (isset($_GET['id'])) {
-        $idProprieta = $_GET['id'];
-    } else {
-        // id mancante → gestisci errore o redirect
-        die('ID proprietà non specificato');
+    $idProprieta = $_GET['id'] ?? '';
+    if(empty($idProprieta)) {
+        $_SESSION['show_prop_msg'] = [
+            'type' => 'error',
+            'text' => 'Spiacenti, non hai selezionato alcuna proprietà.'
+        ];
+        header('location: /php/proprieta.php');
+        exit();
     }
+
+    //la proprietà è stata selezionata -> controllare se esiste nel db
     $proprieta = $connessione->showProprietaDetails($idProprieta);
     $connessione->closeDBConnection();
     if ($proprieta) {
@@ -54,11 +63,17 @@ if ($connessioneOK) {
             </div>"
         );
     } else {
-        $dettagli_proprieta = "<p>Dettagli della proprietà non disponibili.</p>";
+        $_SESSION['show_prop_msg'] = [
+            'type' => 'error',
+            'text' => 'Spiacenti, la proprietà selezionata non esiste.'
+        ];
+        header('location: /php/proprieta.php');
+        exit();
     }
 } else {
     // Gestione errore connessione DB
-    $dettagli_proprieta = "<p>I sistemi sono momentaneamente fuori servizio, ci scusiamo per il disagio. Ci stiamo occupando del problema, riprova più tardi oppure contattaci a questa mail: help@urbanoo.com</p>";
+    header("location: /500.html");
+    exit();
 }
 
 $paginaHTML = str_replace("[dettagli]", $dettagli_proprieta, $paginaHTML);

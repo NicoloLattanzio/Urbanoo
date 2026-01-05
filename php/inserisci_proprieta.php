@@ -84,7 +84,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //meglio di isset($_POST['submit'])
         $formValido = false;
     }
     $prezzo = cleanInput($prezzo, $tagPermessi);
-
+    $prezzo = (float)$prezzo;
+    
     //Validazione Tipologia
    $tipologia = trim($_POST['type'] ?? '');
     $tipologieValide = ['Monolocale', 'Bilocale', 'Trilocale', 'Villa', 'Attico', 'Rustico'];
@@ -107,6 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //meglio di isset($_POST['submit'])
         $formValido = false;
     }
     $superficie = cleanInput($superficie, $tagPermessi);
+    $superficie = intval($superficie);
 
     //Validazione Locali
     $locali = trim($_POST['rooms'] ?? '');
@@ -118,6 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //meglio di isset($_POST['submit'])
         $formValido = false;
     }
     $locali = cleanInput($locali, $tagPermessi);
+    $locali = intval($locali);
 
     //Validazione Disponibilità
     $disponibilita = trim($_POST['availability'] ?? '');
@@ -129,6 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //meglio di isset($_POST['submit'])
         $formValido = false;
     }
     $disponibilita = cleanInput($disponibilita, $tagPermessi);
+    $disponibilita = intval($disponibilita);
     //Validazione Immagine
     /*$immagine = $_POST['img'];
     if (strlen($immagine) > 0 && !preg_match("/\.(jpg|jpeg|png)$/i", $immagine)) {
@@ -242,7 +246,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //meglio di isset($_POST['submit'])
             if($insertProprieta){
                 $_SESSION['insert_prop_msg'] = [
                     'type' => 'success',
-                    'text' => 'La proprietà è stata aggiunta correttamente.'
+                    'text' => 'Proprietà inserita con successo.'
                 ];
             }
             else {

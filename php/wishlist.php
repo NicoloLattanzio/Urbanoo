@@ -7,7 +7,7 @@ if (!isset($_SESSION['role'])) {
     header("Location: ../403.html");
     exit();
 }elseif($_SESSION['role'] === 'admin'){
-    $_SESSION['admin_wishlist'] = 'Sei gay';
+    $_SESSION['admin_wishlist'] = 'Sei l\'admin non possiedi la tua wishlist';
     header("Location: /proprieta.html");
     exit();
 }
@@ -23,7 +23,12 @@ if ($connessioneOK) {
     // Gestione rimozione se clicchi sul tasto "Rimuovi"
     if (isset($_GET['remove'])) {
         $connessione->removeFromWishlist($idLoggato, intval($_GET['remove']));
-        header("Location: wishlist.php");
+        header("Location: /php/wishlist.php");
+        exit();
+    }
+    if (isset($_GET['add'])) {
+        $connessione->insertToWishlist($idLoggato, intval($_GET['add']));
+        header("Location: /php/wishlist.php");
         exit();
     }
 
@@ -31,18 +36,21 @@ if ($connessioneOK) {
     $connessione->closeDBConnection();
 
     if (!empty($immobiliSalvati)) {
-        $lista_output = '<ul class="property-wish">';
+        $lista_output = '<ul class="property-wishlist">';
         foreach ($immobiliSalvati as $p) {
             // Fix percorso immagine per Docker
             $img = str_replace('../img/', '/img/', $p['immagine']);
-
+            // commentato per ora, non serve <p>' . $p['citta'] . ' - ' . number_format($p['prezzo'], 0, ',', '.') . ' &euro;</p> dopo <h3>' . $p['nome'] . '</h3>
             $lista_output .= '<li>
-                <img src="' . $img . '" alt="Anteprima ' . $p['nome'] . '">
-                <div>
+                <div class="property-item">
                     <h3>' . $p['nome'] . '</h3>
-                    // commentato per ora, non serve <p>' . $p['citta'] . ' - ' . number_format($p['prezzo'], 0, ',', '.') . ' &euro;</p>
-                    <a href="dettagli_proprieta.php?id=' . $p['id'] . '">Vedi Dettagli</a> |
-                    <a href="wishlist.php?remove=' . $p['id'] . '" class="remove-wishlist-btn">Rimuovi dai preferiti</a>
+                    <img src="' . $img . '" alt="Anteprima ' . $p['nome'] . '">
+                    <div class="user-actions">
+                        <a href="dettagli_proprieta.php?id=' . $p['id'] . '" id="view-link" class="action-button">Vedi Dettagli</a>
+                    </div>
+                    <div class="user-actions">
+                        <a href="wishlist.php?remove=' . $p['id'] . '" id="delete-link" class="action-button">Rimuovi dai preferiti</a>
+                    </div>
                 </div>
             </li>';
         }
@@ -51,8 +59,10 @@ if ($connessioneOK) {
         $lista_output = '<p>Non hai ancora salvato nessuna proprietà nei tuoi preferiti.</p>';
     }
 } else {
-    $lista_output = '<p>Si è verificato un errore di connessione.</p>';
+    header('location: /500.html');
+    exit();
 }
 
-echo str_replace("[wishlist]", $lista_output, $paginaHTML);
+$paginaHTML = str_replace("[wishlist]", $lista_output, $paginaHTML);
+echo $paginaHTML;
 ?>

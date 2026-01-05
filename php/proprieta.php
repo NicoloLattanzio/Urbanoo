@@ -11,9 +11,6 @@ $isAdmin = (isset($_SESSION['role']) && $_SESSION['role'] === 'admin');
 $connessione = new DBAccess();
 $connessioneOK = $connessione->openDBConnection();
 
-$stringaProprieta = "";
-$messaggioOperazione = ""; 
-
 // logica per mostrare messaggi di successo/errore dopo operazione di elimina [CONTROLLA SE VA BENE E SE SERVE LOGICA MODIFICA/AGGIUNGI] già generico volendo
 /*if (isset($_GET['insertion_success_msg'])) {
     if ($_GET['insertion_success_msg'] === 'success') {
@@ -22,10 +19,13 @@ $messaggioOperazione = "";
         $messaggioOperazione = '<p class="error-message" role="alert">Si è verificato un errore durante l\'operazione.</p>';
     }
 }*/
+
+$stringaProprieta = "";
 $actionMap = [
     'insert_prop_msg' => 'insert-id',
     'delete_prop_msg'=> 'delete-id',
-    'change_prop_msg'=> 'change-id'
+    'change_prop_msg'=> 'change-id',
+    'show_prop_msg'=> 'view-id',
 ];
 $msg = null;
 $actionId = null;
@@ -61,17 +61,17 @@ if ($connessioneOK) {
     $connessione->closeDBConnection();
 
     if (!empty($listaProprieta)) {
+        if ($msg) {
+            $placeholders = [
+                '[action-id]' => $actionId,
+                '[action-class]' => $msg['type'] === 'error'
+                    ? 'error-msg display-msg'
+                    : 'success-msg display-msg',
+                '[action-status-msg]' => htmlspecialchars($msg['text'])
+            ];
+            $paginaHTML = str_replace(array_keys($placeholders), array_values($placeholders), $paginaHTML);
+        }
         if ($isAdmin) {
-            if ($msg) {
-                $placeholders = [
-                    '[action-id]' => $actionId,
-                    '[action-class]' => $msg['type'] === 'error'
-                        ? 'error-msg display-msg'
-                        : 'success-msg display-msg',
-                    '[action-status-msg]' => htmlspecialchars($msg['text'])
-                ];
-                $paginaHTML = str_replace(array_keys($placeholders), array_values($placeholders), $paginaHTML);
-            }
             $stringaProprieta .= '<div class="admin-controls"><a href="/php/inserisci_proprieta.php" class="btn-add">Aggiungi Nuova Proprietà</a></div>';
         }
 
@@ -82,19 +82,19 @@ if ($connessioneOK) {
             $stringaProprieta .= '<div class="property-item"><h3>' . $proprieta['nome'] . '</h3>';
             $stringaProprieta .= '<img src="' . $proprieta['immagine'] . '" alt="Foto di ' . $proprieta['nome'] . '" />';
             // Tutti gli utenti hanno il pulsante "Vedi"
-            $stringaProprieta .= '<div class="user-actions"><a href="/php/dettagli_proprieta.php?id=' . $proprieta['id'] . '" aria-label="Vedi i dettagli di ' . $proprieta['nome'] . '">Vedi</a></div>';
+            $stringaProprieta .= '<div class="user-actions"><a href="/php/dettagli_proprieta.php?id=' . $proprieta['id'] . '" id="view-link" class="action-button" aria-label="Vedi i dettagli di ' . $proprieta['nome'] . '">Vedi</a></div>';
 
             if ($isAdmin) {
     			// L'admin vede "Modifica" che va alla pagina dettagli
-    			$stringaProprieta .= '<div class="user-actions"><a href="/php/modifica_proprieta.php?id=' . $proprieta['id'] . '" aria-label="Modifica i dettagli di ' . $proprieta['nome'] . '">Modifica</a></div>';
+    			$stringaProprieta .= '<div class="user-actions"><a href="/php/modifica_proprieta.php?id=' . $proprieta['id'] . '" id="change-link" class="action-button" aria-label="Modifica i dettagli di ' . $proprieta['nome'] . '">Modifica</a></div>';
     			// L'admin vede "Elimina" che attiva uno script di cancellazione: iniziamente blocco nascosto poi attivato da JS e mostrato a schermo
-    			$stringaProprieta .= '  <div class="user-actions"><a href="/php/elimina_proprieta.php?id=' . $proprieta['id'] . '" class="delete-link" aria-label="Elimina ' . $proprieta['nome'] . '">Elimina</a></div>
+    			$stringaProprieta .= '  <div class="user-actions"><a href="/php/elimina_proprieta.php?id=' . $proprieta['id'] . '" id="delete-link" class="action-button" aria-label="Elimina ' . $proprieta['nome'] . '">Elimina</a></div>
                                         <div id="delete-dialog" class="hide" role="alertdialog" aria-modal="true" aria-labelledby="delete-title" aria-describedby="delete-desc">
                                             <h2 id="delete-title">Conferma eliminazione</h2>
                                             <p id="delete-desc">Sei sicuro di voler eliminare questa proprietà?</p>
                                             <button id="confirm-delete">Elimina</button>
                                             <button id="cancel-delete">Annulla</button>
-                                        </div>';	
+                                        </div>';	//si arrangia con js
 		    }
 		    $stringaProprieta .= '</div></li>';
         }
@@ -104,6 +104,7 @@ if ($connessioneOK) {
     }
 } else {
     header("location: /500.html");
+    exit();
     //$stringaProprieta = '<p>I sistemi sono momentaneamente fuori servizio, ci scusiamo per il disagio. Ci stiamo occupando del problema, riprova più tardi oppure contattaci attraverso <a href="/contatti.html" aria-label="pagina dei contatti">questa pagina</a></p>';
 }
 

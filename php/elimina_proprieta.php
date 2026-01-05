@@ -4,22 +4,46 @@ require_once "dbconnection.php";
 use DB\DBAccess;
 
 // Controllo sicurezza: solo l'admin può chiamare questo file
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin' && isset($_GET['id'])) {
-    $db = new DBAccess();
-    if ($db->openDBConnection()) {
-        $id = $_GET['id'];
-        $successo = $db->deleteProprieta($id); 
-        $db->closeDBConnection();
-        
-        if ($successo) {
-            header("Location: proprieta.php?msg=success");
-        } else {
-            header("Location: proprieta.php?msg=error");
-        }
-        exit();
-    }
+if(!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
+    header("Location: /403.html");
+    exit();
 }
 
-header("Location: proprieta.php");
+$_SESSION['delete_prop_msg'] = [
+    'type' => '',
+    'text' => ''
+];
+$idProprieta = $_GET['id'] ?? '';
+
+if (!empty($idProprieta)){
+    $connessione = new DBAccess();
+    $connessioneOK = $connessione -> openDBConnection();
+    if ($connessioneOK) {
+        $success = $connessione->deleteProprieta($idProprieta); 
+        $connessione->closeDBConnection();
+        
+        if ($success) {
+            $_SESSION['delete_prop_msg'] = [
+                'type' => 'success',
+                'text' => 'Proprietà eliminata con successo.'
+            ];
+        } else {
+            $_SESSION['delete_prop_msg'] = [
+                'type' => 'error',
+                'text' => 'C\'è stato un problema con l\'eliminazione della proprietà.'
+            ];
+        }
+    } else {
+        header("location: /500.html");
+        exit();
+    }
+} else {
+    $_SESSION['delete_prop_msg'] = [
+        'type' => 'error',
+        'text' => 'Spiacenti, impossibile proseguire con l\'eliminazione: la proprietà selezionata non esiste.'
+    ];
+}
+
+header("Location: /php/proprieta.php");
 exit(); 
 ?>
