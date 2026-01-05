@@ -6,9 +6,9 @@
 /* --- RESET E VARIABILI --- */
 :root {
     --navy-blue: #0F253A;
-    --mustard-gold: #D69E2E;
-    --mustard-hover: #b58322;
-    --bgcolor: #FFFFFF;
+    --mustard-gold: #BF8A24;
+    --mustard-hover: #9F741E;
+    --white: #FFFFFF;
     --gray-light: #F4F6F8;
     --textcolor: #1A202C;
     --text-gray: #718096;
@@ -21,14 +21,14 @@ html,body{
     font-family: "Verdana",sans-serif;
     line-height: 1.5em;
     margin:auto;
-    background-color: var(--bgcolor);
+    background-color: var(--text-gray);
     color:var(--textcolor);
 }
 
 body{
-    background-color: var(--bgcolor);
+    background-color: var(--white);
     color: var(--txtcolor);
-    max-width: 1024px; /*1200px;*/
+    max-width: 1200px; /*1200px;*/
     margin: auto;
 }
 
@@ -137,15 +137,106 @@ SEZIONE BREADCRUMB
     color: #fff;
 }
 
+/*
+==============================================================
+SEZIONE FILTRI
+==============================================================
+*/
+
+/*#filters {
+    background-color: var(--gray-light);
+    border: 1px solid var(--border-color);
+    padding: 1em;
+    margin-top: 1em;
+    border-radius: 0.5em;
+}*/
+
+#filters {
+    float: left;
+    width: 22%;
+    color: var(--white);
+    background-color: var(--navy-blue);
+    border: solid 1px black;
+    padding: 1.5em;
+    margin-right: 3%;
+    margin-top: 1em;
+    border-radius: 12px;
+    /*box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);/**/
+    box-sizing: border-box;
+}
+
+#filters h2 {
+    font-size: 1.3em;
+    margin-bottom: 1em;
+    border-bottom: 2px solid var(--mustard-gold);
+    padding-bottom: 0.5em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.input-filters {
+    margin-bottom: 1.2em;
+}
+
+.input-filters label {
+    display: block;
+    font-size: 0.9em;
+    font-weight: bold;
+    margin-bottom: 0.4em;
+    color: var(--mustard-gold); /* Uso del colore di accento per le label */
+}
+
+.input-filters select, 
+.input-filters input[type="text"] {
+    width: 100%;
+    padding: 0.6em;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background-color: var(--white); 
+    color: var(--textcolor);
+    box-sizing: border-box;
+}
+
+/* Stile per il pulsante Cerca */
+#filters button[type="submit"] {
+    width: 100%;
+    background-color: var(--mustard-gold);
+    color: var(--navy-blue);
+    border: none;
+    padding: 0.8em;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 0.5em;
+}
+
+#filters button[type="submit"]:hover {
+    background-color: var(--mustard-hover);
+}
+
+/*.input-filters select, #title, #city {
+     box-sizing: border-box;
+     width: 100%;
+     border-radius: 0.375rem;
+     border: 1px solid rgba(55, 65, 81, 1);
+     outline: 0;
+     background-color: rgba(17, 24, 39, 1);
+     padding: 0.75rem 1rem;
+     color: rgba(243, 244, 246, 1);
+ }*/
+
 /* 
 --- FOOTER
 */
 footer { 
     background-color: var(--navy-blue); 
-    color: var(--white); 
+    color: #fff; 
     text-align: center; 
     padding: 30px; 
     margin-top: 60px; 
+    border-radius: 10px 10px 0px 0px;
 }
 
 
@@ -193,7 +284,7 @@ footer {
  }
 
  .btn-error{
-     background-color: var(--bgcolor);
+     background-color: var(--white);
      border-color: var(--white);
      text-decoration: none;
      border: 2px solid var(--white);
@@ -266,6 +357,14 @@ footer {
  }
 
 
+ #content{
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     width: 100%;
+     background-color: var(--white);
+ }
 
 
 
