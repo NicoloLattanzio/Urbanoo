@@ -11,6 +11,10 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
 $paginaHTML = file_get_contents('../html/aggiungi_proprieta.html');
 $formValido = true;
 $tagPermessi ='<em><strong><ul><li>';
+$_SESSION['insert_prop_msg'] = [
+    'type' => '',
+    'text' => ''
+];
 
 // Variabili per i valori del form
 $nome = "";
@@ -236,12 +240,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //meglio di isset($_POST['submit'])
             $connessione -> closeDBConnection();             
 
             if($insertProprieta){
-                $_SESSION['insertion_prop_msg'] = "success";
+                $_SESSION['insert_prop_msg'] = [
+                    'type' => 'success',
+                    'text' => 'La proprietà è stata aggiunta correttamente.'
+                ];
             }
             else {
-                $_SESSION['insertion_prop_msg'] = "error"; //problema esecuzione query
+                $_SESSION['insert_prop_msg'] = [
+                    'type' => 'error',
+                    'text' => 'C\'è stato un problema con l\'aggiunta della proprietà.' //problemi con l'esecuzione della query
+                ];
             }
-            header("Location: proprieta.php?insertion_prop_msg"); //reindirizzo proprieta.php con relativo messaggio di successo/errore inserimento
+            header("Location: proprieta.php?"); //reindirizzo proprieta.php con relativo messaggio di successo/errore inserimento
             exit();
         } else {
             //problema con la connessione al DB

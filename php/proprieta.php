@@ -22,12 +22,27 @@ $messaggioOperazione = "";
         $messaggioOperazione = '<p class="error-message" role="alert">Si è verificato un errore durante l\'operazione.</p>';
     }
 }*/
-if(isset($_SESSION["insertion_prop_msg"])){
-    if($_SESSION["insertion_prop_msg"] === "success")
-        $messaggioOperazione = '<p class="success-message" role="alert">Operazione completata con successo.</p>';
+$actionMap = [
+    'insert_prop_msg' => 'insert-id',
+    'delete_prop_msg'=> 'delete-id',
+    'change_prop_msg'=> 'change-id'
+];
+$msg = null;
+$actionId = null;
+
+foreach ($actionMap as $sessionKey => $id) {
+    if (isset($_SESSION[$sessionKey])) {
+        $msg = $_SESSION[$sessionKey];
+        $actionId = $id;
+        unset($_SESSION[$sessionKey]);
+        break; // prende solo il primo messaggio trovato
+    }
 }
+
 if ($connessioneOK) {
-    $filtriAttivi = array_filter($_GET); 
+    $filtriAttivi = array_filter($_GET, function ($value) {
+        return $value !== '';
+    }); //i campi 0, 1 vengono tenuti validi
 
     if (!empty($filtriAttivi)) {
         // Se ci sono filtri, usiamo la funzione specifica
@@ -45,36 +60,51 @@ if ($connessioneOK) {
 
     $connessione->closeDBConnection();
 
-    $stringaProprieta .= $messaggioOperazione;  // CONTROLLA SE VA BENE QUI
-
     if (!empty($listaProprieta)) {
         if ($isAdmin) {
-            $stringaProprieta .= '<div class="admin-controls"><a href="/php/inserisci_proprieta.php" class="btn-add">➕ Aggiungi Nuova Proprietà</a></div>';
+            if ($msg) {
+                $placeholders = [
+                    '[action-id]' => $actionId,
+                    '[action-class]' => $msg['type'] === 'error'
+                        ? 'error-msg display-msg'
+                        : 'success-msg display-msg',
+                    '[action-status-msg]' => htmlspecialchars($msg['text'])
+                ];
+                $paginaHTML = str_replace(array_keys($placeholders), array_values($placeholders), $paginaHTML);
+            }
+            $stringaProprieta .= '<div class="admin-controls"><a href="/php/inserisci_proprieta.php" class="btn-add">Aggiungi Nuova Proprietà</a></div>';
         }
 
         $stringaProprieta .= '<ul class="property-list">'; 
 
         foreach ($listaProprieta as $proprieta) {
             $stringaProprieta .= '<li>';
-            $stringaProprieta .= '<h3>' . $proprieta['nome'] . '</h3>';
+            $stringaProprieta .= '<div class="property-item"><h3>' . $proprieta['nome'] . '</h3>';
             $stringaProprieta .= '<img src="' . $proprieta['immagine'] . '" alt="Foto di ' . $proprieta['nome'] . '" />';
             // Tutti gli utenti hanno il pulsante "Vedi"
-            $stringaProprieta .= '<a href="/php/dettagli_proprieta.php?id=' . $proprieta['id'] . '" aria-label="Vedi i dettagli di ' . $proprieta['nome'] . '">Vedi</a>';
+            $stringaProprieta .= '<div class="user-actions"><a href="/php/dettagli_proprieta.php?id=' . $proprieta['id'] . '" aria-label="Vedi i dettagli di ' . $proprieta['nome'] . '">Vedi</a></div>';
 
             if ($isAdmin) {
     			// L'admin vede "Modifica" che va alla pagina dettagli
-    			$stringaProprieta .= '<a href="/php/modifica_proprieta.php?id=' . $proprieta['id'] . '" aria-label="Modifica i dettagli di ' . $proprieta['nome'] . '">Modifica</a>';
-    			// L'admin vede "Elimina" che attiva uno script di cancellazione  [CONTROLLA CHE SI FACCIA COSI, CONFIRM JAVASCRIPT NON NAVIGABILE SCREEN READER??]
-    			$stringaProprieta .= '<a href="/php/elimina_proprieta.php?id=' . $proprieta['id'] . '" onclick="return confirm(\'Sei sicuro di voler eliminare questa proprietà?\')" aria-label="Elimina ' . $proprieta['nome'] . '">Elimina</a>';	
+    			$stringaProprieta .= '<div class="user-actions"><a href="/php/modifica_proprieta.php?id=' . $proprieta['id'] . '" aria-label="Modifica i dettagli di ' . $proprieta['nome'] . '">Modifica</a></div>';
+    			// L'admin vede "Elimina" che attiva uno script di cancellazione: iniziamente blocco nascosto poi attivato da JS e mostrato a schermo
+    			$stringaProprieta .= '  <div class="user-actions"><a href="/php/elimina_proprieta.php?id=' . $proprieta['id'] . '" class="delete-link" aria-label="Elimina ' . $proprieta['nome'] . '">Elimina</a></div>
+                                        <div id="delete-dialog" class="hide" role="alertdialog" aria-modal="true" aria-labelledby="delete-title" aria-describedby="delete-desc">
+                                            <h2 id="delete-title">Conferma eliminazione</h2>
+                                            <p id="delete-desc">Sei sicuro di voler eliminare questa proprietà?</p>
+                                            <button id="confirm-delete">Elimina</button>
+                                            <button id="cancel-delete">Annulla</button>
+                                        </div>';	
 		    }
-		    $stringaProprieta .= '</li>';
+		    $stringaProprieta .= '</div></li>';
         }
         $stringaProprieta .= '</ul>';
     } else {
-        $stringaProprieta = "<p>Nessuna proprietà trovata nel database.</p>";
+        $stringaProprieta = "<p>Nessuna proprietà corrisponde alla tua ricerca</p>";
     }
 } else {
-    $stringaProprieta = '<p>I sistemi sono momentaneamente fuori servizio, ci scusiamo per il disagio. Ci stiamo occupando del problema, riprova più tardi oppure contattaci attraverso <a href="index.html" aria-label="pagina dei contatti">questa pagina</a></p>';
+    header("location: /500.html");
+    //$stringaProprieta = '<p>I sistemi sono momentaneamente fuori servizio, ci scusiamo per il disagio. Ci stiamo occupando del problema, riprova più tardi oppure contattaci attraverso <a href="/contatti.html" aria-label="pagina dei contatti">questa pagina</a></p>';
 }
 
 $paginaHTML = str_replace("[properties]", $stringaProprieta, $paginaHTML);
