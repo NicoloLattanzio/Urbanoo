@@ -197,6 +197,25 @@ SEZIONE FILTRI
     box-sizing: border-box;
 }
 
+/* Stile per il pulsante Cerca */
+#filters button[type="submit"] {
+    width: 100%;
+    background-color: var(--mustard-gold);
+    color: var(--navy-blue);
+    border: none;
+    padding: 0.8em;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 0.5em;
+}
+
+#filters button[type="submit"]:hover {
+    background-color: var(--mustard-hover);
+}
+
 /*.input-filters select, #title, #city {
      box-sizing: border-box;
      width: 100%;
