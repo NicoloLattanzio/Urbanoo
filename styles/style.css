@@ -58,6 +58,7 @@ header h1{
     font-size: 1em;
     height: 100px;
     width: 260px;
+    margin-left: 1em;
 }
 
 header h2 {
@@ -70,6 +71,7 @@ header h2 {
     font-size: 2.1em;
     letter-spacing: 0.1em;
     font-weight: normal;
+    border-radius: 10px 10px 0 0
 }
 /*
 ==============================================================
@@ -83,7 +85,9 @@ MENU DI NAVIGAZIONE
 }
 
 #menu {
-    margin-left: 10em;
+    font-size: 1.2em;
+    margin-left: auto;
+    margin-right: 1em;
 }
 
 /* Rimuoviamo i punti elenco e disponiamo i link in orizzontale */
@@ -115,6 +119,19 @@ MENU DI NAVIGAZIONE
     left: -9999px;
 }
 
+/*
+==============================================================
+SEZIONE BREADCRUMB
+==============================================================
+*/
+
+#breadcrumb {
+    background: var(--mustard-gold);
+    color: #fff;
+    font-size: 1.1em;
+    padding: .5em 0em .5em 1em;
+    border-radius: 0 0 10px 10px
+}
 
 /* 
 --- FOOTER
