@@ -120,62 +120,159 @@ class DBAccess {
 
 	// Funzione per mostrare i dettagli di una proprietà
 	public function showProprietaDetails($idProprieta) {
-		if ($idProprieta <= 0) return false;
+		$query = "SELECT * FROM proprieta WHERE id = ?";
+		$stmt = $this->connection->prepare($query);
 
-		$query = "SELECT * FROM proprieta WHERE id = $idProprieta";
-		$queryResult = mysqli_query($this->connection, $query) or die("Errore in dbConnection: " . mysqli_error($this->connection));;
-
-		if ($queryResult && mysqli_num_rows($queryResult) == 1) {
-			return mysqli_fetch_assoc($queryResult);
-		} else {
-			return false;
+    	if (!$stmt) {
+			// Errore nella preparazione della query SQL
+			error_log("Prepare failed: " . $this->connection->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];;
 		}
+		if (!$stmt->bind_param("i",  $idProprieta)) {
+			// Errore nel binding dei parametri
+			error_log("Bind param failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];;
+		}
+    	if (!$stmt->execute()) {
+			// Errore durante l'esecuzione della query SELECT
+			error_log("Execute failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];;
+		}
+		$result = $stmt->get_result();
+		if (!$result) {
+			// Errore nel recupero del risultato della query
+			error_log("Get result failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		$stmt->close();
+		if ($result->num_rows === 0) {
+        	return ['success' => false, 'content' => 'PROP_NOT_EXISTENT'];
+    	}
+		return ['success' => true, 'content' => $result->fetch_assoc()];
 	}
 
 
 	// Funzioni per la gestione della modifica della password
 	public function checkOldPassword($email, $oldPassword) {
-    	$email = mysqli_real_escape_string($this->connection, $email);
-    	$oldPassword = mysqli_real_escape_string($this->connection, $oldPassword);
-    	$query = "SELECT * FROM utenti WHERE email = '$email'";
-    	$result = mysqli_query($this->connection, $query);
-        $row = mysqli_fetch_assoc($result);
-        if(password_verify($oldPassword, $row['password'])){
-            return true;
-        }else{
-            return false;
+    	$query = "SELECT * FROM utenti WHERE email = ?";
+		$stmt = $this->connection->prepare($query);
+
+    	if (!$stmt) {
+			// Errore nella preparazione della query SQL
+			error_log("Prepare failed: " . $this->connection->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];;
+		}
+		if (!$stmt->bind_param("s",  $email)) {
+			// Errore nel binding dei parametri
+			error_log("Bind param failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];;
+		}
+    	if (!$stmt->execute()) {
+			// Errore durante l'esecuzione della query SELECT
+			error_log("Execute failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];;
+		}
+		$result = $stmt->get_result();
+		if (!$result) {
+			// Errore nel recupero del risultato della query
+			error_log("Get result failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		if ($result->num_rows === 0) {
+        	return ['success' => false, 'content' => 'PASSWORD_INVALID'];
+    	}
+		$user = $result->fetch_assoc();
+		$stmt->close();
+        if(!password_verify($oldPassword, $user['password'])){
+            return ['success' => false, 'content' => 'PASSWORD_INVALID'];;
         }
-    	//return ($result && mysqli_num_rows($result) > 0);
+        return ['success' => true, 'content' => null];
 	}
 
 	public function updatePassword($email, $newPassword) {
-    	$email = mysqli_real_escape_string($this->connection, $email);
-    	$newPassword = password_hash(mysqli_real_escape_string($this->connection, $newPassword), PASSWORD_DEFAULT);
-    
-    	// Aggiorniamo dove l'email corrisponde
-    	$query = "UPDATE utenti SET password = '$newPassword' WHERE email = '$email'";
-    	return mysqli_query($this->connection, $query);
+		$newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+    	$query = "UPDATE utenti SET password = ? WHERE email = ?";
+		$stmt = $this->connection->prepare($query);
+
+		if (!$stmt) {
+			// Errore nella preparazione della query SQL
+			error_log("Prepare failed: " . $this->connection->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		if (!$stmt->bind_param("ss", $newPassword, $email)) {
+			// Errore nel binding dei parametri
+			error_log("Bind param failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+    	if (!$stmt->execute()) {
+			// Errore durante l'esecuzione della query SELECT
+			error_log("Execute failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		$stmt->close();
+		return ['success' => true, 'content' => null];
 	}
 
 	public function propertyNameAlreadyExistent($nome) {
 		$query = "SELECT * FROM proprieta WHERE nome = ?";
 		$stmt = $this->connection->prepare($query);
-		$stmt->bind_param("s", $nome);
-		$stmt->execute();
+		if (!$stmt) {
+			// Errore nella preparazione della query SQL
+			error_log("Prepare failed: " . $this->connection->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		if (!$stmt->bind_param("s", $nome)) {
+			// Errore nel binding dei parametri
+			error_log("Bind param failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		if (!$stmt->execute()) {
+			// Errore durante l'esecuzione della query SELECT
+			error_log("Execute failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
 		$result = $stmt->get_result();
-		$row = $result->fetch_assoc();
-
-		return $row !== null;
+		if (!$result) {
+			// Errore nel recupero del risultato della query
+			error_log("Get result failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		$stmt->close();
+		if ($result->num_rows === 0) {
+        	return ['success' => false, 'content' => 'NAME_NOT_EXISTENT'];
+    	}
+		return ['success' => true, 'content' => null];
 	}
 
 	public function propertyAddressAlreadyExistent($indirizzo) {
 		$query = "SELECT * FROM proprieta WHERE indirizzo = ?";
 		$stmt = $this->connection->prepare($query);
-		$stmt->bind_param("s", $indirizzo);
-		$stmt->execute();
-		$row = $stmt->fetch();
-
-		return $row !== null;
+		if (!$stmt) {
+			// Errore nella preparazione della query SQL
+			error_log("Prepare failed: " . $this->connection->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		if (!$stmt->bind_param("s", $indirizzo)) {
+			// Errore nel binding dei parametri
+			error_log("Bind param failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		if (!$stmt->execute()) {
+			// Errore durante l'esecuzione della query SELECT
+			error_log("Execute failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		$result = $stmt->get_result();
+		if (!$result) {
+			// Errore nel recupero del risultato della query
+			error_log("Get result failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		$stmt->close();
+		if ($result->num_rows === 0) {
+        	return ['success' => false, 'content' => 'PROP_NOT_EXISTENT'];
+    	}
+		return ['success' => true, 'content' => null];
 	}
 
 
@@ -183,96 +280,187 @@ class DBAccess {
 		$query = "	INSERT INTO proprieta (nome, descrizione, tipologia, indirizzo, citta, prezzo, metri_quadri, locali, immagine, disponibile)
 					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		$stmt = $this->connection->prepare($query);
-		$stmt->bind_param(
-				"sssssdiissi",
-				$nome,
-				$descrizione,
-				$tipologia,
-				$indirizzo,
-				$citta,
-				$prezzo,
-				$superficie,
-				$locali,
-				$immagine,
-				$disponibilita);
-		return $stmt->execute();
+
+		if (!$stmt) {
+			// Errore nella preparazione della query SQL
+			error_log("Prepare failed: " . $this->connection->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		if (!$stmt->bind_param("sssssdiisi", $nome, $descrizione, $tipologia, $indirizzo, $citta, $prezzo, $superficie, $locali, $immagine, $disponibilita)) {
+			// Errore nel binding dei parametri
+			error_log("Bind param failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		if (!$stmt->execute()) {
+			// Errore durante l'esecuzione della query SELECT
+			error_log("Execute failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		$stmt->close();
+		return ['success' => true, 'content' => null];
 	}
 
 	public function getUser($email) {
 		$query = "SELECT * FROM utenti WHERE email = ?";
 		$stmt = $this->connection->prepare($query);
-		$stmt->bind_param("s", $email);
-		$stmt->execute();
 
-		$result = $stmt->get_result();      
-		$user = $result->fetch_assoc();    
-
+		if (!$stmt) {
+			// Errore nella preparazione della query SQL
+			error_log("Prepare failed: " . $this->connection->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		if (!$stmt->bind_param("s", $email)) {
+			// Errore nel binding dei parametri
+			error_log("Bind param failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		if (!$stmt->execute()) {
+			// Errore durante l'esecuzione della query SELECT
+			error_log("Execute failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		$result = $stmt->get_result();
+		if (!$result) {
+			// Errore nel recupero del risultato della query
+			error_log("Get result failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
 		$stmt->close();
-		return $user;
+		if ($result->num_rows === 0) {
+        	return ['success' => false, 'content' => 'NAME_NOT_EXISTENT'];
+    	}
+		return ['success' => true, 'content' => $result->fetch_assoc()];
 	}
 
 	// Funzione per aggiornare i dettagli di una proprietà
 	public function updateProprieta($id, $nome, $descrizione, $prezzo, $disponibilita) {
-    	$query = "UPDATE proprieta SET nome=?, descrizione=?, prezzo=?, disponibilita=? WHERE id=?";
+    	$query = "UPDATE proprieta SET nome = ?, descrizione = ?, prezzo = ?, disponibilita = ? WHERE id = ?";
     	$stmt = $this->connection->prepare($query);
-   	 	$stmt->bind_param(
-			"ssdis", 
-        	$nome, 
-			$descrizione,
-			$prezzo,
-			$disponibilita,
-			$id);
-    	$res = $stmt->execute();
+
+		if (!$stmt) {
+			// Errore nella preparazione della query SQL
+			error_log("Prepare failed: " . $this->connection->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		if (!$stmt->bind_param("ssdii", $nome, $descrizione, $prezzo, $disponibilita, $id)) {
+			// Errore nel binding dei parametri
+			error_log("Bind param failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+   	 	if (!$stmt->execute()) {
+			// Errore durante l'esecuzione della query SELECT
+			error_log("Execute failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
 		$stmt->close();
-    	return $res;
+    	return ['success' => true, 'content' => null];
 	}
+
     public function insertUser($nome, $cognome, $email, $password, $ruolo) {
-        $conn = $this->connection;
         $query = "INSERT INTO utenti (nome, cognome, email, password, ruolo) VALUES (?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($query);
+        $stmt = $this->connection->prepare($query);
 
         if (!$stmt) {
-            return false;
-        }
-
-        $stmt->bind_param('sssss', $nome, $cognome, $email, $password, $ruolo);
-        return $stmt->execute();
+			// Errore nella preparazione della query SQL
+			error_log("Prepare failed: " . $this->connection->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		if (!$stmt->bind_param('sssss', $nome, $cognome, $email, $password, $ruolo)) {
+			// Errore nel binding dei parametri
+			error_log("Bind param failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+        if (!$stmt->execute()) {
+			// Errore durante l'esecuzione della query SELECT
+			error_log("Execute failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		$stmt->close();
+		return ['success' => true, 'content' => null];
     }
-
 
 	// Recupera i dettagli degli immobili salvati dall'utente loggato
 	public function getWishlist($idUtente) {
-    	$query = "SELECT p.* FROM proprieta p 
-              	JOIN wishlist w ON p.id = w.id_proprieta 
-              	WHERE w.id_utente = ?";
-    	$stmt = $this->connection->prepare($query);
-    	$stmt->bind_param("i", $idUtente);
-    	$stmt->execute();
-    	return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+		$query = "SELECT * 
+				FROM proprieta p
+				JOIN wishlist w ON p.id = w.id_proprieta
+				WHERE w.id_utente = ?";
+		$stmt = $this->connection->prepare($query);
+
+		if (!$stmt) {
+			// Errore nella preparazione della query SQL
+			error_log("Prepare failed: " . $this->connection->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		if (!$stmt->bind_param("i", $idUtente)) {
+			// Errore nel binding dei parametri
+			error_log("Bind param failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		if (!$stmt->execute()) {
+			// Errore durante l'esecuzione della query SELECT
+			error_log("Execute failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		$result = $stmt->get_result();
+		if (!$result) {
+			// Errore nel recupero del risultato della query
+			error_log("Get result failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		$stmt->close();
+		if ($result->num_rows === 0) {
+        	return ['success' => false, 'content' => 'NAME_NOT_EXISTENT'];
+    	}
+		return ['success' => true, 'content' => $result->fetch_all(MYSQL_ASSOC)];
 	}
 
 	// Rimuove un elemento dalla wishlist
 	public function removeFromWishlist($idUtente, $idProprieta) {
     	$query = "DELETE FROM wishlist WHERE id_utente = ? AND id_proprieta = ?";
     	$stmt = $this->connection->prepare($query);
-    	$stmt->bind_param("ii", $idUtente, $idProprieta);
-    	return $stmt->execute();
+
+		if (!$stmt) {
+			// Errore nella preparazione della query SQL
+			error_log("Prepare failed: " . $this->connection->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		if (!$stmt->bind_param("ii", $idUtente, $idProprieta)) {
+			// Errore nel binding dei parametri
+			error_log("Bind param failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		if (!$stmt->execute()) {
+			// Errore durante l'esecuzione della query
+			error_log("Execute failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		$stmt->close();
+		return ['success' => true, 'content' => null];
 	}
+
+	// Inserisce un elemento nella wishlist
 	public function insertToWishlist($idUtente, $idProprieta) {
 		$query = "INSERT INTO wishlist (id_utente, id_proprieta) VALUES (?, ?)";
 		$stmt = $this->connection->prepare($query);
 
 		if (!$stmt) {
-			// gestione errore prepare
-			return false;
+			// Errore nella preparazione della query SQL
+			error_log("Prepare failed: " . $this->connection->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
 		}
-
-		$stmt->bind_param("ii", $idUtente, $idProprieta);
-
-		return $stmt->execute();
+		if (!$stmt->bind_param("ii", $idUtente, $idProprieta)) {
+			// Errore nel binding dei parametri
+			error_log("Bind param failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		if (!$stmt->execute()) {
+			// Errore durante l'esecuzione della query
+			error_log("Execute failed: " . $stmt->error);
+			return ['success' => false, 'content' => 'DB_ERROR'];
+		}
+		$stmt->close();
+		return ['success' => true, 'content' => null];
 	}
-
 }
-
-
 ?>
