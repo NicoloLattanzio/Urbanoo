@@ -36,17 +36,17 @@
     <aside id="filters">
         <h2>Filtra Proprietà</h2>
         <form method="GET" action="/php/proprieta.php" id="searchForm">
-            <div>
-                <label for="title">Nome</label>
+            <div class="input-filters">
+                <label for="title">Nome:</label>
                 <input type="text" id="title" name="title" placeholder="Nome proprietà">
             </div>   
-            <div>
-                <label for="city">Città</label>
+            <div class="input-filters">
+                <label for="city">Città:</label>
                 <input type="text" id="city" name="city" placeholder="Città">
             </div>
                     
-            <div>
-                <label for="type">Tipologia</label>
+            <div class="input-filters">
+                <label for="type">Tipologia:</label>
                 <select id="type" name="type">
                     <option value="">Tutte</option>
                     <option value="Monolocale">Monolocale</option>
@@ -57,7 +57,7 @@
                     <option value="Rustico">Rustici e Casali</option>
                 </select>
             </div>
-            <div>
+            <div class="input-filters">
                 <label for="price-max">Prezzo massimo:</label>
                 <select id="price-max" name="price_max">
                     <option value="">Qualsiasi</option>
@@ -70,7 +70,7 @@
                 </select>
             </div>
 
-            <div>
+            <div class="input-filters">
                 <label for="price-min">Prezzo minimo:</label>  <!-- La validazione prezzo minimo < prezzo massimo si fa con js? -->
                 <select id="price-min" name="price_min">
                     <option value="">Qualsiasi</option>
@@ -83,8 +83,8 @@
                 </select>
             </div>
 
-            <div>
-                <label for="size">Dimensioni</label>
+            <div class="input-filters">
+                <label for="size">Dimensioni:</label>
                 <select id="size" name="size">
                     <option value="">Qualsiasi</option>
                     <option value="1">10-20 mq</option>
