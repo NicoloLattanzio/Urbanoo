@@ -21,14 +21,14 @@ html,body{
     font-family: "Verdana",sans-serif;
     line-height: 1.5em;
     margin:auto;
-    background-color: var(--white);
+    background-color: var(--text-gray);
     color:var(--textcolor);
 }
 
 body{
     background-color: var(--white);
     color: var(--txtcolor);
-    max-width: 1024px; /*1200px;*/
+    max-width: 1200px; /*1200px;*/
     margin: auto;
 }
 
@@ -338,6 +338,14 @@ footer {
  }
 
 
+ #content{
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     width: 100%;
+     background-color: var(--white);
+ }
 
 
 
