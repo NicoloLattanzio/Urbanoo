@@ -32,23 +32,30 @@
             $email = $_POST['email'] ?? '';
             $password = $_POST['password'] ?? '';
             
-            $user = $connessione->getUser($email);
-            if($user){
-                if(password_verify($password, $user['password'])){
-                    $_SESSION['name'] = $user['nome'];
-                    $_SESSION['user_id'] = $user['id'];
-                    $_SESSION['email'] = $user['email'];
-                    $_SESSION['role'] = $user['ruolo'];
+            $result = $connessione->getUser($email);
+            if($result['success']){
+                if($result['content']){
+                    $user = $result['content'];
+                    if(password_verify($password, $user['password'])){
+                        $_SESSION['name'] = $user['nome'];
+                        $_SESSION['user_id'] = $user['id'];
+                        $_SESSION['email'] = $user['email'];
+                        $_SESSION['role'] = $user['ruolo'];
+                    }
+                    else{
+                        $passwordErr .= '<p><span lang="en">Password</span> non corretta.</p>';
+                        $formValido = false;
+                    }
                 }
                 else{
-                    $passwordErr .= '<p><span lang="en">Password</span> non corretta.</p>';
+                    $emailErr = '<p><span lang="en">Email</span> non trovata.</p>';
                     $formValido = false;
                 }
+            } else {
+                header('location: /500.html');
+                exit();
             }
-            else{
-                $emailErr = '<p><span lang="en">Email</span> non trovata.</p>';
-                $formValido = false;
-            }
+
             if($formValido){ //login successful
                 header("Location: areariservata.php");
                 exit();

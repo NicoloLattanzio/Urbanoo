@@ -140,8 +140,9 @@ class DBAccess {
 			error_log("Get result failed: " . $stmt->error);
 			return ['success' => false, 'content' => 'DB_ERROR'];
 		}
+		$rows = $result->fetch_all(MYSQLI_ASSOC); // <-- fetch first
 		$stmt->close();
-		return ['success' => true, 'content' => $result->fetch_all(MYSQLI_ASSOC)];
+		return ['success' => true, 'content' => $rows];
 	}
 
 	// Metodo per eliminare una proprietà dal database 
@@ -207,8 +208,9 @@ class DBAccess {
 			error_log("Get result failed: " . $stmt->error);
 			return ['success' => false, 'content' => 'DB_ERROR'];
 		}
+		$row = $result->fetch_assoc(); // <-- fetch first
 		$stmt->close();
-		return ['success' => true, 'content' => $result->fetch_assoc()];
+		return ['success' => true, 'content' => $row];
 	}
 
 
@@ -306,8 +308,9 @@ class DBAccess {
 			error_log("Get result failed: " . $stmt->error);
 			return ['success' => false, 'content' => 'DB_ERROR'];
 		}
+		$row = $result->fetch_assoc();
 		$stmt->close();
-		return ['success' => true, 'content' => $result->fetch_assoc()];
+		return ['success' => true, 'content' => $row];
 	}
 
 	public function propertyAddressAlreadyExistent($indirizzo) {
@@ -334,8 +337,9 @@ class DBAccess {
 			error_log("Get result failed: " . $stmt->error);
 			return ['success' => false, 'content' => 'DB_ERROR'];
 		}
+		$row = $result->fetch_assoc();
 		$stmt->close();
-		return ['success' => true, 'content' => $result->fetch_assoc()];
+		return ['success' => true, 'content' => $row];
 	}
 
 	public function insertProprieta($nome, $descrizione, $prezzo, $tipologia, $superficie, $locali, $disponibilita, $immagine, $indirizzo, $citta) {
@@ -399,8 +403,9 @@ class DBAccess {
 			error_log("Get result failed: " . $stmt->error);
 			return ['success' => false, 'content' => 'DB_ERROR'];
 		}
+		$row = $result->fetch_assoc();
 		$stmt->close();
-		return ['success' => true, 'content' => $result->fetch_assoc()];
+		return ['success' => true, 'content' => $row];
 	}
 
 	// Funzione per aggiornare i dettagli di una proprietà
@@ -503,8 +508,9 @@ class DBAccess {
 			error_log("Get result failed: " . $stmt->error);
 			return ['success' => false, 'content' => 'DB_ERROR'];
 		}
+		$rows = $result->fetch_all(MYSQL_ASSOC);
 		$stmt->close();
-		return ['success' => true, 'content' => $result->fetch_all(MYSQL_ASSOC)];
+		return ['success' => true, 'content' => $rows];
 	}
 
 	// Rimuove un elemento dalla wishlist

@@ -41,7 +41,7 @@ foreach ($actionMap as $sessionKey => $id) {
 
 if ($connessioneOK) {
     // Se ci sono filtri, usiamo la funzione specifica
-    $listaProprieta = $connessione->getFilteredProprieta(
+    $result = $connessione->getFilteredProprieta(
         $_GET['title'] ?? '',  // "??" opperatore null coalescing per gestire parametri non settati (nulli)
         $_GET['city'] ?? '',
         $_GET['type'] ?? '',
@@ -52,47 +52,53 @@ if ($connessioneOK) {
 
     $connessione->closeDBConnection();
 
-    if (!empty($listaProprieta)) {
-        if ($msg) {
-            $placeholders = [
-                '[action-id]' => $actionId,
-                '[action-class]' => $msg['type'] === 'error'
-                    ? 'error-msg display-msg'
-                    : 'success-msg display-msg',
-                '[action-status-msg]' => htmlspecialchars($msg['text'])
-            ];
-            $paginaHTML = str_replace(array_keys($placeholders), array_values($placeholders), $paginaHTML);
-        }
-        if ($isAdmin) {
-            $stringaProprieta .= '<div class="admin-controls"><a href="/php/inserisci_proprieta.php" class="btn-add">Aggiungi Nuova Proprietà</a></div>';
-        }
-
-        $stringaProprieta .= '<ul class="property-list">'; 
-
-        foreach ($listaProprieta as $proprieta) {
-            $stringaProprieta .= '<li>';
-            $stringaProprieta .= '<div class="property-card"><h3 class="card-title">' . $proprieta['nome'] . '</h3>';
-            $stringaProprieta .= '<img src="' . $proprieta['immagine'] . '" alt="Foto di ' . $proprieta['nome'] . '" />';
-            // Tutti gli utenti hanno il pulsante "Vedi"
-            $stringaProprieta .= '<div class="user-actions"><a href="/php/dettagli_proprieta.php?id=' . $proprieta['id'] . '" id="view-link" class="action-button" aria-label="Vedi i dettagli di ' . $proprieta['nome'] . '">Vedi</a></div>';
-
+    if ($result['success']) {
+        if(!empty($result['content'])) {
+            $listaProprieta = $result['content'];
+            if ($msg) {
+                $placeholders = [
+                    '[action-id]' => $actionId,
+                    '[action-class]' => $msg['type'] === 'error'
+                        ? 'error-msg display-msg'
+                        : 'success-msg display-msg',
+                    '[action-status-msg]' => htmlspecialchars($msg['text'])
+                ];
+                $paginaHTML = str_replace(array_keys($placeholders), array_values($placeholders), $paginaHTML);
+            }
             if ($isAdmin) {
-    			// L'admin vede "Modifica" che va alla pagina dettagli
-    			$stringaProprieta .= '<div class="user-actions"><a href="/php/modifica_proprieta.php?id=' . $proprieta['id'] . '" id="change-link" class="action-button" aria-label="Modifica i dettagli di ' . $proprieta['nome'] . '">Modifica</a></div>';
-    			// L'admin vede "Elimina" che attiva uno script di cancellazione: iniziamente blocco nascosto poi attivato da JS e mostrato a schermo
-    			$stringaProprieta .= '  <div class="user-actions"><a href="/php/elimina_proprieta.php?id=' . $proprieta['id'] . '" id="delete-link" class="action-button" aria-label="Elimina ' . $proprieta['nome'] . '">Elimina</a></div>
-                                        <div id="delete-dialog" class="hide" role="alertdialog" aria-modal="true" aria-labelledby="delete-title" aria-describedby="delete-desc">
-                                            <h2 id="delete-title">Conferma eliminazione</h2>
-                                            <p id="delete-desc">Sei sicuro di voler eliminare questa proprietà?</p>
-                                            <button id="confirm-delete">Elimina</button>
-                                            <button id="cancel-delete">Annulla</button>
-                                        </div>';	//si arrangia con js
-		    }
-		    $stringaProprieta .= '</div></li>';
+                $stringaProprieta .= '<div class="admin-controls"><a href="/php/inserisci_proprieta.php" class="btn-add">Aggiungi Nuova Proprietà</a></div>';
+            }
+
+            $stringaProprieta .= '<ul class="property-list">'; 
+
+            foreach ($listaProprieta as $proprieta) {
+                $stringaProprieta .= '<li>';
+                $stringaProprieta .= '<div class="property-card"><h3 class="card-title">' . $proprieta['nome'] . '</h3>';
+                $stringaProprieta .= '<img src="' . $proprieta['immagine'] . '" alt="Foto di ' . $proprieta['nome'] . '" />';
+                // Tutti gli utenti hanno il pulsante "Vedi"
+                $stringaProprieta .= '<div class="user-actions"><a href="/php/dettagli_proprieta.php?id=' . $proprieta['id'] . '" id="view-link" class="action-button" aria-label="Vedi i dettagli di ' . $proprieta['nome'] . '">Vedi</a></div>';
+
+                if ($isAdmin) {
+                    // L'admin vede "Modifica" che va alla pagina dettagli
+                    $stringaProprieta .= '<div class="user-actions"><a href="/php/modifica_proprieta.php?id=' . $proprieta['id'] . '" id="change-link" class="action-button" aria-label="Modifica i dettagli di ' . $proprieta['nome'] . '">Modifica</a></div>';
+                    // L'admin vede "Elimina" che attiva uno script di cancellazione: iniziamente blocco nascosto poi attivato da JS e mostrato a schermo
+                    $stringaProprieta .= '  <div class="user-actions"><a href="/php/elimina_proprieta.php?id=' . $proprieta['id'] . '" id="delete-link" class="action-button" aria-label="Elimina ' . $proprieta['nome'] . '">Elimina</a></div>
+                                            <div id="delete-dialog" class="hide" role="alertdialog" aria-modal="true" aria-labelledby="delete-title" aria-describedby="delete-desc">
+                                                <h2 id="delete-title">Conferma eliminazione</h2>
+                                                <p id="delete-desc">Sei sicuro di voler eliminare questa proprietà?</p>
+                                                <button id="confirm-delete">Elimina</button>
+                                                <button id="cancel-delete">Annulla</button>
+                                            </div>';	//si arrangia con js
+                }
+                $stringaProprieta .= '</div></li>';
+            }
+            $stringaProprieta .= '</ul>';
+        } else {
+            $stringaProprieta = "<p>Nessuna proprietà corrisponde alla tua ricerca</p>";
         }
-        $stringaProprieta .= '</ul>';
     } else {
-        $stringaProprieta = "<p>Nessuna proprietà corrisponde alla tua ricerca</p>";
+        header("location: /403.html"); //errori di funzioni di query
+        exit();
     }
 } else {
     header("location: /500.html");
