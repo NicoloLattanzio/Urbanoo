@@ -32,6 +32,18 @@ html {
     scroll-behavior: smooth;  /*vedi*/
     height: 100%
 }
+html a:visited {
+    color: purple;
+
+}
+html a:hover {
+    color: var(--mustard-hover);
+}
+
+
+
+
+
 
 body{
     background-color: var(--white);
@@ -384,6 +396,24 @@ footer {
      text-align: left;
  }
 
+ .btn-form {
+     width: 100%;
+     background-color: var(--mustard-gold);
+     color: var(--navy-blue);
+     border: none;
+     padding: 0.8em;
+     font-weight: bold;
+     text-transform: uppercase;
+     border-radius: 6px;
+     cursor: pointer;
+     transition: background-color 0.3s ease;
+     margin-top: 0.5em;
+ }
+
+.btn-form:hover {
+    background-color: var(--mustard-hover);
+}
+
  .title {
      text-align: center;
      font-size: 1.5rem;
@@ -392,6 +422,7 @@ footer {
  }
 
  .input-group {
+     width: 100%;
      margin-top: 0.25rem;
      margin-right: 3em;
      font-size: 0.875rem;
@@ -420,7 +451,79 @@ footer {
  .input-group input:focus,
  .input-group textarea:focus,
  .input-group select:focus {
-     border-color: rgba(167, 139, 250);
+     border-color: var(--mustard-gold);
  }
 
+
+ .contacts{
+     border-radius: 10px;
+     padding: 1em 1em;
+     margin-top: 1em;
+     margin-bottom: 1em;
+     box-shadow: var(--text-gray) 0 2px 8px;
+     text-align: center;
+     list-style: none;
+ }
+
+.contacts a:link {
+    text-decoration: none;
+
+}
+
+.property-card{
+    --card-bg: #ffffff;
+    --card-accent: #7c3aed;
+    --card-text: #1e293b;
+    --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+
+    width: 420px;
+    height: 340px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.property-card img {
+    width: 100%;
+    height: 230px;
+    background: linear-gradient(45deg, #a78bfa, #8b5cf6);
+    border-radius: 0px 0px 12px 12px;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-title{
+    height: 1.6em;
+    color: var(--mustard-gold);
+    background-color: var(--navy-blue);
+    text-align: center;
+
+}
+
+.property-card li ul{
+    list-style-type: none;
+}
+
+.action-button{
+    width: 32px;
+    height: 32px;
+    background-image: url("../img/search.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    text-indent: -9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: all 0.3s ease;
+    transform: scale(0.9);
+
+}
 
