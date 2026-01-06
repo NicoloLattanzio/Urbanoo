@@ -23,6 +23,14 @@ html,body{
     margin:auto;
     background-color: var(--text-gray);
     color:var(--textcolor);
+    height: 100%;
+    display: flex;/**/
+    flex-direction: column;/**/
+}
+
+html {
+    scroll-behavior: smooth;  /*vedi*/
+    height: 100%
 }
 
 body{
@@ -149,18 +157,38 @@ main {
     border: #0F253A solid px;
     border-radius: 10px;
     margin-top: 1em;
+    /*flex: 1 0 auto;  /* Permette a main di espandersi e occupare lo spazio disponibile, evita di comprimersi eccessivamente*/
+    box-sizing: border-box;
 }
 
+main, .first-row{
+    flex: 1 0 auto;
+}
 
 main h1{
     text-align: center;
     line-height: 1.5em;
 }
 
-.first-row{
+.first-row {
     display: flex;
-    justify-content: space-between;
+    align-items: flex-start;
+    gap: 3%;
+    width: 100%;
+    box-sizing: border-box;
 }
+
+.first-row #filters {
+    width: 22%;
+    box-sizing: border-box;
+}
+
+.first-row .intro {
+    /*margin-top: 2em;*/
+    width: 67%;
+    box-sizing: border-box;
+}
+
 
 .intro {
     /*width: 90%;*/
@@ -170,7 +198,7 @@ main h1{
     /*margin-left: auto;/**/
     /*margin-right: auto;/**/
     margin-bottom: 1em;
-    box-shadow: rgb(0 0 0 / 15%) 0 2px 8px
+    box-shadow: rgba(0, 0, 0, 0.15) 0 2px 8px
 }
 
 
@@ -181,7 +209,7 @@ SEZIONE FILTRI
 */
 
 #filters {
-    float: left;
+    /*float: left;*/
     width: 30%;
     color: var(--white);
     background-color: var(--navy-blue);
@@ -190,6 +218,7 @@ SEZIONE FILTRI
     margin-right: 3%;
     margin-top: 1em;
     border-radius: 12px;
+    height: fit-content;
     /*box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);/**/
     /*box-sizing: border-box;/**/
 }
@@ -245,26 +274,16 @@ SEZIONE FILTRI
     background-color: var(--mustard-hover);
 }
 
-/*.input-filters select, #title, #city {
-     box-sizing: border-box;
-     width: 100%;
-     border-radius: 0.375rem;
-     border: 1px solid rgba(55, 65, 81, 1);
-     outline: 0;
-     background-color: rgba(17, 24, 39, 1);
-     padding: 0.75rem 1rem;
-     color: rgba(243, 244, 246, 1);
- }*/
-
 /* 
---- FOOTER
+==============================================================
+SEZIONE FOOTER
+==============================================================
 */
 footer { 
     background-color: var(--navy-blue); 
     color: #fff; 
     text-align: center; 
     padding: 30px; 
-    margin-top: 60px; 
     border-radius: 10px 10px 0px 0px;
 }
 
@@ -384,16 +403,5 @@ footer {
  .input-group select:focus {
      border-color: rgba(167, 139, 250);
  }
-
-
- /*#content{
-     display: flex;
-     flex-direction: column;
-     justify-content: center;
-     align-items: center;
-     width: 100%;
-     background-color: var(--white);
- }*/
-
 
 
