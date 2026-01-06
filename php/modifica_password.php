@@ -50,9 +50,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $formValido = false;
             } 
             if($formValido) { //se la email è valida ed uguale a quella dell'account allora procedo con altre validazioni
-                if(!$connessione->checkOldPassword($email, $old)) {
+                $oldpswResult = $connessione->checkOldPassword($email, $old);
+                if($oldpswResult['success'] && $oldpswResult['content'] == "PASSWORD_INVALID") {
                     $old_pswErr .= "<p>La <span lang='en'>password</span> inserita non corrisponde a quella del tuo <span lang='en'>account</span>.</p>";
                     $formValido = false;
+                } else if(!$oldpswResult['success']){
+                    header("Location: /500.html");
+                    exit();
                 }
                 //validazione new password
                 if (strlen($new) < 6) {
@@ -66,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo $paginaHTML;
             }
         } else { //problemi con la connessione al DB
-            header("Location: 500.html");
+            header("Location: /500.html");
             exit();
         }
     } 
@@ -79,14 +83,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if($formValido) { //modifica psw solo se tutte le validazioni sono avvenute correttamente
-        $updatePsw = $connessione->updatePassword($email, $new);
+        $updatePswResult = $connessione->updatePassword($email, $new);
         $connessione->closeDBConnection();
-        if($updatePsw) {
-            $_SESSION["update_psw_success_msg"] = 'Password aggiornata con successo!';
-            header("Location: areariservata.php");
+        if($updatePswResult['success']){
+            if(!$updatePswResult['content']){
+                $_SESSION["update_psw_success_msg"] = 'Password aggiornata con successo!';
+                header("Location: areariservata.php");
+            } else{
+                $_SESSION["update_psw_error_msg"] = 'Non è stato possibile aggiornare la password per problemi tecnici';
+                header("Location: areariservata.php");
+            }
         } else {
-            $_SESSION["update_psw_error_msg"] = 'Non è stato possibile aggiornare la password per problemi tecnici';
-            header("Location: areariservata.php");
+            header("Location: /500.html");
+            exit();
         }
     } else {
         $paginaHTML = str_replace('[email_err]', $emailErr, $paginaHTML);

@@ -26,8 +26,8 @@ $connessione = new DBAccess();
 $connessioneOK = $connessione->openDBConnection();
 
 if (!$connessioneOK) {
-    header("location: 500.html");
-    exit();
+        header("location: /500.html");
+        exit();
 }
 
 // Verifica se l'utente è già loggato
@@ -113,30 +113,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $ruolo = 'utente';
 
         // Inserisce il nuovo utente
-        $success = $connessione->insertUser($nome, $cognome, $email, $hashedPassword, $ruolo);
+        $insertResult = $connessione->insertUser($nome, $cognome, $email, $hashedPassword, $ruolo);
 
-        if ($success) {
+        if ($insertResult['success']) {
             // Ottiene l'utente appena registrato
-            $user = $connessione->getUser($email);
-
-            if ($user) {
+            $userResult = $connessione->getUser($email);
+            if ($userResult['success']) {
                 // Setta le variabili di sessione
-                $_SESSION['name'] = $user['nome'];
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['email'] = $user['email'];
-                $_SESSION['role'] = $user['ruolo'];
+                if(!$userResult['content']){
+                    $_SESSION['name'] = $user['nome'];
+                    $_SESSION['user_id'] = $user['id'];
+                    $_SESSION['email'] = $user['email'];
+                    $_SESSION['role'] = $user['ruolo'];
 
-                header("Location: areariservata.php");
-                exit();
+                    header("Location: /php/areariservata.php");
+                    exit();
+                } else {
+                    //critical error: user inserted but not retrievable -> change insertUser (should return the user)
+                    //                                                  -> redirect to login.php with "error" msg
+                    header("location: /php/login.php");
+                    exit();
+                }
             } else {
-                $emailErr .= '<p>Errore durante la registrazione. Riprovare.</p>';
-                $formValido = false;
+                header("location: /500.html");
+                exit();
             }
-        } else {
+        } else if ($insertResult['content'] == "INSERT_FAILED"){
             $emailErr .= '<p>Errore durante la registrazione. Riprovare.</p>';
             $formValido = false;
+        } else if ($insertResult['content'] == 'DB_ERROR') {
+            header("location: /500.html");
+            exit();
         }
-    }else{
+    } else {
         // Sostituisce i placeholder con gli errori
         $PageRegister = str_replace('[nome_err]', $nomeErr, $PageRegister);
         $PageRegister = str_replace('[cognome_err]', $cognomeErr, $PageRegister);

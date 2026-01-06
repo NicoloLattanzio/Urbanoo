@@ -208,7 +208,7 @@ class DBAccess {
 			error_log("Get result failed: " . $stmt->error);
 			return ['success' => false, 'content' => 'DB_ERROR'];
 		}
-		$row = $result->fetch_assoc(); // <-- fetch first
+		$row = $result->fetch_assoc();
 		$stmt->close();
 		return ['success' => true, 'content' => $row];
 	}

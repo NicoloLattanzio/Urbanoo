@@ -20,7 +20,6 @@ $connessioneOK = $connessione->openDBConnection();
 
 $formValido = true;
 $id = "";
-$idErr = "";
 $nome = "";
 $nomeErr = "";
 $descrizione = "";
@@ -38,27 +37,43 @@ $_SESSION['change_prop_msg'] = [
 if ($connessioneOK) {
     if(!isset($_POST['submit'])) {
         //visualizzazione della pagina con campi precompilati
-        $idProprieta = $_GET["id"] ?? '';
+        $idProprieta = trim(string: $_GET['id'] ?? '');
         //$idDaCaricare = $_GET['id'] ?? $_POST['id'] ?? null;  //serve per prendere l'id sia in GET che in POST
         if($idProprieta){
-            $proprieta = $connessione->showProprietaDetails(intval($idProprieta));
-            if ($proprieta) {
-                $selSi = ($proprieta['disponibilita'] == 1) ? "selected" : "";
-                $selNo = ($proprieta['disponibilita'] == 0) ? "selected" : "";
-
-                $paginaHTML = str_replace(
-                    ["[id]", "[nome]", "[descrizione]", "[prezzo]", "[select_si]", "[select_no]", "[messaggio]"],
-                    [$proprieta['id'], $proprieta['nome'], $proprieta['descrizione'], $proprieta['prezzo'], $selSi, $selNo, $messaggio],
-                    $paginaHTML
-                );
-                echo $paginaHTML;
-                exit();
-            } else {
+            //id validation
+            if (!is_numeric($idProprieta) || intval($idProprieta) <= 0) {
                 $_SESSION['change_prop_msg'] = [
                     'type' => 'error',
-                    'text' => 'Spiacenti, la proprietà selezionata non esiste.'
+                    'text' => 'Seleziona una proprietà valida.'
                 ];
                 header('location: /php/proprieta.php');
+                exit();
+            }
+            $idProprieta = intval($idProprieta);
+            $showResult = $connessione->showProprietaDetails($idProprieta);
+            if($showResult['success']) {
+                if($showResult['content']){
+                    $proprieta = $showResult['content'];
+                    $selSi = ($proprieta['disponibilita'] == 1) ? "selected" : "";
+                    $selNo = ($proprieta['disponibilita'] == 0) ? "selected" : "";
+
+                    $paginaHTML = str_replace(
+                        ["[id]", "[nome]", "[descrizione]", "[prezzo]", "[select_si]", "[select_no]", "[messaggio]"],
+                        [$proprieta['id'], $proprieta['nome'], $proprieta['descrizione'], $proprieta['prezzo'], $selSi, $selNo, $messaggio],
+                        $paginaHTML
+                    );
+                    echo $paginaHTML;
+                    exit();
+                } else {
+                    $_SESSION['change_prop_msg'] = [
+                        'type' => 'error',
+                        'text' => 'Spiacenti, la proprietà selezionata non esiste.'
+                    ];
+                    header('location: /php/proprieta.php');
+                    exit();
+                }
+            } else {
+                header('location: /500.html');
                 exit();
             }
         } else {
@@ -72,14 +87,23 @@ if ($connessioneOK) {
     } else {
         //Modifica delle informazioni di una proprietà
         //validazione e sanitizzazione degli input
-        $id = intval($_POST['id']);
         $id = trim($_POST['id'] ?? '');
-        if ($id === '') {
-            $idErr .= '<p>ID non inserito</p>';
-            $formValido = false;
-        } else if (!is_numeric($id) || intval($id) <= 0) {
-            $idErr .= '<p>Selezionare uno ID valido</p>';
-            $formValido = false;
+        if ($id) {
+            if (!is_numeric($idProprieta) || intval($idProprieta) <= 0) {
+                $_SESSION['change_prop_msg'] = [
+                    'type' => 'error',
+                    'text' => 'Seleziona una proprietà valida.'
+                ];
+                header('location: /php/proprieta.php');
+                exit();
+            }
+        } else {
+            $_SESSION['change_prop_msg'] = [
+                'type' => 'error',
+                'text' => 'Spiacenti, non hai selezionato alcuna proprietà da modificare.'
+            ];
+            header('location: /php/proprieta.php');
+            exit();
         }
         //validazione nome
         $nome = trim($_POST['name'] ?? '');
@@ -133,22 +157,27 @@ if ($connessioneOK) {
         $disponibilita = intval($disponibilita);
 
         if($formValido){
-            if ($connessione->updateProprieta($id, $nome, $descrizione, $prezzo, $disponibilita)) {
-                $_SESSION['change_prop_msg'] = [
-                    'type' => 'success',
-                    'text' => 'Proprietà modificata con successo.'
-                ];
+            $updateResult = $connessione->updateProprieta($id, $nome, $descrizione, $prezzo, $disponibilita);
+            if ($updateResult['success']){
+                if (!$updateResult['content']){
+                    $_SESSION['change_prop_msg'] = [
+                        'type' => 'success',
+                        'text' => 'Proprietà modificata con successo.'
+                    ];
+                } else {
+                    $_SESSION['change_prop_msg'] = [
+                        'type' => 'error',
+                        'text' => 'C\'è stato un problema con la modifica della proprietà.'
+                    ];
+                }
+                header('location: /php/proprieta.php');
+                exit();
             } else {
-                $_SESSION['change_prop_msg'] = [
-                    'type' => 'error',
-                    'text' => 'C\'è stato un problema con la modifica della proprietà.'
-                ];
-            }
-            header('location: /php/proprieta.php');
-            exit();
+                header('location: /500.html');
+                exit();
+            } 
         } else {
             //form non valido, mostro gli errori del form
-            $paginaHTML = str_replace('[id_err]', $idErr, $paginaHTML);
             $paginaHTML = str_replace('[name_err]', $nomeErr, $paginaHTML);
             $paginaHTML = str_replace('[description_err]', $descrizioneErr, $paginaHTML);
             $paginaHTML = str_replace('[price_err]', $prezzoErr, $paginaHTML);
