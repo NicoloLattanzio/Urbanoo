@@ -40,23 +40,15 @@ foreach ($actionMap as $sessionKey => $id) {
 }
 
 if ($connessioneOK) {
-    $filtriAttivi = array_filter($_GET, function ($value) {
-        return $value !== '';
-    }); //i campi 0, 1 vengono tenuti validi
-
-    if (!empty($filtriAttivi)) {
-        // Se ci sono filtri, usiamo la funzione specifica
-        $listaProprieta = $connessione->getFilteredProprieta(
-            $_GET['title'] ?? '',  // "??" opperatore null coalescing per gestire parametri non settati (nulli)
-            $_GET['city'] ?? '',
-            $_GET['type'] ?? '',
-            $_GET['price_min'] ?? '',
-            $_GET['price_max'] ?? '',
-            $_GET['size'] ?? ''
-        );
-    } else {
-        $listaProprieta = $connessione->getListProprieta();
-    }
+    // Se ci sono filtri, usiamo la funzione specifica
+    $listaProprieta = $connessione->getFilteredProprieta(
+        $_GET['title'] ?? '',  // "??" opperatore null coalescing per gestire parametri non settati (nulli)
+        $_GET['city'] ?? '',
+        $_GET['type'] ?? '',
+        $_GET['price_min'] ?? '',
+        $_GET['price_max'] ?? '',
+        $_GET['size'] ?? ''
+    );
 
     $connessione->closeDBConnection();
 
