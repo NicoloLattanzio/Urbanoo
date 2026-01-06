@@ -173,7 +173,7 @@ main h1{
 .first-row {
     display: flex;
     align-items: flex-start;
-    gap: 3%;
+    /*gap: 3%;*/
     width: 100%;
     box-sizing: border-box;
 }
@@ -185,10 +185,9 @@ main h1{
 
 .first-row .intro {
     /*margin-top: 2em;*/
-    width: 67%;
+    width: 75%;
     box-sizing: border-box;
 }
-
 
 .intro {
     /*width: 90%;*/
@@ -198,8 +197,28 @@ main h1{
     /*margin-left: auto;/**/
     /*margin-right: auto;/**/
     margin-bottom: 1em;
-    box-shadow: rgba(0, 0, 0, 0.15) 0 2px 8px
+    box-shadow: var(--text-gray) 0 2px 8px
 }
+
+#typologies {
+    margin-top: 1.5em;
+}
+
+#typologies h2{
+    text-align: center;
+    font-size: 1.6em;
+    line-height: 1.5em;
+}
+
+#typologies dt{
+    font-weight: bold;
+}
+
+#typologies dd{
+    margin-left: 1.5em;
+    margin-bottom: 0.5em;
+}
+
 
 
 /*
