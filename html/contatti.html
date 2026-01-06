@@ -34,7 +34,7 @@
     </nav>
 
     <main id="content">
-        <div id="contact-info">
+        <div class="contacts">
             <h3>I nostri <em>contatti</em></h3>
             <p>Per informazioni su <em>vendite</em>, <em>acquisti</em> o <em>consulenze</em>, contattaci tramite uno dei seguenti canali:</p>
             <ul>
@@ -45,32 +45,32 @@
             </ul>
         </div>
 
-        <div class="contacts-form">
-            <h2>Modulo di <em>contatto</em></h2>
+        <div class="form-container">
+            <h2 class="title">Modulo di <em>contatto</em></h2>
             <p>Inviaci la tua <em>richiesta</em></p>
             <form>
-                <div>
+                <div class="input-group">
                     <label for="name">Nome</label>
                     <input id="name" type="text" placeholder="Mario" required aria-describedby="name-error" data-msg-required="Il nome è obbligatorio" data-msg-invalid="Inserisci un nome valido">
                     <span class="error none" id="name-error"></span>
                 </div>
-                <div>
+                <div class="input-group">
                     <label for="surname">Cognome</label>
                     <input id="surname" type="text" placeholder="Rossi" required aria-describedby="surname-error" data-msg-required="Il cognome è obbligatorio" data-msg-invalid="Inserisci un cognome valido">
                     <span class="error none" id="surname-error"></span>
                 </div>
-                <div>
+                <div class="input-group">
                     <label for="phone">Numero di cellulare</label>
                     <input id="phone" type="tel" placeholder="+39 123 456 7890" required aria-describedby="phone-error" data-msg-required="Il numero di cellulare è obbligatorio" data-msg-invalid="Inserisci un numero di cellulare valido">
                     <span class="error none" id="phone-error" aria-live="polite"></span>
                 </div>
-                <div>
+                <div class="input-group">
                     <label for="message">Messaggio</label>
                     <textarea id="message" placeholder="Buongiorno, vorrei informazioni riguardo..." required maxlength="1000" aria-describedby="message-error"></textarea>
                     <span class="error none" id="message-error"></span>
                 </div>
 
-                <input type="button" value="Invia" onclick="send_email()">
+                <input class="btn-form" type="button" value="Invia" onclick="send_email()">
             </form>
         </div>
         <div class="goback">

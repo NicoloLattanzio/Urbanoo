@@ -23,7 +23,27 @@ html,body{
     margin:auto;
     background-color: var(--text-gray);
     color:var(--textcolor);
+    height: 100%;
+    display: flex;/**/
+    flex-direction: column;/**/
 }
+
+html {
+    scroll-behavior: smooth;  /*vedi*/
+    height: 100%
+}
+html a:visited {
+    color: purple;
+
+}
+html a:hover {
+    color: var(--mustard-hover);
+}
+
+
+
+
+
 
 body{
     background-color: var(--white);
@@ -73,12 +93,12 @@ header h2 {
     font-weight: normal;
     border-radius: 10px 10px 0 0; /*10px 10px 10px 10px;*/
 }
+
 /*
 ==============================================================
 MENU DI NAVIGAZIONE
 ==============================================================
 */
-
 
 #menu a:visited{
     color: var(--mustard-hover);
@@ -139,21 +159,89 @@ SEZIONE BREADCRUMB
 
 /*
 ==============================================================
+SEZIONE MAIN
+==============================================================
+*/
+
+main {
+    background-color: var(--white);
+    padding: 2em;
+    border: #0F253A solid px;
+    border-radius: 10px;
+    margin-top: 1em;
+    /*flex: 1 0 auto;  /* Permette a main di espandersi e occupare lo spazio disponibile, evita di comprimersi eccessivamente*/
+    box-sizing: border-box;
+}
+
+main, .first-row{
+    flex: 1 0 auto;
+}
+
+main h1{
+    text-align: center;
+    line-height: 1.5em;
+}
+
+.first-row {
+    display: flex;
+    align-items: flex-start;
+    /*gap: 3%;*/
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.first-row #filters {
+    width: 22%;
+    box-sizing: border-box;
+}
+
+.first-row .intro {
+    /*margin-top: 2em;*/
+    width: 75%;
+    box-sizing: border-box;
+}
+
+.intro {
+    /*width: 90%;*/
+    border-radius: 10px;
+    padding: 1em 1em;
+    margin-top: 1em;
+    /*margin-left: auto;/**/
+    /*margin-right: auto;/**/
+    margin-bottom: 1em;
+    box-shadow: var(--text-gray) 0 2px 8px
+}
+
+#typologies {
+    margin-top: 1.5em;
+}
+
+#typologies h2{
+    text-align: center;
+    font-size: 1.6em;
+    line-height: 1.5em;
+}
+
+#typologies dt{
+    font-weight: bold;
+}
+
+#typologies dd{
+    margin-left: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+
+
+/*
+==============================================================
 SEZIONE FILTRI
 ==============================================================
 */
 
-/*#filters {
-    background-color: var(--gray-light);
-    border: 1px solid var(--border-color);
-    padding: 1em;
-    margin-top: 1em;
-    border-radius: 0.5em;
-}*/
-
 #filters {
-    float: left;
-    width: 22%;
+    /*float: left;*/
+    width: 30%;
     color: var(--white);
     background-color: var(--navy-blue);
     border: solid 1px black;
@@ -161,8 +249,9 @@ SEZIONE FILTRI
     margin-right: 3%;
     margin-top: 1em;
     border-radius: 12px;
+    height: fit-content;
     /*box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);/**/
-    box-sizing: border-box;
+    /*box-sizing: border-box;/**/
 }
 
 #filters h2 {
@@ -216,26 +305,16 @@ SEZIONE FILTRI
     background-color: var(--mustard-hover);
 }
 
-/*.input-filters select, #title, #city {
-     box-sizing: border-box;
-     width: 100%;
-     border-radius: 0.375rem;
-     border: 1px solid rgba(55, 65, 81, 1);
-     outline: 0;
-     background-color: rgba(17, 24, 39, 1);
-     padding: 0.75rem 1rem;
-     color: rgba(243, 244, 246, 1);
- }*/
-
 /* 
---- FOOTER
+==============================================================
+SEZIONE FOOTER
+==============================================================
 */
 footer { 
     background-color: var(--navy-blue); 
     color: #fff; 
     text-align: center; 
     padding: 30px; 
-    margin-top: 60px; 
     border-radius: 10px 10px 0px 0px;
 }
 
@@ -317,6 +396,24 @@ footer {
      text-align: left;
  }
 
+ .btn-form {
+     width: 100%;
+     background-color: var(--mustard-gold);
+     color: var(--navy-blue);
+     border: none;
+     padding: 0.8em;
+     font-weight: bold;
+     text-transform: uppercase;
+     border-radius: 6px;
+     cursor: pointer;
+     transition: background-color 0.3s ease;
+     margin-top: 0.5em;
+ }
+
+.btn-form:hover {
+    background-color: var(--mustard-hover);
+}
+
  .title {
      text-align: center;
      font-size: 1.5rem;
@@ -325,6 +422,7 @@ footer {
  }
 
  .input-group {
+     width: 100%;
      margin-top: 0.25rem;
      margin-right: 3em;
      font-size: 0.875rem;
@@ -353,18 +451,79 @@ footer {
  .input-group input:focus,
  .input-group textarea:focus,
  .input-group select:focus {
-     border-color: rgba(167, 139, 250);
+     border-color: var(--mustard-gold);
  }
 
 
- #content{
-     display: flex;
-     flex-direction: column;
-     justify-content: center;
-     align-items: center;
-     width: 100%;
-     background-color: var(--white);
+ .contacts{
+     border-radius: 10px;
+     padding: 1em 1em;
+     margin-top: 1em;
+     margin-bottom: 1em;
+     box-shadow: var(--text-gray) 0 2px 8px;
+     text-align: center;
+     list-style: none;
  }
 
+.contacts a:link {
+    text-decoration: none;
 
+}
+
+.property-card{
+    --card-bg: #ffffff;
+    --card-accent: #7c3aed;
+    --card-text: #1e293b;
+    --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+
+    width: 420px;
+    height: 340px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.property-card img {
+    width: 100%;
+    height: 230px;
+    background: linear-gradient(45deg, #a78bfa, #8b5cf6);
+    border-radius: 0px 0px 12px 12px;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-title{
+    height: 1.6em;
+    color: var(--mustard-gold);
+    background-color: var(--navy-blue);
+    text-align: center;
+
+}
+
+.property-card li ul{
+    list-style-type: none;
+}
+
+.action-button{
+    width: 32px;
+    height: 32px;
+    background-image: url("../img/search.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    text-indent: -9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: all 0.3s ease;
+    transform: scale(0.9);
+
+}
 
