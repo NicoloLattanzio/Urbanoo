@@ -243,7 +243,7 @@ class DBAccess {
 		$user = $result->fetch_assoc();
 		$stmt->close();
         if(!password_verify($oldPassword, $user['password'])){
-            return ['success' => true, 'content' => 'PASSWORD_INVALID'];;
+            return ['success' => true, 'content' => 'PASSWORD_MISMATCH'];;
         }
         return ['success' => true, 'content' => null];
 	}

@@ -5,20 +5,15 @@ use DB\DBAccess;
 
 $paginaHTML = file_get_contents('../html/proprieta.html');
 
-// Controllo dello stato utente (Admin o User)
+/*
+    User role check:
+    admin -> shows admin control buttons: insert | delete | edit
+    user -> redirect to 403.html
+*/
 $isAdmin = (isset($_SESSION['role']) && $_SESSION['role'] === 'admin');
 
 $connessione = new DBAccess();
 $connessioneOK = $connessione->openDBConnection();
-
-// logica per mostrare messaggi di successo/errore dopo operazione di elimina [CONTROLLA SE VA BENE E SE SERVE LOGICA MODIFICA/AGGIUNGI] già generico volendo
-/*if (isset($_GET['insertion_success_msg'])) {
-    if ($_GET['insertion_success_msg'] === 'success') {
-        $messaggioOperazione = 
-    } elseif ($_GET['insertion_success_msg'] === 'error') {
-        $messaggioOperazione = '<p class="error-message" role="alert">Si è verificato un errore durante l\'operazione.</p>';
-    }
-}*/
 
 $stringaProprieta = "";
 $actionMap = [
