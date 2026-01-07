@@ -37,6 +37,7 @@
         <div class="form-container">
             <h1 class="title">Aggiungi una nuova proprietà</h1>
             <form id="add-property-form" action="/php/aggiungi_proprieta.php" method="post" enctype="multipart/form-data">
+                <div id="err-property-server" class="error-msg display-error" aria-live="polite">[property_err]</div>
                 <div class="input-group">
                     <!-- Name -->
                     <label for="name">Nome Proprietà:</label>
@@ -52,7 +53,7 @@
                 <div class="input-group">
                     <!-- Description -->
                     <label for="description">Descrizione:</label>
-                    <textarea id="description" name="description" required placeholder="Descrizione della proprietà" minlength="10" maxlength="250"
+                    <textarea id="description" name="description" required placeholder="Descrizione della proprietà" value="[description_val]" minlength="10" maxlength="250"
                             aria-describedby="err-desc-required err-desc-invalid"
                             data-msg-required="Inserisci una descrizione"
                             data-msg-invalid="Formato non corretto: "></textarea>
@@ -64,7 +65,7 @@
                 <div class="input-group">
                     <!-- Price -->
                     <label for="price">Prezzo:</label>
-                    <input type="number" id="price" name="price" required placeholder="Es. 150000"
+                    <input type="number" id="price" name="price" required placeholder="Es. 150000" value="[price_val]"
                         aria-describedby="err-price-required err-price-invalid"
                         data-msg-required="Inserisci il prezzo"
                         data-msg-invalid="Valore non valido" min="0">
@@ -76,7 +77,8 @@
                 <div class="input-group">
                     <!-- Tipologia -->
                     <label for="type">Tipologia:</label>
-                    <select id="type" name="type" aria-describedby="err-type-required err-type-invalid"
+                    <select id="type" name="type" value="[type_val]" 
+                            aria-describedby="err-type-required err-type-invalid"
                             data-msg-required="Seleziona una tipologia tra quelle disponibili"
                             data-msg-invalid="Valore non valido">
                         <option value="">Seleziona...</option>
@@ -95,7 +97,7 @@
                 <div class="input-group">
                     <!-- Size -->
                     <label for="size">Superficie (mq):</label>
-                    <input type="number" id="size" name="size" required placeholder="Es. 75"
+                    <input type="number" id="size" name="size" required placeholder="Es. 75" value="[size_val]"
                         aria-describedby="err-size-required err-size-invalid"
                         data-msg-required="Inserisci la superficie"
                         data-msg-invalid="La superficie deve essere un numero maggiore di 0" min="0">
@@ -107,7 +109,7 @@
                 <div class="input-group">
                     <!-- Locali -->
                     <label for="rooms">Numero di locali:</label>
-                    <input type="number" id="rooms" name="rooms" required placeholder="Es. 3"
+                    <input type="number" id="rooms" name="rooms" required placeholder="Es. 3" value="[rooms_val]"
                         aria-describedby="err-rooms-required err-rooms-invalid"
                         data-msg-required="Inserisci il numero di locali"
                         data-msg-invalid="Il numero di locali deve essere un numero maggiore di 0" min="0">
@@ -119,8 +121,10 @@
                 <div class="input-group">
                     <!-- Availability -->
                     <label for="availability">Disponibilità:</label>
-                    <select id="availability" name="availability" aria-describedby="err-availability-required err-availability-invalid"
-                            data-msg-required="Seleziona la disponibilità" data-msg-invalid="Selezionare uno stato di disponibilità valido">
+                    <select id="availability" name="availability" value="[availability_val]"
+                            aria-describedby="err-availability-required err-availability-invalid"
+                            data-msg-required="Seleziona la disponibilità" 
+                            data-msg-invalid="Selezionare uno stato di disponibilità valido">
                         <option value="">Seleziona...</option>
                         <option value="1">Disponibile</option>
                         <option value="0">Non disponibile</option>
@@ -145,7 +149,7 @@
                 <div class="input-group">
                     <!-- City -->
                     <label for="city">Città:</label>
-                    <input type="text" id="city" name="city" required placeholder="Es. Padova" minlength="2" maxlength="20"
+                    <input type="text" id="city" name="city" required placeholder="Es. Padova" value="[city_val]" minlength="2" maxlength="20"
                         aria-describedby="err-city-required err-city-invalid"
                         data-msg-required="Inserisci la città"
                         data-msg-invalid="Formato non corretto: ">

@@ -284,15 +284,15 @@ class DBAccess {
 		}
 	}
 
-	public function propertyNameAlreadyExistent($nome) {
-		$query = "SELECT * FROM proprieta WHERE nome = ?";
+	public function propertyAlreadyExistent($nome, $indirizzo) {
+		$query = "SELECT * FROM proprieta WHERE nome = ? OR indirizzo = ?";
 		$stmt = $this->connection->prepare($query);
 		if (!$stmt) {
 			// Errore nella preparazione della query SQL
 			error_log("Prepare failed: " . $this->connection->error);
 			return ['success' => false, 'content' => 'DB_ERROR'];
 		}
-		if (!$stmt->bind_param("s", $nome)) {
+		if (!$stmt->bind_param("ss", $nome, $indirizzo)) {
 			// Errore nel binding dei parametri
 			error_log("Bind param failed: " . $stmt->error);
 			return ['success' => false, 'content' => 'DB_ERROR'];
@@ -312,7 +312,7 @@ class DBAccess {
 		$stmt->close();
 		return ['success' => true, 'content' => $row];
 	}
-
+/*
 	public function propertyAddressAlreadyExistent($indirizzo) {
 		$query = "SELECT * FROM proprieta WHERE indirizzo = ?";
 		$stmt = $this->connection->prepare($query);
@@ -341,7 +341,7 @@ class DBAccess {
 		$stmt->close();
 		return ['success' => true, 'content' => $row];
 	}
-
+*/
 	public function insertProprieta($nome, $descrizione, $prezzo, $tipologia, $superficie, $locali, $disponibilita, $immagine, $indirizzo, $citta) {
 		$query = "	INSERT INTO proprieta (nome, descrizione, tipologia, indirizzo, citta, prezzo, metri_quadri, locali, immagine, disponibile)
 					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -508,7 +508,7 @@ class DBAccess {
 			error_log("Get result failed: " . $stmt->error);
 			return ['success' => false, 'content' => 'DB_ERROR'];
 		}
-		$rows = $result->fetch_all(MYSQL_ASSOC);
+		$rows = $result->fetch_all(MYSQLI_ASSOC);
 		$stmt->close();
 		return ['success' => true, 'content' => $rows];
 	}
