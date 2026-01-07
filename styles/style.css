@@ -32,6 +32,12 @@ html {
     scroll-behavior: smooth;  /*vedi*/
     height: 100%
 }
+
+html em{
+    text-decoration-style: none; /*deve togliere gli stili di em, non va porco dio*/
+}
+
+
 html a:visited {
     color: purple;
 
@@ -464,6 +470,11 @@ footer {
      text-align: center;
      list-style: none;
  }
+
+ .contacts li{
+     list-style: none;
+ }
+
 
 .contacts a:link {
     text-decoration: none;
