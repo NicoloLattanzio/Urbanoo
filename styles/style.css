@@ -528,11 +528,11 @@ footer {
     background-repeat: no-repeat;
     background-position: center;
     cursor: pointer;
-    text-indent: -9999px;
+    /*text-indent: -9999px;*/
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    /*color: white;*/
     transition: all 0.3s ease;
     transform: scale(0.9);
 

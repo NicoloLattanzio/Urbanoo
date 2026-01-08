@@ -108,12 +108,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($formValido) {
-        // Hash password e registra utente
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $ruolo = 'utente';
 
         // Inserisce il nuovo utente
-        $insertResult = $connessione->insertUser($nome, $cognome, $email, $hashedPassword, $ruolo);
+        $insertResult = $connessione->insertUser($nome, $cognome, $email, $password, $ruolo);
 
         if ($insertResult['success']) {
             // Ottiene l'utente appena registrato

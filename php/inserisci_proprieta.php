@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require_once "dbConnection.php";
+require_once "dbconnection.php";
 use DB\DBAccess;
 
 //function to clean inputs: remove spaces start/end + remove all html tags - $tagpermessi
@@ -57,8 +57,10 @@ $immaginiErr = "";
 $propertyErr = "";
 
 //user visits inserisci_proprieta.php from "+" in proprieta.php or via url
-if ($_SERVER['REQUEST_METHOD'] !== 'POST')
+if ($_SERVER['REQUEST_METHOD'] !== 'POST'){
     echo $paginaHTML;
+    exit();
+}
 
 /*
     Input validation:
@@ -289,7 +291,7 @@ if(!$connessioneOK){
     -> [true, null]: query returned an empty result -> property not existent, insert    2)
     -> [false, DB_ERROR]: query failed              -> 500.html                         3)
 */
-$result = $connessione -> propertyAlreadyExistent($nome, $indirizzo);
+$result = $connessione -> getProperty($nome, $indirizzo);
 if(!$result["success"]) {
     //3)
     header("location: /500.html");
@@ -318,7 +320,7 @@ if($proprieta) {
         -> [false, INSERT_FAILED]: query affected > 0 rows  -> insert fail      2)
         -> [false, DB_ERROR]: query failed                  -> 500.html         3)
     */
-    $insertResult = $connessione -> insertProprieta($nome, $descrizione, $prezzo, $tipologia, $superficie, $locali, $disponibilita, $immagini, $indirizzo, $citta);
+    $insertResult = $connessione -> insertProperty($nome, $descrizione, $prezzo, $tipologia, $superficie, $locali, $disponibilita, $immagini, $indirizzo, $citta);
     $connessione -> closeDBConnection();             
     if($insertResult["success"]){
         //1)

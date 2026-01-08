@@ -18,6 +18,7 @@ $paginaHTML = file_get_contents('../html/modifica_proprieta.html');
 $connessione = new DBAccess();
 $connessioneOK = $connessione->openDBConnection();
 
+$tagPermessi ='<em><strong><ul><li>';
 $formValido = true;
 $id = "";
 $nome = "";
@@ -50,7 +51,7 @@ if ($connessioneOK) {
                 exit();
             }
             $idProprieta = intval($idProprieta);
-            $showResult = $connessione->showProprietaDetails($idProprieta);
+            $showResult = $connessione->showPropertyDetails($idProprieta);
             if($showResult['success']) {
                 if($showResult['content']){
                     $proprieta = $showResult['content'];
@@ -89,7 +90,7 @@ if ($connessioneOK) {
         //validazione e sanitizzazione degli input
         $id = trim($_POST['id'] ?? '');
         if ($id) {
-            if (!is_numeric($idProprieta) || intval($idProprieta) <= 0) {
+            if (!is_numeric($id) || intval($id) <= 0) {
                 $_SESSION['change_prop_msg'] = [
                     'type' => 'error',
                     'text' => 'Seleziona una proprietà valida.'
@@ -157,9 +158,9 @@ if ($connessioneOK) {
         $disponibilita = intval($disponibilita);
 
         if($formValido){
-            $updateResult = $connessione->updateProprieta($id, $nome, $descrizione, $prezzo, $disponibilita);
+            $updateResult = $connessione->updateProperty($id, $nome, $descrizione, $prezzo, $disponibilita);
             if ($updateResult['success']){
-                if (!$updateResult['content']){
+                if ($updateResult['content']){
                     $_SESSION['change_prop_msg'] = [
                         'type' => 'success',
                         'text' => 'Proprietà modificata con successo.'

@@ -14,7 +14,7 @@ $connessione = new DBAccess();
 $connessioneOK = $connessione->openDBConnection();
 if(!$connessioneOK){
     //DB connection error
-    header("location: /500.html");
+    header("location: ../500.html");
     exit();
 }
 /*

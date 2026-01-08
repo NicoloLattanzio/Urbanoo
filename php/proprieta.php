@@ -36,7 +36,7 @@ foreach ($actionMap as $sessionKey => $id) {
 
 if ($connessioneOK) {
     // Se ci sono filtri, usiamo la funzione specifica
-    $result = $connessione->getFilteredProprieta(
+    $result = $connessione->getFilteredProperty(
         $_GET['title'] ?? '',  // "??" opperatore null coalescing per gestire parametri non settati (nulli)
         $_GET['city'] ?? '',
         $_GET['type'] ?? '',

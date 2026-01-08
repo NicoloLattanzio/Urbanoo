@@ -44,15 +44,15 @@ if(!$connessioneOK){
     -> [true, null]: query affected > 0 rows    -> property deleted successfully    2)
     -> [false, DB_ERROR]: query failed          -> 500.html                         3)
 */
-$deleteResult = $connessione->deleteProprieta($idProprieta); 
+$deleteResult = $connessione->deleteProperty($idProprieta); 
 $connessione->closeDBConnection();
 
-if(!$showResult["success"]){
+if(!$deleteResult["success"]){
     //3)
     header("location: /500.html");
     exit();
 }
-if(!$showResult["content"]) {
+if(!$deleteResult["content"]) {
     //2)
     $_SESSION['delete_prop_msg'] = [
         'type' => 'success',

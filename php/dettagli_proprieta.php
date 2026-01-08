@@ -43,7 +43,7 @@ $idProprieta = (int)$idProprieta;
     -> [true, null]: query returned an empty result -> property not existent error  2)
     -> [false, DB_ERROR]: query failed              -> 500.html                     3)
 */
-$showResult = $connessione->showProprietaDetails($idProprieta);
+$showResult = $connessione->showPropertyDetails($idProprieta);
 $connessione->closeDBConnection();
 if(!$showResult["success"]){
     //3)

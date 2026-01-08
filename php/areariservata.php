@@ -15,11 +15,6 @@ if(!isset($_SESSION['role'])){
 } else {
     $isAdmin = (isset($_SESSION['role']) && $_SESSION['role'] === 'admin');
 }
-
-if(!$connessioneOK){
-    $paginaHTML = str_replace("[wishlist]", "<p>Non è stato possibile caricare la sua <span lang='en'>wishlist</span>. I sistemi sono momentaneamente fuori servizio, ci scusiamo per il disagio. Ci stiamo occupando del problema, riprova più tardi oppure contattaci a questa <span lang='en'>mail</span>: help@urbanoo.com</p>", $paginaHTML);
-}
-
 $paginaHTML = str_replace("[nome]", $_SESSION['name'], $paginaHTML);
 $paginaHTML = str_replace("[ruolo]", $_SESSION['role'], $paginaHTML);
 if ($isAdmin) {
