@@ -523,7 +523,7 @@ footer {
 .action-button{
     width: 32px;
     height: 32px;
-    background-image: url("../img/search.png");
+    /*background-image: url("../img/search.png");       cosa la metti qui nicolò*/  
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
