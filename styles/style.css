@@ -49,8 +49,6 @@ html a:hover {
 
 
 
-
-
 body{
     background-color: var(--white);
     color: var(--txtcolor);
@@ -172,8 +170,6 @@ SEZIONE MAIN
 main {
     background-color: var(--white);
     padding: 2em;
-    border: #0F253A solid px;
-    border-radius: 10px;
     margin-top: 1em;
     /*flex: 1 0 auto;  /* Permette a main di espandersi e occupare lo spazio disponibile, evita di comprimersi eccessivamente*/
     box-sizing: border-box;
@@ -238,6 +234,60 @@ main h1{
 }
 
 
+/* SERVICES */
+
+#services h2 {
+    /*top: -1em;*/
+    text-align: center;
+    font-size: 1.8em;
+    margin-top: 1em;
+    margin-bottom: .3em;
+    text-transform: uppercase;
+}
+
+#services dl {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center
+}
+
+#services .item-services {
+    flex: 0 1 40em;
+    display: grid;
+    grid-template-columns: 0.5fr 3fr;
+    grid-template-areas: "i t t t" 
+                         "i d d d";
+    box-shadow: var(--text-gray) 0 2px 8px;
+    border-radius: 80px;
+    margin: 0.5em;
+    padding: 2em;
+}
+
+#services dt {
+    grid-area: t;
+    padding: .2em;
+    font-size: 1.4em
+}
+
+#services dd {
+    display: contents; 
+}
+
+#services dd img {
+    grid-area: i;
+    width: 100%;
+    float: left;
+    height: auto;
+    margin: auto
+}
+
+#services dd p {
+    grid-area: d;
+    clear: right;
+    flex-grow: 0;
+    flex-shrink: 1;
+    padding: .3em
+}
 
 /*
 ==============================================================
@@ -321,7 +371,6 @@ footer {
     color: #fff; 
     text-align: center; 
     padding: 30px; 
-    border-radius: 10px 10px 0px 0px;
 }
 
 
