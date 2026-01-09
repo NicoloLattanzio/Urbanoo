@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <meta name="description" content="Sfoglia il catalogo immobili di Urbanoo: monolocali, bilocali, ville con giardino e attici di lusso. Scopri le nostre proposte immobiliari certificate.">
     <meta name="keywords" content="agenzia immobiliare, proprietà, Urbanoo, vendita, immobile, monolocali, bilocali, trilocali, quadrilocali, ville, villette, attici, casali, soluzioni per voi">
-    <link rel="stylesheet" href="/styles/style.css" media="screen">
-    <link rel="stylesheet" href="/styles/mini.css" media="screen and (max-width:768px)">
-    <link rel="stylesheet" href="/styles/print.css" media="print">
+    <link rel="stylesheet" href="../styles/style.css" media="screen">
+    <link rel="stylesheet" href="../styles/mini.css" media="screen and (max-width:768px)">
+    <link rel="stylesheet" href="../styles/print.css" media="print">
 
 </head>
 <body>
@@ -20,17 +20,17 @@
         <nav id="menu" aria-label="menu di navigazione">
             <a class="navigationHelp" href="#content">Salta il menù di navigazione</a>
             <ul>
-                <li><a href="/index.html" lang="en">Home</a></li>
-                <li><a href="/aboutus.html">Chi Siamo</a></li>
+                <li><a href="index.php" lang="en">Home</a></li>
+                <li><a href="aboutus.php">Chi Siamo</a></li>
                 <li id="currentlink" lang="en">Proprietà</li>
-                <li><a href="/contatti.html">Contatti</a></li>
-                <li><a href="/php/login.php" class="profile-btn">Profilo</a></li>
+                <li><a href="contatti.php">Contatti</a></li>
+                <li><a href="login.php" class="profile-btn">Profilo</a></li>
             </ul>
         </nav>
         <h2>TROVA LA CASA DEI TUOI SOGNI</h2>
     </header>
     <nav id="breadcrumb">
-        <p>Ti trovi in: <a href="/index.html" lang="en">Home</a> &raquo; Proprietà</p>
+        <p>Ti trovi in: <a href="index.php" lang="en">Home</a> &raquo; Proprietà</p>
     </nav>
     
     <main id="content">
@@ -47,7 +47,7 @@
         <div class="first-row">  <!-- per gestire filtri e primo contenuto, chiedi se va bene così -->
         <aside id="filters">
             <h2>Filtra Proprietà</h2>
-            <form method="GET" action="/php/proprieta.php" id="searchForm">
+            <form method="GET" action="proprieta.php" id="searchForm">
                 <div class="input-filters">
                     <label for="title">Nome:</label>
                     <input type="text" id="title" name="title" placeholder="Nome proprietà">
