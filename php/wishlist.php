@@ -4,11 +4,11 @@ require_once "dbconnection.php";
 use DB\DBAccess;
 
 if (!isset($_SESSION['role'])) {
-    header("Location: ../403.html");
+    header("Location: 403.php");
     exit();
 }elseif($_SESSION['role'] === 'admin'){
     $_SESSION['admin_wishlist'] = 'Sei l\'admin non possiedi la tua wishlist';
-    header("Location: /proprieta.html");
+    header("Location: proprieta.php");
     exit();
 }
 
@@ -23,12 +23,12 @@ if ($connessioneOK) {
     // Gestione rimozione se clicchi sul tasto "Rimuovi"
     if (isset($_GET['remove'])) {
         $connessione->removeFromWishlist($idLoggato, intval($_GET['remove']));
-        header("Location: /php/wishlist.php");
+        header("Location: wishlist.php");
         exit();
     }
     if (isset($_GET['add'])) {
         $connessione->insertToWishlist($idLoggato, intval($_GET['add']));
-        header("Location: /php/wishlist.php");
+        header("Location: wishlist.php");
         exit();
     }
 
@@ -59,10 +59,11 @@ if ($connessioneOK) {
         $lista_output = '<p>Non hai ancora salvato nessuna proprietà nei tuoi preferiti.</p>';
     }
 } else {
-    header('location: /500.html');
+    header('location: 500.php');
     exit();
 }
 
 $paginaHTML = str_replace("[wishlist]", $lista_output, $paginaHTML);
 echo $paginaHTML;
+exit();
 ?>

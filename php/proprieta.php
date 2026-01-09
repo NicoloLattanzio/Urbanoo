@@ -7,8 +7,8 @@ $paginaHTML = file_get_contents('../html/proprieta.html');
 
 /*
     User role check:
-    admin -> shows admin control buttons: insert | delete | edit
-    user -> redirect to 403.html
+    admin -> shows admin control buttons: insert | delete | edit + show
+    user -> shows user button: show
 */
 $isAdmin = (isset($_SESSION['role']) && $_SESSION['role'] === 'admin');
 
@@ -61,7 +61,7 @@ if ($connessioneOK) {
                 $paginaHTML = str_replace(array_keys($placeholders), array_values($placeholders), $paginaHTML);
             }
             if ($isAdmin) {
-                $stringaProprieta .= '<div class="admin-controls"><a href="/php/inserisci_proprieta.php" class="btn-add">Aggiungi Nuova Proprietà</a></div>';
+                $stringaProprieta .= '<div class="admin-controls"><a href="inserisci_proprieta.php" class="btn-add">Aggiungi Nuova Proprietà</a></div>';
             }
 
             $stringaProprieta .= '<ul class="property-list">'; 
@@ -71,13 +71,13 @@ if ($connessioneOK) {
                 $stringaProprieta .= '<div class="property-card"><h3 class="card-title">' . $proprieta['nome'] . '</h3>';
                 $stringaProprieta .= '<img src="' . $proprieta['immagine'] . '" alt="Foto di ' . $proprieta['nome'] . '" />';
                 // Tutti gli utenti hanno il pulsante "Vedi"
-                $stringaProprieta .= '<div class="user-actions"><a href="/php/dettagli_proprieta.php?id=' . $proprieta['id'] . '" id="view-link" class="action-button" aria-label="Vedi i dettagli di ' . $proprieta['nome'] . '">Vedi</a></div>';
+                $stringaProprieta .= '<div class="user-actions"><a href="dettagli_proprieta.php?id=' . $proprieta['id'] . '" id="view-link" class="action-button" aria-label="Vedi i dettagli di ' . $proprieta['nome'] . '">Vedi</a></div>';
 
                 if ($isAdmin) {
                     // L'admin vede "Modifica" che va alla pagina dettagli
-                    $stringaProprieta .= '<div class="user-actions"><a href="/php/modifica_proprieta.php?id=' . $proprieta['id'] . '" id="change-link" class="action-button" aria-label="Modifica i dettagli di ' . $proprieta['nome'] . '">Modifica</a></div>';
+                    $stringaProprieta .= '<div class="user-actions"><a href="modifica_proprieta.php?id=' . $proprieta['id'] . '" id="change-link" class="action-button" aria-label="Modifica i dettagli di ' . $proprieta['nome'] . '">Modifica</a></div>';
                     // L'admin vede "Elimina" che attiva uno script di cancellazione: iniziamente blocco nascosto poi attivato da JS e mostrato a schermo
-                    $stringaProprieta .= '  <div class="user-actions"><a href="/php/elimina_proprieta.php?id=' . $proprieta['id'] . '" id="delete-link" class="action-button" aria-label="Elimina ' . $proprieta['nome'] . '">Elimina</a></div>
+                    $stringaProprieta .= '  <div class="user-actions"><a href="elimina_proprieta.php?id=' . $proprieta['id'] . '" id="delete-link" class="action-button" aria-label="Elimina ' . $proprieta['nome'] . '">Elimina</a></div>
                                             <div id="delete-dialog" class="hide" role="alertdialog" aria-modal="true" aria-labelledby="delete-title" aria-describedby="delete-desc">
                                                 <h2 id="delete-title">Conferma eliminazione</h2>
                                                 <p id="delete-desc">Sei sicuro di voler eliminare questa proprietà?</p>
@@ -92,15 +92,16 @@ if ($connessioneOK) {
             $stringaProprieta = "<p>Nessuna proprietà corrisponde alla tua ricerca</p>";
         }
     } else {
-        header("location: /403.html"); //errori di funzioni di query
+        header("location: 403.php"); //errori di funzioni di query
         exit();
     }
 } else {
-    header("location: /500.html");
+    header("location: 500.php");
     exit();
     //$stringaProprieta = '<p>I sistemi sono momentaneamente fuori servizio, ci scusiamo per il disagio. Ci stiamo occupando del problema, riprova più tardi oppure contattaci attraverso <a href="/contatti.html" aria-label="pagina dei contatti">questa pagina</a></p>';
 }
 
 $paginaHTML = str_replace("[properties]", $stringaProprieta, $paginaHTML);
 echo $paginaHTML;
+exit();
 ?>

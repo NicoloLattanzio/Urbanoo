@@ -26,7 +26,7 @@ $connessione = new DBAccess();
 $connessioneOK = $connessione->openDBConnection();
 
 if (!$connessioneOK) {
-        header("location: /500.html");
+        header("location: 500.php");
         exit();
 }
 
@@ -109,7 +109,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($formValido) {
         $ruolo = 'utente';
-
         // Inserisce il nuovo utente
         $insertResult = $connessione->insertUser($nome, $cognome, $email, $password, $ruolo);
 
@@ -124,23 +123,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $_SESSION['email'] = $user['email'];
                     $_SESSION['role'] = $user['ruolo'];
 
-                    header("Location: /php/areariservata.php");
+                    header("Location: areariservata.php");
                     exit();
                 } else {
                     //critical error: user inserted but not retrievable -> change insertUser (should return the user)
                     //                                                  -> redirect to login.php with "error" msg
-                    header("location: /php/login.php");
+                    header("location: login.php");
                     exit();
                 }
             } else {
-                header("location: /500.html");
+                header("location: 500.php");
                 exit();
             }
         } else if ($insertResult['content'] == "INSERT_FAILED"){
             $emailErr .= '<p>Errore durante la registrazione. Riprovare.</p>';
             $formValido = false;
         } else if ($insertResult['content'] == 'DB_ERROR') {
-            header("location: /500.html");
+            header("location: 500.php");
             exit();
         }
     } else {
@@ -157,6 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $PageRegister = str_replace('[email_val]', $email, $PageRegister);
 
         echo $PageRegister;
+        exit();
     }
 } else {
         $PageRegister = str_replace('[nome_err]', '', $PageRegister);
@@ -169,5 +169,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $PageRegister = str_replace('[cognome_val]', '', $PageRegister);
         $PageRegister = str_replace('[email_val]', '', $PageRegister);
         echo $PageRegister;
+        exit();
 }
 ?>

@@ -10,7 +10,7 @@ function cleanInput($value, $tagPermessi = ''){
 }
 
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: /403.html");
+    header("Location: 403.php");
     exit();
 }
 
@@ -47,7 +47,7 @@ if ($connessioneOK) {
                     'type' => 'error',
                     'text' => 'Seleziona una proprietà valida.'
                 ];
-                header('location: /php/proprieta.php');
+                header('location: proprieta.php');
                 exit();
             }
             $idProprieta = intval($idProprieta);
@@ -70,11 +70,11 @@ if ($connessioneOK) {
                         'type' => 'error',
                         'text' => 'Spiacenti, la proprietà selezionata non esiste.'
                     ];
-                    header('location: /php/proprieta.php');
+                    header('location: proprieta.php');
                     exit();
                 }
             } else {
-                header('location: /500.html');
+                header('location: 500.php');
                 exit();
             }
         } else {
@@ -82,7 +82,7 @@ if ($connessioneOK) {
                 'type' => 'error',
                 'text' => 'Spiacenti, non hai selezionato alcuna proprietà da modificare.'
             ];
-            header('location: /php/proprieta.php');
+            header('location: proprieta.php');
             exit();
         }
     } else {
@@ -95,7 +95,7 @@ if ($connessioneOK) {
                     'type' => 'error',
                     'text' => 'Seleziona una proprietà valida.'
                 ];
-                header('location: /php/proprieta.php');
+                header('location: proprieta.php');
                 exit();
             }
         } else {
@@ -103,7 +103,7 @@ if ($connessioneOK) {
                 'type' => 'error',
                 'text' => 'Spiacenti, non hai selezionato alcuna proprietà da modificare.'
             ];
-            header('location: /php/proprieta.php');
+            header('location: proprieta.php');
             exit();
         }
         //validazione nome
@@ -171,10 +171,10 @@ if ($connessioneOK) {
                         'text' => 'C\'è stato un problema con la modifica della proprietà.'
                     ];
                 }
-                header('location: /php/proprieta.php');
+                header('location: proprieta.php');
                 exit();
             } else {
-                header('location: /500.html');
+                header('location: 500.php');
                 exit();
             } 
         } else {
@@ -189,7 +189,7 @@ if ($connessioneOK) {
         }
     }
 } else {
-    header('location: /500.html');
+    header('location: 500.php');
     exit();
 }
 ?>

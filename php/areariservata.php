@@ -10,7 +10,7 @@ $paginaHTML = file_get_contents('../html/areariservata.html');
     none -> redirect to 403.html
 */
 if(!isset($_SESSION['role'])){
-    header("Location: /403.html");
+    header("Location: 403.php");
     exit();
 } else {
     $isAdmin = (isset($_SESSION['role']) && $_SESSION['role'] === 'admin');
@@ -22,6 +22,8 @@ if ($isAdmin) {
     $paginaHTML = str_replace("[wishlist]", "", $paginaHTML);
 } else {
     //user: add wishlist button
-    $paginaHTML = str_replace("[wishlist]", "<li><a href=\"../php/wishlist.php\" id=\"wishlist\">La mia <span lang=\"en\">wishlist</span></a></li>", $paginaHTML);
+    $paginaHTML = str_replace("[wishlist]", "<li><a href=\"wishlist.php\" id=\"wishlist\">La mia <span lang=\"en\">wishlist</span></a></li>", $paginaHTML);
 }
 echo $paginaHTML;
+exit();
+?>

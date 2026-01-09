@@ -19,19 +19,19 @@ $_SESSION['show_prop_msg'] = [
 
 if(!$connessioneOK){
     //DB connection error
-    header("location: /500.html");
+    header("location: 500.php");
     exit();
 }
 
 /*
     ID input management:
-    -> no input: user asks for url/dettagli_proprieta.php                   -> 404.html
-    -> empty input: user asks for url/dettagli_proprieta.php?id=            -> 404.html
-    -> invalid input: user asks for url/dettagli_proprieta.php?id="uegaoef" -> 404.html
+    -> no input: user asks for url/dettagli_proprieta.php                   -> 404.php
+    -> empty input: user asks for url/dettagli_proprieta.php?id=            -> 404.php
+    -> invalid input: user asks for url/dettagli_proprieta.php?id="uegaoef" -> 404.php
 */
 $idProprieta = $_GET['id'] ?? null;
 if (!ctype_digit($idProprieta) || (int)$idProprieta <= 0) {
-    header('Location: /404.html');
+    header('Location: 404.php');
     exit();
 }
 $idProprieta = (int)$idProprieta;
@@ -41,13 +41,13 @@ $idProprieta = (int)$idProprieta;
     DB output management:
     -> [true, $row]: query returned a result        -> show the selected property   1)
     -> [true, null]: query returned an empty result -> property not existent error  2)
-    -> [false, DB_ERROR]: query failed              -> 500.html                     3)
+    -> [false, DB_ERROR]: query failed              -> 500.php                     3)
 */
 $showResult = $connessione->showPropertyDetails($idProprieta);
 $connessione->closeDBConnection();
 if(!$showResult["success"]){
     //3)
-    header("location: /500.html");
+    header("location: 500.php");
     exit();
 }
 
@@ -63,7 +63,7 @@ if ($proprieta) {
             <div class = 'prop-cover'>
                 <img src='[immagine]'>
                 <h2>[nome]</h2>
-                <a href='/php/wishlist.php?add=".e($idProprieta)." class='add-wishlist-btn'>Aggiungi alla <span lang='en'>wishlist</span></a>
+                <a href='wishlist.php?add=".e($idProprieta)." class='add-wishlist-btn'>Aggiungi alla <span lang='en'>wishlist</span></a>
             </div>
             <div class = 'prop-info'>
                 <dl>
@@ -91,10 +91,12 @@ if ($proprieta) {
         'type' => 'error',
         'text' => 'Spiacenti, la proprietà selezionata non esiste.'
     ];
-    header('location: /php/proprieta.php');
+    header('location: proprieta.php');
     exit();
 }
 
 
 $paginaHTML = str_replace("[dettagli]", $dettagli_proprieta, $paginaHTML);
 echo $paginaHTML;
+exit();
+?>

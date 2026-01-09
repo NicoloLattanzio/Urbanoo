@@ -6,10 +6,10 @@ use DB\DBAccess;
 /*
     User check:
     user -> change psw
-    none -> redirect to 403.html
+    none -> redirect to 403.php
 */
 if (!isset($_SESSION['email'])) {
-    header("Location: /403.html"); 
+    header("Location: 403.php"); 
     exit();
 }
 
@@ -74,7 +74,7 @@ $connessione = new DBAccess();
 $connessioneOK = $connessione->openDBConnection();
 if (!$connessioneOK) {
     //DB connection error
-    header("Location: /500.html");
+    header("Location: 500.php");
     exit();
 }
 
@@ -109,7 +109,7 @@ if($oldpswResult['success'] && $oldpswResult['content'] === "PASSWORD_MISMATCH")
     $formValido = false;
 } else if(!$oldpswResult['success']){
     //3)
-    header("Location: /500.html");
+    header("Location: 500.php");
     exit();
 }
 //2)
@@ -129,21 +129,21 @@ if(!$formValido) {
     DB output management:
     -> [true, NOT_FOUND]: user exists but passwords mismatch    -> email not found              1)
     -> [true, null]: affected rows > 0                          -> password updated correctly   2)
-    -> [false, DB_ERROR]: query failed                          -> 500.html                     3)
+    -> [false, DB_ERROR]: query failed                          -> 500.php                      3)
 */
 $updatePswResult = $connessione->updatePassword($email, $new);
 $connessione->closeDBConnection();
 if($updatePswResult['success']){
     if(!$updatePswResult['content']){
         $_SESSION["update_psw_success_msg"] = 'Password aggiornata con successo!';
-        header("Location: areariservata.php");
     } else{
         //lo tratto come 500 o come errore normale? non dovrebbe essere possibile che non lo trovi
         $_SESSION["update_psw_error_msg"] = 'Non è stato possibile aggiornare la password per problemi tecnici';
-        header("Location: areariservata.php");
     }
+    header("Location: areariservata.php");
+    exit();
 } else {
-    header("Location: /500.html");
+    header("Location: 500.php");
     exit();
 }
 ?>

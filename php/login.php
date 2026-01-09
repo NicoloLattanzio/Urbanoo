@@ -8,20 +8,19 @@ $emailErr = '';
 $password = '';
 $passwordErr = '';
 
-$PageAreariservata = file_get_contents('areariservata.php');
 $PageLogin = file_get_contents('../html/login.html');
 $connessione = new DBAccess();
 $connessioneOK = $connessione->openDBConnection();
 if(!$connessioneOK){
     //DB connection error
-    header("location: ../500.html");
+    header("location: 500.php");
     exit();
 }
 /*
     1. user already logged in as user       -> redirect to areariservata.php
     2. user already logged in as admin      -> redirect to areariservata.php
     3. user not logged in and form sent     -> login and validation     
-    4. user not logged in and form not sent -> show login form (login.html)
+    4. user not logged in and form not sent -> show login form (login.php)
 */
 if (isset($_SESSION['user_id'], $_SESSION['role'])) {   //1,2
     header("Location: areariservata.php");
@@ -31,6 +30,7 @@ else{
     if($_SERVER['REQUEST_METHOD'] !== 'POST'){
         //4
         echo $PageLogin;
+        exit();
     }
 
     //3
@@ -47,12 +47,12 @@ else{
         -> [true, null]: query returned an empty result ->  user not found, 
                                                             wrong credentials + 
                                                             redirect to areariservata.php   2)
-        -> [false, DB_ERROR]: query failed              ->  500.html                        3)
+        -> [false, DB_ERROR]: query failed              ->  500.php                         3)
     */
     $result = $connessione->getUser($email);
     if(!$result['success']){
         //3)
-        header('location: /500.html');
+        header('location: 500.php');
         exit();
     }
     $user = $result['content'];
@@ -84,6 +84,7 @@ else{
         $PageLogin = str_replace('[email_err]', $emailErr, $PageLogin);
         $PageLogin = str_replace('[password_err]', $passwordErr, $PageLogin);
         echo $PageLogin;
+        exit();
     }
 }
 ?>

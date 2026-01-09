@@ -17,11 +17,11 @@ function e($value) {
 /*
     User role check:
     admin -> can insert a property
-    user -> redirect to 403.html
-    none -> redirect to 403.html
+    user -> redirect to 403.php
+    none -> redirect to 403.php
 */
 if(!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
-    header("Location: /403.html");
+    header("Location: 403.php");
     exit();
 }
 
@@ -280,7 +280,7 @@ $connessione = new DBAccess();
 $connessioneOK = $connessione -> openDBConnection();
 if(!$connessioneOK){
     //DB connection error
-    header("location: /500.html");
+    header("location: 500.php");
     exit();
 }
 
@@ -289,12 +289,12 @@ if(!$connessioneOK){
     DB output management:
     -> [true, $row]: query returned a result        -> property already existent error  1)
     -> [true, null]: query returned an empty result -> property not existent, insert    2)
-    -> [false, DB_ERROR]: query failed              -> 500.html                         3)
+    -> [false, DB_ERROR]: query failed              -> 500.php                          3)
 */
 $result = $connessione -> getProperty($nome, $indirizzo);
 if(!$result["success"]) {
     //3)
-    header("location: /500.html");
+    header("location: 500.php");
     exit();
 }
 $proprieta = $result["content"];
@@ -318,7 +318,7 @@ if($proprieta) {
         DB output management:
         -> [true, null]: query did not affect rows          -> insert success   1)
         -> [false, INSERT_FAILED]: query affected > 0 rows  -> insert fail      2)
-        -> [false, DB_ERROR]: query failed                  -> 500.html         3)
+        -> [false, DB_ERROR]: query failed                  -> 500.php         3)
     */
     $insertResult = $connessione -> insertProperty($nome, $descrizione, $prezzo, $tipologia, $superficie, $locali, $disponibilita, $immagini, $indirizzo, $citta);
     $connessione -> closeDBConnection();             
@@ -337,7 +337,7 @@ if($proprieta) {
             ];
         } else {
             //3)
-            header("location: /500.html");
+            header("location: 500.php");
             exit();
         }
     }
