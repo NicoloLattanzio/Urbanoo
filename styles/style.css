@@ -21,7 +21,6 @@ html,body{
     font-family: "Verdana",sans-serif;
     line-height: 1.5em;
     margin:auto;
-    background-color: var(--text-gray);
     color:var(--textcolor);
     height: 100%;
     display: flex;/**/
@@ -34,7 +33,7 @@ html {
 }
 
 html em{
-    text-decoration-style: none; /*deve togliere gli stili di em, non va porco dio*/
+    /*text-decoration-style: none; deve togliere gli stili di em, non va porco dio*/
 }
 
 
@@ -530,43 +529,35 @@ footer {
 
 }
 
-.property-card{
-    --card-bg: #ffffff;
-    --card-accent: #7c3aed;
-    --card-text: #1e293b;
-    --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+.property-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
 
-    width: 420px;
-    height: 340px;
-    background: var(--card-bg);
-    border-radius: 20px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: var(--card-shadow);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+.property-card {
+    background: #fff;
+    border: 1px solid #ddd; /* Bordo sottile grigio */
+    border-radius: 8px;     /* Angoli arrotondati */
+    overflow: hidden;       /* Assicura che l'img rispetti i bordi */
+    display: flex;
+    flex-direction: column; /* Impila gli elementi verticalmente */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Ombra leggera */
 }
 
 .property-card img {
     width: 100%;
-    height: 230px;
-    background: linear-gradient(45deg, #a78bfa, #8b5cf6);
-    border-radius: 0px 0px 12px 12px;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    position: relative;
-    overflow: hidden;
+    height: auto;
+    max-width: 400px;
+    max-height: 225px; /*Corrispondente a formato 16:9, tecnicamente se usiuamo solo foto con questo formato non vengono stretchate*/
 }
 
-.card-title{
-    height: 1.6em;
+.price {
+    font-size: 1.1rem;
     color: var(--mustard-gold);
-    background-color: var(--navy-blue);
-    text-align: center;
-
-}
-
-.property-card li ul{
-    list-style-type: none;
+    font-weight: bold;
+    margin: 0;
 }
 
 .action-button{

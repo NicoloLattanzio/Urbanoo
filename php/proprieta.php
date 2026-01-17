@@ -64,14 +64,16 @@ if ($connessioneOK) {
                 $stringaProprieta .= '<div class="admin-controls"><a href="inserisci_proprieta.php" class="btn-add">Aggiungi Nuova Proprietà</a></div>';
             }
 
-            $stringaProprieta .= '<ul class="property-list">'; 
+            $stringaProprieta .= '<div class="property-grid">';
 
             foreach ($listaProprieta as $proprieta) {
-                $stringaProprieta .= '<li>';
-                $stringaProprieta .= '<div class="property-card"><h3 class="card-title">' . $proprieta['nome'] . '</h3>';
+                $stringaProprieta .= '<div class="property-card">';
                 $stringaProprieta .= '<img src="' . $proprieta['immagine'] . '" alt="Foto di ' . $proprieta['nome'] . '" />';
+                $stringaProprieta .= '<h3>' . $proprieta['nome'] . '</h3>';
+                $stringaProprieta .= '<p class="price">Prezzo:' . $proprieta['prezzo'] . '</p>';
+
                 // Tutti gli utenti hanno il pulsante "Vedi"
-                $stringaProprieta .= '<div class="user-actions"><a href="dettagli_proprieta.php?id=' . $proprieta['id'] . '" id="view-link" class="action-button" aria-label="Vedi i dettagli di ' . $proprieta['nome'] . '">Vedi</a></div>';
+                $stringaProprieta .= '<div class="btn-view"><a href="dettagli_proprieta.php?id=' . $proprieta['id'] . '" id="view-link" class="action-button" aria-label="Vedi i dettagli di ' . $proprieta['nome'] . '">Vedi</a></div>';
 
                 if ($isAdmin) {
                     // L'admin vede "Modifica" che va alla pagina dettagli
@@ -85,9 +87,9 @@ if ($connessioneOK) {
                                                 <button id="cancel-delete">Annulla</button>
                                             </div>';	//si arrangia con js
                 }
-                $stringaProprieta .= '</div></li>';
+                $stringaProprieta .= '</div>';
             }
-            $stringaProprieta .= '</ul>';
+            $stringaProprieta .= '</div>';
         } else {
             $stringaProprieta = "<p>Nessuna proprietà corrisponde alla tua ricerca</p>";
         }
