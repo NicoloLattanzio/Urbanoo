@@ -29,7 +29,7 @@ services:
       - ./html:/var/www/html
       - ./php:/var/www/php
       - ./img:/var/www/img
-      - ./styles:/var/www/html/styles
+      - ./styles:/var/www/php/styles
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/php
       PHP_APP_ROOT: /var/www/php
