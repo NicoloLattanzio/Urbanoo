@@ -31,7 +31,7 @@ services:
       - ./img:/var/www/img
       - ./styles:/var/www/html/styles
     environment:
-      APACHE_DOCUMENT_ROOT: /var/www/html
+      APACHE_DOCUMENT_ROOT: /var/www/php
       PHP_APP_ROOT: /var/www/php
       IMG_ROOT: /var/www/img
     depends_on:
