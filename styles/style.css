@@ -14,6 +14,7 @@
     --text-gray: #718096;
     --border-color: #E2E8F0;
     --error-color: #DA190B;
+    --visited: #800080f2;
 }
 
 html,body{
@@ -38,7 +39,7 @@ html em{
 
 
 html a:visited {
-    color: purple;
+    color: var(--visited);
 
 }
 html a:hover {
@@ -259,16 +260,20 @@ main h1{
     align-items: center;
     bottom: 50px;
     right: 50px;
-}
-
-.goback:hover{
-    background-color: var(--mustard-hover);
-    color: var(--navy-blue);
-    transition: 0.3s;
+    text-decoration: none;
+    font-size: 2em;
+    font-weight: bold;
 }
 
 .goback:visited{
     color: var(--navy-blue);
+}
+
+.goback:hover{
+    background-color: var(--mustard-gold);
+    color: var(--white);
+    transition: 0.3s;
+    text-decoration: none;
 }
 
 /* SERVICES */
@@ -610,11 +615,14 @@ footer {
     border-radius: 8px;
     cursor: pointer;
     margin-left: 0.5em;
+    text-decoration: none;
 }
+
 .btn-view:hover{
     color: var(--white);
     background-color: var(--mustard-hover);
-    transition: background-color 0.3s ease;
+    transition: 0.3s ease;
+    text-decoration: none;
 }
 
 #btn-mod{
