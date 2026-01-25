@@ -284,7 +284,6 @@ main h1{
     font-size: 1.8em;
     margin-top: 1em;
     margin-bottom: .3em;
-    text-transform: uppercase;
 }
 
 #services dl {
@@ -357,7 +356,6 @@ SEZIONE FILTRI
     margin-bottom: 1em;
     border-bottom: 2px solid var(--mustard-gold);
     padding-bottom: 0.5em;
-    text-transform: uppercase;
     letter-spacing: 1px;
 }
 
