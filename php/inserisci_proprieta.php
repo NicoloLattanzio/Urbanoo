@@ -25,7 +25,7 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'){
     exit();
 }
 
-$paginaHTML = file_get_contents('../html/aggiungi_proprieta.html');
+$paginaHTML = file_get_contents('../html/inserisci_proprieta.html');
 $formValido = true;
 $tagPermessi ='<em><strong><ul><li>';
 $_SESSION['insert_prop_msg'] = [

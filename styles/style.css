@@ -254,7 +254,7 @@ main h1{
     flex: 0 1 40em;
     display: grid;
     grid-template-columns: 0.5fr 3fr;
-    grid-template-areas: "i t t t" 
+    grid-template-areas: "i t t t"
                          "i d d d";
     box-shadow: var(--text-gray) 0 2px 8px;
     border-radius: 80px;
@@ -402,7 +402,7 @@ footer {
 
  .error-container {
      background-color: var(--text-dark);
-     color: var(--white);
+     color: var(--text-dark);
      text-align: center;
      padding: 1em;
      margin-top: 0.5em;
@@ -538,26 +538,68 @@ footer {
 
 .property-card {
     background: #fff;
-    border: 1px solid #ddd; /* Bordo sottile grigio */
-    border-radius: 8px;     /* Angoli arrotondati */
-    overflow: hidden;       /* Assicura che l'img rispetti i bordi */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
     display: flex;
-    flex-direction: column; /* Impila gli elementi verticalmente */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Ombra leggera */
+    flex-direction: column;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding-bottom: 15px;
+}
+
+.property-card h3{
+    background-color: var(--navy-blue);
+    color: var(--white);
+    text-align: center;
+    padding: 0.5em;
 }
 
 .property-card img {
     width: 100%;
-    height: auto;
-    max-width: 400px;
-    max-height: 225px; /*Corrispondente a formato 16:9, tecnicamente se usiuamo solo foto con questo formato non vengono stretchate*/
+    height: 77%;
+    max-height: 220px;
+    /*Corrispondente a formato 16:9, tecnicamente se usiuamo solo foto con questo formato non vengono stretchate*/
 }
 
+.btn-view{
+    width: 30%;
+    background-color: var(--mustard-gold);
+    color: var(--navy-blue);
+    padding: 0.6em;
+    align-items: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 0.5em;
+}
+.btn-view:hover{
+    color: var(--white);
+    background-color: var(--mustard-hover);
+    transition: background-color 0.3s ease;
+}
+
+#btn-mod{
+    background-color: green;
+}
+
+
 .price {
+    align-items: center;
     font-size: 1.1rem;
     color: var(--mustard-gold);
     font-weight: bold;
     margin: 0;
+}
+
+.property-details{
+    margin-top: 0.5em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
 }
 
 .action-button{
@@ -576,5 +618,46 @@ footer {
     transition: all 0.3s ease;
     transform: scale(0.9);
 
+}
+
+.goback{
+    width: 64px;
+    height: 64px;
+    background-color: var(--mustard-gold);
+    color: var(--navy-blue);
+    border-radius: 20px 20px 20px 20px;
+    display: flex;
+    position: fixed;
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+    bottom: 50px;
+    right: 50px;
+}
+
+.goback:hover{
+    background-color: var(--mustard-hover);
+    color: var(--navy-blue);
+    transition: 0.3s;
+}
+
+#aboutus-intro{
+    flex: 0 1 40em;
+    display: grid;
+    grid-template-columns: 0.5fr 3fr;
+    grid-template-areas: "i t t t"
+                         "i d d d";
+    box-shadow: var(--text-gray) 0 2px 8px;
+    border-radius: 80px;
+    margin: 0.5em;
+    padding: 2em;
+}
+
+#aboutus-intro h3{
+    text-align: center;
+    font-size: 1.8em;
+    margin-top: 1em;
+    margin-bottom: .3em;
+    text-transform: uppercase;
 }
 
