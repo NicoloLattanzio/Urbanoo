@@ -58,6 +58,17 @@ $propertyErr = "";
 
 //user visits inserisci_proprieta.php from "+" in proprieta.php or via url
 if ($_SERVER['REQUEST_METHOD'] !== 'POST'){
+    $paginaHTML = str_replace('[property_err]', $propertyErr, $paginaHTML);
+    $paginaHTML = str_replace('[name_err]', $nomeErr, $paginaHTML);
+    $paginaHTML = str_replace('[description_err]', $descrizioneErr, $paginaHTML);
+    $paginaHTML = str_replace('[price_err]', $prezzoErr, $paginaHTML);
+    $paginaHTML = str_replace('[type_err]', $tipologiaErr, $paginaHTML);
+    $paginaHTML = str_replace('[size_err]', $superficieErr, $paginaHTML);
+    $paginaHTML = str_replace('[rooms_err]', $localiErr, $paginaHTML);
+    $paginaHTML = str_replace('[availability_err]', $disponibilitaErr, $paginaHTML);
+    $paginaHTML = str_replace('[img_err]', $immaginiErr, $paginaHTML);
+    $paginaHTML = str_replace('[address_err]', $indirizzoErr, $paginaHTML);
+    $paginaHTML = str_replace('[city_err]', $cittaErr, $paginaHTML);
     echo $paginaHTML;
     exit();
 }
@@ -97,7 +108,7 @@ if ($descrizione === '') {
     $formValido = false;
 }
 $descrizione = cleanInput($descrizione, $tagPermessi);
-if(strlen($descrizione) < 10 || strlen($descrizione) > 250){
+if($descrizione !== '' && (strlen($descrizione) < 10 || strlen($descrizione) > 250)){
     $descrizioneErr .= '<p>La descrizione deve essere composta da almeno 10 caratteri e non più di 250</p>';
     $formValido = false;
 }
@@ -172,7 +183,7 @@ if ($indirizzo === '') {
     $formValido = false;
 }
 $indirizzo = cleanInput($indirizzo, $tagPermessi);
-if(strlen($indirizzo) < 5 || strlen($indirizzo) > 30){
+if($indirizzo !== '' && (strlen($indirizzo) < 5 || strlen($indirizzo) > 30)){
     $indirizzoErr .= '<p>L\'indirizzo deve essere composto da almeno 5 caratteri e non più di 30</p>';
     $formValido = false;
 }
@@ -187,7 +198,7 @@ if ($citta === '') {
     $formValido = false;
 }
 $citta = cleanInput($citta, $tagPermessi);
-if(strlen($citta) < 2 || strlen($citta) > 20){
+if($citta !== '' && (strlen($citta) < 2 || strlen($citta) > 20)){
     $cittaErr .= '<p>La città deve essere composta da almeno 2 caratteri e non più di 20</p>';
     $formValido = false;
 }
@@ -261,6 +272,7 @@ if (isset($_FILES['img'])) {
         -> show page with errors
 */
 if(!$formValido){ //2)
+    $paginaHTML = str_replace('[property_err]', $propertyErr, $paginaHTML); 
     $paginaHTML = str_replace('[name_err]', $nomeErr, $paginaHTML);
     $paginaHTML = str_replace('[description_err]', $descrizioneErr, $paginaHTML);
     $paginaHTML = str_replace('[price_err]', $prezzoErr, $paginaHTML);

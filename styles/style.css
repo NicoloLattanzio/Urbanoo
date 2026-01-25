@@ -13,8 +13,9 @@
     --textcolor: #1A202C;
     --text-gray: #718096;
     --border-color: #E2E8F0;
-    --error-color: #DA190B;
+    --error-color: #B00020;
     --visited: #800080f2;
+    --error-bg-color: #FCE4E4;
 }
 
 html,body{
@@ -697,17 +698,31 @@ footer {
 /*
     ERROR HANDLING
 */
-.error-msg{
-  display: none;
-  font-size: 1rem;
-  color: var(--error-color);
-  list-style-position: inside;
-  min-height: 1em;
-  margin-bottom: 0.5rem;
+.error-msg {
+    color: var(--error-color);
+    background-color: var(--error-bg-color);
+    border: 1px solid var(--error-color);
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-top: 4px;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    display: none;
 }
 
-.error-msg.display-error{
-  display: block;
+/* Quando visibile */
+.error-msg.display-error {
+    display: block;
+}
+
+/* Lista interna di errori */
+.error-msg ul {
+    margin: 4px 0 0 16px; /* rientro della lista */
+    padding: 0;
+}
+
+.error-msg li {
+    list-style-type: arrow-right;
 }
 
 .error-msg:empty {

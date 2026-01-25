@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../styles/style.css" media="screen">
     <link rel="stylesheet" href="../styles/mini.css" media="screen and (max-width:768px)">
     <link rel="stylesheet" href="../styles/print.css" media="print">
-
+    <script src="script.js" defer></script>
 </head>
 <body>
     <header>
@@ -46,8 +46,8 @@
                         data-msg-required="Inserisci il nome della proprietà"
                         data-msg-invalid="Formato non corretto: ">
                     <div id="err-name-server" class="error-msg display-error" aria-live="polite">[name_err]</div>
-                    <p id="err-name-required" class="error-msg name1-error" aria-live="polite"></p>
-                    <p id="err-name-invalid" class="error-msg name2-error" aria-live="polite"></p>
+                    <p id="err-name-required" class="error-msg" aria-live="polite"></p>
+                    <p id="err-name-invalid" class="error-msg" aria-live="polite"></p>
                 </div>
 
                 <div class="input-group">
@@ -58,8 +58,8 @@
                             data-msg-required="Inserisci una descrizione"
                             data-msg-invalid="Formato non corretto: "></textarea>
                     <div id="err-desc-server" class="error-msg display-error" aria-live="polite">[description_err]</div>
-                    <p id="err-desc-required" class="error-msg desc1-error" aria-live="polite"></p>
-                    <p id="err-desc-invalid" class="error-msg desc2-error" aria-live="polite"></p>
+                    <p id="err-desc-required" class="error-msg" aria-live="polite"></p>
+                    <p id="err-desc-invalid" class="error-msg" aria-live="polite"></p>
                 </div>
 
                 <div class="input-group">
@@ -70,8 +70,8 @@
                         data-msg-required="Inserisci il prezzo"
                         data-msg-invalid="Valore non valido" min="0">
                     <div id="err-price-server" class="error-msg display-error" aria-live="polite">[price_err]</div>
-                    <p id="err-price-required" class="error-msg price1-error" aria-live="polite"></p>
-                    <p id="err-price-invalid" class="error-msg price2-error" aria-live="polite"></p>
+                    <p id="err-price-required" class="error-msg" aria-live="polite"></p>
+                    <p id="err-price-invalid" class="error-msg" aria-live="polite"></p>
                 </div>
 
                 <div class="input-group">
@@ -90,8 +90,8 @@
                         <option value="Rustico">Rustico</option>
                     </select>
                     <div id="err-type-server" class="error-msg display-error" aria-live="polite">[type_err]</div>
-                    <p id="err-type-required" class="error-msg type1-error" aria-live="polite"></p>
-                    <p id="err-type-invalid" class="error-msg type2-error" aria-live="polite"></p>
+                    <p id="err-type-required" class="error-msg" aria-live="polite"></p>
+                    <p id="err-type-invalid" class="error-msg" aria-live="polite"></p>
                 </div>
 
                 <div class="input-group">
@@ -102,8 +102,8 @@
                         data-msg-required="Inserisci la superficie"
                         data-msg-invalid="La superficie deve essere un numero maggiore di 0" min="0">
                     <div id="err-size-server" class="error-msg display-error" aria-live="polite">[size_err]</div>
-                    <p id="err-size-required" class="error-msg size1-error" aria-live="polite"></p>
-                    <p id="err-size-invalid" class="error-msg size2-error" aria-live="polite"></p>
+                    <p id="err-size-required" class="error-msg" aria-live="polite"></p>
+                    <p id="err-size-invalid" class="error-msg" aria-live="polite"></p>
                 </div>
 
                 <div class="input-group">
@@ -114,8 +114,8 @@
                         data-msg-required="Inserisci il numero di locali"
                         data-msg-invalid="Il numero di locali deve essere un numero maggiore di 0" min="0">
                     <div id="err-rooms-server" class="error-msg display-error" aria-live="polite">[rooms_err]</div>
-                    <p id="err-rooms-required" class="error-msg rooms1-error" aria-live="polite"></p>
-                    <p id="err-rooms-invalid" class="error-msg rooms2-error" aria-live="polite"></p>
+                    <p id="err-rooms-required" class="error-msg" aria-live="polite"></p>
+                    <p id="err-rooms-invalid" class="error-msg" aria-live="polite"></p>
                 </div>
 
                 <div class="input-group">
@@ -130,8 +130,8 @@
                         <option value="0">Non disponibile</option>
                     </select>
                     <div id="err-availability-server" class="error-msg display-error" aria-live="polite">[availability_err]</div>
-                    <p id="err-availability-required" class="error-msg availability1-error" aria-live="polite"></p>
-                    <p id="err-availability-invalid" class="error-msg availability2-error" aria-live="polite"></p>
+                    <p id="err-availability-required" class="error-msg display-error" aria-live="polite"></p>
+                    <p id="err-availability-invalid" class="error-msg display-error" aria-live="polite"></p>
                 </div>
 
                 <div class="input-group">
@@ -142,8 +142,8 @@
                         data-msg-required="Inserisci l'indirizzo"
                         data-msg-invalid="Formato non corretto: ">
                     <div id="err-address-server" class="error-msg display-error" aria-live="polite">[address_err]</div>
-                    <p id="err-address-required" class="error-msg address1-error" aria-live="polite"></p>
-                    <p id="err-address-invalid" class="error-msg address2-error" aria-live="polite"></p>
+                    <p id="err-address-required" class="error-msg display-error" aria-live="polite"></p>
+                    <p id="err-address-invalid" class="error-msg display-error" aria-live="polite"></p>
                 </div>
 
                 <div class="input-group">
@@ -154,8 +154,8 @@
                         data-msg-required="Inserisci la città"
                         data-msg-invalid="Formato non corretto: ">
                     <div id="err-city-server" class="error-msg display-error" aria-live="polite">[city_err]</div>
-                    <p id="err-city-required" class="error-msg city1-error" aria-live="polite"></p>
-                    <p id="err-city-invalid" class="error-msg city2-error" aria-live="polite"></p>
+                    <p id="err-city-required" class="error-msg" aria-live="polite"></p>
+                    <p id="err-city-invalid" class="error-msg" aria-live="polite"></p>
                 </div>
 
                 <div class="input-group">
@@ -164,7 +164,7 @@
                     <input type="file" id="img" name="img[]" accept=".jpg,.jpeg,.png" required aria-describedby="err-img-server err-img-required-client"
                         data-msg-required="Carica almeno un'immagine della proprietà" multiple>
                     <div id="err-img-server" class="error-msg display-error" aria-live="polite">[img_err]</div>
-                    <p id="err-img-required" class="error-msg img1-error" aria-live="polite"></p>
+                    <p id="err-img-required" class="error-msg" aria-live="polite"></p>
                 </div>
 
                 <!-- Submit -->

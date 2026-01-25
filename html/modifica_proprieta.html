@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../styles/style.css" media="screen">
     <link rel="stylesheet" href="../styles/mini.css" media="screen and (max-width:768px)">
     <link rel="stylesheet" href="../styles/print.css" media="print">
-
+    <script src="script.js" defer></script>
 </head>
 <body>
     <header>
@@ -36,7 +36,7 @@
     <main id="content">
         <div class="form-container">
             <h1>Modifica la proprietà:</h1>
-            <form action="modifica_proprieta.php" method="post">
+            <form action="modifica_proprieta.php" method="post" novalidate>
                 <input type="hidden" name="id" value="[id]">
                 <div id="err-id-server" class="error-msg display-error" aria-live="polite">[id_err]</div>
 

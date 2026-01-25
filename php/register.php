@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nomeErr .= '<p>Il nome non può contenere numeri</p>';
         $formValido = false;
     }
-    $nome = cleanInput($nome, $tagPermessi );
+    $nome = cleanInput($nome );
     if(strlen($nome) < 2 || strlen($nome) > 25){
         $nomeErr .= '<p>Il nome deve essere composto da almeno 2 caratteri e non più di 25</p>';
         $formValido = false;
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $cognomeErr .= '<p>Il cognome non può contenere numeri</p>';
         $formValido = false;
     }
-    $cognome = cleanInput($cognome, $tagPermessi );
+    $cognome = cleanInput($cognome);
     if(strlen($cognome) < 2 || strlen($cognome) > 25){
         $cognomeErr .= '<p>Il cognome deve essere composto da almeno 2 caratteri e non più di 25</p>';
         $formValido = false;
