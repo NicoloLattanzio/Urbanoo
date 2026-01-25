@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../styles/style.css" media="screen">
     <link rel="stylesheet" href="../styles/mini.css" media="screen and (max-width:768px)">
     <link rel="stylesheet" href="../styles/print.css" media="print">
-
+    <script src="script.js" defer></script>
 </head>
 <body>
     <header>
@@ -42,24 +42,24 @@
                 <input type="text" id="email" name="email" required placeholder="Email" autocomplete="email"
                     aria-describedby="err-email-required err-email-invalid"
                     data-msg-required="Per favore, inserisci la tua email"
-                    data-msg-invalid="Formato non corretto, email non valida">
+                    data-msg-invalid="Formato email non corretto: ">
 
                 <!-- Messaggi di errore per email-->
                 <div id="err-email-server" class="error-msg display-error" aria-live="polite">[email_err]</div>
-                <p id="err-email-required-client" class="error-msg email1-error" aria-live="polite"></p>
-                <p id="err-email-invalid-client" class="error-msg email2-error" aria-live="polite"></p>
+                <p id="err-email-required" class="error-msg email1-error" aria-live="polite"></p>
+                <p id="err-email-invalid" class="error-msg email2-error" aria-live="polite"></p>
 
                 <!-- Password -->
                 <label for="password"><span lang="en">Password:</span></label>
                 <input type="password" id="password" name="password" required placeholder="Password" autocomplete="current-password"
                     aria-describedby="err-password-required err-password-invalid"
                     data-msg-required="Per favore, inserisci la tua password"
-                    data-msg-invalid="Formato non corretto">
+                    data-msg-invalid="Formato password non corretto: ">
 
                 <!-- Messaggi di errore per password -->
                 <div id="err-password-server" class="error-msg display-error" aria-live="polite">[password_err]</div>
-                <p id="err-psw-required-client" class="error-msg psw1-error" aria-live="polite"></p>
-                <p id="err-psw-invalid-client" class="error-msg psw2-error" aria-live="polite"></p>
+                <p id="err-password-required" class="error-msg psw1-error" aria-live="polite"></p>
+                <p id="err-password-invalid" class="error-msg psw2-error" aria-live="polite"></p>
                 <!-- Submit -->
                 <input type="submit" value="Accedi" title="Clicca qui per effettuare l'accesso">
             </form>

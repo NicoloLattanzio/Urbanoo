@@ -578,3 +578,22 @@ footer {
 
 }
 
+/*
+    ERROR HANDLING
+*/
+.error-msg{
+  display: none;
+  font-size: 1rem;
+  color: var(--error-color);
+  list-style-position: inside;
+  min-height: 1em;
+  margin-bottom: 0.5rem;
+}
+
+.error-msg.display-error{
+  display: block;
+}
+
+.error-msg:empty {
+    display: none;
+}
