@@ -763,27 +763,6 @@ ol, li {
     display: inline-block;
 }
 
-.carousel_navigation-button {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    background-color: rgba(255, 255, 255, 0.5);
-    border: none;
-    border-radius: 50%;
-    margin: 0 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.carousel_navigation-button:hover,
-.carousel_navigation-button:focus {
-    background-color: rgba(255, 255, 255, 0.8);
-}
-
-.carousel_navigation-button.active {
-    background-color: white;
-}
-
 .carousel_prev,
 .carousel_next {
     position: absolute;
@@ -791,9 +770,8 @@ ol, li {
     transform: translateY(-50%);
     width: 50px;
     height: 50px;
-    border: none;
+    border: 1px solid var(--white);
     border-radius: 50%;
-    color: white;
     font-size: 1.5rem;
     cursor: pointer;
     z-index: 2;
@@ -806,12 +784,6 @@ ol, li {
     color: var(--white);
 }
 
-
-.nav-btn{
-    background-color: var(--mustard-gold);
-    text-decoration: none;
-    color: var(--white);
-}
 .carousel_prev:hover,
 .carousel_next:hover{
     background-color: var(--mustard-hover);
