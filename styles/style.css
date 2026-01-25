@@ -697,3 +697,141 @@ footer {
 .error-msg:empty {
     display: none;
 }
+
+
+/*Sezione dello slider immagini*/
+
+
+ol, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.carousel {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    filter: drop-shadow(0 0 10px #0003);
+}
+
+.carousel_viewport {
+    width: 100%;
+    display: flex;
+    overflow-x: scroll;
+    counter-reset: item;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    border-radius: 8px;
+}
+
+.carousel_viewport img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+}
+
+.carousel_slide {
+    position: relative;
+    flex: 0 0 100%;
+    width: 100%;
+    counter-increment: item;
+}
+
+.carousel_snapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    scroll-snap-align: center;
+}
+
+.carousel_navigation {
+    position: absolute;
+    right: 0;
+    bottom: 20px;
+    left: 0;
+    text-align: center;
+    z-index: 2;
+}
+
+.carousel_navigation-list,
+.carousel_navigation-item {
+    display: inline-block;
+}
+
+.carousel_navigation-button {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.carousel_navigation-button:hover,
+.carousel_navigation-button:focus {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.carousel_navigation-button.active {
+    background-color: white;
+}
+
+.carousel_prev,
+.carousel_next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+    background-color: var(--mustard-gold);
+    text-decoration: none;
+    color: var(--white);
+}
+
+
+.nav-btn{
+    background-color: var(--mustard-gold);
+    text-decoration: none;
+    color: var(--white);
+}
+.carousel_prev:hover,
+.carousel_next:hover{
+    background-color: var(--mustard-hover);
+    color: var(--white);
+}
+
+
+.carousel_prev {
+    left: 20px;
+}
+
+.carousel_next {
+    right: 20px;
+}
+
+/* Rimuove la scrollbar visibile */
+.carousel_viewport::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel_viewport {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
