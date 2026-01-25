@@ -211,6 +211,10 @@ main h1{
     box-shadow: var(--text-gray) 0 2px 8px
 }
 
+.intro h1{
+    margin-bottom: 0.3em;
+}
+
 #typologies {
     margin-top: 1.5em;
 }
@@ -802,6 +806,10 @@ ol, li {
     color: var(--white);
 }
 
+.carousel_prev:visited,
+.carousel_next:visited{
+    color: var(--white);
+}
 
 .carousel_prev {
     left: 20px;
