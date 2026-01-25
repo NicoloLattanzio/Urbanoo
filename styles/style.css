@@ -203,14 +203,15 @@ main h1{
 }
 
 .intro {
-    /*width: 90%;*/
     border-radius: 10px;
     padding: 1em 1em;
     margin-top: 1em;
-    /*margin-left: auto;/**/
-    /*margin-right: auto;/**/
     margin-bottom: 1em;
     box-shadow: var(--text-gray) 0 2px 8px
+}
+
+.intro h1{
+    margin-bottom: 0.3em;
 }
 
 #typologies {
@@ -259,27 +260,87 @@ main h1{
     align-items: center;
     bottom: 50px;
     right: 50px;
-}
-
-.goback:hover{
-    background-color: var(--mustard-hover);
-    color: var(--navy-blue);
-    transition: 0.3s;
+    text-decoration: none;
+    font-size: 2em;
+    font-weight: bold;
 }
 
 .goback:visited{
     color: var(--navy-blue);
 }
 
+.goback:hover{
+    background-color: var(--mustard-gold);
+    color: var(--white);
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+/* .team-members {
+    margin-top: 1em;
+} *
+
+// PROVA TEAM CARD CONTROLLAREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+/* Griglia per il Team */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+/* Card del Team - Stile coerente con .property-card */
+.team-card {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.team-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover; /* Mantiene le proporzioni delle foto */
+    border-bottom: 3px solid var(--mustard-gold);
+}
+
+.team-info {
+    padding: 1.5em;
+}
+
+.team-info .team-name {
+    color: var(--navy-blue);
+    margin-bottom: 0.3em;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.team-info .role {
+    color: var(--mustard-gold);
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    margin-bottom: 1em;
+}
+
+
 /* SERVICES */
 
+#services {
+    margin-top: 2em;
+    border-radius: 10px;
+    padding: 1em 1em;
+    margin-bottom: 1em;
+    box-shadow: var(--text-gray) 0 2px 8px
+}
+
 #services h2 {
-    /*top: -1em;*/
     text-align: center;
     font-size: 1.8em;
-    margin-top: 1em;
-    margin-bottom: .3em;
-    text-transform: uppercase;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 #services dl {
@@ -291,7 +352,7 @@ main h1{
 #services .item-services {
     flex: 0 1 40em;
     display: grid;
-    grid-template-columns: 0.5fr 3fr;
+    grid-template-columns: 0.6fr 3fr;
     grid-template-areas: "i t t t"
                          "i d d d";
     box-shadow: var(--text-gray) 0 2px 8px;
@@ -303,7 +364,8 @@ main h1{
 #services dt {
     grid-area: t;
     padding: .2em;
-    font-size: 1.4em
+    font-size: 1.4em;
+    margin-left: 1em;
 }
 
 #services dd {
@@ -315,7 +377,7 @@ main h1{
     width: 100%;
     float: left;
     height: auto;
-    margin: auto
+    margin: auto;
 }
 
 #services dd p {
@@ -323,7 +385,8 @@ main h1{
     clear: right;
     flex-grow: 0;
     flex-shrink: 1;
-    padding: .3em
+    padding: .3em;
+    margin-left: 1em;
 }
 
 /*
@@ -352,7 +415,6 @@ SEZIONE FILTRI
     margin-bottom: 1em;
     border-bottom: 2px solid var(--mustard-gold);
     padding-bottom: 0.5em;
-    text-transform: uppercase;
     letter-spacing: 1px;
 }
 
@@ -580,6 +642,7 @@ footer {
     border: 1px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
+    display: flex;
     flex-direction: column;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     padding-bottom: 15px;
@@ -627,6 +690,7 @@ footer {
     border-radius: 8px;
     cursor: pointer;
     margin-left: 0.5em;
+    text-decoration: none;
 }
 .btn-view{
     grid-area: btn-view;
@@ -634,10 +698,12 @@ footer {
 
 
 
+
 .btn-view:hover{
     color: var(--white);
     background-color: var(--mustard-hover);
-    transition: background-color 0.3s ease;
+    transition: 0.3s ease;
+    text-decoration: none;
 }
 
 .btn-mod{
@@ -819,6 +885,10 @@ ol, li {
     color: var(--white);
 }
 
+.carousel_prev:visited,
+.carousel_next:visited{
+    color: var(--white);
+}
 
 .carousel_prev {
     left: 20px;
