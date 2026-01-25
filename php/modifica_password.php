@@ -28,6 +28,9 @@ $formValido = true;
 */
 if ($_SERVER["REQUEST_METHOD"] !== "POST"){
     //1
+    $paginaHTML = str_replace('[email_err]', $emailErr, $paginaHTML);
+    $paginaHTML = str_replace('[old_password_err]', $old_pswErr, $paginaHTML);
+    $paginaHTML = str_replace('[new_password_err]', $new_pswErr, $paginaHTML);
     echo $paginaHTML;
     exit(); 
 }

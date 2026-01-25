@@ -35,31 +35,36 @@
     <main id="content">
         <div class="form-container">
             <h1>Accedi al tuo <span lang="en">account</span></h1>
-            <form id="login-form" method="post" action="login.php">
+            <form id="login-form" method="post" action="login.php" novalidate>
 
                 <!-- Email -->
-                <label for="email"><span lang="en">Email:</span></label>
-                <input type="text" id="email" name="email" required placeholder="Email" autocomplete="email"
-                    aria-describedby="err-email-required err-email-invalid"
-                    data-msg-required="Per favore, inserisci la tua email"
-                    data-msg-invalid="Formato email non corretto: ">
+                <div class="form-group">
+                    <label for="email"><span lang="en">Email:</span></label>
+                    <input type="text" id="email" name="email" required placeholder="Email" autocomplete="email"
+                        aria-describedby="err-email-required err-email-invalid"
+                        data-msg-required="Per favore, inserisci la tua email"
+                        data-msg-invalid="Formato email non corretto: ">
 
-                <!-- Messaggi di errore per email-->
-                <div id="err-email-server" class="error-msg display-error" aria-live="polite">[email_err]</div>
-                <p id="err-email-required" class="error-msg email1-error" aria-live="polite"></p>
-                <p id="err-email-invalid" class="error-msg email2-error" aria-live="polite"></p>
+                    <!-- Messaggi di errore per email-->
+                    <div id="err-email-server" class="error-msg display-error" aria-live="polite">[email_err]</div>
+                    <p id="err-email-required" class="error-msg email1-error" aria-live="polite"></p>
+                    <p id="err-email-invalid" class="error-msg email2-error" aria-live="polite"></p>
+                </div>
 
                 <!-- Password -->
-                <label for="password"><span lang="en">Password:</span></label>
-                <input type="password" id="password" name="password" required placeholder="Password" autocomplete="current-password"
-                    aria-describedby="err-password-required err-password-invalid"
-                    data-msg-required="Per favore, inserisci la tua password"
-                    data-msg-invalid="Formato password non corretto: ">
+                <div class="form-group">
+                    <label for="password"><span lang="en">Password:</span></label>
+                    <input type="password" id="password" name="password" required placeholder="Password" autocomplete="current-password"
+                        aria-describedby="err-password-required err-password-invalid"
+                        data-msg-required="Per favore, inserisci la tua password"
+                        data-msg-invalid="Formato password non corretto: ">
 
-                <!-- Messaggi di errore per password -->
-                <div id="err-password-server" class="error-msg display-error" aria-live="polite">[password_err]</div>
-                <p id="err-password-required" class="error-msg psw1-error" aria-live="polite"></p>
-                <p id="err-password-invalid" class="error-msg psw2-error" aria-live="polite"></p>
+                    <!-- Messaggi di errore per password -->
+                    <div id="err-password-server" class="error-msg display-error" aria-live="polite">[password_err]</div>
+                    <p id="err-password-required" class="error-msg psw1-error" aria-live="polite"></p>
+                    <p id="err-password-invalid" class="error-msg psw2-error" aria-live="polite"></p>
+                </div>
+                
                 <!-- Submit -->
                 <input type="submit" value="Accedi" title="Clicca qui per effettuare l'accesso">
             </form>

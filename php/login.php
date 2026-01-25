@@ -29,6 +29,8 @@ if (isset($_SESSION['user_id'], $_SESSION['role'])) {   //1,2
 else{
     if($_SERVER['REQUEST_METHOD'] !== 'POST'){
         //4
+        $PageLogin = str_replace('[email_err]', $emailErr, $PageLogin);
+        $PageLogin = str_replace('[password_err]', $passwordErr, $PageLogin);
         echo $PageLogin;
         exit();
     }
