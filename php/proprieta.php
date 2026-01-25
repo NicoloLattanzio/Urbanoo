@@ -71,15 +71,19 @@ if ($connessioneOK) {
                 $stringaProprieta .= '<img src="' . $proprieta['immagine'] . '" alt="Foto di ' . $proprieta['nome'] . '" />';
                 $stringaProprieta .= '<h3>' . $proprieta['nome'] . '</h3>';
                 $stringaProprieta .= '<p class="price">Prezzo:' . $proprieta['prezzo'] . '</p>';
-
+                $stringaProprieta .= '<div class="property-details">';
+                $stringaProprieta .= '<p class="card-details">Metri Quadri:' . $proprieta['metri_quadri'] . '</p>';
+                $stringaProprieta .= '<p class="card-details">Nr Locali:' . $proprieta['locali'] . '</p>';
+                $stringaProprieta .= '<p class="card-details">Tipologia:' . $proprieta['tipologia'] . '</p>';
+                $stringaProprieta .= '</div>';
                 // Tutti gli utenti hanno il pulsante "Vedi"
-                $stringaProprieta .= '<div class="btn-view"><a href="dettagli_proprieta.php?id=' . $proprieta['id'] . '" id="view-link" class="action-button" aria-label="Vedi i dettagli di ' . $proprieta['nome'] . '">Vedi</a></div>';
+                $stringaProprieta .= '<div><a class="btn-view" href="dettagli_proprieta.php?id=' . $proprieta['id'] . '" id="view-link" class="action-button" aria-label="Vedi i dettagli di ' . $proprieta['nome'] . '">Vedi</a></div>';
 
                 if ($isAdmin) {
                     // L'admin vede "Modifica" che va alla pagina dettagli
-                    $stringaProprieta .= '<div class="user-actions"><a href="modifica_proprieta.php?id=' . $proprieta['id'] . '" id="change-link" class="action-button" aria-label="Modifica i dettagli di ' . $proprieta['nome'] . '">Modifica</a></div>';
+                    $stringaProprieta .= '<div class="btn-view"><a id="btn-mod" href="modifica_proprieta.php?id=' . $proprieta['id'] . '" id="change-link" class="action-button" aria-label="Modifica i dettagli di ' . $proprieta['nome'] . '">Modifica</a></div>';
                     // L'admin vede "Elimina" che attiva uno script di cancellazione: iniziamente blocco nascosto poi attivato da JS e mostrato a schermo
-                    $stringaProprieta .= '  <div class="user-actions"><a href="elimina_proprieta.php?id=' . $proprieta['id'] . '" id="delete-link" class="action-button" aria-label="Elimina ' . $proprieta['nome'] . '">Elimina</a></div>
+                    $stringaProprieta .= '  <div class="btn-view"><a id="btn-del" href="elimina_proprieta.php?id=' . $proprieta['id'] . '" id="delete-link" class="action-button" aria-label="Elimina ' . $proprieta['nome'] . '">Elimina</a></div>
                                             <div id="delete-dialog" class="hide" role="alertdialog" aria-modal="true" aria-labelledby="delete-title" aria-describedby="delete-desc">
                                                 <h2 id="delete-title">Conferma eliminazione</h2>
                                                 <p id="delete-desc">Sei sicuro di voler eliminare questa proprietà?</p>
