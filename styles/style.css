@@ -247,20 +247,27 @@ main h1{
 }
 
 .goback{
-    text-align: center;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    border-radius: 10px;
-    border: 1px solid #0c0c0c;
-}
-
-.goback a{
-    text-decoration: none;
-    font-weight: bold;
+    width: 64px;
+    height: 64px;
+    background-color: var(--mustard-gold);
     color: var(--navy-blue);
+    border-radius: 20px 20px 20px 20px;
+    display: flex;
+    position: fixed;
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+    bottom: 50px;
+    right: 50px;
 }
 
-.goback a:visited{
+.goback:hover{
+    background-color: var(--mustard-hover);
+    color: var(--navy-blue);
+    transition: 0.3s;
+}
+
+.goback:visited{
     color: var(--navy-blue);
 }
 
@@ -649,27 +656,6 @@ footer {
     transition: all 0.3s ease;
     transform: scale(0.9);
 
-}
-
-.goback{
-    width: 64px;
-    height: 64px;
-    background-color: var(--mustard-gold);
-    color: var(--navy-blue);
-    border-radius: 20px 20px 20px 20px;
-    display: flex;
-    position: fixed;
-    z-index: 999;
-    justify-content: center;
-    align-items: center;
-    bottom: 50px;
-    right: 50px;
-}
-
-.goback:hover{
-    background-color: var(--mustard-hover);
-    color: var(--navy-blue);
-    transition: 0.3s;
 }
 
 #aboutus-intro{
