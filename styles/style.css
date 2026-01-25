@@ -176,7 +176,7 @@ main {
     box-sizing: border-box;
 }
 
-main, .first-row{
+main, .first-part{
     flex: 1 0 auto;
 }
 
@@ -185,23 +185,24 @@ main h1{
     line-height: 1.5em;
 }
 
-.first-row {
+.first-part {
     display: flex;
-    align-items: flex-start;
+    align-items: stretch; /*flex-start*/
     /*gap: 3%;*/
     width: 100%;
     box-sizing: border-box;
 }
 
-.first-row #filters {
-    width: 22%;
+.first-part #filters {
+    width: 20%;
     box-sizing: border-box;
 }
 
-.first-row .intro {
+.first-part .intro {
     /*margin-top: 2em;*/
-    width: 75%;
+    width: 77%;
     box-sizing: border-box;
+    margin-top: 0;
 }
 
 .intro {
@@ -216,7 +217,7 @@ main h1{
     margin-bottom: 0.3em;
 }
 
-#typologies {
+/* #typologies {
     margin-top: 1.5em;
 }
 
@@ -233,6 +234,33 @@ main h1{
 #typologies dd{
     margin-left: 1.5em;
     margin-bottom: 0.5em;
+} */
+
+#typologies h2{
+    text-align: center;
+    font-size: 1.6em;
+    line-height: 1.5em;
+}
+
+#typologies dl {
+    display: grid;
+    grid-template-columns: 0.5fr 2.2fr; /* Due colonne */
+    gap: 1.5em;
+    margin-top: 1em;
+}
+
+#typologies dt {
+    color: var(--navy-blue);
+    font-size: 1.1em;
+    border-left: 4px solid var(--mustard-gold); /* Una linea decorativa a sinistra */
+    margin-bottom: 0.2em;
+    padding: 0 0 0 0.5em;
+}
+
+#typologies dd {
+    font-size: 0.90em;
+    color: var(--navy-blue);
+    margin-bottom: 1em;
 }
 
 #property-list{
@@ -294,10 +322,10 @@ main h1{
 /* Card del Team - Stile coerente con .property-card */
 .team-card {
     background: var(--white);
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--navy-blue);
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px var(--border-color);
     text-align: center;
 }
 
@@ -404,12 +432,12 @@ SEZIONE FILTRI
     background-color: var(--navy-blue);
     border: solid 1px black;
     padding: 1.5em;
-    margin-right: 3%;
-    margin-top: 1em;
+    margin-right: 3%; /*margin-right: 3%;*/
+    /*margin-top: 0; /*margin-top: 1em;*/
     border-radius: 12px;
-    height: fit-content;
-    /*box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);/**/
-    /*box-sizing: border-box;/**/
+    /*height: fit-content;*/
+    height: auto;
+    margin-bottom: 1em;
 }
 
 #filters h2 {
@@ -455,7 +483,7 @@ SEZIONE FILTRI
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 0.5em;
+    margin-top: 2em;
 }
 
 #filters button[type="submit"]:hover {
