@@ -75,7 +75,7 @@ INSERT INTO proprieta (nome, descrizione, citta, tipologia, prezzo, metri_quadri
     'Via Torino 12', 
     4, 
     1, 
-    '../img/attici.png'
+    '../img/torre.png'
 ),
 (
     'Villa i Cipressi', 
@@ -87,7 +87,7 @@ INSERT INTO proprieta (nome, descrizione, citta, tipologia, prezzo, metri_quadri
     'Via dei Colli 45', 
     6, 
     1, 
-    '../img/ville.png'
+    '../img/villa.png'
 ),
 (
     'Bilocale Moderno Navigli', 
@@ -99,7 +99,7 @@ INSERT INTO proprieta (nome, descrizione, citta, tipologia, prezzo, metri_quadri
     'Ripa di Porta Ticinese 5', 
     2, 
     1, 
-    '../img/bilocali.png'
+    '../img/emerald.png'
 ),
 (
     'Rustico Toscano', 
@@ -123,7 +123,7 @@ INSERT INTO proprieta (nome, descrizione, citta, tipologia, prezzo, metri_quadri
     'Via Toledo 110', 
     1, 
     1, 
-    '../img/monolocali.png'
+    '../img/costa.png'
 );
 
 -- Aggiornamento Wishlist con ID esistenti (assumendo che l'utente 2 esista)
