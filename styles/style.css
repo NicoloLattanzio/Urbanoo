@@ -299,7 +299,7 @@ main h1{
 #services .item-services {
     flex: 0 1 40em;
     display: grid;
-    grid-template-columns: 0.5fr 3fr;
+    grid-template-columns: 0.6fr 3fr;
     grid-template-areas: "i t t t"
                          "i d d d";
     box-shadow: var(--text-gray) 0 2px 8px;
@@ -311,7 +311,8 @@ main h1{
 #services dt {
     grid-area: t;
     padding: .2em;
-    font-size: 1.4em
+    font-size: 1.4em;
+    margin-left: 1em;
 }
 
 #services dd {
@@ -323,7 +324,7 @@ main h1{
     width: 100%;
     float: left;
     height: auto;
-    margin: auto
+    margin: auto;
 }
 
 #services dd p {
@@ -331,7 +332,8 @@ main h1{
     clear: right;
     flex-grow: 0;
     flex-shrink: 1;
-    padding: .3em
+    padding: .3em;
+    margin-left: 1em;
 }
 
 /*
