@@ -37,8 +37,8 @@
         <div class="form-container">
             <h1 class="title">Aggiungi una nuova proprietà</h1>
             <form id="add-property-form" action="inserisci_proprieta.php" method="post" enctype="multipart/form-data" novalidate>
-                <div id="err-property-server" class="error-msg display-error" aria-live="polite">[property_err]</div>
-                <div class="input-group">
+                <div id="err-property-server" class="error-msg none display-error" aria-live="polite">[property_err]</div>
+                <div class="form-group">
                     <!-- Name -->
                     <label for="name">Nome Proprietà:</label>
                     <input type="text" id="name" name="name" required placeholder="Nome della proprietà" minlength="4" maxlength="40"
