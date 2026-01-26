@@ -46,3 +46,15 @@ header h2{
 #property-list{
     box-shadow: none;
 }
+
+.first-part #filters {
+    width: 100%;
+} 
+
+.first-part {
+    display: block;
+}
+
+.first-part .intro {
+    width: 100%;
+}
