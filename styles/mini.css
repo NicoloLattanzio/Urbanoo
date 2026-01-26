@@ -35,3 +35,14 @@ header h2{
 #typologies dt {
     font-size: 1.1em;
 }
+
+.goback,
+.carousel_next,
+.carousel_prev,
+.carousel_dots{
+    display: none;
+}
+#services,
+#property-list{
+    box-shadow: none;
+}
