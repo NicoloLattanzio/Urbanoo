@@ -994,3 +994,61 @@ ol, li {
     background-size: 1.8em;
     background-repeat: no-repeat;
 }
+
+/* DETTAGLI PROPRIETA */
+
+.prop-cover{
+    margin-bottom: 1em;
+}
+
+.prop-cover img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover; 
+    border-radius: 8px 8px 0 0;
+    display: block;
+}
+
+.prop-cover h2{
+    text-align: center;
+    margin-bottom: 0.3em;
+    border-radius: 0 0 8px 8px;
+    background: var(--navy-blue);
+    color: var(--white);
+    padding: 0.5em;
+}
+
+.add-wishlist-btn {
+    display: block;
+    padding: 0.5em 1em;
+    background-color: var(--mustard-gold);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    margin-left: auto;
+    width: fit-content;
+}
+
+.add-wishlist-btn:hover {
+    background-color: var(--mustard-hover);
+    color: var(--white);
+}
+
+.add-wishlist-btn:visited {
+    color: var(--white);
+}
+
+.prop-info{
+    padding: 0.5em
+}
+
+.prop-info dt{
+    font-weight: bold;
+    float: left;
+    padding-right: 0.5em;
+}
