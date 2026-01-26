@@ -47,9 +47,6 @@ html a:hover {
     color: var(--mustard-hover);
 }
 
-
-
-
 body{
     background-color: var(--white);
     color: var(--txtcolor);
@@ -903,7 +900,6 @@ ol, li {
 .carousel {
     position: relative;
     max-width: 1200px;
-    height: 675px;
     margin: 0 auto;
     filter: drop-shadow(0 0 10px #0003);
 }
@@ -921,6 +917,7 @@ ol, li {
 .carousel_viewport img {
     width: 100%;
     height: 100%;
+    max-height: 630px;
     object-fit: cover;
     display: block;
 }
@@ -982,6 +979,11 @@ ol, li {
     color: var(--white);
 }
 
+.carousel_prev:focus,
+.carousel_next:focus{
+    border: 5px solid white;
+}
+
 .carousel_prev:visited,
 .carousel_next:visited{
     color: var(--white);
@@ -1004,6 +1006,27 @@ ol, li {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
+.carousel_dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #bbb;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.active, .dot:hover {
+    background-color: #717171;
+}
+
 
 
 /* AREA PERSONALE*/

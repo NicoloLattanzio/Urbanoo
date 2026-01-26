@@ -126,7 +126,7 @@ function validateForm(form) {
     return isFormValid;
 }
 
-const form = document.querySelector("form");
+/*const form = document.querySelector("form");
 
 form.addEventListener("submit", function (e) {
     clearError(); // resets errors
@@ -137,4 +137,51 @@ form.addEventListener("submit", function (e) {
         e.preventDefault(); // blocks submit
         focusFirstError(form);
     }
+});*/
+
+document.addEventListener('DOMContentLoaded', function() {
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    // Next/previous controls
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+
+        console.log("Fatto");
+    }
+
+    // Thumbnail image controls
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+
+        console.log("Fatto");
+    }
+
+    function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("carousel_slide");
+        let dots = document.getElementsByClassName("dot");
+
+        if (slides.length === 0) return; // Se non ci sono slides, esci
+
+        if (n > slides.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+
+        slides[slideIndex-1].style.display = "block";
+
+        if (dots.length > 0) {
+            dots[slideIndex-1].className += " active";
+        }
+    }
+    // A quanto pare senza sta roba non va nulla
+    window.plusSlides = plusSlides;
+    window.currentSlide = currentSlide;
 });
