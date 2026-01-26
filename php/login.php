@@ -63,7 +63,7 @@ else{
         $emailErr = '<p><span lang="en">Email</span> non trovata.</p>';
         $formValido = false;
     }
-    if(password_verify($password, $user['password'])){
+    if($user && password_verify($password, $user['password'])){
         //1)
         $_SESSION['name'] = $user['nome'];
         $_SESSION['user_id'] = $user['id'];
