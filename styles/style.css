@@ -212,26 +212,8 @@ main h1{
     margin-bottom: 0.3em;
 }
 
-/* #typologies {
-    margin-top: 1.5em;
-}
-
 #typologies h2{
-    text-align: center;
-    font-size: 1.6em;
-    line-height: 1.5em;
-}
-
-#typologies dt{
-    font-weight: bold;
-}
-
-#typologies dd{
-    margin-left: 1.5em;
-    margin-bottom: 0.5em;
-} */
-
-#typologies h2{
+    margin-top: 0.3em;
     text-align: center;
     font-size: 1.6em;
     line-height: 1.5em;
@@ -330,7 +312,7 @@ main h1{
     width: 100%;
     height: 250px;
     object-fit: cover; /* Mantiene le proporzioni delle foto */
-    border-bottom: 3px solid var(--mustard-gold);
+    border-bottom: 3px solid var(--navy-blue);
 }
 
 .team-info {
@@ -342,14 +324,17 @@ main h1{
     margin-bottom: 0.3em;
     font-size: 1.2em;
     font-weight: bold;
+    min-height: 2.8em;
 }
 
 .team-info .role {
     color: var(--mustard-gold);
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 0.9em;
+    font-size: 1em;
     margin-bottom: 1em;
+    min-height: 3.4em;
+    border-bottom: 3px solid var(--mustard-gold);
 }
 
 
