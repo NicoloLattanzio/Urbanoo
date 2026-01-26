@@ -550,9 +550,35 @@ footer {
     min-width: 200px;
 }
 
- #error-color{
-     color: var(--error-color);
- }
+ /* #error-color{
+     color: var();
+ } */
+
+ .error-container h1 {
+    color: var(--error-color);
+}
+
+.error-container p {
+    color: var(--text-gray);
+    margin-bottom: 1.5em;
+    font-size: 1.1em;
+}
+
+.error-container a {
+    color: var(--mustard-gold);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.error-container a:hover {
+    color: var(--mustard-hover);
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.error-container a:visited {
+    color: var(--mustard-gold);
+}
 
  .btn-error{
      background-color: var(--white);
@@ -565,7 +591,8 @@ footer {
      padding: .3em 1em;
  }
  .btn-error:hover {
-     background-color: var(--error-color);
+     border-color: var(--mustard-gold);
+     color: var(--navy-blue);
      transition: 0.4s;
  }
 
