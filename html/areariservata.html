@@ -34,14 +34,18 @@
     </nav>
 
     <main id="content">
-        <h1>Benvenuto, [nome]!</h1><p>Qui puoi gestire il tuo profilo.</p>
         <p>Ti sei registrato come [ruolo].</p> <!-- eliminare, solo per debug -->
-        <ul id="actionList">      <!-- vanno messe le icone con il css tramite id -->
-            <!-- <li><a href="../php/wishlist.php" id="wishlist">La mia wishlist</a></li> -->
-            [wishlist]
-            <li><a href="modifica_password.php" id="change_pw">Modifica <span lang="en">password</span></a></li>
-            <li><a href="logout.php" lang="en" id="logout">Logout</a></li>
-        </ul>
+        <div class="intro">
+            <h1>Benvenuto, [nome]!</h1>
+            <p>Qui puoi gestire il tuo profilo attraverso gli appositi link di navigazione. Ricorda di mantenere sempre la tua <span lang="en">password</span> sicura!</p>
+            
+            <ul id="actionList">      <!-- vanno messe le icone con il css tramite id -->
+                <!-- <li><a href="../php/wishlist.php" id="wishlist">La mia wishlist</a></li> -->
+                [wishlist]
+                <li><a href="modifica_password.php" id="changepw">Modifica <span lang="en">password</span></a></li>
+                <li><a href="logout.php" lang="en" id="logout">Logout</a></li>
+            </ul>
+        </div>
         <div>
             <a class="goback" href="#" aria-label="Torna su">&#8679;</a>
         </div>

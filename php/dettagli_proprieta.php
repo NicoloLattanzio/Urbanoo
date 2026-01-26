@@ -62,8 +62,7 @@ if ($proprieta) {
         "<div class = 'prop-details'>
             <div class = 'prop-cover'>
                 <img src='[immagine]'>
-                <h2>[nome]</h2>
-                <a href='wishlist.php?add=".e($idProprieta)." class='add-wishlist-btn'>Aggiungi alla <span lang='en'>wishlist</span></a>
+                <h2>[nome]</h2>  
             </div>
             <div class = 'prop-info'>
                 <dl>
@@ -83,6 +82,7 @@ if ($proprieta) {
                     <dd>[disponibilita]</dd>
                 </dl>
             </div>
+            <a href='wishlist.php?add=".e($idProprieta)."' class='add-wishlist-btn'>Aggiungi alla <span lang='en'>wishlist</span></a>
         </div>"
     );
 } else {
