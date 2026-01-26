@@ -126,18 +126,19 @@ function validateForm(form) {
     return isFormValid;
 }
 
-/*const form = document.querySelector("form");
+const form = document.querySelector("form");
+if(form!= null){
+    form.addEventListener("submit", function (e) {
+        clearError(); // resets errors
 
-form.addEventListener("submit", function (e) {
-    clearError(); // resets errors
+        const isValid = validateForm(form);
 
-    const isValid = validateForm(form);
-
-    if (!isValid) {
-        e.preventDefault(); // blocks submit
-        focusFirstError(form);
-    }
-});*/
+        if (!isValid) {
+            e.preventDefault(); // blocks submit
+            focusFirstError(form);
+        }
+    });
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     let slideIndex = 1;
