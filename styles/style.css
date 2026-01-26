@@ -47,9 +47,6 @@ html a:hover {
     color: var(--mustard-hover);
 }
 
-
-
-
 body{
     background-color: var(--white);
     color: var(--txtcolor);
@@ -62,7 +59,6 @@ body{
 SEZIONE HEADER
 ==============================================================
 */
-
 
 header {
     display: flex; /* Attiva il layout flex  */
@@ -170,8 +166,7 @@ SEZIONE MAIN
 
 main {
     background-color: var(--white);
-    padding: 2em;
-    margin-top: 1em;
+    padding: 1em;
     /*flex: 1 0 auto;  /* Permette a main di espandersi e occupare lo spazio disponibile, evita di comprimersi eccessivamente*/
     box-sizing: border-box;
 }
@@ -278,8 +273,8 @@ main h1{
 }
 
 .goback{
-    width: 64px;
-    height: 64px;
+    max-width: 64px;
+    max-height: 64px;
     background-color: var(--mustard-gold);
     color: var(--navy-blue);
     border-radius: 20px 20px 20px 20px;
@@ -288,11 +283,13 @@ main h1{
     z-index: 999;
     justify-content: center;
     align-items: center;
-    bottom: 50px;
-    right: 50px;
+    bottom: 4%;
+    right: 1%;
     text-decoration: none;
     font-size: 2em;
     font-weight: bold;
+    min-width: 50px;
+    min-height: 50px;
 }
 
 .goback:visited{
@@ -903,7 +900,6 @@ ol, li {
 .carousel {
     position: relative;
     max-width: 1200px;
-    height: 675px;
     margin: 0 auto;
     filter: drop-shadow(0 0 10px #0003);
 }
