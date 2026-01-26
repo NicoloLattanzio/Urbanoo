@@ -5,8 +5,7 @@
 
 /* --- RESET E VARIABILI --- */
 :root {
-    /*--navy-blue: #0F253A;*/
-    --navy-blue: #8311b7;
+    --navy-blue: #0F253A;
     --mustard-gold: #BF8A24;
     --mustard-hover: #9F741E;
     --white: #FFFFFF;
@@ -546,11 +545,9 @@ footer {
 }
 
 .error-container img {
-    max-width: 300px; /* Non farla diventare troppo grande */
+    max-width: 400px; /* Non farla diventare troppo grande */
     height: auto;
-    margin: 2em 0;
-    /* Un leggero filtro per ammorbidire l'immagine se necessario */
-    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+    min-width: 200px;
 }
 
  #error-color{
