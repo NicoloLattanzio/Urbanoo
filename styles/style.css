@@ -40,7 +40,7 @@ html em{
 
 
 html a:visited {
-    color: var(--visited);
+    color: purple;
 
 }
 html a:hover {
@@ -176,7 +176,7 @@ main {
     box-sizing: border-box;
 }
 
-main, .first-row{
+main, .first-part{
     flex: 1 0 auto;
 }
 
@@ -185,23 +185,24 @@ main h1{
     line-height: 1.5em;
 }
 
-.first-row {
+.first-part {
     display: flex;
-    align-items: flex-start;
+    align-items: stretch; /*flex-start*/
     /*gap: 3%;*/
     width: 100%;
     box-sizing: border-box;
 }
 
-.first-row #filters {
-    width: 22%;
+.first-part #filters {
+    width: 20%;
     box-sizing: border-box;
 }
 
-.first-row .intro {
+.first-part .intro {
     /*margin-top: 2em;*/
-    width: 75%;
+    width: 77%;
     box-sizing: border-box;
+    margin-top: 0;
 }
 
 .intro {
@@ -216,7 +217,7 @@ main h1{
     margin-bottom: 0.3em;
 }
 
-#typologies {
+/* #typologies {
     margin-top: 1.5em;
 }
 
@@ -233,6 +234,33 @@ main h1{
 #typologies dd{
     margin-left: 1.5em;
     margin-bottom: 0.5em;
+} */
+
+#typologies h2{
+    text-align: center;
+    font-size: 1.6em;
+    line-height: 1.5em;
+}
+
+#typologies dl {
+    display: grid;
+    grid-template-columns: 0.5fr 2.2fr; /* Due colonne */
+    gap: 1.5em;
+    margin-top: 1em;
+}
+
+#typologies dt {
+    color: var(--navy-blue);
+    font-size: 1.1em;
+    border-left: 4px solid var(--mustard-gold); /* Una linea decorativa a sinistra */
+    margin-bottom: 0.2em;
+    padding: 0 0 0 0.5em;
+}
+
+#typologies dd {
+    font-size: 0.90em;
+    color: var(--navy-blue);
+    margin-bottom: 1em;
 }
 
 #property-list{
@@ -294,10 +322,10 @@ main h1{
 /* Card del Team - Stile coerente con .property-card */
 .team-card {
     background: var(--white);
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--navy-blue);
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px var(--border-color);
     text-align: center;
 }
 
@@ -404,12 +432,12 @@ SEZIONE FILTRI
     background-color: var(--navy-blue);
     border: solid 1px black;
     padding: 1.5em;
-    margin-right: 3%;
-    margin-top: 1em;
+    margin-right: 3%; /*margin-right: 3%;*/
+    /*margin-top: 0; /*margin-top: 1em;*/
     border-radius: 12px;
-    height: fit-content;
-    /*box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);/**/
-    /*box-sizing: border-box;/**/
+    /*height: fit-content;*/
+    height: auto;
+    margin-bottom: 1em;
 }
 
 #filters h2 {
@@ -455,7 +483,7 @@ SEZIONE FILTRI
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 0.5em;
+    margin-top: 2em;
 }
 
 #filters button[type="submit"]:hover {
@@ -577,7 +605,7 @@ footer {
      font-weight: 700;
  }
 
- .input-group {
+ .form-group {
      width: 100%;
      margin-top: 0.25rem;
      margin-right: 3em;
@@ -585,15 +613,15 @@ footer {
      line-height: 1.25rem;
  }
 
- .input-group label {
+ .form-group label {
      display: block;
      color: var(--white);
      margin-bottom: 4px;
  }
 
- .input-group input,
- .input-group textarea,
- .input-group select {
+ .form-group input,
+ .form-group textarea,
+ .form-group select {
      box-sizing: border-box;
      width: 100%;
      border-radius: 0.375rem;
@@ -604,9 +632,9 @@ footer {
      color: rgba(243, 244, 246, 1);
  }
 
- .input-group input:focus,
- .input-group textarea:focus,
- .input-group select:focus {
+ .form-group input:focus,
+ .form-group textarea:focus,
+ .form-group select:focus {
      border-color: var(--mustard-gold);
  }
 
@@ -639,6 +667,7 @@ footer {
 }
 
 .property-card {
+    max-height: 500px;
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -647,9 +676,22 @@ footer {
     flex-direction: column;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     padding-bottom: 15px;
+    display:grid;
+    grid-template-areas: "img img img" "title title title" "details details details" "btn-view btn-mod btn-del";
+    grid-template-rows: 12em 2.6em 8em 1.6em;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
+/*#delete-dialog{
+    grid-area: delete-dialog;
+    position:relative;
+    margin-bottom:0;
+}*/
+
+
 .property-card h3{
+    margin-top:0;
+    grid-area: title;
     background-color: var(--navy-blue);
     color: var(--white);
     text-align: center;
@@ -657,12 +699,16 @@ footer {
 }
 
 .property-card img {
+    grid-area: img;
     width: 100%;
-    height: 77%;
+    height: 100%;
     max-height: 220px;
     /*Corrispondente a formato 16:9, tecnicamente se usiuamo solo foto con questo formato non vengono stretchate*/
 }
 
+
+.btn-mod,
+.btn-del,
 .btn-view{
     width: 30%;
     background-color: var(--mustard-gold);
@@ -676,6 +722,12 @@ footer {
     margin-left: 0.5em;
     text-decoration: none;
 }
+.btn-view{
+    grid-area: btn-view;
+}
+
+
+
 
 .btn-view:hover{
     color: var(--white);
@@ -684,10 +736,15 @@ footer {
     text-decoration: none;
 }
 
-#btn-mod{
+.btn-mod{
+    grid-area: btn-mod;
     background-color: green;
 }
 
+.btn-del{
+    grid-area: btn-del;
+    background-color: red;
+}
 
 .price {
     align-items: center;
@@ -698,6 +755,7 @@ footer {
 }
 
 .property-details{
+    grid-area: details;
     margin-top: 0.5em;
     display: flex;
     flex-direction: column;
@@ -892,4 +950,105 @@ ol, li {
 .carousel_viewport {
     -ms-overflow-style: none;
     scrollbar-width: none;
+}
+
+
+/* AREA PERSONALE*/
+
+#actionList {
+    list-style: none;
+}
+
+#actionList li {
+    margin: 2em;
+}
+
+#actionList a {
+    color: var(--mustard-gold);
+    font-weight: 700;
+    font-size: 1.4em;
+    padding: .5em 2.3em;
+}
+
+#actionList a:visited {
+    color: var(--mustard-gold)
+}
+
+#wishlist {
+    background-image: url(../img/wishlist.png);
+    background-position: left center;
+    background-size: 1.8em;
+    background-repeat: no-repeat;
+}
+
+#changepw {
+    background-image: url(../img/change_password.png);
+    background-position: left center;
+    background-size: 1.8em;
+    background-repeat: no-repeat;
+}
+
+#logout {
+    background-image: url(../img/logout.png);
+    background-position: left center;
+    background-size: 1.8em;
+    background-repeat: no-repeat;
+}
+
+/* DETTAGLI PROPRIETA */
+
+.prop-cover{
+    margin-bottom: 1em;
+}
+
+.prop-cover img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover; 
+    border-radius: 8px 8px 0 0;
+    display: block;
+}
+
+.prop-cover h2{
+    text-align: center;
+    margin-bottom: 0.3em;
+    border-radius: 0 0 8px 8px;
+    background: var(--navy-blue);
+    color: var(--white);
+    padding: 0.5em;
+}
+
+.add-wishlist-btn {
+    display: block;
+    padding: 0.5em 1em;
+    background-color: var(--mustard-gold);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    margin-left: auto;
+    width: fit-content;
+}
+
+.add-wishlist-btn:hover {
+    background-color: var(--mustard-hover);
+    color: var(--white);
+}
+
+.add-wishlist-btn:visited {
+    color: var(--white);
+}
+
+.prop-info{
+    padding: 0.5em
+}
+
+.prop-info dt{
+    font-weight: bold;
+    float: left;
+    padding-right: 0.5em;
 }

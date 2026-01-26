@@ -37,7 +37,7 @@
         <div class="form-container">
             <h1 class="title">Aggiungi una nuova proprietà</h1>
             <form id="add-property-form" action="inserisci_proprieta.php" method="post" enctype="multipart/form-data" novalidate>
-                <div id="err-property-server" class="error-msg none display-error" aria-live="polite">[property_err]</div>
+                <div id="err-property-server" class="error-msg display-error" aria-live="polite">[property_err]</div>
                 <div class="input-group">
                     <!-- Name -->
                     <label for="name">Nome Proprietà:</label>
@@ -50,7 +50,7 @@
                     <p id="err-name-invalid" class="error-msg none" aria-live="polite"></p>
                 </div>
 
-                <div class="input-group">
+                <div class="form-group">
                     <!-- Description -->
                     <label for="description">Descrizione:</label>
                     <textarea id="description" name="description" required placeholder="Descrizione della proprietà" value="[description_val]" minlength="10" maxlength="250"
@@ -62,7 +62,7 @@
                     <p id="err-desc-invalid" class="error-msg none" aria-live="polite"></p>
                 </div>
 
-                <div class="input-group">
+                <div class="form-group">
                     <!-- Price -->
                     <label for="price">Prezzo:</label>
                     <input type="number" id="price" name="price" required placeholder="Es. 150000" value="[price_val]"
@@ -74,7 +74,7 @@
                     <p id="err-price-invalid" class="error-msg none" aria-live="polite"></p>
                 </div>
 
-                <div class="input-group">
+                <div class="form-group">
                     <!-- Tipologia -->
                     <label for="type">Tipologia:</label>
                     <select id="type" name="type" value="[type_val]" 
@@ -94,7 +94,7 @@
                     <p id="err-type-invalid" class="error-msg none" aria-live="polite"></p>
                 </div>
 
-                <div class="input-group">
+                <div class="form-group">
                     <!-- Size -->
                     <label for="size">Superficie (mq):</label>
                     <input type="number" id="size" name="size" required placeholder="Es. 75" value="[size_val]"
@@ -106,7 +106,7 @@
                     <p id="err-size-invalid" class="error-msg none" aria-live="polite"></p>
                 </div>
 
-                <div class="input-group">
+                <div class="form-group">
                     <!-- Locali -->
                     <label for="rooms">Numero di locali:</label>
                     <input type="number" id="rooms" name="rooms" required placeholder="Es. 3" value="[rooms_val]"
@@ -118,7 +118,7 @@
                     <p id="err-rooms-invalid" class="error-msg none" aria-live="polite"></p>
                 </div>
 
-                <div class="input-group">
+                <div class="form-group">
                     <!-- Availability -->
                     <label for="availability">Disponibilità:</label>
                     <select id="availability" name="availability" value="[availability_val]"
@@ -134,7 +134,7 @@
                     <p id="err-availability-invalid" class="error-msg none" aria-live="polite"></p>
                 </div>
 
-                <div class="input-group">
+                <div class="form-group">
                     <!-- Address -->
                     <label for="address">Indirizzo:</label>
                     <input type="text" id="address" name="address" required placeholder="Es. Via G. Verdi, 8B" minlength="5" maxlength="30"
@@ -146,7 +146,7 @@
                     <p id="err-address-invalid" class="error-msg none" aria-live="polite"></p>
                 </div>
 
-                <div class="input-group">
+                <div class="form-group">
                     <!-- City -->
                     <label for="city">Città:</label>
                     <input type="text" id="city" name="city" required placeholder="Es. Padova" value="[city_val]" minlength="2" maxlength="20"
@@ -158,7 +158,7 @@
                     <p id="err-city-invalid" class="error-msg none" aria-live="polite"></p>
                 </div>
 
-                <div class="input-group">
+                <div class="form-group">
                     <!-- Img -->
                     <label for="img">Immagini:</label>
                     <input type="file" id="img" name="img[]" accept=".jpg,.jpeg,.png" required aria-describedby="err-img-server err-img-required-client"
