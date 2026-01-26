@@ -409,7 +409,6 @@ SEZIONE FILTRI
 
 #filters {
     /*float: left;*/
-    width: 30%;
     color: var(--white);
     background-color: var(--navy-blue);
     border: solid 1px black;
@@ -442,8 +441,14 @@ SEZIONE FILTRI
     color: var(--mustard-gold); /* Uso del colore di accento per le label */
 }
 
-.input-filters select, 
-.input-filters input[type="text"] {
+.input-filters input[type="text"],
+.input-filters input[type="email"],
+.input-filters input[type="password"],
+.input-filters input[type="number"],
+.input-filters input[type="tel"],
+.input-filters input[type="file"],
+.input-filters select,
+.input-filters textarea {
     width: 100%;
     padding: 0.6em;
     border-radius: 6px;
@@ -454,6 +459,7 @@ SEZIONE FILTRI
 }
 
 /* Stile per il pulsante Cerca */
+.input-filters input[type="submit"],
 #filters button[type="submit"] {
     width: 100%;
     background-color: var(--mustard-gold);
@@ -467,6 +473,29 @@ SEZIONE FILTRI
     transition: background-color 0.3s ease;
     margin-top: 2em;
 }
+
+#btn-register{
+    width: 15%;
+    background-color: var(--mustard-gold);
+    color: var(--navy-blue);
+    border: none;
+    padding: 0.8em;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    font-size: 0.9em;
+    margin-bottom: 0.4em;
+    text-decoration: none;
+    text-align: center;
+}
+
+#btn-register:hover {
+    background-color: var(--mustard-hover);
+}
+
 
 #filters button[type="submit"]:hover {
     background-color: var(--mustard-hover);
