@@ -99,9 +99,7 @@ if ($proprieta) {
                             <dt>Disponibilità:</dt>
                             <dd>[disponibilita]</dd>
                         </dl>
-                    </div>
-                    <a href='wishlist.php?add=".e($idProprieta)."' class='add-wishlist-btn'>Aggiungi alla <span lang='en'>wishlist</span></a>
-                </div>"
+                    </div>"
         );
     } else {
         //B)
@@ -130,11 +128,16 @@ if ($proprieta) {
                         <dt>Disponibilità:</dt>
                         <dd>[disponibilita]</dd>
                     </dl>
-                </div>
-                <a href='wishlist.php?add=".e($idProprieta)."' class='add-wishlist-btn'>Aggiungi alla <span lang='en'>wishlist</span></a>
-            </div>"
+                </div>"
         );
     }
+    // if user is logged in as 'user', show "add to wishlist" button
+    if($_SESSION['role'] === 'user')
+        $dettagli_proprieta .= "<a href='wishlist.php?add=".e($idProprieta)."' class='add-wishlist-btn'>Aggiungi alla <span lang='en'>wishlist</span></a>
+                                </div>";
+    // if not logged in or logged in as 'admin', do not show the button
+    else
+        $dettagli_proprieta .= "</div>";
 } else {
     //2)
     $_SESSION['show_prop_msg'] = [

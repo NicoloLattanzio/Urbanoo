@@ -28,15 +28,7 @@ class DBAccess {
 	}
 
 	// To apply a list of filters and retrieve just the property which satisfies them
-	public function getFilteredProperty(
-		$title,
-		$city,
-		$type,
-		$price_min,
-		$price_max,
-		$size_range
-	): array {
-
+	public function getFilteredProperty($title, $city, $type, $price_min, $price_max, $size_range): array {
 		try {
 			// Base query
 			$query  = "SELECT * FROM proprieta WHERE 1=1";

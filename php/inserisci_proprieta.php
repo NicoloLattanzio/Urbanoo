@@ -288,7 +288,7 @@ if (isset($_FILES['img'])) {
         -> show page with errors and previous values
 */
 if(!$formValido){ //2)
-    //if availability/type give errors than all variables are empty
+    //if availability/type give errors then all variables are empty
     $selMono = ($tipologia === "Monolocale") ? "selected" : "";
     $selBi = ($tipologia === "Bilocale") ? "selected" : "";
     $selTri = ($tipologia === "Trilocale") ? "selected" : "";

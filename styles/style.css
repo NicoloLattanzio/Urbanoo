@@ -755,7 +755,7 @@ footer {
 
 .btn-mod,
 .btn-del,
-.btn-view{
+.btn-view {
     background-color: var(--mustard-gold);
     display: block; /* Meglio di inline-block qui */
     width: 100%;
@@ -792,6 +792,12 @@ footer {
 .btn-mod{
     background-image: url("../img/mod.png");
     border-right-style: solid;
+    border-top-style: solid;
+    border-left-style: solid;
+}
+
+.btn-add{
+    background-image: url("../img/add.png");
     border-top-style: solid;
     border-left-style: solid;
 }

@@ -40,9 +40,9 @@ if(!$connessioneOK){
 
 /*
     DB output management:
-    -> [true, $row]: query did not affect rows  -> property not existent error      1)
-    -> [true, null]: query affected > 0 rows    -> property deleted successfully    2)
-    -> [false, DB_ERROR]: query failed          -> 500.php                          3)
+    -> [true, NOT FOUND]: query did not affect rows -> property not existent error      1)
+    -> [true, null]: query affected > 0 rows        -> property deleted successfully    2)
+    -> [false, DB_ERROR]: query failed              -> 500.php                          3)
 */
 $deleteResult = $connessione->deleteProperty($idProprieta); 
 $connessione->closeDBConnection();

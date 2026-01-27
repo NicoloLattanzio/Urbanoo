@@ -34,15 +34,25 @@ CREATE TABLE IF NOT EXISTS proprieta (
 CREATE TABLE IF NOT EXISTS immagini (
     id_proprieta INT,
     immagine VARCHAR(50),
-    FOREIGN KEY (id_proprieta) REFERENCES proprieta(id),
-    CONSTRAINT PK_IMGs PRIMARY KEY (id_proprieta, immagine)
+    CONSTRAINT PK_IMGs 
+        PRIMARY KEY (id_proprieta, immagine),
+    CONSTRAINT immagini_ibfk_1 
+        FOREIGN KEY (id_proprieta) 
+        REFERENCES proprieta(id) 
+        ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS wishlist (
     id_utente INT,
     id_proprieta INT,
-    FOREIGN KEY (id_utente) REFERENCES utenti(id),
-    FOREIGN KEY (id_proprieta) REFERENCES proprieta(id),
+    CONSTRAINT wishlist_fk_utente
+        FOREIGN KEY (id_utente)
+        REFERENCES utenti(id)
+        ON DELETE CASCADE,
+    CONSTRAINT wishlist_fk_proprieta
+        FOREIGN KEY (id_proprieta)
+        REFERENCES proprieta(id)
+        ON DELETE CASCADE,
     PRIMARY KEY (id_utente,id_proprieta)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

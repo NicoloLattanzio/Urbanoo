@@ -143,7 +143,7 @@ if(form!= null){
         }
     });
 }
-
+/*
 document.addEventListener('DOMContentLoaded', function() {
     let slideIndex = 1;
     showSlides(slideIndex);
@@ -189,4 +189,4 @@ document.addEventListener('DOMContentLoaded', function() {
     // A quanto pare senza sta roba non va nulla
     window.plusSlides = plusSlides;
     window.currentSlide = currentSlide;
-});
+});*/
