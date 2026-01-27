@@ -132,7 +132,7 @@ if ($proprieta) {
         );
     }
     // if user is logged in as 'user', show "add to wishlist" button
-    if($_SESSION['role'] === 'user')
+    if(isset($_SESSION['role']) && $_SESSION['role'] === 'user')
         $dettagli_proprieta .= "<a href='wishlist.php?add=".e($idProprieta)."' class='add-wishlist-btn'>Aggiungi alla <span lang='en'>wishlist</span></a>
                                 </div>";
     // if not logged in or logged in as 'admin', do not show the button
