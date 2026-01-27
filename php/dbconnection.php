@@ -267,13 +267,14 @@ class DBAccess {
 	}
 
 	// To insert a property given its information
-	public function insertProperty($nome, $descrizione, $prezzo, $tipologia, $superficie, $locali, $disponibilita, $immagine, $indirizzo, $citta) {
+	public function insertProperty($nome, $descrizione, $prezzo, $tipologia, $superficie, $locali, $disponibilita, $immagini, $indirizzo, $citta) {
 		try {
 			$query = "INSERT INTO proprieta 
-						(nome, descrizione, tipologia, indirizzo, citta, prezzo, metri_quadri, locali, immagine, disponibile)
+						(nome, descrizione, tipologia, indirizzo, citta, prezzo, metri_quadri, locali, immagine, disponibilita)
 					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 			$stmt = $this->connection->prepare($query);
+			$immagine_principale = $immagini[0];
 			$stmt->bind_param(
 				"sssssdiisi",
 				$nome, 
@@ -284,13 +285,34 @@ class DBAccess {
 				$prezzo, 
 				$superficie, 
 				$locali, 
-				$immagine, 
+				$immagine_principale, 
 				$disponibilita
 			);
 
 			$stmt->execute();
 			$affectedRows = $stmt->affected_rows;
+			$idProprieta = $stmt->insert_id; // prendi l'id appena inserito
 			$stmt->close();
+
+			// --- Inserimento immagini aggiuntive ---
+			if (count($immagini) > 1) {
+				$queryImg = "INSERT INTO immagini (id_proprieta, immagine) VALUES (?, ?)";
+				$stmtImg = $this->connection->prepare($queryImg);
+
+				for ($i = 1; $i < count($immagini); $i++) {
+					$stmtImg->bind_param("is", $idProprieta, $immagini[$i]);
+					$stmtImg->execute();
+					$affectedRowsImg = $stmtImg->affected_rows;
+					//images error handling
+					if ($affectedRowsImg == 0) {
+						return [
+							'success' => false,
+							'content' => 'INSERT_IMG_FAILED'
+						];
+					}
+				}
+				$stmtImg->close();
+			}
 
 			if ($affectedRows > 0) {
 				return [
@@ -300,7 +322,7 @@ class DBAccess {
 			} else {
 				return [
 					'success' => false,
-					'content' => 'INSERT_FAILED'
+					'content' => 'INSERT_PROP_FAILED'
 				];
 			}
 		} catch (\mysqli_sql_exception $e) {
@@ -330,6 +352,36 @@ class DBAccess {
 			];
 		} catch (\mysqli_sql_exception $e) {
 			error_log("Database error in getUser: " . $e->getMessage());
+			return [
+				'success' => false,
+				'content' => 'DB_ERROR'
+			];
+		}
+	}
+	
+	// To retrieve all images of a property
+	public function getPropertyImages($idProprieta) {
+		try {
+			$query = "SELECT immagine FROM immagini WHERE id_proprieta = ?";
+			$stmt = $this->connection->prepare($query);
+			$stmt->bind_param("i", $idProprieta);
+			$stmt->execute();
+
+			$result = $stmt->get_result();
+			$listaImmagini = [];
+
+			while ($row = $result->fetch_assoc())
+				$listaImmagini[] = $row['immagine'];
+
+			$stmt->close(); 
+			
+			return [
+				'success' => true, 
+				'content' => $listaImmagini
+			];
+
+		} catch (\mysqli_sql_exception $e) {
+			error_log("Database error in getPropertyImages: " . $e->getMessage());
 			return [
 				'success' => false,
 				'content' => 'DB_ERROR'

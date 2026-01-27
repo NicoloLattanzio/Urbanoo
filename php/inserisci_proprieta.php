@@ -69,6 +69,22 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST'){
     $paginaHTML = str_replace('[img_err]', $immaginiErr, $paginaHTML);
     $paginaHTML = str_replace('[address_err]', $indirizzoErr, $paginaHTML);
     $paginaHTML = str_replace('[city_err]', $cittaErr, $paginaHTML);
+    //replace previous values (empty form)
+    $paginaHTML = str_replace('[name_val]', e($nome), $paginaHTML);
+    $paginaHTML = str_replace('[description_val]', e($descrizione), $paginaHTML);
+    $paginaHTML = str_replace('[price_val]', e($prezzo), $paginaHTML);
+    $paginaHTML = str_replace('[select_monolocale]', "", $paginaHTML);
+    $paginaHTML = str_replace('[select_bilocale]', "", $paginaHTML);
+    $paginaHTML = str_replace('[select_trilocale]', "", $paginaHTML);
+    $paginaHTML = str_replace('[select_villa]', "", $paginaHTML);
+    $paginaHTML = str_replace('[select_attico]', "", $paginaHTML);
+    $paginaHTML = str_replace('[select_rustico]', "", $paginaHTML);
+    $paginaHTML = str_replace('[size_val]', "", $paginaHTML);
+    $paginaHTML = str_replace('[rooms_val]', "", $paginaHTML);
+    $paginaHTML = str_replace('[select_available]', "", $paginaHTML);
+    $paginaHTML = str_replace('[select_unavailable]', "", $paginaHTML);
+    $paginaHTML = str_replace('[address_val]', e($indirizzo), $paginaHTML);
+    $paginaHTML = str_replace('[city_val]', e($citta), $paginaHTML);
     echo $paginaHTML;
     exit();
 }
@@ -178,7 +194,7 @@ $indirizzo = trim($_POST['address'] ?? '');
 if ($indirizzo === '') {
     $indirizzoErr .= '<p>Indirizzo non inserito</p>';
     $formValido = false;
-} else if(!preg_match("/^(Via|Viale|Piazza|Corso|Largo|Strada|Vicolo)\s+[A-Za-zÀ-ÿ'’\s]+,\s*\d+[A-Za-z]?$/i", $indirizzo)) {
+} else if(!preg_match("/^(Via|Viale|Piazza|Corso|Largo|Strada|Vicolo)\s+[A-Za-zÀ-ÿ.'’\s]+,\s*\d+[A-Za-z]?$/i", $indirizzo)) {
     $indirizzoErr .= '<p>Inserire un indirizzo valido (es. Via G. Verdi, 8B)</p>';
     $formValido = false;
 }
@@ -269,9 +285,20 @@ if (isset($_FILES['img'])) {
         - name address not already registered
         -> register new property    B)
     Not valid form: 2)
-        -> show page with errors
+        -> show page with errors and previous values
 */
 if(!$formValido){ //2)
+    //if availability/type give errors than all variables are empty
+    $selMono = ($tipologia === "Monolocale") ? "selected" : "";
+    $selBi = ($tipologia === "Bilocale") ? "selected" : "";
+    $selTri = ($tipologia === "Trilocale") ? "selected" : "";
+    $selVilla = ($tipologia === "Villa") ? "selected" : "";
+    $selAttico = ($tipologia === "Attico") ? "selected" : "";
+    $selRustico = ($tipologia === "Rustico") ? "selected" : "";
+    $selSi = ($disponibilita == 1) ? "selected" : "";
+    $selNo = ($disponibilita == 0) ? "selected" : "";
+
+    //replace error messages
     $paginaHTML = str_replace('[property_err]', $propertyErr, $paginaHTML); 
     $paginaHTML = str_replace('[name_err]', $nomeErr, $paginaHTML);
     $paginaHTML = str_replace('[description_err]', $descrizioneErr, $paginaHTML);
@@ -284,6 +311,23 @@ if(!$formValido){ //2)
     $paginaHTML = str_replace('[address_err]', $indirizzoErr, $paginaHTML);
     $paginaHTML = str_replace('[city_err]', $cittaErr, $paginaHTML);
 
+    //replace previous values
+    $paginaHTML = str_replace('[name_val]', $nomeErr ? "" : e($nome), $paginaHTML);
+    $paginaHTML = str_replace('[description_val]', $descrizioneErr ? "" : e($descrizione), $paginaHTML);
+    $paginaHTML = str_replace('[price_val]', $prezzoErr ? "" : e($prezzo), $paginaHTML);
+    //dont need to check errors for type and availability bc they are empty if errors
+    $paginaHTML = str_replace('[select_monolocale]', $selMono, $paginaHTML);
+    $paginaHTML = str_replace('[select_bilocale]', $selBi, $paginaHTML);
+    $paginaHTML = str_replace('[select_trilocale]', $selTri, $paginaHTML);
+    $paginaHTML = str_replace('[select_villa]', $selVilla, $paginaHTML);
+    $paginaHTML = str_replace('[select_attico]', $selAttico, $paginaHTML);
+    $paginaHTML = str_replace('[select_rustico]', $selRustico, $paginaHTML);
+    $paginaHTML = str_replace('[size_val]', $superficieErr ? "" : e($superficie), $paginaHTML);
+    $paginaHTML = str_replace('[rooms_val]', $localiErr ? "" : e($locali), $paginaHTML);
+    $paginaHTML = str_replace('[select_available]', $selSi, $paginaHTML);
+    $paginaHTML = str_replace('[select_unavailable]', $selNo, $paginaHTML);
+    $paginaHTML = str_replace('[address_val]', $indirizzoErr ? "" : e($indirizzo), $paginaHTML);
+    $paginaHTML = str_replace('[city_val]', $cittaErr ? "" : e($citta), $paginaHTML);
     echo $paginaHTML;
     exit();
 }
@@ -314,13 +358,38 @@ if($proprieta) {
     //1)
     $propertyErr = "<p>Esiste già una proprietà con lo stesso nome o lo stesso indirizzo.</p>";
     $paginaHTML = str_replace('[property_err]', $propertyErr, $paginaHTML);
+    $paginaHTML = str_replace('[name_err]', $nomeErr, $paginaHTML);
+    $paginaHTML = str_replace('[description_err]', $descrizioneErr, $paginaHTML);
+    $paginaHTML = str_replace('[price_err]', $prezzoErr, $paginaHTML);
+    $paginaHTML = str_replace('[type_err]', $tipologiaErr, $paginaHTML);
+    $paginaHTML = str_replace('[size_err]', $superficieErr, $paginaHTML);
+    $paginaHTML = str_replace('[rooms_err]', $localiErr, $paginaHTML);
+    $paginaHTML = str_replace('[availability_err]', $disponibilitaErr, $paginaHTML);
+    $paginaHTML = str_replace('[img_err]', $immaginiErr, $paginaHTML);
+    $paginaHTML = str_replace('[address_err]', $indirizzoErr, $paginaHTML);
+    $paginaHTML = str_replace('[city_err]', $cittaErr, $paginaHTML);
+
     //replace previous values (no name, no address, no images)
     $paginaHTML = str_replace('[description_val]', e($descrizione), $paginaHTML);
     $paginaHTML = str_replace('[price_val]', e($prezzo), $paginaHTML);
-    $paginaHTML = str_replace('[type_val]', e($tipologia), $paginaHTML);
+    $selMono = ($proprieta['tipologia'] === "Monolocale") ? "selected" : "";
+    $selBi = ($proprieta['tipologia'] === "Bilocale") ? "selected" : "";
+    $selTri = ($proprieta['tipologia'] === "Trilocale") ? "selected" : "";
+    $selVilla = ($proprieta['tipologia'] === "Villa") ? "selected" : "";
+    $selAttico = ($proprieta['tipologia'] === "Attico") ? "selected" : "";
+    $selRustico = ($proprieta['tipologia'] === "Rustico") ? "selected" : "";
+    $paginaHTML = str_replace('[select_monolocale]', $selMono, $paginaHTML);
+    $paginaHTML = str_replace('[select_bilocale]', $selBi, $paginaHTML);
+    $paginaHTML = str_replace('[select_trilocale]', $selTri, $paginaHTML);
+    $paginaHTML = str_replace('[select_villa]', $selVilla, $paginaHTML);
+    $paginaHTML = str_replace('[select_attico]', $selAttico, $paginaHTML);
+    $paginaHTML = str_replace('[select_rustico]', $selRustico, $paginaHTML);
     $paginaHTML = str_replace('[size_val]', e($superficie), $paginaHTML);
     $paginaHTML = str_replace('[rooms_val]', e($locali), $paginaHTML);
-    $paginaHTML = str_replace('[availability_val]', e($disponibilita), $paginaHTML);
+    $selSi = ($proprieta['disponibilita'] == 1) ? "selected" : "";
+    $selNo = ($proprieta['disponibilita'] == 0) ? "selected" : "";
+    $paginaHTML = str_replace('[select_available]', $selSi, $paginaHTML);
+    $paginaHTML = str_replace('[select_unavailable]', $selNo, $paginaHTML);
     $paginaHTML = str_replace('[city_val]', e($citta), $paginaHTML);
     echo $paginaHTML;
     exit();
@@ -330,16 +399,16 @@ if($proprieta) {
         DB output management:
         -> [true, null]: query did not affect rows          -> insert success   1)
         -> [false, INSERT_FAILED]: query affected > 0 rows  -> insert fail      2)
-        -> [false, DB_ERROR]: query failed                  -> 500.php         3)
+        -> [false, DB_ERROR]: query failed                  -> 500.php          3)
     */
     $insertResult = $connessione -> insertProperty($nome, $descrizione, $prezzo, $tipologia, $superficie, $locali, $disponibilita, $immagini, $indirizzo, $citta);
     $connessione -> closeDBConnection();             
     if($insertResult["success"]){
         //1)
         $_SESSION['insert_prop_msg'] = [
-            'type' => 'success',
-            'text' => 'Proprietà inserita con successo.'
-        ];
+                'type' => 'success',
+                'text' => 'La proprietà è stata aggiunta con successo.'
+            ];
     } else {
         if($insertResult["content"] == "INSERT_FAILED"){
             //2)

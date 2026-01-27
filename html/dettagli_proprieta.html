@@ -9,6 +9,45 @@
     <link rel="stylesheet" href="../styles/style.css" media="screen">
     <link rel="stylesheet" href="../styles/mini.css" media="screen and (max-width:768px)">
     <link rel="stylesheet" href="../styles/print.css" media="print">
+    <style>
+.gallery {
+    max-width: 600px;
+    margin: auto;
+}
+.main-img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+.thumbnails {
+    display: flex;
+    gap: 5px;
+}
+/* Stile base delle miniature */
+.thumb {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+    border: 2px solid transparent; /* Bordo invisibile di base */
+}
+
+/* Stile quando ci passi sopra col mouse */
+.thumb:hover {
+    transform: scale(1.05);
+}
+
+/* --- NUOVO: Stile per la miniatura ATTIVA --- */
+.thumb.active {
+    opacity: 0.5;           /* La rende semi-trasparente (scuretta) */
+    filter: grayscale(50%); /* Opzionale: la rende un po' grigia */
+    border: 2px solid #333; /* Aggiunge un bordo scuro */
+    transform: scale(0.95); /* La rimpicciolisce leggermente (effetto "premuto") */
+}
+</style>
 
 </head>
 <body>
@@ -46,5 +85,32 @@
     <footer>
         <p>&copy; <time datetime="2025">2025</time> <span lang="en">Urbanoo</span>: Agenzia Immobiliare. P.IVA 1234567890. Tutti i diritti sono riservati</p>
     </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const mainImg = document.getElementById('main-image');
+            const thumbs = document.querySelectorAll('.thumb');
+
+            // Verifica se gli elementi esistono per evitare errori
+            if(mainImg && thumbs.length > 0) {
+                
+                // 1. IMPORTANTE: Rende "scura" la prima miniatura appena carichi la pagina
+                thumbs[0].classList.add('active');
+
+                thumbs.forEach(thumb => {
+                    thumb.addEventListener('click', function() {
+                        
+                        // 2. Cambia l'immagine grande
+                        mainImg.src = this.src;
+
+                        // 3. RESET: Rimuove la classe 'active' da TUTTE le miniature
+                        thumbs.forEach(t => t.classList.remove('active'));
+
+                        // 4. ATTIVAZIONE: Aggiunge la classe 'active' SOLO a quella cliccata
+                        this.classList.add('active');
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>

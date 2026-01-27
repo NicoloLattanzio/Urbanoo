@@ -16,6 +16,8 @@
     --error-color: #B00020;
     --visited: #800080f2;
     --error-bg-color: #FCE4E4;
+    --success-color: #2E7D32;
+    --success-bg-color: #E6F4EA;
 }
 
 html,body{
@@ -823,6 +825,9 @@ footer {
     margin-top: 4px;
     font-size: 0.875rem;
     line-height: 1.4;
+}
+
+.none {
     display: none;
 }
 
@@ -845,7 +850,16 @@ footer {
     display: none;
 }
 
-
+.success-msg{
+    color: var(--success-color);
+    background-color: var(--success-bg-color);
+    border: 1px solid var(--success-color);
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-top: 4px;
+    font-size: 0.875rem;
+    line-height: 1.4;
+}
 /*Sezione dello slider immagini*/
 
 

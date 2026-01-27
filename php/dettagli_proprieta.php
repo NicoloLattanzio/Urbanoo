@@ -41,10 +41,9 @@ $idProprieta = (int)$idProprieta;
     DB output management:
     -> [true, $row]: query returned a result        -> show the selected property   1)
     -> [true, null]: query returned an empty result -> property not existent error  2)
-    -> [false, DB_ERROR]: query failed              -> 500.php                     3)
+    -> [false, DB_ERROR]: query failed              -> 500.php                      3)
 */
 $showResult = $connessione->showPropertyDetails($idProprieta);
-$connessione->closeDBConnection();
 if(!$showResult["success"]){
     //3)
     header("location: 500.php");
@@ -55,36 +54,87 @@ $proprieta = $showResult["content"];
 if ($proprieta) {
     //1)
     $disp = $proprieta['disponibilita'] ? 'Disponibile' : 'Non disponibile';
-    //Replace placeholders
-    $dettagli_proprieta = str_replace(
-        ["[immagine]", "[nome]", "[descrizione]", "[prezzo]", "[indirizzo]", "[citta]", "[tipologia]", "[metri_quadri]", "[locali]", "[disponibilita]"],
-        [e($proprieta['immagine']), e($proprieta['nome']), e($proprieta['descrizione']), e($proprieta['prezzo']), e($proprieta['indirizzo']), e($proprieta['citta']), e($proprieta['tipologia']), e($proprieta['metri_quadri']), e($proprieta['locali']), $disp],
+    /*
+        DB output management:
+        -> [true, $images]: query returned a result         -> extract all images                   A)
+        -> [true, []]: query returned an empty result       -> property does not have other images  B)
+        -> [false, DB_ERROR]: query failed                  -> 500.php                              C)
+    */
+    $risultatoImmagini = $connessione->getPropertyImages($idProprieta);
+    $connessione->closeDBConnection();
+    if (!$risultatoImmagini['success']) {
+        //C)
+        header("location: 500.php");
+        exit();
+    }
+    //A)
+    $immaginiExtra = $risultatoImmagini['content'];
+    if ($immaginiExtra) {
+        $gallery = "<div class=\"gallery\"><img id=\"main-image\" src=\"".$proprieta['immagine']."\" alt=\"\" class=\"main-img\">
+                    <div class=\"thumbnails\">";
+        $gallery .= "<img src=\"".$proprieta['immagine']."\" alt=\"\" class=\"thumb\">"; // main image
+        foreach ($immaginiExtra as $img):
+            $gallery .= "<img src=\"".$img."\" alt=\"\" class=\"thumb\">";
+        endforeach;
+        $gallery .= "</div></div>";
+        $dettagli_proprieta = str_replace(
+        ["[galleria]", "[nome]", "[descrizione]", "[prezzo]", "[indirizzo]", "[citta]", "[tipologia]", "[metri_quadri]", "[locali]", "[disponibilita]"],
+        [$gallery, e($proprieta['nome']), e($proprieta['descrizione']), e($proprieta['prezzo']), e($proprieta['indirizzo']), e($proprieta['citta']), e($proprieta['tipologia']), e($proprieta['metri_quadri']), e($proprieta['locali']), $disp],
         "<div class = 'prop-details'>
-            <div class = 'prop-cover'>
-                <img src='[immagine]'>
-                <h2>[nome]</h2>  
-            </div>
-            <div class = 'prop-info'>
-                <dl>
-                    <dt>Descrizione:</dt>
-                    <dd>[descrizione]</dd>
-                    <dt>Prezzo:</dt>
-                    <dd>[prezzo] &euro;</dd>
-                    <dt>Indirizzo:</dt>
-                    <dd>[indirizzo], [citta]</dd>
-                    <dt>Tipologia:</dt>
-                    <dd>[tipologia]</dd>
-                    <dt>Metri Quadri:</dt>
-                    <dd>[metri_quadri] m&sup2;</dd>
-                    <dt>Locali:</dt>
-                    <dd>[locali]</dd>
-                    <dt>Disponibilità:</dt>
-                    <dd>[disponibilita]</dd>
-                </dl>
-            </div>
-            <a href='wishlist.php?add=".e($idProprieta)."' class='add-wishlist-btn'>Aggiungi alla <span lang='en'>wishlist</span></a>
-        </div>"
-    );
+                    [galleria]
+                    <div class = 'prop-info'>
+                        <dl>
+                            <dt>Descrizione:</dt>
+                            <dd>[descrizione]</dd>
+                            <dt>Prezzo:</dt>
+                            <dd>[prezzo] &euro;</dd>
+                            <dt>Indirizzo:</dt>
+                            <dd>[indirizzo], [citta]</dd>
+                            <dt>Tipologia:</dt>
+                            <dd>[tipologia]</dd>
+                            <dt>Metri Quadri:</dt>
+                            <dd>[metri_quadri] m&sup2;</dd>
+                            <dt>Locali:</dt>
+                            <dd>[locali]</dd>
+                            <dt>Disponibilità:</dt>
+                            <dd>[disponibilita]</dd>
+                        </dl>
+                    </div>
+                    <a href='wishlist.php?add=".e($idProprieta)."' class='add-wishlist-btn'>Aggiungi alla <span lang='en'>wishlist</span></a>
+                </div>"
+        );
+    } else {
+        //B)
+        $dettagli_proprieta = str_replace(
+            ["[immagine]", "[nome]", "[descrizione]", "[prezzo]", "[indirizzo]", "[citta]", "[tipologia]", "[metri_quadri]", "[locali]", "[disponibilita]"],
+            [e($proprieta['immagine']), e($proprieta['nome']), e($proprieta['descrizione']), e($proprieta['prezzo']), e($proprieta['indirizzo']), e($proprieta['citta']), e($proprieta['tipologia']), e($proprieta['metri_quadri']), e($proprieta['locali']), $disp],
+            "<div class = 'prop-details'>
+                <div class = 'prop-cover'>
+                    <img src='[immagine]'>
+                    <h2>[nome]</h2>  
+                </div>
+                <div class = 'prop-info'>
+                    <dl>
+                        <dt>Descrizione:</dt>
+                        <dd>[descrizione]</dd>
+                        <dt>Prezzo:</dt>
+                        <dd>[prezzo] &euro;</dd>
+                        <dt>Indirizzo:</dt>
+                        <dd>[indirizzo], [citta]</dd>
+                        <dt>Tipologia:</dt>
+                        <dd>[tipologia]</dd>
+                        <dt>Metri Quadri:</dt>
+                        <dd>[metri_quadri] m&sup2;</dd>
+                        <dt>Locali:</dt>
+                        <dd>[locali]</dd>
+                        <dt>Disponibilità:</dt>
+                        <dd>[disponibilita]</dd>
+                    </dl>
+                </div>
+                <a href='wishlist.php?add=".e($idProprieta)."' class='add-wishlist-btn'>Aggiungi alla <span lang='en'>wishlist</span></a>
+            </div>"
+        );
+    }
 } else {
     //2)
     $_SESSION['show_prop_msg'] = [
