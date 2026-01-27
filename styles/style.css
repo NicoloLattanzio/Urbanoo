@@ -21,7 +21,7 @@
 }
 
 html,body{
-    font-size: 100%; 
+    font-size: 100%;
     font-family: "Verdana",sans-serif;
     line-height: 1.5em;
     margin:auto;
@@ -29,6 +29,7 @@ html,body{
     height: 100%;
     display: flex;/**/
     flex-direction: column;/**/
+    max-width: 1200px;
 }
 
 html {
@@ -36,24 +37,12 @@ html {
     height: 100%
 }
 
-/* html em{
-    /*text-decoration-style: none; deve togliere gli stili di em, non va porco dio
-} */
-
-
 html a:visited {
     color: purple;
 
 }
 html a:hover {
     color: var(--mustard-hover);
-}
-
-body{
-    background-color: var(--white);
-    color: var(--txtcolor);
-    max-width: 1200px; /*1200px;*/
-    margin: auto;
 }
 
 /*
@@ -80,7 +69,7 @@ header h1{
     text-indent: -9999em;
     font-size: 1em;
     height: 100px;
-    width: 260px;
+    width: 24%;
     margin-left: 1em;
 }
 
@@ -409,21 +398,24 @@ SEZIONE FILTRI
 ==============================================================
 */
 
-#filters {
+.form {
     /*float: left;*/
     color: var(--white);
     background-color: var(--navy-blue);
     border: solid 1px black;
     padding: 1.5em;
-    margin-right: 3%; /*margin-right: 3%;*/
-    /*margin-top: 0; /*margin-top: 1em;*/
+    margin-top: 0;
     border-radius: 12px;
     /*height: fit-content;*/
     height: auto;
     margin-bottom: 1em;
 }
 
-#filters h2 {
+#filters{
+    margin-right:3%;
+}
+
+.form h2 {
     font-size: 1.3em;
     margin-bottom: 1em;
     border-bottom: 2px solid var(--mustard-gold);
@@ -451,6 +443,7 @@ SEZIONE FILTRI
 .input-filters input[type="file"],
 .input-filters select,
 .input-filters textarea {
+    font-family: Verdana;
     width: 100%;
     padding: 0.6em;
     border-radius: 6px;
@@ -461,8 +454,9 @@ SEZIONE FILTRI
 }
 
 /* Stile per il pulsante Cerca */
+#btn-register,
 .input-filters input[type="submit"],
-#filters button[type="submit"] {
+.form button[type="submit"] {
     width: 100%;
     background-color: var(--mustard-gold);
     color: var(--navy-blue);
@@ -477,10 +471,10 @@ SEZIONE FILTRI
 }
 
 #btn-register{
-    width: 15%;
-    background-color: var(--mustard-gold);
+    width: 30%;
+    background-color: var(--white);
     color: var(--navy-blue);
-    border: none;
+    border: 3px solid var(--mustard-gold);
     padding: 0.8em;
     font-weight: bold;
     text-transform: uppercase;
@@ -489,17 +483,22 @@ SEZIONE FILTRI
     transition: background-color 0.3s ease;
     display: block;
     font-size: 0.9em;
-    margin-bottom: 0.4em;
     text-decoration: none;
     text-align: center;
+    margin-top: 0.5em;
 }
 
 #btn-register:hover {
-    background-color: var(--mustard-hover);
+    background-color: var(--mustard-gold);
 }
 
 
-#filters button[type="submit"]:hover {
+#account-question{/*Id per il paragrafo relativo alla domanda (sei registrato/loggato?)*/
+    margin-top:1em;
+    margin-bottom: 0.2em;
+}
+
+.form button[type="submit"]:hover {
     background-color: var(--mustard-hover);
 }
 
@@ -752,7 +751,7 @@ footer {
     /*Corrispondente a formato 16:9, tecnicamente se usiuamo solo foto con questo formato non vengono stretchate*/
 }
 
-
+.btn-add,
 .btn-mod,
 .btn-del,
 .btn-view {
@@ -798,8 +797,8 @@ footer {
 
 .btn-add{
     background-image: url("../img/add.png");
-    border-top-style: solid;
-    border-left-style: solid;
+    border-style: solid;
+    height: 34px;
 }
 
 .btn-view:hover{
