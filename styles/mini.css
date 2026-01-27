@@ -1,6 +1,7 @@
 header h1{
     margin-left: auto;
     margin-right: auto;
+    width: 260px;
 }
 footer{
     padding-bottom:100px;
