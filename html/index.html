@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../styles/style.css" media="screen">
     <link rel="stylesheet" href="../styles/mini.css" media="screen and (max-width:768px)">
     <link rel="stylesheet" href="../styles/print.css" media="print">
-    <script src="script.js" defer></script>
+    <script src="../php/script.js" defer></script>
 </head>
 <body>
     <header>
@@ -36,38 +36,25 @@
     <main id="content">
         <section class="carousel" aria-label="Galleria Immagini">
             <ol class="carousel_viewport">
-                <li id="carousel_slide1"
-                    tabindex="0"
-                    class="carousel_slide">
-                    <div class="carousel_snapper">
-                        <a href="#carousel_slide3"
-                           class="carousel_prev nav-btn">&#8656</a>
-                        <a href="#carousel_slide2"
-                           class="carousel_next nav-btn">&#8658</a>
-                        <img src="../img/Skyscraper_Rework.png" alt="Immagine 1">
-                    </div>
+                <li class="carousel_slide">
+                    <a href="../php/dettagli_proprieta.php?id=4" ><img src="../img/Skyscraper_Rework.png" alt="Immagine 1"></a>
                 </li>
-                <li id="carousel_slide2"
-                    tabindex="0"
-                    class="carousel_slide">
-                    <div class="carousel_snapper"></div>
-                    <a href="#carousel_slide1"
-                       class="carousel_prev nav-btn">&#8656</a>
-                    <a href="#carousel_slide3"
-                       class="carousel_next nav-btn">&#8658</a>
-                    <img src="../img/emerald.png" alt="Immagine 2">
+                <li class="carousel_slide">
+                    <a href="../php/dettagli_proprieta.php?id=3" ><img src="../img/emerald.png" alt="Immagine 2"></a>
                 </li>
-                <li id="carousel_slide3"
-                    tabindex="0"
-                    class="carousel_slide">
-                    <div class="carousel_snapper"></div>
-                    <a href="#carousel_slide2"
-                       class="carousel_prev nav-btn">&#8656</a>
-                    <a href="#carousel_slide1"
-                       class="carousel_next nav-btn">&#8658</a>
-                    <img src="../img/villa.png" alt="Immagine 3">
+                <li class="carousel_slide">
+                    <a href="../php/dettagli_proprieta.php?id=2" ><img src="../img/villa.png" alt="Immagine 3"></a>
                 </li>
             </ol>
+            <button class="carousel_prev" aria-label="Slide precedente" onclick="plusSlides(-1)">&#10094;</button>
+            <button class="carousel_next" aria-label="Slide successiva" onclick="plusSlides(1)">&#10095;</button>
+
+
+            <div class="carousel_dots">
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+            </div>
         </section>
         <!-- <div id="info"> -->
         <div class="intro">

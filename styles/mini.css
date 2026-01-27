@@ -1,0 +1,60 @@
+header h1{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+header h2{
+    line-height: 1.1em;
+    font-size: 1.7em;
+}
+
+#menu {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: 1em;
+}
+
+.team-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+}
+
+.team-info{
+    padding: 1rem;
+}
+
+.intro h1{
+    font-size: 1.7em;
+}
+
+#typologies h2{
+    font-size: 1.5em;
+}
+
+#typologies dt {
+    font-size: 1.1em;
+}
+
+.goback,
+.carousel_next,
+.carousel_prev,
+.carousel_dots{
+    display: none;
+}
+#services,
+#property-list{
+    box-shadow: none;
+}
+
+.first-part #filters {
+    width: 100%;
+} 
+
+.first-part {
+    display: block;
+}
+
+.first-part .intro {
+    width: 100%;
+}

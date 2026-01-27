@@ -1,0 +1,154 @@
+* {
+    box-shadow: none !important;
+    /*-webkit-print-color-adjust: exact;    /* Webkit based browsers */
+    /*print-color-adjust: exact;            /* Standard property */
+    padding: 0em;
+    margin: 0em;
+}
+
+html, body{
+    font-family: "Times New Roman", Times, serif;
+    font-size:12pt;
+    margin: auto;
+}
+
+header{
+    padding: 0em 1em;
+    text-align: center;
+    margin: 1em;
+}
+
+header h1{
+    margin: auto;
+    content: url('../img/logoUrbanoo.png');
+    height: 3cm;
+}
+
+#menu {
+    display: none;
+}
+
+.navigationHelp{
+    display: none;
+}
+
+.intro{
+    margin: 1em;
+}
+
+.intro h1{
+    margin-bottom: 0.5em;
+    text-align: center;
+}
+
+.goback,
+.carousel_next,
+.carousel_prev,
+.carousel_dots{
+    display: none;
+}
+
+.carousel_viewport img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+a:link:after, a:visited:after {
+    content: " [" attr(href) "] ";
+    font-size:90%;
+}
+
+.carousel_slide a:after{
+    display: none;
+}
+
+#services {
+    margin-top: 4.5cm;
+}
+
+#services h2 {
+    text-align: center;
+    margin-bottom: 0.5cm;
+}
+
+#services .item-services {
+    page-break-inside: avoid;
+    display: block; /* Più sicuro del grid/flex per la stampa */
+    margin-bottom: 2cm;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 1cm;
+}
+
+#services .item-services dt{
+    text-align: center;
+    margin-bottom: 0.2cm;
+    font-size: 0.5cm;
+}
+
+#services .item-services p{
+    margin-top: 0.5cm;
+}
+
+#services dd img {
+    width: 1.5cm; /* Dimensione fissa per le icone in stampa */
+    float: left;
+    margin-right: 1cm;
+}
+
+footer {
+    margin-top: 2cm;
+    text-align: center;
+}
+
+.team-grid {
+    margin-top: 0.5cm;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(5cm, 1fr));
+    gap: 10px;
+}
+
+.team-card {
+    page-break-inside: avoid;
+    width: 5.5cm;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 0.2cm;
+    text-align: center;
+}
+
+.team-card .team-name{
+    font-weight: bold;
+    /*text-align: center;*/
+}
+
+.team-card .role{
+    color: #9F741E;
+    /*text-align: center;*/
+}
+
+.team-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+#filters {
+    display: none;
+}   
+
+.admin-controls, .btn-view, .btn-mod, .btn-del {
+    display: none;
+}
+
+.property-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8cm, 1fr));
+    gap: 10px;
+}
+
+.property-grid img{
+    width: 7cm;
+    height: 4cm;
+}

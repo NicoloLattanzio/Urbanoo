@@ -67,7 +67,8 @@ if ($connessioneOK) {
             $stringaProprieta .= '<div class="property-grid">';
 
             foreach ($listaProprieta as $proprieta) {
-                $stringaProprieta .= '<div class="property-card">';
+                $cardClasses = ($isAdmin) ? 'property-card' : 'property-card btn-user';
+                $stringaProprieta .= '<div class="' . $cardClasses . '">';
                 $stringaProprieta .= '<img src="' . $proprieta['immagine'] . '" alt="Foto di ' . $proprieta['nome'] . '" />';
                 $stringaProprieta .= '<h3>' . $proprieta['nome'] . '</h3>';
                 $stringaProprieta .= '<div class="property-details">';

@@ -33,12 +33,12 @@
         <p>Ti trovi in: <a href="index.php" lang="en">Home</a> &raquo; <span lang="en">Login</span></p>
     </nav>
     <main id="content">
-        <div class="form-container">
-            <h1>Accedi al tuo <span lang="en">account</span></h1>
+        <div id="filters">
+            <h2>Accedi al tuo <span lang="en">account</span></h2>
             <form id="login-form" method="post" action="login.php" novalidate>
 
                 <!-- Email -->
-                <div class="form-group">
+                <div class="input-filters">
                     <label for="email"><span lang="en">Email:</span></label>
                     <input type="text" id="email" name="email" required placeholder="Email" autocomplete="email"
                         aria-describedby="err-email-required err-email-invalid"
@@ -52,7 +52,7 @@
                 </div>
 
                 <!-- Password -->
-                <div class="form-group">
+                <div class="input-filters">
                     <label for="password"><span lang="en">Password:</span></label>
                     <input type="password" id="password" name="password" required placeholder="Password" autocomplete="current-password"
                         aria-describedby="err-password-required err-password-invalid"
@@ -66,9 +66,9 @@
                 </div>
                 
                 <!-- Submit -->
-                <input type="submit" value="Accedi" title="Clicca qui per effettuare l'accesso">
+                <button type="submit" title="Clicca qui per effettuare l'accesso" >Accedi</button>
             </form>
-            <p>Non hai un <span lang="en">account</span>? <a href="register.php">Registrati qui</a></p>
+            <p>Non hai un <span lang="en">account</span>? <a id="btn-register" href="register.php">Registrati qui</a></p>
         </div>
         <div>
             <a class="goback" href="#" aria-label="Torna su">&#8679;</a>
