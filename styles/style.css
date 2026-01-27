@@ -21,7 +21,7 @@
 }
 
 html,body{
-    font-size: 100%; 
+    font-size: 100%;
     font-family: "Verdana",sans-serif;
     line-height: 1.5em;
     margin:auto;
@@ -29,6 +29,7 @@ html,body{
     height: 100%;
     display: flex;/**/
     flex-direction: column;/**/
+    max-width: 1200px;
 }
 
 html {
@@ -36,24 +37,12 @@ html {
     height: 100%
 }
 
-/* html em{
-    /*text-decoration-style: none; deve togliere gli stili di em, non va porco dio
-} */
-
-
 html a:visited {
     color: purple;
 
 }
 html a:hover {
     color: var(--mustard-hover);
-}
-
-body{
-    background-color: var(--white);
-    color: var(--txtcolor);
-    max-width: 1200px; /*1200px;*/
-    margin: auto;
 }
 
 /*
@@ -80,7 +69,7 @@ header h1{
     text-indent: -9999em;
     font-size: 1em;
     height: 100px;
-    width: 25%;
+    width: 24%;
     margin-left: 1em;
 }
 
