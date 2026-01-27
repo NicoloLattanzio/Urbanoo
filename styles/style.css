@@ -482,7 +482,7 @@ SEZIONE FILTRI
 }
 
 #btn-register{
-    width: 15%;
+    width: 30%;
     background-color: var(--white);
     color: var(--navy-blue);
     border: 3px solid var(--mustard-gold);
