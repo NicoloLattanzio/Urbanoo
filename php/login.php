@@ -3,8 +3,8 @@ session_start();
 require_once 'dbconnection.php';
 use DB\DBAccess;
 $formValido = true;
-$email = '';
-$emailErr = '';
+$username = '';
+$usernameErr = '';
 $password = '';
 $passwordErr = '';
 
@@ -29,7 +29,7 @@ if (isset($_SESSION['user_id'], $_SESSION['role'])) {   //1,2
 else{
     if($_SERVER['REQUEST_METHOD'] !== 'POST'){
         //4
-        $PageLogin = str_replace('[email_err]', $emailErr, $PageLogin);
+        $PageLogin = str_replace('[username_err]', $usernameErr, $PageLogin);
         $PageLogin = str_replace('[password_err]', $passwordErr, $PageLogin);
         echo $PageLogin;
         exit();
@@ -39,7 +39,7 @@ else{
     /*
         Essential input validation is done client side only for better UX
     */
-    $email = $_POST['email'] ?? '';
+    $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
     /*
         DB output management:
@@ -51,7 +51,7 @@ else{
                                                             redirect to areariservata.php   2)
         -> [false, DB_ERROR]: query failed              ->  500.php                         3)
     */
-    $result = $connessione->getUser($email);
+    $result = $connessione->getUser($username);
     if(!$result['success']){
         //3)
         header('location: 500.php');
@@ -60,7 +60,7 @@ else{
     $user = $result['content'];
     if(!$user){
         //2)
-        $emailErr = '<p><span lang="en">Email</span> non trovata.</p>';
+        $usernameErr = '<p><span lang="en">Username</span> non trovato.</p>';
         $formValido = false;
     }
     if($user && password_verify($password, $user['password'])){
@@ -83,7 +83,7 @@ else{
     }
     else{
         //login failed, show login form with errors
-        $PageLogin = str_replace('[email_err]', $emailErr, $PageLogin);
+        $PageLogin = str_replace('[username_err]', $usernameErr, $PageLogin);
         $PageLogin = str_replace('[password_err]', $passwordErr, $PageLogin);
         echo $PageLogin;
         exit();

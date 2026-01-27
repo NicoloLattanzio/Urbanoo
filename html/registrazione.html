@@ -43,12 +43,13 @@
                     <label for="name">Nome:</label>
                     <input type="text" id="name" name="name" required placeholder="Nome" autocomplete="given-name" minlength="2" maxlength="25"
                         value="[nome_val]" aria-describedby="err-nome-required err-nome-invalid"
-                        data-msg-required="Per favore, inserisci il tuo nome" data-msg-invalid="Formato non corretto: ">
+                        data-msg-required="Per favore, inserisci il tuo nome" 
+                        data-msg-invalid="Formato non corretto: ">
                         
                     <!-- Messaggi di errore per nome -->
                     <div id="err-name-server" class="error-msg display-error" aria-live="polite">[nome_err]</div>
-                    <p id="err-name-required" class="error-msg name1-error" aria-live="polite"></p>
-                    <p id="err-name-invalid" class="error-msg name2-error" aria-live="polite"></p>
+                    <p id="err-name-required" class="error-msg" aria-live="polite"></p>
+                    <p id="err-name-invalid" class="error-msg" aria-live="polite"></p>
                 </div>
 
                 <!-- Cognome -->
@@ -56,12 +57,26 @@
                     <label for="surname">Cognome:</label>
                     <input type="text" id="surname" name="surname" required placeholder="Cognome" autocomplete="family-name" minlength="2" maxlength="25"
                         value="[cognome_val]" aria-describedby="err-cognome-required err-cognome-invalid"
-                        data-msg-required="Per favore, inserisci il tuo cognome" data-msg-invalid="Formato non corretto: ">
+                        data-msg-required="Per favore, inserisci il tuo cognome" 
+                        data-msg-invalid="Formato non corretto: ">
                 
                     <!-- Messaggi di errore per cognome -->
                     <div id="err-surname-server" class="error-msg display-error" aria-live="polite">[cognome_err]</div>
-                    <p id="err-surname-required" class="error-msg surname1-error" aria-live="polite"></p>
-                    <p id="err-surname-invalid" class="error-msg surname2-error" aria-live="polite"></p>
+                    <p id="err-surname-required" class="error-msg" aria-live="polite"></p>
+                    <p id="err-surname-invalid" class="error-msg" aria-live="polite"></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="username"><span lang="en">Username:</span></label>
+                    <input type="text" id="username" name="username" required placeholder="Username" autocomplete="username" minlength="2" maxlength="25"
+                        value="[username_val]" aria-describedby="err-username-required err-username-invalid"
+                        data-msg-required="Per favore, inserisci il tuo username" 
+                        data-msg-invalid="Formato non corretto: ">
+                
+                    <!-- Messaggi di errore per username -->
+                    <div id="err-username-server" class="error-msg display-error" aria-live="polite">[username_err]</div>
+                    <p id="err-username-required" class="error-msg" aria-live="polite"></p>
+                    <p id="err-username-invalid" class="error-msg" aria-live="polite"></p>
                 </div>
 
                 <!-- Email -->
@@ -69,12 +84,13 @@
                     <label for="email"><span lang="en">Email:</span></label>
                     <input type="email" id="email" name="email" required placeholder="Email" autocomplete="email"
                         value="[email_val]" aria-describedby="err-email-required err-email-invalid"
-                        data-msg-required="Per favore, inserisci la tua email" data-msg-invalid="Inserire un'email valida">
+                        data-msg-required="Per favore, inserisci la tua email" 
+                        data-msg-invalid="Inserire un'email valida">
 
                     <!-- Messaggi di errore per email -->
                     <div id="err-email-server" class="error-msg display-error" aria-live="polite">[email_err]</div>
-                    <p id="err-email-required" class="error-msg email1-error" aria-live="polite"></p>
-                    <p id="err-email-invalid" class="error-msg email2-error" aria-live="polite"></p>
+                    <p id="err-email-required" class="error-msg" aria-live="polite"></p>
+                    <p id="err-email-invalid" class="error-msg" aria-live="polite"></p>
                 </div>
 
                 <!-- Password -->
@@ -82,12 +98,13 @@
                     <label for="password"><span lang="en">Password:</span></label>
                     <input type="password" id="password" name="password" required placeholder="Password" autocomplete="new-password"
                         aria-describedby="err-password-required err-password-invalid"
-                        data-msg-required="Per favore, inserisci la tua password" data-msg-invalid="La password deve contenere almeno 6 caratteri">
+                        data-msg-required="Per favore, inserisci la tua password"
+                        data-msg-invalid="La password deve contenere almeno 6 caratteri">
 
                     <!-- Messaggi di errore per password -->
                     <div id="err-password-server" class="error-msg display-error" aria-live="polite">[password_err]</div>
-                    <p id="err-password-required" class="error-msg password1-error" aria-live="polite"></p>
-                    <p id="err-password-invalid" class="error-msg password2-error" aria-live="polite"></p>
+                    <p id="err-password-required" class="error-msg" aria-live="polite"></p>
+                    <p id="err-password-invalid" class="error-msg" aria-live="polite"></p>
                 </div>
 
                 <!-- Conferma Password -->
@@ -95,12 +112,13 @@
                     <label for="confirm_password">Conferma <span lang="en">Password:</span></label>
                     <input type="password" id="confirm_password" name="confirm_password" required placeholder="Conferma Password"
                         autocomplete="new-password" aria-describedby="err-confirm-password-required err-confirm-password-invalid"
-                        data-msg-required="Per favore, conferma la tua password" data-msg-invalid="Le password non coincidono">
+                        data-msg-required="Per favore, conferma la tua password" 
+                        data-msg-invalid="Le password non coincidono">
 
                     <!-- Messaggi di errore per conferma password -->
                     <div id="err-confirm-password-server" class="error-msg display-error" aria-live="polite">[confirm_password_err]</div>
-                    <p id="err-confirm-password-required" class="error-msg confirm-password1-error" aria-live="polite"></p>
-                    <p id="err-confirm-password-invalid" class="error-msg confirm-password2-error" aria-live="polite"></p>
+                    <p id="err-confirm-password-required" class="error-msg" aria-live="polite"></p>
+                    <p id="err-confirm-password-invalid" class="error-msg" aria-live="polite"></p>
                 </div>
 
                 <!-- Submit -->

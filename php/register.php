@@ -8,6 +8,8 @@ $nome = '';
 $nomeErr = '';
 $cognome = '';
 $cognomeErr = '';
+$username = '';
+$usernameErr = '';
 $email = '';
 $emailErr = '';
 $password = '';
@@ -68,6 +70,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $formValido = false;
     }
 
+    //validazione username
+    $username = trim($_POST['username'] ?? '');
+    if ($username === '') {
+        $usernameErr .= '<p><span lang="en">Username</span> non inserito</p>';
+        $formValido = false;
+    }
+    $username = cleanInput($username);
+    if(strlen($username) < 2 || strlen($username) > 25){
+        $usernameErr .= '<p>Lo <span lang="en">username</span> deve essere composto da almeno 2 caratteri e non più di 25</p>';
+        $formValido = false;
+    }
+
     //validazione email
     $email = trim($_POST['email'] ?? '');
     if ($email === '') {
@@ -83,8 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($password === '') {
         $passwordErr .= '<p><span lang="en">Password</span> non inserita</p>';
         $formValido = false;
-    } else if (strlen($password) < 6) {
-        $passwordErr .= '<p>La <span lang="en">password</span> deve contenere almeno 6 caratteri</p>';
+    } else if (strlen($password) < 4) {
+        $passwordErr .= '<p>La <span lang="en">password</span> deve contenere almeno 4 caratteri</p>';
         $formValido = false;
     }
 
@@ -100,8 +114,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Controlla se l'email esiste già
     if ($formValido) {
-        $existingUser = $connessione->getUser($email);
-        if ($existingUser) {
+        $existingUser = $connessione->getUser($username);
+        if ($existingUser['content']['email'] === $email) {
             $emailErr .= '<p><span lang="en">Email</span> già registrata.</p>';
             $formValido = false;
         }
@@ -110,11 +124,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($formValido) {
         $ruolo = 'utente';
         // Inserisce il nuovo utente
-        $insertResult = $connessione->insertUser($nome, $cognome, $email, $password, $ruolo);
+        $insertResult = $connessione->insertUser($nome, $cognome, $username, $email, $password, $ruolo);
 
         if ($insertResult['success']) {
             // Ottiene l'utente appena registrato
-            $userResult = $connessione->getUser($email);
+            $userResult = $connessione->getUser($username);
             if ($userResult['success']) {
                 // Setta le variabili di sessione
                 if(!$userResult['content']){
@@ -146,6 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Sostituisce i placeholder con gli errori
         $PageRegister = str_replace('[nome_err]', $nomeErr, $PageRegister);
         $PageRegister = str_replace('[cognome_err]', $cognomeErr, $PageRegister);
+        $PageRegister = str_replace('[username_err]', $usernameErr, $PageRegister);
         $PageRegister = str_replace('[email_err]', $emailErr, $PageRegister);
         $PageRegister = str_replace('[password_err]', $passwordErr, $PageRegister);
         $PageRegister = str_replace('[confirm_password_err]', $confirm_passwordErr, $PageRegister);
@@ -153,6 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Mantiene i valori inseriti dall'utente
         $PageRegister = str_replace('[nome_val]', $nome, $PageRegister);
         $PageRegister = str_replace('[cognome_val]', $cognome, $PageRegister);
+        $PageRegister = str_replace('[username_val]', $username, $PageRegister);
         $PageRegister = str_replace('[email_val]', $email, $PageRegister);
 
         echo $PageRegister;
@@ -161,12 +177,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
         $PageRegister = str_replace('[nome_err]', '', $PageRegister);
         $PageRegister = str_replace('[cognome_err]', '', $PageRegister);
+        $PageRegister = str_replace('[username_err]', '', $PageRegister);
         $PageRegister = str_replace('[email_err]', '', $PageRegister);
         $PageRegister = str_replace('[password_err]', '', $PageRegister);
         $PageRegister = str_replace('[confirm_password_err]', '', $PageRegister);
 
         $PageRegister = str_replace('[nome_val]', '', $PageRegister);
         $PageRegister = str_replace('[cognome_val]', '', $PageRegister);
+        $PageRegister = str_replace('[username_val]', '', $PageRegister);
         $PageRegister = str_replace('[email_val]', '', $PageRegister);
         echo $PageRegister;
         exit();

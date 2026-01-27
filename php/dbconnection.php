@@ -334,12 +334,12 @@ class DBAccess {
 		}
 	}
 
-	// To retrieve a user from its email
-	public function getUser($email) {
+	// To retrieve a user from its username
+	public function getUser($username) {
 		try {
-			$query = "SELECT * FROM utenti WHERE email = ?";
+			$query = "SELECT * FROM utenti WHERE username = ?";
 			$stmt = $this->connection->prepare($query);
-			$stmt->bind_param("s", $email);
+			$stmt->bind_param("s", $username);
 			$stmt->execute();
 
 			$result = $stmt->get_result();
@@ -424,14 +424,14 @@ class DBAccess {
 	}
 
 	// To insert a user with role "user"
-    public function insertUser($nome, $cognome, $email, $password, $ruolo) {
+    public function insertUser($nome, $cognome, $username, $email, $password, $ruolo) {
 		try {
 			// Hash the password before storing
 			$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-			$query = "INSERT INTO utenti (nome, cognome, email, password, ruolo) 
-					VALUES (?, ?, ?, ?, ?)";
+			$query = "INSERT INTO utenti (nome, cognome, username, email, password, ruolo) 
+					VALUES (?, ?, ?, ?, ?, ?)";
 			$stmt = $this->connection->prepare($query);
-			$stmt->bind_param('sssss', $nome, $cognome, $email, $hashedPassword, $ruolo);
+			$stmt->bind_param('ssssss', $nome, $cognome, $username, $email, $hashedPassword, $ruolo);
 			$stmt->execute();
 
 			$affectedRows = $stmt->affected_rows;

@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS utenti (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(50) NOT NULL,
     cognome VARCHAR(50) NOT NULL,
+    username VARCHAR(50) UNIQUE,
     email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     ruolo VARCHAR(20) DEFAULT 'utente',
@@ -45,20 +46,22 @@ CREATE TABLE IF NOT EXISTS wishlist (
     PRIMARY KEY (id_utente,id_proprieta)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Inserisci un utente di test (password: password123)
-INSERT INTO utenti (nome, cognome, email, password, ruolo) VALUES
+-- Inserisci un utente di test (password: admin)
+INSERT INTO utenti (nome, cognome, username, email, password, ruolo) VALUES
     (
         'Admin',
         'Test',
+        'admin',
         'admin@urbanoo.com',
-        '$2y$10$6lnIBHp6loYxZap2bQ6bnOJ57zOvcsvZd.BJer8ZSv1y1V3sTaR3.', -- hashed password for 'password123'
+        '$2y$10$HkJ4MtME/AHmtayp1Ij2QucMxdbBJvSYc8WG69TQEfH27tbpJnLJm', -- hashed password for 'admin'
         'admin'
     ),
     (
         'Utente',
         'Test',
+        'user',
         'utente@urbanoo.com',
-        '$2y$10$6lnIBHp6loYxZap2bQ6bnOJ57zOvcsvZd.BJer8ZSv1y1V3sTaR3.', -- hashed password for 'password123'
+        '$2y$10$SKBx5/v4XZAKM7v7lN893ue1i8mVkOE9w60rWkVnG3Xa0TKd67Wb6', -- hashed password for 'user'
         'utente'
     );
 

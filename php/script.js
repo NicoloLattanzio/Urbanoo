@@ -17,8 +17,8 @@ const fieldValidators = {
         message: "<p>Inserisci un numero di cellulare valido.</p>"
     },
     password: {
-        regex: /^.{6,}$/,  // at least 6 characters
-        message: "<p>La password deve contenere almeno 6 caratteri.</p>"
+        regex: /^.{4,}$/,  // at least 5 characters
+        message: "<p>La password deve contenere almeno 4 caratteri.</p>"
     },
     description: {
         regex: /^[\s\S]{10,250}$/,  // 10-250 characters
@@ -43,6 +43,10 @@ const fieldValidators = {
     city: {
         regex: /^[\s\S]{2,20}$/,  // 2-20 characters, letters and spaces
         message: "<p>La città deve essere composta da almeno 2 caratteri e non più di 20</p>"
+    },
+    username: {
+        regex: /^.{2,25}$/,  // 2-25 chars
+        message: "Lo <span lang=\"en\">username</span> deve essere composto da almeno 2 caratteri e non più di 25"
     }
 };
 
