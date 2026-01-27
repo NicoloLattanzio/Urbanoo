@@ -2,13 +2,15 @@
 session_start();
 require_once 'dbconnection.php';
 use DB\DBAccess;
+
 $formValido = true;
+$msg = null;
 $username = '';
 $usernameErr = '';
 $password = '';
 $passwordErr = '';
 
-$PageLogin = file_get_contents('../html/login.html');
+$paginaHTML = file_get_contents('../html/login.html');
 $connessione = new DBAccess();
 $connessioneOK = $connessione->openDBConnection();
 if(!$connessioneOK){
@@ -20,7 +22,7 @@ if(!$connessioneOK){
     1. user already logged in as user       -> redirect to areariservata.php
     2. user already logged in as admin      -> redirect to areariservata.php
     3. user not logged in and form sent     -> login and validation     
-    4. user not logged in and form not sent -> show login form (login.php)
+    4. user not logged in and form not sent -> show login form and eventual errors by registration redirect
 */
 if (isset($_SESSION['user_id'], $_SESSION['role'])) {   //1,2
     header("Location: areariservata.php");
@@ -29,9 +31,26 @@ if (isset($_SESSION['user_id'], $_SESSION['role'])) {   //1,2
 else{
     if($_SERVER['REQUEST_METHOD'] !== 'POST'){
         //4
-        $PageLogin = str_replace('[username_err]', $usernameErr, $PageLogin);
-        $PageLogin = str_replace('[password_err]', $passwordErr, $PageLogin);
-        echo $PageLogin;
+        if (!empty($_SESSION['insert_user_msg']['text'])) {
+            $msg = $_SESSION['insert_user_msg'];
+            unset($_SESSION['insert_user_msg']);
+            $placeholders = [
+                '[action-id]' => 'registration-id',
+                '[action-class]' => 'error-msg display-msg',
+                '[action-status-msg]' => $msg['text']
+            ];
+            $paginaHTML = str_replace(array_keys($placeholders), array_values($placeholders), $paginaHTML);
+        } else {
+            $placeholders = [
+                '[action-id]' => 'hidden-id',
+                '[action-class]' => 'none',
+                '[action-status-msg]' => '' // Empty message for hidden div
+            ];
+            $paginaHTML = str_replace(array_keys($placeholders), array_values($placeholders), $paginaHTML);
+        }
+        $paginaHTML = str_replace('[username_err]', $usernameErr, $paginaHTML);
+        $paginaHTML = str_replace('[password_err]', $passwordErr, $paginaHTML);
+        echo $paginaHTML;
         exit();
     }
 
@@ -51,7 +70,7 @@ else{
                                                             redirect to areariservata.php   2)
         -> [false, DB_ERROR]: query failed              ->  500.php                         3)
     */
-    $result = $connessione->getUser($username);
+    $result = $connessione->getUser(['username' => $username]);
     if(!$result['success']){
         //3)
         header('location: 500.php');
@@ -67,6 +86,7 @@ else{
         //1)
         $_SESSION['name'] = $user['nome'];
         $_SESSION['user_id'] = $user['id'];
+        $_SESSION['username'] = $user['username'];
         $_SESSION['email'] = $user['email'];
         $_SESSION['role'] = $user['ruolo'];
     }
@@ -83,9 +103,9 @@ else{
     }
     else{
         //login failed, show login form with errors
-        $PageLogin = str_replace('[username_err]', $usernameErr, $PageLogin);
-        $PageLogin = str_replace('[password_err]', $passwordErr, $PageLogin);
-        echo $PageLogin;
+        $paginaHTML = str_replace('[username_err]', $usernameErr, $paginaHTML);
+        $paginaHTML = str_replace('[password_err]', $passwordErr, $paginaHTML);
+        echo $paginaHTML;
         exit();
     }
 }

@@ -326,12 +326,18 @@ class DBAccess {
 		}
 	}
 
-	// To retrieve a user from its username
-	public function getUser($username) {
+	// To retrieve a user from its username or email
+	public function getUser($field) {
 		try {
-			$query = "SELECT * FROM utenti WHERE username = ?";
+			if(!empty($field['username'])) {
+				$query = "SELECT * FROM utenti WHERE username = ?";
+				$value = $field['username'];
+			} else if(!empty($field['email'])) {
+				$query = "SELECT * FROM utenti WHERE email = ?";
+				$value = $field['email'];
+			}
 			$stmt = $this->connection->prepare($query);
-			$stmt->bind_param("s", $username);
+			$stmt->bind_param("s", $value);
 			$stmt->execute();
 
 			$result = $stmt->get_result();

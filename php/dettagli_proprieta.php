@@ -17,6 +17,7 @@ $_SESSION['show_prop_msg'] = [
     'text' => ''
 ];
 
+
 if(!$connessioneOK){
     //DB connection error
     header("location: 500.php");

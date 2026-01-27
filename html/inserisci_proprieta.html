@@ -44,7 +44,7 @@
                     <input type="text" id="name" name="name" required placeholder="Nome della proprietà" value="[name_val]" minlength="4" maxlength="40"
                         aria-describedby="err-name-required err-name-invalid"
                         data-msg-required="Inserisci il nome della proprietà"
-                        data-msg-invalid="Formato non corretto: ">
+                        data-msg-invalid="Formato nome non corretto: ">
                     <div id="err-name-server" class="error-msg none display-error" aria-live="polite">[name_err]</div>
                     <p id="err-name-required" class="error-msg none" aria-live="polite"></p>
                     <p id="err-name-invalid" class="error-msg none" aria-live="polite"></p>
@@ -56,7 +56,7 @@
                     <textarea id="description" name="description" required placeholder="Descrizione della proprietà" minlength="10" maxlength="250"
                             aria-describedby="err-desc-required err-desc-invalid"
                             data-msg-required="Inserisci una descrizione"
-                            data-msg-invalid="Formato non corretto: ">[description_val]</textarea>
+                            data-msg-invalid="Formato descrizione non corretto: ">[description_val]</textarea>
                     <div id="err-desc-server" class="error-msg none display-error" aria-live="polite">[description_err]</div>
                     <p id="err-desc-required" class="error-msg none" aria-live="polite"></p>
                     <p id="err-desc-invalid" class="error-msg none" aria-live="polite"></p>
@@ -64,11 +64,11 @@
 
                 <div class="input-filters">
                     <!-- Price -->
-                    <label for="price">Prezzo:</label>
-                    <input type="number" id="price" name="price" required placeholder="Es. 150000" value="[price_val]"
+                    <label for="price">Prezzo (&euro;):</label>
+                    <input type="number" id="price" name="price" required placeholder="Es. 150000" value="[price_val]" min="0"
                         aria-describedby="err-price-required err-price-invalid"
                         data-msg-required="Inserisci il prezzo"
-                        data-msg-invalid="Valore non valido" min="0">
+                        data-msg-invalid="Formato prezzo non corretto: ">
                     <div id="err-price-server" class="error-msg none display-error" aria-live="polite">[price_err]</div>
                     <p id="err-price-required" class="error-msg none" aria-live="polite"></p>
                     <p id="err-price-invalid" class="error-msg none" aria-live="polite"></p>
@@ -80,7 +80,7 @@
                     <select id="type" name="type" 
                             aria-describedby="err-type-required err-type-invalid"
                             data-msg-required="Seleziona una tipologia tra quelle disponibili"
-                            data-msg-invalid="Valore non valido">
+                            data-msg-invalid="Formato tipologia non corretto: ">
                         <option value="">Seleziona...</option>
                         <option value="Monolocale" [select_monolocale]>Monolocale</option>
                         <option value="Bilocale" [select_bilocale]>Bilocale</option>
@@ -97,10 +97,10 @@
                 <div class="input-filters">
                     <!-- Size -->
                     <label for="size">Superficie (mq):</label>
-                    <input type="number" id="size" name="size" required placeholder="Es. 75" value="[size_val]"
+                    <input type="number" id="size" name="size" required placeholder="Es. 75" value="[size_val]" min="0"
                         aria-describedby="err-size-required err-size-invalid"
                         data-msg-required="Inserisci la superficie"
-                        data-msg-invalid="La superficie deve essere un numero maggiore di 0" min="0">
+                        data-msg-invalid="Formato superficie non corretto: ">
                     <div id="err-size-server" class="error-msg none display-error" aria-live="polite">[size_err]</div>
                     <p id="err-size-required" class="error-msg none" aria-live="polite"></p>
                     <p id="err-size-invalid" class="error-msg none" aria-live="polite"></p>
@@ -108,11 +108,11 @@
 
                 <div class="input-filters">
                     <!-- Locali -->
-                    <label for="rooms">Numero di locali:</label>
-                    <input type="number" id="rooms" name="rooms" required placeholder="Es. 3" value="[rooms_val]"
+                    <label for="rooms"><abbr title="Numero">Nr</abbr> di locali:</label>
+                    <input type="number" id="rooms" name="rooms" required placeholder="Es. 3" value="[rooms_val]" min="0"
                         aria-describedby="err-rooms-required err-rooms-invalid"
                         data-msg-required="Inserisci il numero di locali"
-                        data-msg-invalid="Il numero di locali deve essere un numero maggiore di 0" min="0">
+                        data-msg-invalid="Formato numero di locali non corretto: ">
                     <div id="err-rooms-server" class="error-msg none display-error" aria-live="polite">[rooms_err]</div>
                     <p id="err-rooms-required" class="error-msg none" aria-live="polite"></p>
                     <p id="err-rooms-invalid" class="error-msg none" aria-live="polite"></p>
@@ -124,7 +124,7 @@
                     <select id="availability" name="availability" value="[availability_val]"
                             aria-describedby="err-availability-required err-availability-invalid"
                             data-msg-required="Seleziona la disponibilità" 
-                            data-msg-invalid="Selezionare uno stato di disponibilità valido">
+                            data-msg-invalid="Formato disponibilità non corretto: ">
                         <option value="">Seleziona...</option>
                         <option value="1" [select_available]>Disponibile</option>
                         <option value="0" [select_unavailable]>Non disponibile</option>
@@ -140,7 +140,7 @@
                     <input type="text" id="address" name="address" required placeholder="Es. Via G. Verdi, 8B" value="[address_val]" minlength="5" maxlength="30"
                         aria-describedby="err-address-required err-address-invalid"
                         data-msg-required="Inserisci l'indirizzo"
-                        data-msg-invalid="Formato non corretto: ">
+                        data-msg-invalid="Formato indirizzo non corretto: ">
                     <div id="err-address-server" class="error-msg none display-error" aria-live="polite">[address_err]</div>
                     <p id="err-address-required" class="error-msg none" aria-live="polite"></p>
                     <p id="err-address-invalid" class="error-msg none" aria-live="polite"></p>
@@ -152,7 +152,7 @@
                     <input type="text" id="city" name="city" required placeholder="Es. Padova" value="[city_val]" minlength="2" maxlength="20"
                         aria-describedby="err-city-required err-city-invalid"
                         data-msg-required="Inserisci la città"
-                        data-msg-invalid="Formato non corretto: ">
+                        data-msg-invalid="Formato città non corretto: ">
                     <div id="err-city-server" class="error-msg none display-error" aria-live="polite">[city_err]</div>
                     <p id="err-city-required" class="error-msg none" aria-live="polite"></p>
                     <p id="err-city-invalid" class="error-msg none" aria-live="polite"></p>
@@ -168,7 +168,7 @@
                 </div>
 
                 <!-- Submit -->
-                <input class="btn-form" type="submit" value="Aggiungi Proprietà" title="Clicca qui per aggiungere la proprietà">
+                <input class="btn-form" type="submit" value="Inserisci Proprietà" title="Clicca qui per inserire la proprietà">
             </form>
         </div>
         <div>
