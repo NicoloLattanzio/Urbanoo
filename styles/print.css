@@ -191,3 +191,52 @@ footer {
     text-align: center;
     margin-top: 0.2cm;
 }
+
+.contacts{
+    text-align: center;
+    margin-top: 0.2cm;
+}
+
+.contacts h1{
+    margin-bottom: 0.2cm;
+}
+
+.form{
+    margin: auto;
+    width: 50%;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin-top: 0.5cm;
+    padding: 0.2cm;
+}
+
+.form h2{
+    text-align: center;
+    margin-bottom: 0.2cm;
+    border-bottom: #9F741E 2px solid;
+}
+
+.form p{
+    margin-bottom: 0.1cm;
+}
+
+.form label{
+    font-weight: bold;
+}
+
+.form input, .form textarea, .form select {
+    width: 95%;
+    margin-bottom: 0.3cm;
+    padding: 0.2cm;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.form button{
+    display: block;
+    margin: auto;
+    padding: 0.1cm;
+    border: 1px solid #9F741E;
+    border-radius: 8px;
+    font-size: 1em;
+}
