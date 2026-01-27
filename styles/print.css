@@ -41,6 +41,11 @@ header h1{
     text-align: center;
 }
 
+.intro h2{
+    margin-top: 1em;
+    text-align: center;
+}
+
 .goback,
 .carousel_next,
 .carousel_prev,
@@ -53,10 +58,10 @@ header h1{
     border-radius: 8px;
 }
 
-a:link:after, a:visited:after {
+/*a:link:after, a:visited:after {
     content: " [" attr(href) "] ";
     font-size:90%;
-}
+}*/
 
 .carousel_slide a:after{
     display: none;
@@ -64,11 +69,6 @@ a:link:after, a:visited:after {
 
 #services {
     margin-top: 4.5cm;
-}
-
-#services h2 {
-    text-align: center;
-    margin-bottom: 0.5cm;
 }
 
 #services .item-services {
@@ -136,10 +136,28 @@ footer {
 
 #filters {
     display: none;
-}   
+} 
 
 .admin-controls, .btn-view, .btn-mod, .btn-del {
     display: none;
+}
+
+#typologies h2 {
+    text-align: center;
+}
+
+#typologies dt {
+    font-weight: bold;
+    margin-top: 0.3cm;
+}
+
+#typologies dd {
+    border-bottom: #9F741E 1px solid;
+}
+
+#property-list h2 {
+    text-align: center;
+    margin-bottom: 0.2cm;
 }
 
 .property-grid {
@@ -149,6 +167,27 @@ footer {
 }
 
 .property-grid img{
-    width: 7cm;
+    width: 100%;
     height: 4cm;
+    border-radius: 10px;
+    object-fit: cover;
+    text-align: center;
+}
+
+.property-card {
+    page-break-inside: avoid;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 0.2cm;
+}
+
+.property-card h3{
+    text-align: center;
+    margin-bottom: 0.2cm;
+    border-bottom: #9F741E 2px solid;
+}
+
+.property-card .property-details{
+    text-align: center;
+    margin-top: 0.2cm;
 }
