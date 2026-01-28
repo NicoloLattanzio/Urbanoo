@@ -133,12 +133,13 @@ if ($proprieta) {
         );
     }
     // if user is logged in as 'user', show "add to wishlist" button
-    if(isset($_SESSION['role']) && $_SESSION['role'] === 'user')
+    if(isset($_SESSION['role']) && $_SESSION['role'] === 'utente'){
         $dettagli_proprieta .= "<a href='wishlist.php?add=".e($idProprieta)."' class='add-wishlist-btn'>Aggiungi alla <span lang='en'>wishlist</span></a>
                                 </div>";
     // if not logged in or logged in as 'admin', do not show the button
-    else
+    }else{
         $dettagli_proprieta .= "</div>";
+    }
 } else {
     //2)
     $_SESSION['show_prop_msg'] = [
