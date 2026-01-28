@@ -10,6 +10,7 @@ $paginaHTML = file_get_contents('../html/areariservata.html');
     none -> redirect to 403.html
 
     if user/admin try to register but already logged in -> show info message
+    if admin try to access wishlist -> redirect to areariservata.php with info message
 */
 
 if(!isset($_SESSION['role'])){
@@ -22,7 +23,7 @@ if (!empty($_SESSION['permission']['text'])) {
     $msg = $_SESSION['permission'];
     unset($_SESSION['permission']);
     $placeholders = [
-        '[action-id]' => 'registration-id',
+        '[action-id]' => 'info-id',
         '[action-class]' => 'info-msg display-msg',
         '[action-status-msg]' => $msg['text']
     ];

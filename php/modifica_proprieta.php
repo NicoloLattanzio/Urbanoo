@@ -182,9 +182,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST'){
     } else if (!is_numeric($prezzo) || intval($prezzo) <= 0) {
         $prezzoErr .= '<p>Il prezzo deve essere un numero maggiore di 0</p>';
         $formValido = false;
+    } else {
+        $prezzo = cleanInput($prezzo, $tagPermessi);
+        $prezzo = (float)$prezzo;
     }
-    $prezzo = cleanInput($prezzo, $tagPermessi);
-    $prezzo = (float)$prezzo;
+    
 
     // === AVAILABILITY ===
     $disponibilita = trim($_POST['availability'] ?? '');
@@ -194,9 +196,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST'){
     } else if ($disponibilita !== '1' && $disponibilita !== '0') {
         $disponibilitaErr .= '<p>Selezionare uno stato di disponibilità valido</p>';
         $formValido = false;
-    }
-    $disponibilita = cleanInput($disponibilita, $tagPermessi);
-    $disponibilita = intval($disponibilita);
+    } else {
+        $disponibilita = cleanInput($disponibilita, $tagPermessi);
+        $disponibilita = intval($disponibilita);
+    } 
 
     /*
         Form validation:
@@ -207,8 +210,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST'){
     if(!$formValido){
         //2)
         //if availability give errors then all variables are empty
-        $selSi = ($disponibilita == 1) ? "selected" : "";
-        $selNo = ($disponibilita == 0) ? "selected" : "";
+        $selSi = ($disponibilita === 1) ? "selected" : "";
+        $selNo = ($disponibilita === 0) ? "selected" : "";
 
         $paginaHTML = str_replace('[name_err]', $nomeErr, $paginaHTML);
         $paginaHTML = str_replace('[description_err]', $descrizioneErr, $paginaHTML);

@@ -41,6 +41,7 @@ else{
             ];
             $paginaHTML = str_replace(array_keys($placeholders), array_values($placeholders), $paginaHTML);
         } else {
+            unset($_SESSION['insert_user_msg']);
             $placeholders = [
                 '[action-id]' => 'hidden-id',
                 '[action-class]' => 'none',
