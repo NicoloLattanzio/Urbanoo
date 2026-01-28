@@ -125,7 +125,7 @@ if (!$msg) {
         '[action-class]' => $msg['type'] === 'error'
             ? 'error-msg display-msg'
             : 'success-msg display-msg',
-        '[action-status-msg]' => htmlspecialchars($msg['text'])
+        '[action-status-msg]' => $msg['text']
     ];
     $paginaHTML = str_replace(array_keys($placeholders), array_values($placeholders), $paginaHTML);
 }

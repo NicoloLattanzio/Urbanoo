@@ -458,10 +458,21 @@ class DBAccess {
 	// To return the list of properties the user saved in its wishlist
 	public function getWishlist($idUtente) {
 		try {
-			$query = "SELECT * 
-					FROM proprieta p
-					JOIN wishlist w ON p.id = w.id_proprieta
-					WHERE w.id_utente = ?";
+			$query = "SELECT
+							p.id AS id,
+							p.nome AS nome,
+							p.descrizione AS descrizione,
+							p.citta AS citta,
+							p.tipologia AS tipologia,
+							p.prezzo AS prezzo,
+							p.metri_quadri AS metri_quadri,
+							p.indirizzo AS indirizzo,
+							p.locali AS locali,
+							p.disponibilita AS disponibilita,
+							p.immagine AS immagine
+						FROM proprieta p
+						JOIN wishlist w ON p.id = w.id_proprieta
+						WHERE w.id_utente = ?";
 			$stmt = $this->connection->prepare($query);
 			$stmt->bind_param("i", $idUtente);
 			$stmt->execute();
@@ -500,7 +511,7 @@ class DBAccess {
 				];
 			} else {
 				return [
-					'success' => true,
+					'success' => false,
 					'content' => 'NOT_FOUND' // item not found
 				];
 			}
