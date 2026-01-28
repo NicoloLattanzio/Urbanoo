@@ -112,7 +112,7 @@ if ($nome === '') {
     $formValido = false;
 }
 $nome = cleanInput($nome, $tagPermessi );
-if(strlen($nome) < 2 || strlen($nome) > 25){
+if($nome !== '' && (strlen($nome) < 2 || strlen($nome) > 25)){
     $nomeErr .= '<p>Il nome deve essere composto da almeno 2 caratteri e non più di 25</p>';
     $formValido = false;
 }
@@ -137,9 +137,10 @@ if ($prezzo === ''){
 } else if (!preg_match('/^\d+(\.\d{1,2})?$/', $prezzo)) {
     $prezzoErr .= '<p>Il prezzo deve essere un numero valido (decimali con massimo 2 cifre) maggiore di 0</p>';
     $formValido = false;
+} else {
+    $prezzo = cleanInput($prezzo, $tagPermessi);
+    $prezzo = (float)$prezzo;
 }
-$prezzo = cleanInput($prezzo, $tagPermessi);
-$prezzo = (float)$prezzo;
 
 // === TYPE ===
 $tipologia = trim($_POST['type'] ?? '');
@@ -161,9 +162,11 @@ if ($superficie === '') {
 } else if (!ctype_digit($superficie) || intval($superficie) <= 0) {
     $superficieErr .= '<p>La superficie deve essere un numero intero maggiore di 0</p>';
     $formValido = false;
+} else {
+    $superficie = cleanInput($superficie, $tagPermessi);
+    $superficie = intval($superficie);
 }
-$superficie = cleanInput($superficie, $tagPermessi);
-$superficie = intval($superficie);
+
 
 // === ROOMS ===
 $locali = trim($_POST['rooms'] ?? '');
@@ -173,9 +176,11 @@ if ($locali === '') {
 } else if (!ctype_digit($locali) || intval($locali) <= 0) {
     $localiErr .= '<p>Il numero di locali deve essere un numero intero maggiore di 0</p>';
     $formValido = false;
+} else {
+    $locali = cleanInput($locali, $tagPermessi);
+    $locali = intval($locali);
 }
-$locali = cleanInput($locali, $tagPermessi);
-$locali = intval($locali);
+
 
 // === AVAILABILITY ===
 $disponibilita = trim($_POST['availability'] ?? '');
@@ -185,9 +190,11 @@ if ($disponibilita === '') {
 } else if ($disponibilita !== '1' && $disponibilita !== '0') {
     $disponibilitaErr .= '<p>Selezionare uno stato di disponibilità valido</p>';
     $formValido = false;
+} else {
+    $disponibilita = cleanInput($disponibilita, $tagPermessi);
+    $disponibilita = intval($disponibilita);
 }
-$disponibilita = cleanInput($disponibilita, $tagPermessi);
-$disponibilita = intval($disponibilita);
+
 
 // === ADDRESS ===
 $indirizzo = trim($_POST['address'] ?? '');
@@ -218,13 +225,6 @@ if($citta !== '' && (strlen($citta) < 2 || strlen($citta) > 20)){
     $cittaErr .= '<p>La città deve essere composta da almeno 2 caratteri e non più di 20</p>';
     $formValido = false;
 }
-//Validazione Immagine
-/*$immagine = $_POST['img'];
-if (strlen($immagine) > 0 && !preg_match("/\.(jpg|jpeg|png)$/i", $immagine)) {
-    $immagineErr .= '<p>Caricare un\'immagine valida (jpg, jpeg, png)</p>';
-    $formValido = false;
-}
-$immagine = cleanInput($_POST['img'], $tagPermessi);*/
 
 // === IMAGE ===
 $uploadDir = __DIR__ . '/../img/';
@@ -270,8 +270,12 @@ if (isset($_FILES['img'])) {
             $formValido = false;
         }
     }
+    if (count($immagini) === 0) {
+        $immaginiErr .= '<p>Caricare almeno un\'immagine della proprietà</p>';
+        $formValido = false;
+    }
 } else {
-    $immaginiErr .= '<p>Immagine non caricata</p>';
+    $immaginiErr .= '<p>Caricare almeno un\'immagine della proprietà</p>';
     $formValido = false;
 }
 
@@ -340,89 +344,84 @@ if(!$connessioneOK){
     exit();
 }
 
-//1A)
 /*
     DB output management:
-    -> [true, $row]: query returned a result        -> property already existent error  1)
-    -> [true, null]: query returned an empty result -> property not existent, insert    2)
-    -> [false, DB_ERROR]: query failed              -> 500.php                          3)
+    -> [true, null]: affected property rows > 0                                         -> insert successful            1)
+    -> [false, ALREADY_EXISTS]: property with the same name or address already exists   -> insert not done              2)
+    -> [false, INSERT_PROP_FAILED]: affected property rows = 0                          -> insert fail                  3)
+    -> [false, INSERT_IMG_FAILED]: affected images rows = 0                             -> insert of an image failed    4)
+    -> [false, DB_ERROR]: query failed                                                  -> 500.php                      5)
 */
-$result = $connessione -> getProperty($nome, $indirizzo);
-if(!$result["success"]) {
-    //3)
-    header("location: 500.php");
-    exit();
-}
-$proprieta = $result["content"];
-if($proprieta) {
-    //1)
-    $propertyErr = "<p>Esiste già una proprietà con lo stesso nome o lo stesso indirizzo.</p>";
-    $paginaHTML = str_replace('[property_err]', $propertyErr, $paginaHTML);
-    $paginaHTML = str_replace('[name_err]', $nomeErr, $paginaHTML);
-    $paginaHTML = str_replace('[description_err]', $descrizioneErr, $paginaHTML);
-    $paginaHTML = str_replace('[price_err]', $prezzoErr, $paginaHTML);
-    $paginaHTML = str_replace('[type_err]', $tipologiaErr, $paginaHTML);
-    $paginaHTML = str_replace('[size_err]', $superficieErr, $paginaHTML);
-    $paginaHTML = str_replace('[rooms_err]', $localiErr, $paginaHTML);
-    $paginaHTML = str_replace('[availability_err]', $disponibilitaErr, $paginaHTML);
-    $paginaHTML = str_replace('[img_err]', $immaginiErr, $paginaHTML);
-    $paginaHTML = str_replace('[address_err]', $indirizzoErr, $paginaHTML);
-    $paginaHTML = str_replace('[city_err]', $cittaErr, $paginaHTML);
-
-    //replace previous values (no name, no address, no images)
-    $paginaHTML = str_replace('[description_val]', e($descrizione), $paginaHTML);
-    $paginaHTML = str_replace('[price_val]', e($prezzo), $paginaHTML);
-    $selMono = ($proprieta['tipologia'] === "Monolocale") ? "selected" : "";
-    $selBi = ($proprieta['tipologia'] === "Bilocale") ? "selected" : "";
-    $selTri = ($proprieta['tipologia'] === "Trilocale") ? "selected" : "";
-    $selVilla = ($proprieta['tipologia'] === "Villa") ? "selected" : "";
-    $selAttico = ($proprieta['tipologia'] === "Attico") ? "selected" : "";
-    $selRustico = ($proprieta['tipologia'] === "Rustico") ? "selected" : "";
-    $paginaHTML = str_replace('[select_monolocale]', $selMono, $paginaHTML);
-    $paginaHTML = str_replace('[select_bilocale]', $selBi, $paginaHTML);
-    $paginaHTML = str_replace('[select_trilocale]', $selTri, $paginaHTML);
-    $paginaHTML = str_replace('[select_villa]', $selVilla, $paginaHTML);
-    $paginaHTML = str_replace('[select_attico]', $selAttico, $paginaHTML);
-    $paginaHTML = str_replace('[select_rustico]', $selRustico, $paginaHTML);
-    $paginaHTML = str_replace('[size_val]', e($superficie), $paginaHTML);
-    $paginaHTML = str_replace('[rooms_val]', e($locali), $paginaHTML);
-    $selSi = ($proprieta['disponibilita'] == 1) ? "selected" : "";
-    $selNo = ($proprieta['disponibilita'] == 0) ? "selected" : "";
-    $paginaHTML = str_replace('[select_available]', $selSi, $paginaHTML);
-    $paginaHTML = str_replace('[select_unavailable]', $selNo, $paginaHTML);
-    $paginaHTML = str_replace('[city_val]', e($citta), $paginaHTML);
-    echo $paginaHTML;
-    exit();
+$insertResult = $connessione -> insertProperty($nome, $descrizione, $prezzo, $tipologia, $superficie, $locali, $disponibilita, $immagini, $indirizzo, $citta);
+$connessione -> closeDBConnection();             
+if($insertResult["success"]){
+    //1), 1B)
+    $_SESSION['insert_prop_msg'] = [
+            'type' => 'success',
+            'text' => 'La proprietà è stata aggiunta con successo.'
+        ];
 } else {
-    //1B), 2)
-    /*
-        DB output management:
-        -> [true, null]: query did not affect rows          -> insert success   1)
-        -> [false, INSERT_FAILED]: query affected > 0 rows  -> insert fail      2)
-        -> [false, DB_ERROR]: query failed                  -> 500.php          3)
-    */
-    $insertResult = $connessione -> insertProperty($nome, $descrizione, $prezzo, $tipologia, $superficie, $locali, $disponibilita, $immagini, $indirizzo, $citta);
-    $connessione -> closeDBConnection();             
-    if($insertResult["success"]){
-        //1)
+    if($insertResult["content"] === "ALREADY_EXISTS"){
+        //2), 1A)
+        $selMono = ($tipologia === "Monolocale") ? "selected" : "";
+        $selBi = ($tipologia === "Bilocale") ? "selected" : "";
+        $selTri = ($tipologia === "Trilocale") ? "selected" : "";
+        $selVilla = ($tipologia === "Villa") ? "selected" : "";
+        $selAttico = ($tipologia === "Attico") ? "selected" : "";
+        $selRustico = ($tipologia === "Rustico") ? "selected" : "";
+        $selSi = ($disponibilita == 1) ? "selected" : "";
+        $selNo = ($disponibilita == 0) ? "selected" : "";
+
+        $propertyErr = "<p>Esiste già una proprietà con lo stesso nome o lo stesso indirizzo.</p>";
+        $paginaHTML = str_replace('[property_err]', $propertyErr, $paginaHTML);
+        $paginaHTML = str_replace('[name_err]', $nomeErr, $paginaHTML);
+        $paginaHTML = str_replace('[description_err]', $descrizioneErr, $paginaHTML);
+        $paginaHTML = str_replace('[price_err]', $prezzoErr, $paginaHTML);
+        $paginaHTML = str_replace('[type_err]', $tipologiaErr, $paginaHTML);
+        $paginaHTML = str_replace('[size_err]', $superficieErr, $paginaHTML);
+        $paginaHTML = str_replace('[rooms_err]', $localiErr, $paginaHTML);
+        $paginaHTML = str_replace('[availability_err]', $disponibilitaErr, $paginaHTML);
+        $paginaHTML = str_replace('[img_err]', $immaginiErr, $paginaHTML);
+        $paginaHTML = str_replace('[address_err]', $indirizzoErr, $paginaHTML);
+        $paginaHTML = str_replace('[city_err]', $cittaErr, $paginaHTML);
+
+        //replace previous values (no name, no address, no images)
+        $paginaHTML = str_replace('[name_val]', '', $paginaHTML);
+        $paginaHTML = str_replace('[description_val]', e($descrizione), $paginaHTML);
+        $paginaHTML = str_replace('[price_val]', e($prezzo), $paginaHTML);
+        $paginaHTML = str_replace('[select_monolocale]', $selMono, $paginaHTML);
+        $paginaHTML = str_replace('[select_bilocale]', $selBi, $paginaHTML);
+        $paginaHTML = str_replace('[select_trilocale]', $selTri, $paginaHTML);
+        $paginaHTML = str_replace('[select_villa]', $selVilla, $paginaHTML);
+        $paginaHTML = str_replace('[select_attico]', $selAttico, $paginaHTML);
+        $paginaHTML = str_replace('[select_rustico]', $selRustico, $paginaHTML);
+        $paginaHTML = str_replace('[size_val]', e($superficie), $paginaHTML);
+        $paginaHTML = str_replace('[rooms_val]', e($locali), $paginaHTML);
+        $paginaHTML = str_replace('[select_available]', $selSi, $paginaHTML);
+        $paginaHTML = str_replace('[select_unavailable]', $selNo, $paginaHTML);
+        $paginaHTML = str_replace('[city_val]', e($citta), $paginaHTML);
+        $paginaHTML = str_replace('[address_val]', '', $paginaHTML);
+        echo $paginaHTML;
+        exit();
+    } else if ($insertResult["content"] === "INSERT_PROP_FAILED"){
+        //3)
         $_SESSION['insert_prop_msg'] = [
-                'type' => 'success',
-                'text' => 'La proprietà è stata aggiunta con successo.'
-            ];
-    } else {
-        if($insertResult["content"] == "INSERT_FAILED"){
-            //2)
-            $_SESSION['insert_prop_msg'] = [
-                'type' => 'error',
-                'text' => 'C\'è stato un problema con l\'aggiunta della proprietà.'
-            ];
-        } else {
-            //3)
-            header("location: 500.php");
-            exit();
-        }
+            'type' => 'error',
+            'text' => '<p>C\'è stato un problema con l\'aggiunta della proprietà.</p>'
+        ];
+    } else if ($insertResult["content"] === "INSERT_IMG_FAILED") {
+        //4)
+        $_SESSION['insert_prop_msg'] = [
+            'type' => 'error',
+            'text' => '<p>C\'è stato un problema con l\'aggiunta delle immagini.</p>'
+        ];
+    } else if ($insertResult["content"] === "DB_ERROR") {
+        //5)
+        header("location: 500.php");
+        exit();
     }
 }
+
 //redirect with success/error messages
 header("Location: proprieta.php");
 exit();

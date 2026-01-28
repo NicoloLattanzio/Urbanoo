@@ -44,9 +44,9 @@
                     <!-- Name -->
                     <label for="name">Nome Proprietà:</label>
                     <input type="text" id="name" name="name" value="[name_val]" required placeholder="Nome della proprietà" minlength="4" maxlength="40"
-                        aria-describedby="err-name-required err-name-invalid"
+                        aria-describedby="err-name-server err-name-required err-name-invalid"
                         data-msg-required="Inserisci il nome della proprietà"
-                        data-msg-invalid="Formato non corretto">
+                        data-msg-invalid="Formato non corretto: ">
                     <div id="err-name-server" class="error-msg none display-error" aria-live="polite">[name_err]</div>
                     <p id="err-name-required" class="error-msg none" aria-live="polite"></p>
                     <p id="err-name-invalid" class="error-msg none" aria-live="polite"></p>
@@ -56,21 +56,21 @@
                     <!-- Description -->
                     <label for="description">Descrizione:</label>
                     <textarea id="description" name="description" required placeholder="Descrizione della proprietà"
-                            aria-describedby="err-desc-required err-desc-invalid"
+                            aria-describedby="err-description-server err-description-required err-description-invalid"
                             data-msg-required="Inserisci una descrizione"
-                            data-msg-invalid="Formato non corretto">[description_val]</textarea>
-                    <div id="err-desc-server" class="error-msg none display-error" aria-live="polite">[description_err]</div>
-                    <p id="err-desc-required" class="error-msg none" aria-live="polite"></p>
-                    <p id="err-desc-invalid" class="error-msg none" aria-live="polite"></p>
+                            data-msg-invalid="Formato non corretto: ">[description_val]</textarea>
+                    <div id="err-description-server" class="error-msg none display-error" aria-live="polite">[description_err]</div>
+                    <p id="err-description-required" class="error-msg none" aria-live="polite"></p>
+                    <p id="err-description-invalid" class="error-msg none" aria-live="polite"></p>
                 </div>
 
                 <div class = "input-filters">
                     <!-- Price -->
                     <label for="price">Prezzo (&euro;):</label>
                     <input type="number" id="price" name="price" value="[price_val]" required placeholder="Es. 150000"
-                        aria-describedby="err-price-required err-price-invalid"
+                        aria-describedby="err-price-server err-price-required err-price-invalid"
                         data-msg-required="Inserisci il prezzo"
-                        data-msg-invalid="Valore non valido" min="0">
+                        data-msg-invalid="Formato non corretto: " min="0">
                     <div id="err-price-server" class="error-msg none display-error" aria-live="polite">[price_err]</div>
                     <p id="err-price-required" class="error-msg none" aria-live="polite"></p>
                     <p id="err-price-invalid" class="error-msg none" aria-live="polite"></p>
@@ -79,8 +79,10 @@
                 <div class = "input-filters">
                     <!-- Availability -->
                     <label for="availability">Stato di Disponibilità:</label>
-                    <select id="availability" name="availability" aria-describedby="err-availability-required err-availability-invalid"
-                            data-msg-required="Seleziona la disponibilità">
+                    <select id="availability" name="availability" 
+                        aria-describedby="err-availability-server err-availability-required err-availability-invalid"
+                        data-msg-required="Seleziona la disponibilità"
+                        data-msg-invalid="Formato non corretto: ">
                         <option value="">Seleziona...</option>
                         <option value="1" [select_available]>Disponibile</option>
                         <option value="0" [select_unavailable]>Venduto / Non disponibile</option>
@@ -89,7 +91,7 @@
                     <p id="err-availability-required" class="error-msg none" aria-live="polite"></p>
                     <p id="err-availability-invalid" class="error-msg none" aria-live="polite"></p>
                 </div>
-                <button type="submit" title="Clicca qui per effettuare le modifiche" >Salva Modifiche</button>
+                <button type="submit" title="Clicca qui per effettuare le modifiche">Salva Modifiche</button>
             </form>
         </div>
         <div>

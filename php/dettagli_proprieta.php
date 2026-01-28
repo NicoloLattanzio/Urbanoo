@@ -31,7 +31,7 @@ if(!$connessioneOK){
     -> invalid input: user asks for url/dettagli_proprieta.php?id="uegaoef" -> 404.php
 */
 $idProprieta = $_GET['id'] ?? null;
-if (!ctype_digit($idProprieta) || (int)$idProprieta <= 0) {
+if ($idProprieta && (!ctype_digit($idProprieta) || (int)$idProprieta <= 0)) {
     header('Location: 404.php');
     exit();
 }
@@ -71,11 +71,11 @@ if ($proprieta) {
     //A)
     $immaginiExtra = $risultatoImmagini['content'];
     if ($immaginiExtra) {
-        $gallery = "<div class=\"gallery\"><img id=\"main-image\" src=\"".$proprieta['immagine']."\" alt=\"\" class=\"main-img\">
+        $gallery = "<div class=\"gallery\"><img id=\"main-image\" src=\"".e($proprieta['immagine'])."\" alt=\"\" class=\"main-img\">
                     <div class=\"thumbnails\">";
-        $gallery .= "<img src=\"".$proprieta['immagine']."\" alt=\"\" class=\"thumb\">"; // main image
+        $gallery .= "<img src=\"".e($proprieta['immagine'])."\" alt=\"\" class=\"thumb\">"; // main image
         foreach ($immaginiExtra as $img):
-            $gallery .= "<img src=\"".$img."\" alt=\"\" class=\"thumb\">";
+            $gallery .= "<img src=\"".e($img)."\" alt=\"\" class=\"thumb\">";
         endforeach;
         $gallery .= "</div></div>";
         $dettagli_proprieta = str_replace(
@@ -140,11 +140,35 @@ if ($proprieta) {
     }else{
         $dettagli_proprieta .= "</div>";
     }
+
+    /*
+        Display insert_to_wishlist message if set and the property is shown
+    */
+    if (empty($_SESSION['insert_to_wishlist']['text'])) {
+        unset($_SESSION['insert_to_wishlist']);
+        $placeholders = [
+            '[action-id]' => 'hidden-id',
+            '[action-class]' => 'none',
+            '[action-status-msg]' => '' // Empty message for hidden div
+        ];
+        $paginaHTML = str_replace(array_keys($placeholders), array_values($placeholders), $paginaHTML);
+    } else {
+        $msg = $_SESSION['insert_to_wishlist'];
+        unset($_SESSION['insert_to_wishlist']);
+        $placeholders = [
+            '[action-id]' => 'insert-wishlist-id',
+            '[action-class]' => $msg['type'] === 'error'
+                ? 'error-msg display-msg'
+                : 'success-msg display-msg',
+            '[action-status-msg]' => $msg['text']
+        ];
+        $paginaHTML = str_replace(array_keys($placeholders), array_values($placeholders), $paginaHTML);
+    }
 } else {
     //2)
     $_SESSION['show_prop_msg'] = [
         'type' => 'error',
-        'text' => 'Spiacenti, la proprietà selezionata non esiste.'
+        'text' => '<p>Spiacenti, la proprietà selezionata non esiste.</p>'
     ];
     header('location: proprieta.php');
     exit();

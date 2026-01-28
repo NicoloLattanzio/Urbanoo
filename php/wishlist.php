@@ -9,7 +9,7 @@ $_SESSION['permission'] = [
 ];
 /*
     User role check:
-    admin -> cannot access wishlist -> redirect to proprieta.php with info message
+    admin -> cannot access wishlist -> redirect to areariservata.php with info message
     user -> show wishlist or perform actions add/remove
     none -> redirect to 403.php
 */
@@ -21,15 +21,11 @@ if (!isset($_SESSION['role'])) {
         'type' => 'info',
         'text' => '<p>Sei un amministratore, non puoi accedere alla tua <span lang="en">wishlist</span>.</p>'
     ];
-    header("Location: proprieta.php");
+    header("Location: areariservata.php");
     exit();
 }
 
 $_SESSION['insert_to_wishlist'] = [
-    'type' => '',
-    'text' => ''
-];
-$_SESSION['remove_from_wishlist'] = [
     'type' => '',
     'text' => ''
 ];
@@ -61,7 +57,7 @@ if (empty($_SESSION['remove_from_wishlist']['text'])) {
     $msg = $_SESSION['remove_from_wishlist'];
     unset($_SESSION['remove_from_wishlist']);
     $placeholders = [
-        '[action-id]' => 'wishlist-id',
+        '[action-id]' => 'remove-wishlist-id',
         '[action-class]' => $msg['type'] === 'error'
             ? 'error-msg display-msg'
             : 'success-msg display-msg',
@@ -82,11 +78,12 @@ if ($propertyIdToAdd) {
         $propertyIdToAdd = (int)$propertyIdToAdd;
         /*
             DB output management:
-            -> [true, null]: affected rows > 0              -> display success message in dettagli_proprieta.php    1)
-            -> [false, INSERT_ERROR]: affected rows = 0     -> display error message in dettagli_proprieta.php      2)
-            -> [false, DB_ERROR]: query failed              -> 500.php                                              3)
+            -> [true, null]: affected rows > 0                          -> display success message in dettagli_proprieta.php    1)
+            -> [false, INSERT_ERROR]: affected rows = 0                 -> display error message in dettagli_proprieta.php      2)
+            -> [false, ALREADY_EXISTS]: property already in wishlist    -> display error message in dettagli_proprieta.php      3)
+            -> [false, DB_ERROR]: query failed                          -> 500.php                                              4)
         */
-        $insertResult = $connessione->insertToWishlist($userId, intval($_GET['add']));
+        $insertResult = $connessione->insertToWishlist($userId, $propertyIdToAdd);
         if($insertResult['success']){
             //1)
             $_SESSION['insert_to_wishlist'] = [
@@ -99,12 +96,18 @@ if ($propertyIdToAdd) {
                 'type' => 'error',
                 'text' => '<p>Si è verificato un errore durante l\'aggiunta della proprietà alla <span lang="en">wishlist</span>. Riprova più tardi.</p>'
             ];
-        } else if($insertResult['content'] === 'DB_ERROR'){
+        } else if($insertResult['content'] === 'ALREADY_EXISTS'){
             //3)
+            $_SESSION['insert_to_wishlist'] = [
+                'type' => 'error',
+                'text' => '<p>La proprietà è già presente nella tua <span lang="en">wishlist</span>.</p>'
+            ];
+        } else if($insertResult['content'] === 'DB_ERROR'){
+            //4)
             header("Location: 500.php");
             exit();
         }
-        header("Location: dettagli_proprieta.php");
+        header("Location: dettagli_proprieta.php?id=" . $propertyIdToAdd);
         exit();
     } else {
         // Invalid property ID format

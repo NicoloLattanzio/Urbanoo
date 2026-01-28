@@ -74,43 +74,69 @@ function validateField(fieldId) {
     const field = document.getElementById(fieldId);
     if (!field) return false;
 
-    let isValid = true;
-    const value = field.value;
     const errorIds = field.getAttribute("aria-describedby")?.split(" ") || [];
-    const [requiredId, invalidId] = errorIds;
-
+    const [,requiredId, invalidId] = errorIds;
+    // reset client errors
     const errorRequiredDiv = document.getElementById(requiredId);
     const errorInvalidDiv = document.getElementById(invalidId);
 
     if (!errorRequiredDiv || !errorInvalidDiv) return false;
-
-    // client side error reset
     errorRequiredDiv.textContent = "";
     errorInvalidDiv.textContent = "";
-    // required validation
-    if (field.hasAttribute("required") && value === "") {
-        showError(requiredId, field.dataset.msgRequired);
-        return false;
-    }
 
-    // input validation
-    let errMsg = field.dataset.msgInvalid;
-    // value = spaces
-    if (value && !value.trim()){
-        errMsg += "<p>Non puoi inserire soli spazi.</p>";
-        isValid = false;    
-    };
-    
-    // regex validation
-    const validator = fieldValidators[fieldId];
-    if (isValid && validator?.regex && value !== "" && !validator.regex.test(value)) {
-        errMsg += validator.message;
-        isValid = false;
+    let isValid = true;
+    // 🔥 FILE INPUT HANDLER
+    if (field.type === "file") {
+        // REQUIRED
+        if (field.hasAttribute("required") && field.files.length === 0) {
+            showError(requiredId, field.dataset.msgRequired);
+            return false;
+        }
+        // VALIDATION
+        const allowedTypes = ["image/jpeg", "image/png"];
+        const maxSize = 1024 * 1024; // 1MB
+        let errMsg = field.dataset.msgInvalid;
+        for (const file of field.files) {   
+            if (!allowedTypes.includes(file.type)) {
+                errMsg += "<p>Formato immagine non valido.</p>";
+                isValid = false;
+            }
+            if (file.size > maxSize) {
+                errMsg += "<p>Ogni immagine deve essere minore di 1MB.</p>";
+                isValid = false;
+            }
+        }
+        if (!isValid) {
+            showError(invalidId, errMsg);
+        }
+        return isValid;
+    } else {
+        // 🔥 GENERIC INPUT HANDLER
+        const value = field.value;
+        // REQUIRED
+        if (field.hasAttribute("required") && value === "") {
+            showError(requiredId, field.dataset.msgRequired);
+            return false;
+        }
+        // VALIDATION
+        let errMsg = field.dataset.msgInvalid;
+        // value = spaces
+        if (value && !value.trim()){
+            errMsg += "<p>Non puoi inserire soli spazi.</p>";
+            isValid = false;    
+        };
+        
+        // regex validation
+        const validator = fieldValidators[fieldId];
+        if (isValid && validator?.regex && value !== "" && !validator.regex.test(value)) {
+            errMsg += validator.message;
+            isValid = false;
+        }
+        if (!isValid) {
+            showError(invalidId, errMsg);
+        }
+        return isValid;
     }
-    if (!isValid) {
-        showError(invalidId, errMsg);
-    }
-    return isValid;
 }
 
 function validateForm(form) {

@@ -8,6 +8,11 @@ class DBAccess {
 	private const USERNAME = "user";
 	private const PASSWORD = "user1234";
 
+	private const USERS_TABLE = 'utenti';
+	private const PROPERTIES_TABLE = 'proprieta';
+	private const WISHLIST_TABLE = 'wishlist';
+	private const IMAGES_TABLE = 'immagini';
+
 	private $connection;
 
 	public function openDBConnection() {
@@ -98,7 +103,7 @@ class DBAccess {
 				'content' => $rows
 			];
 		} catch (\mysqli_sql_exception $e) {
-			error_log("getFilteredProprieta failed: " . $e->getMessage());
+			error_log("Database error in getFilteredProperty: " . $e->getMessage());
 			return [
 				'success' => false,
 				'content' => 'DB_ERROR'
@@ -131,7 +136,7 @@ class DBAccess {
 			}
 		} catch (\mysqli_sql_exception $e) {
 			// Log the error for debugging
-			error_log("Database error: " . $e->getMessage());
+			error_log("Database error in deleteProperty: " . $e->getMessage());
 			return [
 				'success' => false,
 				'content' => 'DB_ERROR',
@@ -158,7 +163,7 @@ class DBAccess {
 			];
 		} catch (\mysqli_sql_exception $e) {
 			// Log the database error for debugging
-			error_log("Database error: " . $e->getMessage());
+			error_log("Database error in showPropertyDetails: " . $e->getMessage());
 			return [
 				'success' => false,
 				'content' => 'DB_ERROR'
@@ -233,12 +238,36 @@ class DBAccess {
 		}
 	}
 
-	// To retrieve a property given its name and address
-	public function getProperty($nome, $indirizzo) {
+	// To retrieve a property from proprieta or wishlist given its not null triplet (id | name | address)
+	public function getProperty($table, $field) {
 		try {
-			$query = "SELECT * FROM proprieta WHERE nome = ? OR indirizzo = ?";
+			$query = "SELECT * FROM $table WHERE 1=1";
+			$types = '';
+			$values = [];
+
+			if(!empty($field["id"])) {
+				if($table === DBaccess::WISHLIST_TABLE) {
+					$query .= " AND id_proprieta = ?";
+				} else {
+					$query .= " AND id = ?";
+				}
+				$types .= 'i';
+				$values[] = $field['id'];
+			}
+			if(!empty($field['name'])) {
+				$query .= " AND nome = ?";
+				$types .= 's';
+				$values[] = $field['name'];
+			}
+			if(!empty($field['address'])) {
+				$query .= " AND indirizzo = ?";
+				$types .= 's';
+				$values[] = $field['address'];
+			}
 			$stmt = $this->connection->prepare($query);
-			$stmt->bind_param("ss", $nome, $indirizzo);
+			if (!empty($values)) {
+				$stmt->bind_param($types, ...$values);
+			}
 			$stmt->execute();
 
 			$result = $stmt->get_result();
@@ -261,6 +290,23 @@ class DBAccess {
 	// To insert a property given its information
 	public function insertProperty($nome, $descrizione, $prezzo, $tipologia, $superficie, $locali, $disponibilita, $immagini, $indirizzo, $citta) {
 		try {
+			$propertyCheckByName = $this->getProperty(DBAccess::PROPERTIES_TABLE, ['name' => $nome]);
+			$propertyCheckByAddress = $this->getProperty(DBAccess::PROPERTIES_TABLE, ['address' => $indirizzo]);
+			if (!$propertyCheckByName['success'] || !$propertyCheckByAddress['success']) {
+				return [
+					'success' => false,
+					'content' => 'DB_ERROR'
+				];
+			}
+			$propertyByName = $propertyCheckByName['content'];
+			$propertyByAddress = $propertyCheckByAddress['content'];
+
+			if(!empty($propertyByName) || !empty($propertyByAddress)) {
+				return [
+					'success' => false,
+					'content' => 'ALREADY_EXISTS' // property already exists in properties
+				];
+			}
 			$query = "INSERT INTO proprieta 
 						(nome, descrizione, tipologia, indirizzo, citta, prezzo, metri_quadri, locali, immagine, disponibilita)
 					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -527,6 +573,22 @@ class DBAccess {
 	// To insert a property into a user wishlist
 	public function insertToWishlist($idUtente, $idProprieta) {
 		try {
+			$propertyCheck = $this->getProperty(DBAccess::WISHLIST_TABLE, ['id' => $idProprieta]);
+			if (!$propertyCheck['success']) {
+				return [
+					'success' => false,
+					'content' => 'DB_ERROR'
+				];
+			}
+			$property = $propertyCheck['content'];
+			
+			if(!empty($property)) {
+				return [
+					'success' => false,
+					'content' => 'ALREADY_EXISTS' // property already exists in wishlist
+				];
+			}
+
 			$query = "INSERT INTO wishlist (id_utente, id_proprieta) VALUES (?, ?)";
 			$stmt = $this->connection->prepare($query);
 			$stmt->bind_param("ii", $idUtente, $idProprieta);
