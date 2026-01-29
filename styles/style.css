@@ -618,21 +618,6 @@ footer {
     text-align: center;
 } Ancora da capire se serve*/
 
- .form-container {
-     padding: 1em;
-     margin-top: 0.5em;
-     max-width: 850px;
-     margin-left: auto;
-     margin-right: auto;
-     border-radius: 0.5em;
-     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-     border-radius: 0.75rem;
-     background-color: var(--navy-blue);
-     padding: 2rem;
-     color: var(--white);
-     text-align: left;
- }
-
  .btn-form {
      width: 100%;
      background-color: var(--mustard-gold);
