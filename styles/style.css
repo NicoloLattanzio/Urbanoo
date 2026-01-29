@@ -773,11 +773,16 @@ footer {
 
 .property-card.btn-user{
     grid-template-areas: "img img img" "title title title" "details details details" "btn-view btn-view btn-view";
-
 }
 .property-card.btn-user > div:has(.btn-view) {
     grid-area: btn-view;
 }
+
+.btn-wishlist{
+    grid-template-areas: "img img" "title title" "details details" "btn-view btn-del";
+    grid-template-columns: 1fr 1fr;
+}
+
 
 .btn-view{
     grid-area: btn-view;

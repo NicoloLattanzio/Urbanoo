@@ -177,24 +177,30 @@ if (empty($wishlist)){
     exit();
 } 
 $displayWishlist = '<div class="property-wishlist"><ul class="property-wishlist">';
+    $displayWishlist .= '<div class="property-grid">';
+
 foreach ($wishlist as $item) {
-    // Fix percorso immagine per Docker
-    //$img = str_replace('../img/', '/img/', $item['immagine']);
-    // commentato per ora, non serve <p>' . $item['citta'] . ' - ' . number_format($item['prezzo'], 0, ',', '.') . ' &euro;</p> dopo <h3>' . $item['nome'] . '</h3>
-    $displayWishlist .= '<li>
-                            <div class="property-item">
-                                <h3>' . $item['nome'] . '</h3>
-                                <img src="' . $item['immagine'] . '" alt="">
-                                <div class="user-actions">
-                                    <a href="dettagli_proprieta.php?id=' . $item['id'] . '" id="view-link" class="action-button">Vedi Dettagli</a>
-                                </div>
-                                <div class="user-actions">
-                                    <a href="wishlist.php?remove=' . $item['id'] . '" id="delete-link" class="action-button">Rimuovi</a>
-                                </div>
-                            </div>
-                        </li>';
+    //Uso le stesso metodo usato per mostrare le proprieta nella pagina proprieta.php, senza lista ma con grid quindi.
+    $displayWishlist .= '<div class="property-card btn-wishlist">';
+
+    $displayWishlist .= '<img src="' . $item['immagine'] . '" alt="" />';
+    $displayWishlist .= '<h3>' . $item['nome'] . '</h3>';
+
+    //Volendo si puo togliere la parte dei dettagli
+    $displayWishlist .= '<div class="property-details">';
+    $displayWishlist .= '<p class="price">Prezzo: ' . $item['prezzo'] . '</p>';
+    $displayWishlist .= '<p class="card-details">Metri Quadri: ' . $item['metri_quadri'] . '</p>';
+    $displayWishlist .= '<p class="card-details"><abbr title="Numero">Nr</abbr> Locali: ' . $item['locali'] . '</abbr></p>';
+    $displayWishlist .= '<p class="card-details">Tipologia: ' . $item['tipologia'] . '</p>';
+    $displayWishlist .= '</div>';
+
+    // Pulsante view
+    $displayWishlist .= '<div><a class="btn-view" href="dettagli_proprieta.php?id=' . $item['id'] . '" class="action-button" aria-label="Vedi i dettagli di ' . $item['nome'] . '">Vedi</a></div>';
+
+    // Pulsante del
+    $displayWishlist .= '<div><a class="btn-del" href="wishlist.php?remove=' . $item['id'] . '" class="action-button" aria-label="Rimuovi ' . $item['nome'] . ' dalla wishlist">Rimuovi</a></div>';
+    $displayWishlist .= '</div>';
 }
-$displayWishlist .= '</ul></div>';
 
 $paginaHTML = str_replace("[wishlist]", $displayWishlist, $paginaHTML);
 echo $paginaHTML;
