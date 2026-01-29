@@ -18,6 +18,8 @@
     --error-bg-color: #FCE4E4;
     --success-color: #2E7D32;
     --success-bg-color: #E6F4EA;
+    --info-color: #484848;
+    --info-bg-color: #DCE4E5;
 }
 
 html,body{
@@ -884,7 +886,7 @@ footer {
 }
 
 /*
-    ERROR HANDLING
+    ERROR/SUCCESS/INFO HANDLING
 */
 .error-msg {
     color: var(--error-color);
@@ -895,6 +897,7 @@ footer {
     margin-top: 4px;
     font-size: 0.875rem;
     line-height: 1.4;
+    text-align: center;
 }
 
 .none {
@@ -929,7 +932,21 @@ footer {
     margin-top: 4px;
     font-size: 0.875rem;
     line-height: 1.4;
+    text-align: center;
 }
+
+.info-msg{
+    color: var(--info-color);
+    background-color: var(--info-bg-color);
+    border: 1px solid var(--info-color);
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-top: 4px;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    text-align: center;
+}
+
 /*Sezione dello slider immagini*/
 
 

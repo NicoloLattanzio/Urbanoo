@@ -3,6 +3,11 @@ session_start();
 require_once "dbconnection.php";
 use DB\DBAccess;
 
+//function to print html values
+function e($value) {
+    return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+}
+
 $_SESSION['permission'] = [
     'type' => '',
     'text' => ''
@@ -94,7 +99,8 @@ if ($propertyIdToAdd) {
             //2)
             $_SESSION['insert_to_wishlist'] = [
                 'type' => 'error',
-                'text' => '<p>Si è verificato un errore durante l\'aggiunta della proprietà alla <span lang="en">wishlist</span>. Riprova più tardi.</p>'
+                'text' => '<p>Si è verificato un errore durante l\'aggiunta della proprietà alla <span lang="en">wishlist</span>. Riprova più tardi.</p>
+                            <p>Se il problema persiste, contatta l\'assistenza a questo indirizzo: <a href="mailto:info@urbanoo.it">help@urbanoo.it</a></p>'
             ];
         } else if($insertResult['content'] === 'ALREADY_EXISTS'){
             //3)
@@ -136,7 +142,8 @@ if ($propertyIdToRemove) {
             //2)
             $_SESSION['remove_from_wishlist'] = [
                 'type' => 'error',
-                'text' => '<p>Si è verificato un errore durante la rimozione della proprietà dalla <span lang="en">wishlist</span>. Riprova più tardi.</p>'
+                'text' => '<p>Si è verificato un errore durante la rimozione della proprietà dalla <span lang="en">wishlist</span>. Riprova più tardi.</p>
+                            <p>Se il problema persiste, contatta l\'assistenza a questo indirizzo: <a href="mailto:info@urbanoo.it">help@urbanoo.it</a></p>'
             ];
         } else if($removeResult['content'] === 'DB_ERROR'){
             //3)
@@ -183,22 +190,22 @@ foreach ($wishlist as $item) {
     //Uso le stesso metodo usato per mostrare le proprieta nella pagina proprieta.php, senza lista ma con grid quindi.
     $displayWishlist .= '<div class="property-card btn-wishlist">';
 
-    $displayWishlist .= '<img src="' . $item['immagine'] . '" alt="" />';
-    $displayWishlist .= '<h3>' . $item['nome'] . '</h3>';
+    $displayWishlist .= '<img src="' . e($item['immagine']) . '" alt="" />';
+    $displayWishlist .= '<h3>' . e($item['nome']) . '</h3>';
 
     //Volendo si puo togliere la parte dei dettagli
     $displayWishlist .= '<div class="property-details">';
-    $displayWishlist .= '<p class="price">Prezzo: ' . $item['prezzo'] . '</p>';
-    $displayWishlist .= '<p class="card-details">Metri Quadri: ' . $item['metri_quadri'] . '</p>';
-    $displayWishlist .= '<p class="card-details"><abbr title="Numero">Nr</abbr> Locali: ' . $item['locali'] . '</abbr></p>';
-    $displayWishlist .= '<p class="card-details">Tipologia: ' . $item['tipologia'] . '</p>';
+    $displayWishlist .= '<p class="price">Prezzo: ' . e($item['prezzo']) . '</p>';
+    $displayWishlist .= '<p class="card-details">Metri Quadri: ' . e($item['metri_quadri']) . '</p>';
+    $displayWishlist .= '<p class="card-details"><abbr title="Numero">Nr</abbr> Locali: ' . e($item['locali']) . '</abbr></p>';
+    $displayWishlist .= '<p class="card-details">Tipologia: ' . e($item['tipologia']) . '</p>';
     $displayWishlist .= '</div>';
 
     // Pulsante view
-    $displayWishlist .= '<div><a class="btn-view" href="dettagli_proprieta.php?id=' . $item['id'] . '" class="action-button" aria-label="Vedi i dettagli di ' . $item['nome'] . '">Vedi</a></div>';
+    $displayWishlist .= '<div><a class="btn-view" href="dettagli_proprieta.php?id=' . e($item['id']) . '" class="action-button" aria-label="Vedi i dettagli di ' . e($item['nome']) . '">Vedi</a></div>';
 
     // Pulsante del
-    $displayWishlist .= '<div><a class="btn-del" href="wishlist.php?remove=' . $item['id'] . '" class="action-button" aria-label="Rimuovi ' . $item['nome'] . ' dalla wishlist">Rimuovi</a></div>';
+    $displayWishlist .= '<div><a class="btn-del" href="wishlist.php?remove=' . e($item['id']) . '" class="action-button" aria-label="Rimuovi ' . e($item['nome']) . ' dalla wishlist">Rimuovi</a></div>';
     $displayWishlist .= '</div>';
 }
 

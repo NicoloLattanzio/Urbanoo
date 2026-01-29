@@ -33,14 +33,14 @@
         <p>Ti trovi in: <a href="index.php" lang="en">Home</a> &raquo; <span lang="en">Login</span></p>
     </nav>
     <main id="content">
-        <div class="form">
         <!-- 
-            id = registration-id | hidden-id
-            class = error-msg display-msg | none
+            id = registration-id | update-psw-id | hidden-id
+            class = error-msg display-msg | success-msg display-msg | none
         -->
-        <div id="[action-id]" class="[action-class]" aria-live="polite"> <!-- action: registration/none -->
+        <div id="[action-id]" class="[action-class]" aria-live="polite"> <!-- action: registration/update_psw/none -->
             [action-status-msg]
         </div>
+        <div class="form">
         <div id="filters">
             <h2>Accedi al tuo <span lang="en">account</span></h2>
             <form id="login-form" method="post" action="login.php" novalidate>

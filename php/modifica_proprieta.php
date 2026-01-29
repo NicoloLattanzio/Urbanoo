@@ -57,20 +57,20 @@ if(!$connessioneOK){
 */
 if ($_SERVER['REQUEST_METHOD'] !== 'POST'){
     //1)
-    $idProprieta = trim(string: $_GET['id'] ?? '');
-    if(!$idProprieta){
+    $idProprieta = trim( $_GET['id'] ?? '');
+    if($idProprieta === ''){
         // no property selected
         $_SESSION['change_prop_msg'] = [
             'type' => 'error',
-            'text' => 'Spiacenti, non hai selezionato alcuna proprietà da modificare.'
+            'text' => '<p>Spiacenti, non hai selezionato alcuna proprietà da modificare.</p>'
         ];
         header('location: proprieta.php');
         exit();
-    } else if ($idProprieta && (!is_numeric($idProprieta) || intval($idProprieta) <= 0)){
+    } else if ($idProprieta !== '' && (!is_numeric($idProprieta) || intval($idProprieta) <= 0)){
         // invalid property id
         $_SESSION['change_prop_msg'] = [
             'type' => 'error',
-            'text' => 'Seleziona una proprietà valida.'
+            'text' => '<p>Seleziona una proprietà valida.</p>'
         ];
         header('location: proprieta.php');
         exit();
@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST'){
         //1B)
         $_SESSION['change_prop_msg'] = [
             'type' => 'error',
-            'text' => 'Spiacenti, la proprietà selezionata non esiste.'
+            'text' => '<p>Spiacenti, la proprietà selezionata non esiste.</p>'
         ];
         header('location: proprieta.php');
         exit();
@@ -107,33 +107,33 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST'){
 
     $paginaHTML = str_replace(
         ["[id_val]", "[name_val]", "[description_val]", "[price_val]", "[select_available]", "[select_unavailable]"],
-        [$proprieta['id'], e($proprieta['nome']), e($proprieta['descrizione']), e($proprieta['prezzo']), $available, $unavailable],
+        [e($proprieta['id']), e($proprieta['nome']), e($proprieta['descrizione']), e($proprieta['prezzo']), $available, $unavailable],
         $paginaHTML
     );
     //no errors on initial page load
     $paginaHTML = str_replace(
         ["[id_err]", "[name_err]", "[description_err]", "[price_err]", "[availability_err]"],
-        ["", "", "", ""],
+        ["", "", "", "", ""],
         $paginaHTML
     );
     echo $paginaHTML;
     exit();
 } else {
     //2)
-    $id = trim(string: $_POST['id'] ?? '');
-    if(!$id){
+    $id = trim($_POST['id'] ?? '');
+    if($id === ''){
         // no property selected
         $_SESSION['change_prop_msg'] = [
             'type' => 'error',
-            'text' => 'Spiacenti, non hai selezionato alcuna proprietà da modificare.'
+            'text' => '<p>Spiacenti, non hai selezionato alcuna proprietà da modificare.</p>'
         ];
         header('location: proprieta.php');
         exit();
-    } else if ($id && (!is_numeric($id) || intval($id) <= 0)){
+    } else if ($id !== '' && (!is_numeric($id) || intval($id) <= 0)){
         // invalid property id
         $_SESSION['change_prop_msg'] = [
             'type' => 'error',
-            'text' => 'Seleziona una proprietà valida.'
+            'text' => '<p>Seleziona una proprietà valida.</p>'
         ];
         header('location: proprieta.php');
         exit();
@@ -150,37 +150,37 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST'){
     // === NAME ===
     $nome = trim($_POST['name'] ?? '');
     if ($nome === '') {
-        $nomeErr .= '<p>Nome non inserito</p>';
+        $nomeErr .= '<p>Nome non inserito.</p>';
         $formValido = false;
     } else if (preg_match("/\d/", $nome)) {
-        $nomeErr .= '<p>Il nome non può contenere numeri</p>';
+        $nomeErr .= '<p>Il nome non può contenere numeri.</p>';
         $formValido = false;
     }
     $nome = cleanInput($nome, $tagPermessi );
-    if(strlen($nome) < 2 || strlen($nome) > 25){
-        $nomeErr .= '<p>Il nome deve essere composto da almeno 2 caratteri e non più di 25</p>';
+    if($nome !== '' && (strlen($nome) < 2 || strlen($nome) > 25)){
+        $nomeErr .= '<p>Il nome deve essere composto da almeno 2 caratteri e non più di 25.</p>';
         $formValido = false;
     }
 
     // === DESCRIPTION ===
     $descrizione = trim($_POST['description'] ?? '');
     if ($descrizione === '') {
-        $descrizioneErr .= '<p>Descrizione non inserita</p>';
+        $descrizioneErr .= '<p>Descrizione non inserita.</p>';
         $formValido = false;
     }
     $descrizione = cleanInput($descrizione, $tagPermessi);
-    if(strlen($descrizione) < 10 || strlen($descrizione) > 250){
-        $descrizioneErr .= '<p>La descrizione deve essere composta da almeno 10 caratteri e non più di 250</p>';
+    if($descrizione !== '' && (strlen($descrizione) < 10 || strlen($descrizione) > 250)){
+        $descrizioneErr .= '<p>La descrizione deve essere composta da almeno 10 caratteri e non più di 250.</p>';
         $formValido = false;
     }
     
     // === PRICE ===
     $prezzo = trim($_POST['price'] ?? '');
     if ($prezzo === ''){
-        $prezzoErr .= '<p>Prezzo non inserito</p>';
+        $prezzoErr .= '<p>Prezzo non inserito.</p>';
         $formValido = false;
     } else if (!is_numeric($prezzo) || intval($prezzo) <= 0) {
-        $prezzoErr .= '<p>Il prezzo deve essere un numero maggiore di 0</p>';
+        $prezzoErr .= '<p>Il prezzo deve essere un numero maggiore di 0.</p>';
         $formValido = false;
     } else {
         $prezzo = cleanInput($prezzo, $tagPermessi);
@@ -191,10 +191,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST'){
     // === AVAILABILITY ===
     $disponibilita = trim($_POST['availability'] ?? '');
     if ($disponibilita === '') {
-        $disponibilitaErr .= '<p>Disponibilità non inserita</p>';
+        $disponibilitaErr .= '<p>Disponibilità non inserita.</p>';
         $formValido = false;
     } else if ($disponibilita !== '1' && $disponibilita !== '0') {
-        $disponibilitaErr .= '<p>Selezionare uno stato di disponibilità valido</p>';
+        $disponibilitaErr .= '<p>Selezionare uno stato di disponibilità valido.</p>';
         $formValido = false;
     } else {
         $disponibilita = cleanInput($disponibilita, $tagPermessi);
@@ -245,7 +245,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST'){
         //2)
         $_SESSION['change_prop_msg'] = [
             'type' => 'error',
-            'text' => 'C\'è stato un problema con la modifica della proprietà: la proprietà selezionata non esiste.'
+            'text' => '<p>C\'è stato un problema con la modifica della proprietà: la proprietà selezionata non esiste.</p>'
         ];
         header('location: proprieta.php');
         exit();
@@ -254,7 +254,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST'){
         //1)
         $_SESSION['change_prop_msg'] = [
             'type' => 'success',
-            'text' => 'Proprietà modificata con successo.'
+            'text' => '<p>Proprietà modificata con successo.</p>'
         ];
         header('location: proprieta.php');
         exit();

@@ -13,6 +13,10 @@ if (!isset($_SESSION['email'])) {
     exit();
 }
 
+$_SESSION["update_psw_msg"] = [
+    'type' => '',
+    'text' => ''
+];
 $paginaHTML = file_get_contents('../html/modifica_password.html');
 $email = "";
 $old = "";
@@ -51,18 +55,18 @@ $email = trim($_POST['email'] ?? '');
     For UX it is best to stop here the user without filling other form fields
 */
 if($email === '') {
-    $emailErr .= '<p><span lang="en">Email</span> non inserita</p>';
+    $emailErr .= '<p><span lang="en">Email</span> non inserita.</p>';
     $formValido = false;
 } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $emailErr .= '<p>Inserire un <span lang="en">email</span> valida.</p>';
     $formValido = false;
 }
 if($old === ''){
-    $old_pswErr .= '<p><span lang="en">Password</span> attuale non inserita</p>';
+    $old_pswErr .= '<p><span lang="en">Password</span> attuale non inserita.</p>';
     $formValido = false;
 }
 if($new === ''){
-    $new_pswErr .= '<p>Nuova <span lang="en">password</span> non inserita</p>';
+    $new_pswErr .= '<p>Nuova <span lang="en">password</span> non inserita.</p>';
     $formValido = false;
 }
 if(!$formValido) {
@@ -86,7 +90,7 @@ if (!$connessioneOK) {
         -> check for user consistency (user who asks to change = user inserted to change)
 */
 if($email !== $_SESSION["email"]){
-    $emailErr .= "<p>L'<span lang='en'>email</span> inserita non corrisponde a quella del tuo <span lang='en'>account</span>.</p>";
+    $emailErr .= "<p>L'<span lang='en'>email</span> inserita non corrisponde a quella con cui hai effettuato l'accesso.</p>";
     $formValido = false;
 } 
 if(!$formValido) {
@@ -116,8 +120,8 @@ if($oldpswResult['success'] && $oldpswResult['content'] === "PASSWORD_MISMATCH")
     exit();
 }
 //2)
-if (strlen($new) < 6) {
-    $new_pswErr .= '<p>La <span lang="en">password</span> deve contenere almeno 6 caratteri</p>';
+if (strlen($new) < 4) {
+    $new_pswErr .= '<p>La <span lang="en">password</span> deve contenere almeno 4 caratteri</p>';
     $formValido = false;
 }
 if(!$formValido) {
@@ -130,23 +134,37 @@ if(!$formValido) {
 
 /*
     DB output management:
-    -> [true, NOT_FOUND]: user exists but passwords mismatch    -> email not found              1)
-    -> [true, null]: affected rows > 0                          -> password updated correctly   2)
+    -> [true, null]: affected rows > 0                          -> password updated correctly   1)
+    -> [false, NOT_FOUND]: user exists but passwords mismatch   -> email not found              2)
     -> [false, DB_ERROR]: query failed                          -> 500.php                      3)
 */
 $updatePswResult = $connessione->updatePassword($email, $new);
 $connessione->closeDBConnection();
 if($updatePswResult['success']){
-    if(!$updatePswResult['content']){
-        $_SESSION["update_psw_success_msg"] = 'Password aggiornata con successo!';
-    } else{
-        //lo tratto come 500 o come errore normale? non dovrebbe essere possibile che non lo trovi
-        $_SESSION["update_psw_error_msg"] = 'Non è stato possibile aggiornare la password per problemi tecnici';
-    }
-    header("Location: areariservata.php");
+    //1)
+    $_SESSION["update_psw_msg"] = [
+        'type' => 'success',
+        'text' => '<p>Password aggiornata con successo! Effettua l\'accesso con le nuove credenziali.</p>'
+    ];
+    header('location: logout.php');
+    //logout to force login with new psw
     exit();
 } else {
-    header("Location: 500.php");
-    exit();
+    if($updatePswResult['content'] === 'NOT_FOUND'){
+        //2)
+        $_SESSION["update_psw_msg"] = [
+            'type' => 'error',
+            'text' => '
+                <p>Sembra ci sia stato un problema tecnico durante l\'aggiornamento della <span lang="en">password</span>.</p>
+                <p>Effettua il <span lang="en">login</span> con le credenziali appena modificate.</p>
+                <p>Se il problema persiste, contatta l\'assistenza a questo indirizzo: <a href="mailto:info@urbanoo.it">help@urbanoo.it</a>.</p>'
+        ];
+        header("Location: login.php");
+        exit();
+    } else {
+        //3)
+        header("Location: 500.php");
+        exit();
+    }
 }
 ?>

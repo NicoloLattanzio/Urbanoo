@@ -3,6 +3,11 @@ session_start();
 require_once "dbconnection.php";
 use DB\DBAccess;
 
+//function to print html values
+function e($value) {
+    return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+}
+
 $paginaHTML = file_get_contents('../html/proprieta.html');
 
 /* 
@@ -25,7 +30,7 @@ $actionMap = [
     'insert_prop_msg' => 'insert-id',
     'delete_prop_msg'=> 'delete-id',
     'change_prop_msg'=> 'change-id',
-    'show_prop_msg'=> 'view-id',
+    'show_prop_msg'=> 'view-id'
 ];
 $msg = null;
 $actionId = null;
@@ -35,7 +40,7 @@ foreach ($actionMap as $sessionKey => $id) {
         $msg = $_SESSION[$sessionKey];
         $actionId = $id;
         unset($_SESSION[$sessionKey]);
-        break; // prende solo il primo messaggio trovato
+        break; // takes only the first message found
     }
 }
 
@@ -75,7 +80,7 @@ $listaProprieta = $result['content'];
 
 if(empty($listaProprieta)) {
     //1B)
-    $stringaProprieta = "<p>Nessuna proprietà corrisponde alla tua ricerca</p>";
+    $stringaProprieta = "<p>Nessuna proprietà corrisponde alla tua ricerca.</p>";
 } else {
     //1A)
     // admin -> insert button
@@ -87,22 +92,22 @@ if(empty($listaProprieta)) {
     foreach ($listaProprieta as $proprieta) {
         $cardClasses = ($isAdmin) ? 'property-card' : 'property-card btn-user';
         $stringaProprieta .= '<div class="' . $cardClasses . '">';
-        $stringaProprieta .= '<img src="' . $proprieta['immagine'] . '" alt="" />';
-        $stringaProprieta .= '<h3>' . $proprieta['nome'] . '</h3>';
+        $stringaProprieta .= '<img src="' . e($proprieta['immagine']) . '" alt="" />';
+        $stringaProprieta .= '<h3>' . e($proprieta['nome']) . '</h3>';
         $stringaProprieta .= '<div class="property-details">';
-        $stringaProprieta .= '<p class="price">Prezzo:' . $proprieta['prezzo'] . '</p>';
-        $stringaProprieta .= '<p class="card-details">Metri Quadri:' . $proprieta['metri_quadri'] . '</p>';
-        $stringaProprieta .= '<p class="card-details"><abbr title="Numero">Nr</abbr> Locali:' . $proprieta['locali'] . '</abbr></p>';
-        $stringaProprieta .= '<p class="card-details">Tipologia:' . $proprieta['tipologia'] . '</p>';
+        $stringaProprieta .= '<p class="price">Prezzo:' . e($proprieta['prezzo']) . '</p>';
+        $stringaProprieta .= '<p class="card-details">Metri Quadri:' . e($proprieta['metri_quadri']) . '</p>';
+        $stringaProprieta .= '<p class="card-details"><abbr title="Numero">Nr</abbr> Locali:' . e($proprieta['locali']) . '</abbr></p>';
+        $stringaProprieta .= '<p class="card-details">Tipologia:' . e($proprieta['tipologia']) . '</p>';
         $stringaProprieta .= '</div>';
         // user/admin -> button: show
-        $stringaProprieta .= '<div><a class="btn-view" href="dettagli_proprieta.php?id=' . $proprieta['id'] . '" id="view-link" class="action-button" aria-label="Vedi i dettagli di ' . $proprieta['nome'] . '">Vedi</a></div>';
+        $stringaProprieta .= '<div><a class="btn-view" href="dettagli_proprieta.php?id=' . e($proprieta['id']) . '" id="view-link" class="action-button" aria-label="Vedi i dettagli di ' . e($proprieta['nome']) . '">Vedi</a></div>';
 
         if ($isAdmin) {
             // admin -> edit button: take to edit page
-            $stringaProprieta .= '<div><a class="btn-mod" href="modifica_proprieta.php?id=' . $proprieta['id'] . '" id="change-link" class="action-button" aria-label="Modifica i dettagli di ' . $proprieta['nome'] . '">Modifica</a></div>';
+            $stringaProprieta .= '<div><a class="btn-mod" href="modifica_proprieta.php?id=' . e($proprieta['id']) . '" id="change-link" class="action-button" aria-label="Modifica i dettagli di ' . e($proprieta['nome']) . '">Modifica</a></div>';
             // admin -> delete button: activates deletion script
-            $stringaProprieta .= '  <div><a class="btn-del" href="elimina_proprieta.php?id=' . $proprieta['id'] . '" id="delete-link" class="action-button" aria-label="Elimina ' . $proprieta['nome'] . '">Elimina</a></div>';
+            $stringaProprieta .= '  <div><a class="btn-del" href="elimina_proprieta.php?id=' . e($proprieta['id']) . '" id="delete-link" class="action-button" aria-label="Elimina ' . e($proprieta['nome']) . '">Elimina</a></div>';
         }
         $stringaProprieta .= '</div>';
     }

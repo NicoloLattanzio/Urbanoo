@@ -52,7 +52,7 @@ if(!$connessioneOK){
 if (isset($_SESSION['user_id'], $_SESSION['role'])) {
     $_SESSION['permission'] = [
         'type' => 'info',
-        'text' => 'Hai già effettuato l\'accesso al sito come: ' . e($_SESSION['username']) . '.'
+        'text' => '<p>Hai già effettuato l\'accesso al sito come: ' . e($_SESSION['username']) . '.</p>'
     ];
     header("Location: areariservata.php");
     exit();
@@ -94,41 +94,41 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST'){
 // === NAME ===
 $nome = trim($_POST['name'] ?? '');
 if ($nome === '') {
-    $nomeErr .= '<p>Nome non inserito</p>';
+    $nomeErr .= '<p>Nome non inserito.</p>';
     $formValido = false;
 } else if (preg_match("/\d/", $nome)) {
-    $nomeErr .= '<p>Il nome non può contenere numeri</p>';
+    $nomeErr .= '<p>Il nome non può contenere numeri.</p>';
     $formValido = false;
 }
-$nome = cleanInput($nome );
-if(strlen($nome) < 2 || strlen($nome) > 25){
-    $nomeErr .= '<p>Il nome deve essere composto da almeno 2 caratteri e non più di 25</p>';
+$nome = cleanInput($nome);
+if($nome !== '' && (strlen($nome) < 2 || strlen($nome) > 25)){
+    $nomeErr .= '<p>Il nome deve essere composto da almeno 2 caratteri e non più di 25.</p>';
     $formValido = false;
 }
 
 // === SURNAME ===
 $cognome = trim($_POST['surname'] ?? '');
 if ($cognome === '') {
-    $cognomeErr .= '<p>Cognome non inserito</p>';
+    $cognomeErr .= '<p>Cognome non inserito.</p>';
     $formValido = false;
 } else if (preg_match("/\d/", $cognome)) {
-    $cognomeErr .= '<p>Il cognome non può contenere numeri</p>';
+    $cognomeErr .= '<p>Il cognome non può contenere numeri.</p>';
     $formValido = false;
 }
 $cognome = cleanInput($cognome);
-if(strlen($cognome) < 2 || strlen($cognome) > 25){
-    $cognomeErr .= '<p>Il cognome deve essere composto da almeno 2 caratteri e non più di 25</p>';
+if($cognome !== '' && (strlen($cognome) < 2 || strlen($cognome) > 25)){
+    $cognomeErr .= '<p>Il cognome deve essere composto da almeno 2 caratteri e non più di 25.</p>';
     $formValido = false;
 }
 
 // === USERNAME ===
 $username = trim($_POST['username'] ?? '');
 if ($username === '') {
-    $usernameErr .= '<p><span lang="en">Username</span> non inserito</p>';
+    $usernameErr .= '<p><span lang="en">Username</span> non inserito.</p>';
     $formValido = false;
 }
 $username = cleanInput($username);
-if(strlen($username) < 2 || strlen($username) > 25){
+if($username !== '' && (strlen($username) < 2 || strlen($username) > 25)){
     $usernameErr .= '<p>Lo <span lang="en">username</span> deve essere composto da almeno 2 caratteri e non più di 25</p>';
     $formValido = false;
 }
@@ -136,30 +136,30 @@ if(strlen($username) < 2 || strlen($username) > 25){
 // === EMAIL ===
 $email = trim($_POST['email'] ?? '');
 if ($email === '') {
-    $emailErr .= '<p><span lang="en">Email</span> non inserita</p>';
+    $emailErr .= '<p><span lang="en">Email</span> non inserita.</p>';
     $formValido = false;
-} else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { //aggiungere controllo = delle due password
-    $emailErr .= '<p>Inserire un <span lang="en">email</span> valida.</p>';
+} else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $emailErr .= '<p>Inserire un <span lang="en">email</span> valida: utente@dominio.it.</p>';
     $formValido = false;
 }
 
 // === PASSWORD ===
 $password = $_POST['password'] ?? '';
 if ($password === '') {
-    $passwordErr .= '<p><span lang="en">Password</span> non inserita</p>';
+    $passwordErr .= '<p><span lang="en">Password</span> non inserita.</p>';
     $formValido = false;
 } else if (strlen($password) < 4) {
-    $passwordErr .= '<p>La <span lang="en">password</span> deve contenere almeno 4 caratteri</p>';
+    $passwordErr .= '<p>La <span lang="en">password</span> deve contenere almeno 4 caratteri.</p>';
     $formValido = false;
 }
 
 // === CONFIRM PASSWORD ===
 $confirm_password = $_POST['confirm_password'] ?? '';
 if ($confirm_password === '') {
-    $confirm_passwordErr .= '<p>Conferma della <span lang="en">password</span> non inserita</p>';
+    $confirm_passwordErr .= '<p>Conferma della <span lang="en">password</span> non inserita.</p>';
     $formValido = false;
 } else if ($password !== $confirm_password) {
-    $confirm_passwordErr .= '<p>Le <span lang="en">password</span> non coincidono</p>';
+    $confirm_passwordErr .= '<p>Le <span lang="en">password</span> non coincidono.</p>';
     $formValido = false;
 }
 
@@ -271,7 +271,7 @@ if ($insertResult['success']) {
             'type' => 'error',
             'text' => ' <p>Sembra ci sia stato un problema tecnico durante la registrazione.</p>
                         <p>Effettua il <span lang="en">login</span> con le credenziali appena create.</p>
-                        <p>Se il problema persiste, contatta l\'assistenza a questo indirizzo: <a href="mailto:info@urbanoo.it">help@urbanoo.it</a></p>'
+                        <p>Se il problema persiste, contatta l\'assistenza a questo indirizzo: <a href="mailto:info@urbanoo.it">help@urbanoo.it</a>.</p>'
         ];
         header("location: login.php");
         exit();
@@ -296,7 +296,7 @@ if ($error === "INSERT_FAILED"){
         'type' => 'error',
         'text' => ' <p>Sembra ci sia stato un problema tecnico durante la registrazione.</p>
                     <p>Effettua il <span lang="en">login</span> con le credenziali appena create.</p>
-                    <p>Se il problema persiste, contatta l\'assistenza a questo indirizzo: <a href="mailto:info@urbanoo.it">help@urbanoo.it</a></p>'
+                    <p>Se il problema persiste, contatta l\'assistenza a questo indirizzo: <a href="mailto:info@urbanoo.it">help@urbanoo.it</a>.</p>'
     ];
     header("location: login.php");
     exit();

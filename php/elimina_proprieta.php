@@ -56,13 +56,13 @@ if(!$deleteResult["content"]) {
     //2)
     $_SESSION['delete_prop_msg'] = [
         'type' => 'success',
-        'text' => 'Proprietà eliminata con successo.'
+        'text' => '<p>Proprietà eliminata con successo.</p>'
     ];
 } else {
     //1)
     $_SESSION['delete_prop_msg'] = [
         'type' => 'error',
-        'text' => 'Spiacenti, impossibile proseguire con l\'eliminazione: la proprietà selezionata non esiste.'
+        'text' => '<p>C\'è stato un problema con l\'eliminazione della proprietà: la proprietà selezionata non esiste.</p>'
     ];
 }
 header("Location: proprieta.php");

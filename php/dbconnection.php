@@ -225,7 +225,7 @@ class DBAccess {
 				];
 			} else {
 				return [
-					'success' => true,
+					'success' => false,
 					'content' => 'NOT_FOUND' // user email does not exist
 				];
 			}
