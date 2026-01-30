@@ -45,94 +45,94 @@
             [action-status-msg]
         </div>
         <div class="first-part">  <!-- per gestire filtri e primo contenuto, chiedi se va bene così -->
-        <aside id="filters" class="form">
-            <h2>Filtra Proprietà</h2>
-            <form method="GET" action="proprieta.php" id="searchForm">
-                <div class="input-filters">
-                    <label for="title">Nome:</label>
-                    <input type="text" id="title" name="title" placeholder="Nome proprietà">
-                </div>   
-                <div class="input-filters">
-                    <label for="city">Città:</label>
-                    <input type="text" id="city" name="city" placeholder="Città">
-                </div>
-                        
-                <div class="input-filters">
-                    <label for="type">Tipologia:</label>
-                    <select id="type" name="type">
-                        <option value="">Tutte</option>
-                        <option value="Monolocale">Monolocale</option>
-                        <option value="Bilocale">Bilocale</option>
-                        <option value="Trilocale">Trilocale</option>
-                        <option value="Villa">Villa o Villette</option>
-                        <option value="Attico">Attico o Mansarde</option>
-                        <option value="Rustico">Rustici e Casali</option>
-                    </select>
-                </div>
-                <div class="input-filters">
-                    <label for="price-max">Prezzo massimo:</label>
-                    <select id="price-max" name="price_max">
-                        <option value="">Qualsiasi</option>
-                        <option value="500000">€500.000</option>
-                        <option value="400000">€400.000</option>
-                        <option value="300000">€300.000</option>
-                        <option value="200000">€200.000</option>
-                        <option value="100000">€100.000</option>
-                        <option value="50000">€50.000</option>                                                                       
-                    </select>
-                </div>
+            <aside id="filters" class="form">
+                <h2>Filtra Proprietà</h2>
+                <form method="GET" action="proprieta.php" id="searchForm">
+                    <div class="input-filters">
+                        <label for="title">Nome:</label>
+                        <input type="text" id="title" name="title" placeholder="Nome proprietà">
+                    </div>   
+                    <div class="input-filters">
+                        <label for="city">Città:</label>
+                        <input type="text" id="city" name="city" placeholder="Città">
+                    </div>
+                            
+                    <div class="input-filters">
+                        <label for="type">Tipologia:</label>
+                        <select id="type" name="type">
+                            <option value="">Tutte</option>
+                            <option value="Monolocale">Monolocale</option>
+                            <option value="Bilocale">Bilocale</option>
+                            <option value="Trilocale">Trilocale</option>
+                            <option value="Villa">Villa o Villette</option>
+                            <option value="Attico">Attico o Mansarde</option>
+                            <option value="Rustico">Rustici e Casali</option>
+                        </select>
+                    </div>
+                    <div class="input-filters">
+                        <label for="price-max">Prezzo massimo:</label>
+                        <select id="price-max" name="price_max">
+                            <option value="">Qualsiasi</option>
+                            <option value="500000">€500.000</option>
+                            <option value="400000">€400.000</option>
+                            <option value="300000">€300.000</option>
+                            <option value="200000">€200.000</option>
+                            <option value="100000">€100.000</option>
+                            <option value="50000">€50.000</option>                                                                       
+                        </select>
+                    </div>
 
-                <div class="input-filters">
-                    <label for="price-min">Prezzo minimo:</label>  <!-- La validazione prezzo minimo < prezzo massimo si fa con js? -->
-                    <select id="price-min" name="price_min">
-                        <option value="">Qualsiasi</option>
-                        <option value="50000">€50.000</option>
-                        <option value="100000">€100.000</option>
-                        <option value="200000">€200.000</option>
-                        <option value="300000">€300.000</option>
-                        <option value="400000">€400.000</option>
-                        <option value="500000">€500.000</option>
-                    </select>
-                </div>
+                    <div class="input-filters">
+                        <label for="price-min">Prezzo minimo:</label>  <!-- La validazione prezzo minimo < prezzo massimo si fa con js? -->
+                        <select id="price-min" name="price_min">
+                            <option value="">Qualsiasi</option>
+                            <option value="50000">€50.000</option>
+                            <option value="100000">€100.000</option>
+                            <option value="200000">€200.000</option>
+                            <option value="300000">€300.000</option>
+                            <option value="400000">€400.000</option>
+                            <option value="500000">€500.000</option>
+                        </select>
+                    </div>
 
-                <div class="input-filters">
-                    <label for="size">Dimensioni:</label>
-                    <select id="size" name="size">
-                        <option value="">Qualsiasi</option>
-                        <option value="1">10-20 mq</option>
-                        <option value="2">20-60 mq</option>
-                        <option value="3">60-100 mq</option>
-                    <option value="4">100+ mq</option>
-                    </select>
-                </div>
-                <button type="submit">Cerca</button>
-            </form>
-        </aside>
-        
-        <div class="intro">
-            <h1>Le Nostre Proprietà</h1>
-            <p><strong lang="en">Urbanoo</strong> offre un'ampia gamma di soluzioni per voi! Sappiamo che cercare casa non significa solo trovare quattro mura, ma scegliere lo scenario della tua vita futura.</p>
-            <p>Abbiamo organizzato il nostro portfolio per tipologia, garantendo per ogni immobile controlli certificati e la massima trasparenza.</p>
-            <p>Che tu stia cercando il calore di una villa o la praticità di un appartamento in centro, sei nel posto giusto.</p>
+                    <div class="input-filters">
+                        <label for="size">Dimensioni:</label>
+                        <select id="size" name="size">
+                            <option value="">Qualsiasi</option>
+                            <option value="1">10-20 mq</option>
+                            <option value="2">20-60 mq</option>
+                            <option value="3">60-100 mq</option>
+                        <option value="4">100+ mq</option>
+                        </select>
+                    </div>
+                    <button type="submit">Cerca</button>
+                </form>
+            </aside>
+            
+            <div class="intro">
+                <h1>Le Nostre Proprietà</h1>
+                <p><strong lang="en">Urbanoo</strong> offre un'ampia gamma di soluzioni per voi! Sappiamo che cercare casa non significa solo trovare quattro mura, ma scegliere lo scenario della tua vita futura.</p>
+                <p>Abbiamo organizzato il nostro portfolio per tipologia, garantendo per ogni immobile controlli certificati e la massima trasparenza.</p>
+                <p>Che tu stia cercando il calore di una villa o la praticità di un appartamento in centro, sei nel posto giusto.</p>
 
-            <div id="typologies">
-                <h2>Le Tipologie</h2>
-                <dl>
-                    <dt>Monolocali</dt>
-                    <dd>Piccole metrature, massima resa. La soluzione intelligente per single, studenti o per chi cerca una rendita sicura.</dd>
-                    <dt>Bilocali</dt>
-                    <dd>Camera da letto e zona giorno separata. La soluzione più richiesta dalle giovani coppie.</dd>
-                    <dt>Trilocali</dt>
-                    <dd>Grandi metrature per famiglie numerose. Due o tre camere da letto e doppi servizi.</dd>
-                    <dt>Ville o Villette</dt>
-                    <dd>La libertà di non avere vicini. Ville singole, a schiera o bifamiliari con giardino privato e garage.</dd>
-                    <dt>Attici o Mansarde</dt>
-                    <dd>Vivi la città dall'alto. Soluzioni esclusive all'ultimo piano, con terrazze panoramiche e tanta luce.</dd>
-                    <dt>Rustici e Casali</dt>
-                    <dd>Il fascino della tradizione. Casali immersi nel verde, da ristrutturare o già pronti da vivere.</dd>
-                </dl>
+                <div id="typologies">
+                    <h2>Le Tipologie</h2>
+                    <dl>
+                        <dt>Monolocali</dt>
+                        <dd>Piccole metrature, massima resa. La soluzione intelligente per single, studenti o per chi cerca una rendita sicura.</dd>
+                        <dt>Bilocali</dt>
+                        <dd>Camera da letto e zona giorno separata. La soluzione più richiesta dalle giovani coppie.</dd>
+                        <dt>Trilocali</dt>
+                        <dd>Grandi metrature per famiglie numerose. Due o tre camere da letto e doppi servizi.</dd>
+                        <dt>Ville o Villette</dt>
+                        <dd>La libertà di non avere vicini. Ville singole, a schiera o bifamiliari con giardino privato e garage.</dd>
+                        <dt>Attici o Mansarde</dt>
+                        <dd>Vivi la città dall'alto. Soluzioni esclusive all'ultimo piano, con terrazze panoramiche e tanta luce.</dd>
+                        <dt>Rustici e Casali</dt>
+                        <dd>Il fascino della tradizione. Casali immersi nel verde, da ristrutturare o già pronti da vivere.</dd>
+                    </dl>
+                </div>
             </div>
-        </div>
         </div> <!-- fine first-part -->
 
         <div id="property-list">

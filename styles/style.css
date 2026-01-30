@@ -563,15 +563,35 @@ footer {
     box-shadow: 0 4px 6px var(--text-gray);
 }
 
+#linkbtn a{
+    width: 100%;
+    background-color: var(--mustard-gold);
+    color: var(--navy-blue);
+    padding: 0.5em;
+    border-radius: 6px;
+    cursor: pointer; 
+    transition: background-color 0.3s ease;
+    margin-top: 1.5em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#linkbtn a:visited {
+    color: var(--navy-blue);
+}
+
+#linkbtn a:hover {
+    background-color: var(--mustard-hover);
+    color: var(--white);
+}
+
 .error-container img {
     max-width: 400px; /* Non farla diventare troppo grande */
     height: auto;
     min-width: 200px;
 }
-
- /* #error-color{
-     color: var();
- } */
 
  .error-container h1 {
     color: var(--error-color);
@@ -581,12 +601,6 @@ footer {
     color: var(--navy-blue);
     margin-bottom: 1.5em;
     font-size: 1.1em;
-}
-
-.error-container a {
-    color: var(--mustard-gold);
-    font-weight: bold;
-    text-decoration: underline;
 }
 
 .error-container a:hover {
@@ -599,39 +613,20 @@ footer {
     color: var(--mustard-gold);
 }
 
- .btn-error{
-     background-color: var(--white);
-     border-color: var(--white);
-     text-decoration: none;
-     border: 2px solid var(--white);
-     border-radius: 25px;
-     color: var(--white);
-     cursor: pointer;
-     padding: .3em 1em;
- }
- .btn-error:hover {
-     border-color: var(--mustard-gold);
-     color: var(--navy-blue);
-     transition: 0.4s;
- }
 
-/*#error-actions{
-    text-align: center;
-} Ancora da capire se serve*/
-
- .btn-form {
-     width: 100%;
-     background-color: var(--mustard-gold);
-     color: var(--navy-blue);
-     border: none;
-     padding: 0.8em;
-     font-weight: bold;
-     text-transform: uppercase;
-     border-radius: 6px;
-     cursor: pointer;
-     transition: background-color 0.3s ease;
-     margin-top: 0.5em;
- }
+.btn-form {
+    width: 100%;
+    background-color: var(--mustard-gold);
+    color: var(--navy-blue);
+    border: none;
+    padding: 0.8em;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 0.5em;
+}
 
 .btn-form:hover {
     background-color: var(--mustard-hover);
@@ -678,25 +673,65 @@ footer {
  }
 
 
- .contacts{
-     border-radius: 10px;
-     padding: 1em 1em;
-     margin-top: 1em;
-     margin-bottom: 1em;
-     box-shadow: var(--text-gray) 0 2px 8px;
-     text-align: center;
-     list-style: none;
- }
+.contacts{
+    border-radius: 10px;
+    padding: 1em 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    box-shadow: var(--text-gray) 0 2px 8px;
+    text-align: center;
+    list-style: none;
+}
 
- .contacts li{
-     list-style: none;
- }
+.contacts h1{
+    margin-bottom: 0.3em;
+}
 
+.contact-item{
+    display: flex;
+    justify-content: center;
+    gap: 1.2em;
+    flex-wrap: wrap;
+    margin: 1em 0;
+}
+
+.contact{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 1 15em;
+    border-radius: 15px;
+    box-shadow: var(--text-gray) 0 2px 8px;
+    padding: 1.5em;
+}
+
+.contact img{
+    margin-bottom: 0.5em;
+}
+
+.contact p{
+    margin-bottom: 0.3em;
+    font-weight: bold;
+}
+
+.contacts a{
+    color: var(--info-color);
+}
+
+.contacts a:visited{
+    color: var(--info-color);
+}
+
+/* .contacts li{
+    list-style: none;
+}
 
 .contacts a:link {
     text-decoration: none;
 
-}
+} */
+
+
 
 .property-grid {
     display: grid;
