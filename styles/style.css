@@ -95,7 +95,7 @@ MENU DI NAVIGAZIONE
 */
 
 #menu a:visited{
-    color: var(--mustard-hover);
+    color: var(--navy-blue);
 }
 
 #menu {
@@ -577,7 +577,7 @@ footer {
 }
 
 .error-container p {
-    color: var(--text-gray);
+    color: var(--navy-blue);
     margin-bottom: 1.5em;
     font-size: 1.1em;
 }
