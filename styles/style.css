@@ -141,14 +141,14 @@ SEZIONE BREADCRUMB
 
 #breadcrumb {
     background: var(--mustard-gold);
-    color: #fff;
+    color: var(--navy-blue);
     font-size: 1.1em;
     padding: .5em 0em .5em 1em;
     border-radius: 0 0 10px 10px; /*10px 10px 10px 10px;*/
 }
 
 #breadcrumb a {
-    color: #fff;
+    color: var(--navy-blue);
 }
 
 /*
@@ -328,7 +328,7 @@ main h1{
     color: var(--mustard-gold);
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 1em;
+    font-size: 1.1em;
     margin-bottom: 1em;
     min-height: 3.4em;
     border-bottom: 3px solid var(--mustard-gold);
@@ -506,6 +506,7 @@ SEZIONE FILTRI
 
 .form button[type="submit"]:hover {
     background-color: var(--mustard-hover);
+    color: var(--white);
 }
 
 /* 
@@ -816,7 +817,7 @@ footer {
 .price {
     align-items: center;
     font-size: 1.1rem;
-    color: var(--mustard-gold);
+    color: var(--navy-blue);
     font-weight: bold;
     margin: 0;
 }
