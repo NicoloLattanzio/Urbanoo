@@ -141,13 +141,13 @@ if(!$formValido) {
 $updatePswResult = $connessione->updatePassword($email, $new);
 $connessione->closeDBConnection();
 if($updatePswResult['success']){
-    //1)
-    $_SESSION["update_psw_msg"] = [
+    //1) messaggio non visibile a causa del logout
+    /*$_SESSION["update_psw_msg"] = [
         'type' => 'success',
         'text' => '<p>Password aggiornata con successo! Effettua l\'accesso con le nuove credenziali.</p>'
-    ];
+    ];*/
     header('location: logout.php');
-    //logout to force login with new psw
+    //force logout -> login with new credentials
     exit();
 } else {
     if($updatePswResult['content'] === 'NOT_FOUND'){

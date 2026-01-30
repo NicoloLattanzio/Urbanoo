@@ -9,7 +9,7 @@ $actionMap = [
 ];
 $msg = null;
 $actionId = null;
-//dont know if i have to unset all messages or just one (refresh risk)
+
 foreach ($actionMap as $sessionKey => $id) {
     if (!empty($_SESSION[$sessionKey]['text'])) {
         $msg = $_SESSION[$sessionKey];
