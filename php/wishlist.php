@@ -182,8 +182,7 @@ if (empty($wishlist)){
     $paginaHTML = str_replace("[wishlist]", $displayWishlist, $paginaHTML);
     echo $paginaHTML;
     exit();
-} 
-$displayWishlist = '<div class="property-wishlist"><ul class="property-wishlist">';
+}
     $displayWishlist .= '<div class="property-grid">';
 
 foreach ($wishlist as $item) {
