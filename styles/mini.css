@@ -9,7 +9,7 @@ header h1{
     width: 260px;
 }
 footer{
-    padding-bottom:100px;
+    padding-bottom:150px;
 }
 
 header h2{
@@ -21,6 +21,7 @@ header h2{
     width: 24px;
     height: 24px;
 }
+
 
 #menu {
     position: fixed ;
