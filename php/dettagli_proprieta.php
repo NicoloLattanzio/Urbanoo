@@ -81,7 +81,7 @@ if ($proprieta) {
     //A)
     $immaginiExtra = $risultatoImmagini['content'];
     if ($immaginiExtra) {
-        $gallery = "<div class=\"gallery\"><img id=\"main-image\" src=\"".e($proprieta['immagine'])."\" alt=\"immagine principale di ".e($proprieta['nome'])."\" class=\"main-img\" tabindex=\"0\">
+        $gallery = "<div class=\"gallery\"><img id=\"main-image\" src=\"".e($proprieta['immagine'])."\" alt=\"immagine principale di ".e($proprieta['nome'])."\" class=\"main-img\" tabindex=\"0\"> <h2>[nome]</h2>
                     <div class=\"thumbnails\">";
         $gallery .= "<img src=\"".e($proprieta['immagine'])."\" alt=\"immagine principale di ".e($proprieta['nome'])."\" class=\"thumb\" tabindex=\"0\">"; // main image
         foreach ($immaginiExtra as $img):
