@@ -101,6 +101,7 @@ header h2{
     color: #666 ;
     font-weight: normal ;
     transition: all 0.2s ease;
+    text-transform: uppercase;
 }
 
 #menu a i,

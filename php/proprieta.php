@@ -97,17 +97,17 @@ if(empty($listaProprieta)) {
         $stringaProprieta .= '<div class="property-details">';
         $stringaProprieta .= '<p class="price">Prezzo:' . e($proprieta['prezzo']) . '</p>';
         $stringaProprieta .= '<p class="card-details">Metri Quadri:' . e($proprieta['metri_quadri']) . '</p>';
-        $stringaProprieta .= '<p class="card-details"><abbr title="Numero">Nr</abbr> Locali:' . e($proprieta['locali']) . '</abbr></p>';
+        $stringaProprieta .= '<p class="card-details"><abbr title="Numero">Nr</abbr> Locali:' . e($proprieta['locali']) . '</p>';
         $stringaProprieta .= '<p class="card-details">Tipologia:' . e($proprieta['tipologia']) . '</p>';
         $stringaProprieta .= '</div>';
         // user/admin -> button: show
-        $stringaProprieta .= '<div><a class="btn-view" href="dettagli_proprieta.php?id=' . e($proprieta['id']) . ' class="action-button" aria-label="Vedi i dettagli di ' . e($proprieta['nome']) . '">Vedi</a></div>';
+        $stringaProprieta .= '<div><a class="btn-view" href="dettagli_proprieta.php?id=' . e($proprieta['id']) . ' "class="action-button" aria-label="Vedi i dettagli di ' . e($proprieta['nome']) . '">Vedi</a></div>';
 
         if ($isAdmin) {
             // admin -> edit button: take to edit page
-            $stringaProprieta .= '<div><a class="btn-mod" href="modifica_proprieta.php?id=' . e($proprieta['id']) . ' class="action-button" aria-label="Modifica i dettagli di ' . e($proprieta['nome']) . '">Modifica</a></div>';
+            $stringaProprieta .= '<div><a class="btn-mod" href="modifica_proprieta.php?id=' . e($proprieta['id']) . ' "class="action-button" aria-label="Modifica i dettagli di ' . e($proprieta['nome']) . '">Modifica</a></div>';
             // admin -> delete button: activates deletion script
-            $stringaProprieta .= '  <div><a class="btn-del" href="elimina_proprieta.php?id=' . e($proprieta['id']) . ' class="action-button" aria-label="Elimina ' . e($proprieta['nome']) . '">Elimina</a></div>';
+            $stringaProprieta .= '  <div><a class="btn-del" href="elimina_proprieta.php?id=' . e($proprieta['id']) . ' "class="action-button" aria-label="Elimina ' . e($proprieta['nome']) . '">Elimina</a></div>';
         }
         $stringaProprieta .= '</div>';
     }
