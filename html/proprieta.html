@@ -44,7 +44,7 @@
         <div id="[action-id]" class="[action-class]" aria-live="polite"> <!-- action: insert/delete/change/visit/none -->
             [action-status-msg]
         </div>
-        <div class="first-part">  <!-- per gestire filtri e primo contenuto, chiedi se va bene così -->
+        <div class="first-part">
             <aside id="filters" class="form">
                 <h2>Filtra Proprietà</h2>
                 <form method="GET" action="proprieta.php" id="searchForm">
@@ -83,7 +83,7 @@
                     </div>
 
                     <div class="input-filters">
-                        <label for="price-min">Prezzo minimo:</label>  <!-- La validazione prezzo minimo < prezzo massimo si fa con js? -->
+                        <label for="price-min">Prezzo minimo:</label>
                         <select id="price-min" name="price_min">
                             <option value="">Qualsiasi</option>
                             <option value="50000">€50.000</option>
@@ -133,7 +133,7 @@
                     </dl>
                 </div>
             </div>
-        </div> <!-- fine first-part -->
+        </div>
 
         <div id="property-list">
             <h2>Elenco</h2>

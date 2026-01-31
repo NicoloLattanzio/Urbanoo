@@ -41,13 +41,11 @@
         <div id="[action-id]" class="[action-class]" aria-live="polite"> <!-- action: registration/wishlist/none -->
             [action-status-msg]
         </div>
-        <p>Ti sei registrato come [ruolo].</p> <!-- eliminare, solo per debug -->
         <div class="intro">
             <h1>Benvenuto, [nome]!</h1>
             <p>Qui puoi gestire il tuo profilo attraverso gli appositi link di navigazione. Ricorda di mantenere sempre la tua <span lang="en">password</span> sicura!</p>
             
-            <ul id="actionList">      <!-- vanno messe le icone con il css tramite id -->
-                <!-- <li><a href="../php/wishlist.php" id="wishlist">La mia wishlist</a></li> -->
+            <ul id="actionList">
                 [wishlist]
                 <li><a href="modifica_password.php" id="changepw">Modifica <span lang="en">password</span></a></li>
                 <li><a href="logout.php" lang="en" id="logout">Logout</a></li>
