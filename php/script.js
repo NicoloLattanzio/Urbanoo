@@ -85,7 +85,7 @@ function validateField(fieldId) {
     errorInvalidDiv.textContent = "";
 
     let isValid = true;
-    // 🔥 FILE INPUT HANDLER
+    // FILE INPUT HANDLER
     if (field.type === "file") {
         // REQUIRED
         if (field.hasAttribute("required") && field.files.length === 0) {
@@ -111,7 +111,7 @@ function validateField(fieldId) {
         }
         return isValid;
     } else {
-        // 🔥 GENERIC INPUT HANDLER
+        // GENERIC INPUT HANDLER
         const value = field.value;
         // REQUIRED
         if (field.hasAttribute("required") && value === "") {

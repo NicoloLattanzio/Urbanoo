@@ -10,6 +10,14 @@ html, body{
     margin: auto;
 }
 
+html em{
+    font-style: normal;
+}
+
+html abbr{
+    text-decoration: none;
+}
+
 header{
     padding: 0em 1em;
     text-align: center;
@@ -35,13 +43,14 @@ header h1{
 }
 
 .intro h1{
-    margin-bottom: 0.5em;
+    margin-bottom: 0.3cm;
     text-align: center;
 }
 
 .intro h2{
-    margin-top: 1em;
+    margin-top: 0.3cm;
     text-align: center;
+    margin-bottom: 0.2cm;
 }
 
 .goback,
@@ -56,13 +65,13 @@ header h1{
     border-radius: 8px;
 }
 
-
 .carousel_slide a:after{
     display: none;
 }
 
-#services {
-    margin-top: 4.5cm;
+#services h2{
+    margin-top: 6cm;
+    margin-bottom: 0.25cm;
 }
 
 #services .item-services {
@@ -272,4 +281,68 @@ footer {
 .error-container img{
     width: 5cm;
     margin: 0.5cm;
+}
+
+.prop-cover{
+    margin-bottom: 0.2cm;
+    width: 75%;
+    margin: auto;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 0.2cm;
+}
+
+.prop-cover h2{
+    text-align: center;
+    border-top: black 2px solid;
+}
+
+.prop-cover img {
+    width: 100%;
+    max-height: 5cm;
+    object-fit: cover; 
+    border-radius: 10px;
+}
+
+.gallery {
+    margin-bottom: 0.2cm;
+    width: 75%;
+    margin: auto;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 0.2cm;
+}
+
+.gallery h2{
+    text-align: center;
+    border-top: black 2px solid;
+}
+
+.gallery #main-image{
+    width: 100%;
+    max-height: 5cm;
+    object-fit: cover; 
+    border-radius: 10px;
+}
+
+.thumbnails {
+    display: flex;
+    gap: 5px;
+}
+
+.thumb {
+    width: 80px;
+    max-height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.prop-info{
+    margin-top: 0.3cm;
+}
+
+.prop-info dt{
+    font-weight: bold;
+    float: left;
+    padding-right: 0.25cm;
 }
