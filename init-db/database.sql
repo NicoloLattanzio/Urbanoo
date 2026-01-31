@@ -157,5 +157,4 @@ INSERT INTO immagini (id_proprieta, immagine) VALUES
 (3, '../img/b1.png'),
 (3, '../img/b2.png'),
 (3, '../img/b3.png'),
-(3, '../img/b4.png'),
-(3, '../img/b5.png');
+(3, '../img/b4.png');
