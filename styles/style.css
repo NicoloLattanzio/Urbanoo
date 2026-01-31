@@ -24,24 +24,29 @@
 
 html,body{
     font-size: 100%;
-    font-family: "Verdana",sans-serif;
+    font-family: "Verdana", "sans-serif";
     line-height: 1.5em;
     margin:auto;
     color:var(--textcolor);
     height: 100%;
-    display: flex;/**/
-    flex-direction: column;/**/
+    display: flex;
+    flex-direction: column;
     max-width: 1200px;
 }
 
 html {
-    scroll-behavior: smooth;  /*vedi*/
+    scroll-behavior: smooth;  /
     height: 100%
 }
 
 html em{
     font-style: normal;
 }
+
+html abbr{
+    text-decoration: none;
+}
+
 
 
 html a:visited {
@@ -59,13 +64,12 @@ SEZIONE HEADER
 */
 
 header {
-    display: flex; /* Attiva il layout flex  */
-    justify-content: space-between; /* Spinge il logo a sinistra e il menu a destra  */;
-    align-items: center; /* Allinea verticalmente logo e menu  */
-    /*padding: 1em 2em; /* Spazio interno per non toccare i bordi */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    flex-wrap: wrap; /* Permette agli elementi di andare a capo */
-    padding: 1em 0 0 0; /* 0 sotto e ai lati per far toccare la fascia blu ai bordi */
+    flex-wrap: wrap;
+    padding: 1em 0 0 0;
 }
 
 header h1{
@@ -81,16 +85,16 @@ header h1{
 }
 
 header h2 {
-    width: 100%; /* Forza l'H2 a occupare tutta la riga successiva */
+    width: 100%;
     background-color: var(--navy-blue);
-    color: white; /* Scritta bianca su sfondo blu */
+    color: white;
     text-align: center;
     padding: 0.7em 0;
-    margin-top: 1em; /* Spazio tra logo/menu e la fascia blu */
+    margin-top: 1em;
     font-size: 2.1em;
     letter-spacing: 0.1em;
     font-weight: normal;
-    border-radius: 10px 10px 0 0; /*10px 10px 10px 10px;*/
+    border-radius: 10px 10px 0 0;
 }
 
 /*
@@ -109,10 +113,10 @@ MENU DI NAVIGAZIONE
     margin-right: 1em;
 }
 
-/* Rimuoviamo i punti elenco e disponiamo i link in orizzontale */
+
 #menu ul {
-    list-style-type: none; /* Rimuove i pallini della lista  */
-    display: flex; /* Dispone i li in riga  */
+    list-style-type: none;
+    display: flex;
     padding: 0;
     margin-top: 0.3em;
 }
@@ -124,7 +128,7 @@ MENU DI NAVIGAZIONE
 #menu a, #menu li#currentlink {
     text-decoration: none;
     font-weight: bold;
-    color: var(--textcolor); /* Sostituisci con il tuo colore primario */
+    color: var(--textcolor);
 }
 
 
@@ -149,7 +153,7 @@ SEZIONE BREADCRUMB
     color: var(--navy-blue);
     font-size: 1.1em;
     padding: .5em 0em .5em 1em;
-    border-radius: 0 0 10px 10px; /*10px 10px 10px 10px;*/
+    border-radius: 0 0 10px 10px;
 }
 
 #breadcrumb a {
@@ -165,7 +169,6 @@ SEZIONE MAIN
 main {
     background-color: var(--white);
     padding: 1em;
-    /*flex: 1 0 auto;  /* Permette a main di espandersi e occupare lo spazio disponibile, evita di comprimersi eccessivamente*/
     box-sizing: border-box;
 }
 
@@ -180,8 +183,7 @@ main h1{
 
 .first-part {
     display: flex;
-    align-items: stretch; /*flex-start*/
-    /*gap: 3%;*/
+    align-items: stretch;
     width: 100%;
     box-sizing: border-box;
 }
@@ -222,7 +224,7 @@ main h1{
 
 #typologies dl {
     display: grid;
-    grid-template-columns: 0.5fr 2.2fr; /* Due colonne */
+    grid-template-columns: 0.5fr 2.2fr;
     gap: 1.5em;
     margin-top: 1em;
 }
@@ -230,7 +232,7 @@ main h1{
 #typologies dt {
     color: var(--navy-blue);
     font-size: 1.1em;
-    border-left: 4px solid var(--mustard-gold); /* Una linea decorativa a sinistra */
+    border-left: 4px solid var(--mustard-gold);
     margin-bottom: 0.2em;
     padding: 0 0 0 0.5em;
 }
@@ -286,12 +288,6 @@ main h1{
     text-decoration: none;
 }
 
-/* .team-members {
-    margin-top: 1em;
-} *
-
-// PROVA TEAM CARD CONTROLLAREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-/* Griglia per il Team */
 .team-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -299,7 +295,6 @@ main h1{
     padding: 20px 0;
 }
 
-/* Card del Team - Stile coerente con .property-card */
 .team-card {
     background: var(--white);
     border: 1px solid var(--navy-blue);
@@ -312,7 +307,7 @@ main h1{
 .team-card img {
     width: 100%;
     height: 250px;
-    object-fit: cover; /* Mantiene le proporzioni delle foto */
+    object-fit: cover;
     border-bottom: 3px solid var(--navy-blue);
 }
 
@@ -409,14 +404,12 @@ SEZIONE FILTRI
 */
 
 .form {
-    /*float: left;*/
     color: var(--white);
     background-color: var(--navy-blue);
     border: solid 1px black;
     padding: 1.5em;
     margin-top: 0;
     border-radius: 12px;
-    /*height: fit-content;*/
     height: auto;
     margin-bottom: 1em;
 }
@@ -442,7 +435,7 @@ SEZIONE FILTRI
     font-size: 0.9em;
     font-weight: bold;
     margin-bottom: 0.4em;
-    color: var(--mustard-gold); /* Uso del colore di accento per le label */
+    color: var(--mustard-gold);
 }
 
 .input-filters input[type="text"],
@@ -463,7 +456,6 @@ SEZIONE FILTRI
     box-sizing: border-box;
 }
 
-/* Stile per il pulsante Cerca */
 #btn-register,
 .input-filters input[type="submit"],
 .form button[type="submit"] {
@@ -503,7 +495,7 @@ SEZIONE FILTRI
 }
 
 
-#account-question{/*Id per il paragrafo relativo alla domanda (sei registrato/loggato?)*/
+#account-question{
     margin-top:1em;
     margin-bottom: 0.2em;
 }
@@ -527,11 +519,8 @@ footer {
 }
 
 
-/* 
-    PARTE SPOSTATA
-*/
 .profile-btn {
-    display: inline-block;    /* per dargli dimensioni */
+    display: inline-block;
     width: 32px;
     height: 32px;
     background-image: url("../img/user.png");
@@ -539,11 +528,11 @@ footer {
     background-repeat: no-repeat;
     background-position: center;
     cursor: pointer;
-    text-indent: -9999px; /* nasconde il testo */
+    text-indent: -9999px;
 }
 
 .search-btn {
-    display: inline-block;    /* per dargli dimensioni */
+    display: inline-block;
     width: 32px;
     height: 32px;
     background-image: url("../img/searchicon.jpg");
@@ -551,7 +540,7 @@ footer {
     background-repeat: no-repeat;
     background-position: center;
     cursor: pointer;
-    text-indent: -9999px; /* nasconde il testo */
+    text-indent: -9999px;
 }
 
 .error-container {
@@ -592,7 +581,7 @@ footer {
 }
 
 .error-container img {
-    max-width: 400px; /* Non farla diventare troppo grande */
+    max-width: 400px;
     height: auto;
     min-width: 200px;
 }
@@ -726,16 +715,6 @@ footer {
     color: var(--info-color);
 }
 
-/* .contacts li{
-    list-style: none;
-}
-
-.contacts a:link {
-    text-decoration: none;
-
-} */
-
-
 
 .property-grid {
     display: grid;
@@ -758,12 +737,6 @@ footer {
     grid-template-columns: 1fr 1fr 1fr;
 }
 
-/*#delete-dialog{
-    grid-area: delete-dialog;
-    position:relative;
-    margin-bottom:0;
-}*/
-
 
 .property-card h3{
     margin-top:0;
@@ -779,7 +752,6 @@ footer {
     grid-area: img;
     width: 100%;
     height: 100%;
-    /*Corrispondente a formato 16:9, tecnicamente se usiuamo solo foto con questo formato non vengono stretchate*/
 }
 
 .btn-add,
@@ -787,7 +759,7 @@ footer {
 .btn-del,
 .btn-view {
     background-color: var(--mustard-gold);
-    display: block; /* Meglio di inline-block qui */
+    display: block;
     width: 100%;
     height: 100%;
     background-repeat: no-repeat;
@@ -875,16 +847,13 @@ footer {
 .action-button{
     width: 32px;
     height: 32px;
-    /*background-image: url("../img/search.png");       cosa la metti qui nicolò*/  
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     cursor: pointer;
-    /*text-indent: -9999px;*/
     display: flex;
     align-items: center;
     justify-content: center;
-    /*color: white;*/
     transition: all 0.3s ease;
     transform: scale(0.9);
 
@@ -940,10 +909,6 @@ footer {
     padding: 0;
 }
 
-.error-msg li {
-    list-style-type: arrow-right;
-}
-
 .error-msg:empty {
     display: none;
 }
@@ -972,11 +937,8 @@ footer {
     text-align: center;
 }
 
-/*Sezione dello slider immagini*/
-
 
 ol, li {
-    /*list-style: none;*/
     margin: 0;
     padding: 0;
 }
@@ -1171,10 +1133,6 @@ ol, li {
     border-left: 3px solid var(--mustard-gold);
 }
 
-/* .prop-details{
-    width: 100%;
-}*/
-
 .gallery {
     max-width: 700px;
     margin: auto;
@@ -1200,20 +1158,19 @@ ol, li {
     cursor: pointer;
     border-radius: 5px;
     transition: all 0.2s ease;
-    border: 2px solid transparent; /* Bordo invisibile di base */
+    border: 2px solid transparent;
 }
 
-/* Stile quando ci passi sopra col mouse */
+
 .thumb:hover {
     transform: scale(1.05);
 }
 
-/* --- NUOVO: Stile per la miniatura ATTIVA --- */
 .thumb.active {
-    opacity: 0.5;           /* La rende semi-trasparente (scuretta) */
-    filter: grayscale(50%); /* Opzionale: la rende un po' grigia */
-    border: 2px solid #333; /* Aggiunge un bordo scuro */
-    transform: scale(0.95); /* La rimpicciolisce leggermente (effetto "premuto") */
+    opacity: 0.5;
+    filter: grayscale(50%);
+    border: 2px solid #333;
+    transform: scale(0.95);
 }
 
 .prop-cover h2{
