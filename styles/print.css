@@ -1,7 +1,5 @@
 * {
     box-shadow: none !important;
-    /*-webkit-print-color-adjust: exact;    /* Webkit based browsers */
-    /*print-color-adjust: exact;            /* Standard property */
     padding: 0em;
     margin: 0em;
 }
@@ -58,10 +56,6 @@ header h1{
     border-radius: 8px;
 }
 
-/*a:link:after, a:visited:after {
-    content: " [" attr(href) "] ";
-    font-size:90%;
-}*/
 
 .carousel_slide a:after{
     display: none;
@@ -73,7 +67,7 @@ header h1{
 
 #services .item-services {
     page-break-inside: avoid;
-    display: block; /* Più sicuro del grid/flex per la stampa */
+    display: block;
     margin-bottom: 2cm;
     border: 2px solid black;
     border-radius: 10px;
@@ -91,7 +85,7 @@ header h1{
 }
 
 #services dd img {
-    width: 1.5cm; /* Dimensione fissa per le icone in stampa */
+    width: 1.5cm;
     float: left;
     margin-right: 1cm;
 }
@@ -119,12 +113,10 @@ footer {
 
 .team-card .team-name{
     font-weight: bold;
-    /*text-align: center;*/
 }
 
 .team-card .role{
     color: #9F741E;
-    /*text-align: center;*/
 }
 
 .team-card img {

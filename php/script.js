@@ -247,3 +247,29 @@ document.addEventListener('DOMContentLoaded', function() {
     window.plusSlides = plusSlides;
     window.currentSlide = currentSlide;
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    const mainImg = document.getElementById('main-image');
+    const thumbs = document.querySelectorAll('.thumb');
+
+    // Verifica se gli elementi esistono per evitare errori
+    if(mainImg && thumbs.length > 0) {
+
+    // 1. IMPORTANTE: Rende "scura" la prima miniatura appena carichi la pagina
+    thumbs[0].classList.add('active');
+
+    thumbs.forEach(thumb => {
+    thumb.addEventListener('click', function() {
+
+    // 2. Cambia l'immagine grande
+    mainImg.src = this.src;
+
+    // 3. RESET: Rimuove la classe 'active' da TUTTE le miniature
+    thumbs.forEach(t => t.classList.remove('active'));
+
+    // 4. ATTIVAZIONE: Aggiunge la classe 'active' SOLO a quella cliccata
+    this.classList.add('active');
+});
+});
+}
+});
