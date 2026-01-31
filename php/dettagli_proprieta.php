@@ -5,6 +5,16 @@ use DB\DBAccess;
 
 $paginaHTML = file_get_contents('../html/dettagli_proprieta.html');
 
+// Function to format prices to display
+function formatWithCommas($number): string
+{
+    if (!is_numeric($number)) {
+        return '';
+    }
+
+    return number_format((int)$number, 0, '', ',');
+}
+
 //function to print html values
 function e($value) {
     return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
@@ -80,7 +90,7 @@ if ($proprieta) {
         $gallery .= "</div></div>";
         $dettagli_proprieta = str_replace(
         ["[galleria]", "[nome]", "[descrizione]", "[prezzo]", "[indirizzo]", "[citta]", "[tipologia]", "[metri_quadri]", "[locali]", "[disponibilita]"],
-        [$gallery, e($proprieta['nome']), e($proprieta['descrizione']), e($proprieta['prezzo']), e($proprieta['indirizzo']), e($proprieta['citta']), e($proprieta['tipologia']), e($proprieta['metri_quadri']), e($proprieta['locali']), $disp],
+        [$gallery, e($proprieta['nome']), e($proprieta['descrizione']), formatWithCommas(e($proprieta['prezzo'])), e($proprieta['indirizzo']), e($proprieta['citta']), e($proprieta['tipologia']), e($proprieta['metri_quadri']), e($proprieta['locali']), $disp],
         "<div class = 'prop-details'>
                     [galleria]
                     <div class = 'prop-info'>
@@ -106,7 +116,7 @@ if ($proprieta) {
         //B)
         $dettagli_proprieta = str_replace(
             ["[immagine]", "[nome]", "[descrizione]", "[prezzo]", "[indirizzo]", "[citta]", "[tipologia]", "[metri_quadri]", "[locali]", "[disponibilita]"],
-            [e($proprieta['immagine']), e($proprieta['nome']), e($proprieta['descrizione']), e($proprieta['prezzo']), e($proprieta['indirizzo']), e($proprieta['citta']), e($proprieta['tipologia']), e($proprieta['metri_quadri']), e($proprieta['locali']), $disp],
+            [e($proprieta['immagine']), e($proprieta['nome']), e($proprieta['descrizione']), formatWithCommas(e($proprieta['prezzo'])), e($proprieta['indirizzo']), e($proprieta['citta']), e($proprieta['tipologia']), e($proprieta['metri_quadri']), e($proprieta['locali']), $disp],
             "<div class = 'prop-details'>
                 <div class = 'prop-cover'>
                     <img src='[immagine]'>

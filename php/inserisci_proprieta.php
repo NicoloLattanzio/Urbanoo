@@ -131,15 +131,23 @@ if($descrizione !== '' && (strlen($descrizione) < 10 || strlen($descrizione) > 2
 
 // === PRICE ===
 $prezzo = trim($_POST['price'] ?? '');
-if ($prezzo === ''){
-    $prezzoErr .= '<p>Prezzo non inserito.</p>';
-    $formValido = false;
-} else if (!preg_match('/^\d+(\.\d{1,2})?$/', $prezzo)) {
-    $prezzoErr .= '<p>Il prezzo deve essere un numero valido (decimali con massimo 2 cifre) maggiore di 0.</p>';
+if ($prezzo === '') {
+    $prezzoErr = '<p>Prezzo non inserito.</p>';
     $formValido = false;
 } else {
-    $prezzo = cleanInput($prezzo, $tagPermessi);
-    $prezzo = (float)$prezzo;
+    $validatedPrice = filter_var($prezzo, FILTER_VALIDATE_INT);
+    if ($validatedPrice === false) {
+        $prezzoErr = '<p>Il prezzo deve essere un numero intero.</p>';
+        $formValido = false;
+    } elseif ($validatedPrice <= 0) {
+        $prezzoErr = '<p>Il prezzo deve essere maggiore di 0.</p>';
+        $formValido = false;
+    } elseif (strlen($prezzo) > 10) {
+        $prezzoErr = '<p>Il prezzo è troppo alto (massimo 10 cifre).</p>';
+        $formValido = false;
+    } else {
+        $prezzo = $validatedPrice;
+    }
 }
 
 // === TYPE ===
@@ -270,7 +278,7 @@ if (isset($_FILES['img'])) {
             $formValido = false;
         }
     }
-    if (count($immagini) === 0) {
+    if (count($immagini) === 0 && empty($immaginiErr)) {
         $immaginiErr .= '<p>Caricare almeno un\'immagine della proprietà.</p>';
         $formValido = false;
     }

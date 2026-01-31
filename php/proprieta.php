@@ -3,6 +3,53 @@ session_start();
 require_once "dbconnection.php";
 use DB\DBAccess;
 
+// Function to format the price to display
+function formatPrice($price): string
+{
+    if (!is_numeric($price)) {
+        return '';
+    }
+
+    // normalize input (int, float, decimal string)
+    $price = (float)$price;
+
+    // < 1000
+    if ($price < 1000) {
+        return (string)(int)$price;
+    }
+
+    // MILLIONS
+    if ($price >= 1_000_000) {
+        $m = $price / 1_000_000;
+
+        // use M only if not integer
+        if (floor($m) != $m) {
+            $formatted = rtrim(
+                rtrim(number_format($m, 2, '.', ''), '0'),
+                '.'
+            );
+            return $formatted . 'M';
+        }
+    }
+
+    // THOUSANDS
+    if ($price >= 100_000) {
+        $k = $price / 1_000;
+
+        // use k if not integer OR >= 100k
+        if (floor($k) != $k || $k >= 100) {
+            $formatted = rtrim(
+                rtrim(number_format($k, 1, '.', ''), '0'),
+                '.'
+            );
+            return $formatted . 'k';
+        }
+    }
+    // DEFAULT: grouped with ,
+    return number_format((int)round($price), 0, '', ',');
+}
+
+
 //function to print html values
 function e($value) {
     return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
@@ -95,7 +142,7 @@ if(empty($listaProprieta)) {
         $stringaProprieta .= '<img src="' . e($proprieta['immagine']) . '" alt="" />';
         $stringaProprieta .= '<h3>' . e($proprieta['nome']) . '</h3>';
         $stringaProprieta .= '<div class="property-details">';
-        $stringaProprieta .= '<p class="price">Prezzo:' . e($proprieta['prezzo']) . '</p>';
+        $stringaProprieta .= '<p class="price">Prezzo: &euro; ' . formatPrice(e($proprieta['prezzo'])) . '</p>';
         $stringaProprieta .= '<p class="card-details">Metri Quadri:' . e($proprieta['metri_quadri']) . '</p>';
         $stringaProprieta .= '<p class="card-details"><abbr title="Numero">Nr</abbr> Locali:' . e($proprieta['locali']) . '</p>';
         $stringaProprieta .= '<p class="card-details">Tipologia:' . e($proprieta['tipologia']) . '</p>';

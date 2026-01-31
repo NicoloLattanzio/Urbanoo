@@ -60,14 +60,14 @@ class DBAccess {
 
 			if ($price_min !== '') {
 				$query .= " AND prezzo >= ?";
-				$params[] = (float) $price_min;
-				$types   .= "d";
+				$params[] = (int) $price_min;
+				$types   .= "i";
 			}
 
 			if ($price_max !== '') {
 				$query .= " AND prezzo <= ?";
-				$params[] = (float) $price_max;
-				$types   .= "d";
+				$params[] = (int) $price_max;
+				$types   .= "i";
 			}
 
 			if (!empty($size_range)) {
@@ -314,7 +314,7 @@ class DBAccess {
 			$stmt = $this->connection->prepare($query);
 			$immagine_principale = $immagini[0];
 			$stmt->bind_param(
-				"sssssdiisi",
+				"sssssiiisi",
 				$nome, 
 				$descrizione, 
 				$tipologia, 
@@ -441,7 +441,7 @@ class DBAccess {
 					WHERE id = ?";
 
 			$stmt = $this->connection->prepare($query);
-			$stmt->bind_param("ssdii", $nome, $descrizione, $prezzo, $disponibilita, $id);
+			$stmt->bind_param("ssiii", $nome, $descrizione, $prezzo, $disponibilita, $id);
 			$stmt->execute();
 
 			$affectedRows = $stmt->affected_rows;

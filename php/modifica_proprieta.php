@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST'){
         // invalid property id
         $_SESSION['change_prop_msg'] = [
             'type' => 'error',
-            'text' => '<p>Seleziona una proprietà valida.</p>'
+            'text' => '<p>Seleziona una proprietà valida1.</p>'
         ];
         header('location: proprieta.php');
         exit();
@@ -112,8 +112,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST'){
     );
     //no errors on initial page load
     $paginaHTML = str_replace(
-        ["[id_err]", "[name_err]", "[description_err]", "[price_err]", "[availability_err]"],
-        ["", "", "", "", ""],
+        ["[name_err]", "[description_err]", "[price_err]", "[availability_err]"],
+        ["", "", "", ""],
         $paginaHTML
     );
     echo $paginaHTML;
@@ -133,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST'){
         // invalid property id
         $_SESSION['change_prop_msg'] = [
             'type' => 'error',
-            'text' => '<p>Seleziona una proprietà valida.</p>'
+            'text' => '<p>Seleziona una proprietà valida2.</p>'
         ];
         header('location: proprieta.php');
         exit();
@@ -176,15 +176,23 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST'){
     
     // === PRICE ===
     $prezzo = trim($_POST['price'] ?? '');
-    if ($prezzo === ''){
-        $prezzoErr .= '<p>Prezzo non inserito.</p>';
-        $formValido = false;
-    } else if (!is_numeric($prezzo) || intval($prezzo) <= 0) {
-        $prezzoErr .= '<p>Il prezzo deve essere un numero maggiore di 0.</p>';
+    if ($prezzo === '') {
+        $prezzoErr = '<p>Prezzo non inserito.</p>';
         $formValido = false;
     } else {
-        $prezzo = cleanInput($prezzo, $tagPermessi);
-        $prezzo = (float)$prezzo;
+        $validatedPrice = filter_var($prezzo, FILTER_VALIDATE_INT);
+        if ($validatedPrice === false) {
+            $prezzoErr = '<p>Il prezzo deve essere un numero intero.</p>';
+            $formValido = false;
+        } elseif ($validatedPrice <= 0) {
+            $prezzoErr = '<p>Il prezzo deve essere maggiore di 0.</p>';
+            $formValido = false;
+        } elseif (strlen($prezzo) > 10) {
+            $prezzoErr = '<p>Il prezzo è troppo alto (massimo 10 cifre).</p>';
+            $formValido = false;
+        } else {
+            $prezzo = $validatedPrice;
+        }
     }
     
 
@@ -219,6 +227,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST'){
         $paginaHTML = str_replace('[availability_err]', $disponibilitaErr, $paginaHTML);
 
         //replace previous values
+        $paginaHTML = str_replace('[id_val]', e($id), $paginaHTML);
         $paginaHTML = str_replace('[name_val]', $nomeErr ? "" : e($nome), $paginaHTML);
         $paginaHTML = str_replace('[description_val]', $descrizioneErr ? "" : e($descrizione), $paginaHTML);
         $paginaHTML = str_replace('[price_val]', $prezzoErr ? "" : e($prezzo), $paginaHTML);

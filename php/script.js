@@ -249,27 +249,28 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener("DOMContentLoaded", function() {
-    const mainImg = document.getElementById('main-image');
-    const thumbs = document.querySelectorAll('.thumb');
+    const galleryContainer = document.querySelector('.gallery');
 
-    // Verifica se gli elementi esistono per evitare errori
-    if(mainImg && thumbs.length > 0) {
+    // Usiamo la "Event Delegation" per gestire contenuti dinamici
+    if (galleryContainer) {
+        galleryContainer.addEventListener('click', function(e) {
+            // Controlliamo se l'elemento cliccato è una miniatura
+            if (e.target.classList.contains('thumb')) {
+                const mainImg = document.getElementById('main-image');
+                const thumbs = document.querySelectorAll('.thumb');
+                
+                // 1. Cambia Sorgente e Alt
+                mainImg.src = e.target.src;
+                mainImg.alt = e.target.alt;
 
-    // 1. IMPORTANTE: Rende "scura" la prima miniatura appena carichi la pagina
-    thumbs[0].classList.add('active');
+                // 2. Gestione classe Active
+                thumbs.forEach(t => t.classList.remove('active'));
+                e.target.classList.add('active');
+            }
+        });
 
-    thumbs.forEach(thumb => {
-    thumb.addEventListener('click', function() {
-
-    // 2. Cambia l'immagine grande
-    mainImg.src = this.src;
-
-    // 3. RESET: Rimuove la classe 'active' da TUTTE le miniature
-    thumbs.forEach(t => t.classList.remove('active'));
-
-    // 4. ATTIVAZIONE: Aggiunge la classe 'active' SOLO a quella cliccata
-    this.classList.add('active');
-});
-});
-}
+        // Imposta la prima miniatura come attiva all'avvio
+        const firstThumb = galleryContainer.querySelector('.thumb');
+        if (firstThumb) firstThumb.classList.add('active');
+    }
 });
