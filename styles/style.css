@@ -775,10 +775,10 @@ footer {
 }
 
 .property-card img {
+    object-fit: cover;
     grid-area: img;
     width: 100%;
     height: 100%;
-    max-height: 220px;
     /*Corrispondente a formato 16:9, tecnicamente se usiuamo solo foto con questo formato non vengono stretchate*/
 }
 

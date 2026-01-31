@@ -174,18 +174,16 @@ document.addEventListener('DOMContentLoaded', function() {
     let slideIndex = 1;
     showSlides(slideIndex);
 
-    // Next/previous controls
+    // Variabili per il tracking del touch
+    let touchStartX = 0;
+    let touchEndX = 0;
+
     function plusSlides(n) {
         showSlides(slideIndex += n);
-
-        console.log("Fatto");
     }
 
-    // Thumbnail image controls
     function currentSlide(n) {
         showSlides(slideIndex = n);
-
-        console.log("Fatto");
     }
 
     function showSlides(n) {
@@ -193,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let slides = document.getElementsByClassName("carousel_slide");
         let dots = document.getElementsByClassName("dot");
 
-        if (slides.length === 0) return; // Se non ci sono slides, esci
+        if (slides.length === 0) return;
 
         if (n > slides.length) {slideIndex = 1}
         if (n < 1) {slideIndex = slides.length}
@@ -212,7 +210,40 @@ document.addEventListener('DOMContentLoaded', function() {
             dots[slideIndex-1].className += " active";
         }
     }
-    // A quanto pare senza sta roba non va nulla
+
+    // --- LOGICA PER LO SWIPE ---
+
+    const sliderContainer = document.querySelector('.carousel') || document.querySelector('.carousel_viewport');
+
+    if (sliderContainer) {
+        sliderContainer.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+
+        sliderContainer.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleGesture();
+        }, {passive: true});
+
+        // Debug per capire se lo sta trovando (controlla la console del browser)
+        console.log("Slider trovato e pronto per lo swipe");
+    } else {
+        console.log("Errore: Non ho trovato il contenitore .carousel");
+    }
+
+    function handleGesture() {
+        const threshold = 50; // Lunghezza minima dello swipe in pixel
+        if (touchEndX < touchStartX - threshold) {
+            // Swipe a sinistra -> Prossima slide
+            plusSlides(1);
+        }
+        if (touchEndX > touchStartX + threshold) {
+            // Swipe a destra -> Slide precedente
+            plusSlides(-1);
+        }
+    }
+
+    // Export per l'uso nell'HTML
     window.plusSlides = plusSlides;
     window.currentSlide = currentSlide;
 });
