@@ -251,25 +251,32 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener("DOMContentLoaded", function() {
     const galleryContainer = document.querySelector('.gallery');
 
-    // Usiamo la "Event Delegation" per gestire contenuti dinamici
     if (galleryContainer) {
-        galleryContainer.addEventListener('click', function(e) {
-            // Controlliamo se l'elemento cliccato è una miniatura
-            if (e.target.classList.contains('thumb')) {
+        // Function to update the image
+        const updateGallery = (target) => {
+            if (target.classList.contains('thumb')) {
                 const mainImg = document.getElementById('main-image');
                 const thumbs = document.querySelectorAll('.thumb');
                 
-                // 1. Cambia Sorgente e Alt
-                mainImg.src = e.target.src;
-                mainImg.alt = e.target.alt;
+                mainImg.src = target.src;
+                mainImg.alt = target.alt;
 
-                // 2. Gestione classe Active
                 thumbs.forEach(t => t.classList.remove('active'));
-                e.target.classList.add('active');
+                target.classList.add('active');
+            }
+        };
+
+        // Listen for Click
+        galleryContainer.addEventListener('click', (e) => updateGallery(e.target));
+
+        // Listen for Enter Key (Accessibility)
+        galleryContainer.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                updateGallery(e.target);
             }
         });
 
-        // Imposta la prima miniatura come attiva all'avvio
+        // Set first active
         const firstThumb = galleryContainer.querySelector('.thumb');
         if (firstThumb) firstThumb.classList.add('active');
     }
