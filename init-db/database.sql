@@ -112,7 +112,7 @@ INSERT INTO proprieta (nome, descrizione, citta, tipologia, prezzo, metri_quadri
     'Ripa di Porta Ticinese 5', 
     2, 
     1, 
-    '../img/emerald.png'
+    '../img/bilocale.png'
 ),
 (
     'Rustico Toscano', 
@@ -152,10 +152,10 @@ INSERT INTO wishlist(id_utente, id_proprieta) VALUES (2,1);
 INSERT INTO wishlist(id_utente, id_proprieta) VALUES (2,2);*/
 
 
--- Aggiungiamo 4 foto extra per il bilocale (ID 3) (ho fatto in attico id1)
+-- Aggiungiamo 4 foto extra per il bilocale (ID 3)
 INSERT INTO immagini (id_proprieta, immagine) VALUES 
-(1, '../img/b1.png'),
-(1, '../img/b2.png'),
-(1, '../img/b3.png'),
-(1, '../img/b4.png'),
-(1, '../img/b5.png');
+(3, '../img/b1.png'),
+(3, '../img/b2.png'),
+(3, '../img/b3.png'),
+(3, '../img/b4.png'),
+(3, '../img/b5.png');
