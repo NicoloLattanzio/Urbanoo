@@ -81,11 +81,11 @@ if ($proprieta) {
     //A)
     $immaginiExtra = $risultatoImmagini['content'];
     if ($immaginiExtra) {
-        $gallery = "<div class=\"gallery\"><img id=\"main-image\" src=\"".e($proprieta['immagine'])."\" alt=\"immagine principale di ".e($proprieta['nome'])."\" class=\"main-img\" tabindex=\"0\"> <h2>[nome]</h2>
+        $gallery = "<div class=\"gallery\"><img id=\"main-image\" src=\"".e($proprieta['immagine'])."\" alt=\"\" class=\"main-img\" tabindex=\"0\"> <h2>[nome]</h2>
                     <div class=\"thumbnails\">";
-        $gallery .= "<img src=\"".e($proprieta['immagine'])."\" alt=\"immagine principale di ".e($proprieta['nome'])."\" class=\"thumb\" tabindex=\"0\">"; // main image
+        $gallery .= "<img src=\"".e($proprieta['immagine'])."\" alt=\"\" class=\"thumb\" tabindex=\"0\">"; // main image
         foreach ($immaginiExtra as $img):
-            $gallery .= "<img src=\"".e($img)."\" alt=\"immagine altra stanza di ".e($proprieta['nome'])."\" class=\"thumb\" tabindex=\"0\">";
+            $gallery .= "<img src=\"".e($img)."\" alt=\"\" class=\"thumb\" tabindex=\"0\">";
         endforeach;
         $gallery .= "</div></div>";
         $dettagli_proprieta = str_replace(
