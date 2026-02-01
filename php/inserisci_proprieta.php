@@ -272,7 +272,7 @@ if (isset($_FILES['img'])) {
         $destPath = $uploadDir . $newFileName;
 
         if (move_uploaded_file($tmpName, $destPath)) {
-            $immagini[] = 'img/' . $newFileName;
+            $immagini[] = '../img/' . $newFileName;
         } else {
             $immaginiErr .= "<p>Errore caricamento <span lang='en'>file</span>: ".e($_FILES['img']['name'][$index]).".</p>";
             $formValido = false;
