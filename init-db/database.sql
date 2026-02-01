@@ -177,6 +177,7 @@ INSERT INTO immagini (id_proprieta, immagine) VALUES
 -- Foto extra per ogni trilocale (sono uguali per tutti i trilocali inseriti)
 INSERT INTO immagini (id_proprieta, immagine) VALUES 
 (6, '../img/t1.png'), (6, '../img/t2.png'), (6, '../img/t3.png'), (6, '../img/t4.png'),
+(12, '../img/t1.png'), (12, '../img/t2.png'), (12, '../img/t3.png'), (12, '../img/t4.png'),
 (8, '../img/t1.png'), (8, '../img/t2.png'), (8, '../img/t3.png'), (8, '../img/t4.png');
 
 -- Foto extra per ogni rustico (sono uguali per tutti i rustici inseriti)
