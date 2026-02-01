@@ -153,15 +153,6 @@ INSERT INTO proprieta (nome, descrizione, citta, tipologia, prezzo, metri_quadri
 INSERT INTO wishlist(id_utente, id_proprieta) VALUES (2, 1);
 INSERT INTO wishlist(id_utente, id_proprieta) VALUES (2, 3);
 
-
-/*INSERT INTO proprieta (nome, descrizione, citta, tipologia, prezzo, metri_quadri, indirizzo, locali, disponibilita, immagine) VALUES ('casa', 'Casa a caso', 'Napoli', 'Casa napoletana', 10, 55, 'Via napoletana 55', 32, 1,'../img/attici.png');
-INSERT INTO proprieta (nome, descrizione, citta, tipologia, prezzo, metri_quadri, indirizzo, locali, disponibilita, immagine) VALUES ('casa gay', 'Casa a caso', 'Vesuvio', 'Casa con cenere', 2, 76,  'Via napoletana 45', 21, 0,'../img/Skyscraper_Rework.png');
-INSERT INTO proprieta (nome, descrizione, citta, tipologia, prezzo, metri_quadri, indirizzo, locali, disponibilita, immagine) VALUES ( 'casa 2121321', 'Casa a caso', 'Vesuvio', 'Casa con cenere', 2, 76,  'Via napoletana 43', 21, 0,'../img/Skyscraper_Rework.png');
-
-INSERT INTO wishlist(id_utente, id_proprieta) VALUES (2,1);
-INSERT INTO wishlist(id_utente, id_proprieta) VALUES (2,2);*/
-
-
 -- Foto extra per ogni bilocale (sono uguali per tutti i bilocali inseriti)
 INSERT INTO immagini (id_proprieta, immagine) VALUES 
 (3, '../img/b1.png'), (3, '../img/b2.png'), (3, '../img/b3.png'), (3, '../img/b4.png'),
