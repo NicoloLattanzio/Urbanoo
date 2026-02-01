@@ -88,7 +88,7 @@ INSERT INTO proprieta (nome, descrizione, citta, tipologia, prezzo, metri_quadri
     'Via Torino 12', 
     4, 
     1, 
-    '../img/torre.png'
+    '../img/attico1.png'
 ),
 (
     'Villa i Cipressi', 
@@ -100,7 +100,7 @@ INSERT INTO proprieta (nome, descrizione, citta, tipologia, prezzo, metri_quadri
     'Via dei Colli 45', 
     6, 
     1, 
-    '../img/villa.png'
+    '../img/villa1.png'
 ),
 (
     'Bilocale Moderno Navigli', 
@@ -112,7 +112,7 @@ INSERT INTO proprieta (nome, descrizione, citta, tipologia, prezzo, metri_quadri
     'Ripa di Porta Ticinese 5', 
     2, 
     1, 
-    '../img/bilocale.png'
+    '../img/bilocale1.png'
 ),
 (
     'Rustico Toscano', 
@@ -124,7 +124,7 @@ INSERT INTO proprieta (nome, descrizione, citta, tipologia, prezzo, metri_quadri
     'Strada Provinciale 22', 
     5, 
     1, 
-    '../img/Skyscraper_Rework.png'
+    '../img/rustico1.png'
 ),
 (
     'Monolocale Centro Storico', 
@@ -136,8 +136,18 @@ INSERT INTO proprieta (nome, descrizione, citta, tipologia, prezzo, metri_quadri
     'Via Toledo 110', 
     1, 
     1, 
-    '../img/costa.png'
-);
+    '../img/monolocale1.png'
+),
+('Trilocale Prati Elegante', 'Appartamento signorile a pochi passi dal Vaticano, finiture di pregio.', 'Roma', 'Trilocale', 580000, 95, 'Via Cola di Rienzo 24', 3, 1, '../img/trilocale1.png'),
+('Casale degli Ulivi', 'Incantevole rustico immerso nelle colline umbre con vista sulla valle.', 'Perugia', 'Rustico', 450000, 220, 'Strada delle Vigne 15', 7, 1, '../img/rustico2.png'),
+('Loft Industriale Torino', 'Ampio loft dal design moderno in zona Lingotto, soffitti alti e mattoni a vista.', 'Torino', 'Trilocale', 310000, 110, 'Via Nizza 150', 3, 1, '../img/trilocale2.png'),
+('Villa Laguna Lido', 'Esclusiva villa con accesso privato alla spiaggia e giardino mediterraneo.', 'Venezia', 'Villa', 1400000, 320, 'Lungomare Marconi 8', 8, 1, '../img/villa2.png'),
+('Bilocale Portici Bologna', 'Grazioso appartamento sotto i portici storici, ideale come pied-à-terre.', 'Bologna', 'Bilocale', 245000, 55, 'Via Zamboni 12', 2, 1, '../img/bilocale2.png'),
+('Attico Sole e Mare', 'Attico con tripla esposizione e vista mozzafiato sul Golfo di Palermo.', 'Palermo', 'Attico', 410000, 130, 'Via della Libertà 88', 5, 1, '../img/attico2.png'),
+('Trilocale Arena', 'Appartamento storico con affacci diretti sull Arena di Verona.', 'Verona', 'Trilocale', 490000, 85, 'Piazza Bra 3', 3, 1, '../img/trilocale3.png'),
+('Monolocale Smart Design', 'Soluzione tecnologica e funzionale nel quartiere Isola.', 'Milano', 'Monolocale', 215000, 32, 'Via Borsieri 7', 1, 1, '../img/monolocale2.png'),
+('Villa Vista Mare Genova', 'Proprietà di prestigio nel quartiere Albaro con ampie vetrate sul mare.', 'Genova', 'Villa', 980000, 210, 'Via Giordano Bruno 2', 7, 1, '../img/villa3.png'),
+('Rustico Langhe Heritage', 'Casale piemontese circondato dai vigneti del Barolo, patrimonio UNESCO.', 'Cuneo', 'Rustico', 280000, 160, 'Frazione Annunziata 44', 6, 1, '../img/rustico3.png');
 
 -- Aggiornamento Wishlist con ID esistenti (assumendo che l'utente 2 esista)
 INSERT INTO wishlist(id_utente, id_proprieta) VALUES (2, 1);
