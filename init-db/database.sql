@@ -162,9 +162,34 @@ INSERT INTO wishlist(id_utente, id_proprieta) VALUES (2,1);
 INSERT INTO wishlist(id_utente, id_proprieta) VALUES (2,2);*/
 
 
--- Aggiungiamo 4 foto extra per il bilocale (ID 3)
+-- Foto extra per ogni bilocale (sono uguali per tutti i bilocali inseriti)
 INSERT INTO immagini (id_proprieta, immagine) VALUES 
-(3, '../img/b1.png'),
-(3, '../img/b2.png'),
-(3, '../img/b3.png'),
-(3, '../img/b4.png');
+(3, '../img/b1.png'), (3, '../img/b2.png'), (3, '../img/b3.png'), (3, '../img/b4.png'),
+(10, '../img/b1.png'), (10, '../img/b2.png'), (10, '../img/b3.png'), (10, '../img/b4.png');
+
+-- Foto extra per ogni monolocale (sono uguali per tutti i monolocali inseriti)
+INSERT INTO immagini (id_proprieta, immagine) VALUES 
+(5, '../img/m1.png'), (5, '../img/m2.png'), (5, '../img/m3.png'), (5, '../img/m4.png'),
+(13, '../img/m1.png'), (13, '../img/m2.png'), (13, '../img/m3.png'), (13, '../img/m4.png');
+
+-- Foto extra per ogni villa (sono uguali per tutte le ville inserite)
+INSERT INTO immagini (id_proprieta, immagine) VALUES 
+(2, '../img/v1.png'), (2, '../img/v2.png'), (2, '../img/v3.png'), (2, '../img/v4.png'),
+(9, '../img/v1.png'), (9, '../img/v2.png'), (9, '../img/v3.png'), (9, '../img/v4.png'),
+(14, '../img/v1.png'), (14, '../img/v2.png'), (14, '../img/v3.png'), (14, '../img/v4.png');
+
+-- Foto extra per ogni attico (sono uguali per tutti gli attici inseriti)
+INSERT INTO immagini (id_proprieta, immagine) VALUES 
+(1, '../img/a1.png'), (1, '../img/a2.png'), (1, '../img/a3.png'), (1, '../img/a4.png'),
+(11, '../img/a1.png'), (11, '../img/a2.png'), (11, '../img/a3.png'), (11, '../img/a4.png');
+
+-- Foto extra per ogni trilocale (sono uguali per tutti i trilocali inseriti)
+INSERT INTO immagini (id_proprieta, immagine) VALUES 
+(6, '../img/t1.png'), (6, '../img/t2.png'), (6, '../img/t3.png'), (6, '../img/t4.png'),
+(8, '../img/t1.png'), (8, '../img/t2.png'), (8, '../img/t3.png'), (8, '../img/t4.png');
+
+-- Foto extra per ogni rustico (sono uguali per tutti i rustici inseriti)
+INSERT INTO immagini (id_proprieta, immagine) VALUES 
+(4, '../img/r1.png'), (4, '../img/r2.png'), (4, '../img/r3.png'), (4, '../img/r4.png'),
+(7, '../img/r1.png'), (7, '../img/r2.png'), (7, '../img/r3.png'), (7, '../img/r4.png'),
+(15, '../img/r1.png'), (15, '../img/r2.png'), (15, '../img/r3.png'), (15, '../img/r4.png');
