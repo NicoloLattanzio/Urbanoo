@@ -12,7 +12,7 @@ function formatWithCommas($number): string
         return '';
     }
 
-    return number_format((int)$number, 0, '', ',');
+    return number_format((int)$number, 0, '', '.');
 }
 
 //function to print html values

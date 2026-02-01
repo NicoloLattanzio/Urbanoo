@@ -46,7 +46,7 @@ function formatPrice($price): string
         }
     }
     // DEFAULT: grouped with ,
-    return number_format((int)round($price), 0, '', ',');
+    return number_format((int)round($price), 0, '', '.');
 }
 
 
