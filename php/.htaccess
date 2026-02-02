@@ -1,11 +1,13 @@
-ErrorDocument 403 /403.php
+DirectoryIndex index.php
 
-ErrorDocument 404 /404.php
+ErrorDocument 403 /nlattanz/php/403.php
 
-ErrorDocument 500 /500.php
-ErrorDocument 501 /500.php
-ErrorDocument 502 /500.php
-ErrorDocument 503 /500.php
-ErrorDocument 504 /500.php
-ErrorDocument 505 /500.php
-ErrorDocument 507 /500.php
+ErrorDocument 404 /nlattanz/php/404.php
+
+ErrorDocument 500 /nlattanz/php/500.php
+ErrorDocument 501 /nlattanz/php/500.php
+ErrorDocument 502 /nlattanz/php/500.php
+ErrorDocument 503 /nlattanz/php/500.php
+ErrorDocument 504 /nlattanz/php/500.php
+ErrorDocument 505 /nlattanz/php/500.php
+ErrorDocument 507 /nlattanz/php/500.php

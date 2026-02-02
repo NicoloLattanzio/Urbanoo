@@ -3,10 +3,10 @@ namespace DB;
 
 class DBAccess {
 
-	private const HOST_DB = "mysql";
-	private const DATABASE_NAME = "user";
-	private const USERNAME = "user";
-	private const PASSWORD = "user1234";
+	private const HOST_DB = "localhost";
+	private const DATABASE_NAME = "nlattanz";
+	private const USERNAME = "nlattanz";
+	private const PASSWORD = "Raer0vamoo2Meeng";
 
 	private const USERS_TABLE = 'utenti';
 	private const PROPERTIES_TABLE = 'proprieta';
